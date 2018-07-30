@@ -1,4 +1,4 @@
-属性、方法以及常量（从 PHP 7.1.0开始）的可见性可已通过在这些声明前加上关键字 public 、protected 和 private 来定义。
+属性、方法以及常量（从 PHP 7.1.0开始）的可见性可以通过在这些声明前加上关键字 public 、protected 和 private 来定义。
 
 被声明为 public 的类成员在任何地方都可以访问到；
 被声明为 protected 的类成员只能在类的内部、子类和父类中被访问到；
@@ -6,3 +6,13 @@
 
 Property Visibility
     类属性必须定义为 public、 protected 和 private 之一；如果用 var 定义，则被视为 public。
+    即定义类属性时不能省略可见性关键字，否则报错。
+
+Method Visibility
+    类方法可以被定义为 public、 protected 或 private；如果方法声明中没有显式指明可见性，则默认为 public。
+
+Constant Visibility
+    从 PHP 7.1.0 开始，类常量也可以被定义为 public、 protected 或 private；如果常量声明中没有显式指明可见性，则默认为 public。
+
+Visibility from other objects
+    同一个类的对象即使不是同一个实例也可以互相访问对方的protected与private成员，这是由于在这些对象的内部具体实现的细节都是已知的。
