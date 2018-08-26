@@ -76,4 +76,3 @@ $myFoo = new Foo();
 // Bar::testPrivate
 // Foo::testPublic
 $myFoo->test();
-

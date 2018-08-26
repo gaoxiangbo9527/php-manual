@@ -4,6 +4,7 @@ class MyClass
     public $public = 'Public';
     protected $protected = 'Protected';
     private $private = 'Private';
+    // $test = 'test';
 
     function printHello()
     {
