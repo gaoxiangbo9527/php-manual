@@ -1,0 +1,19 @@
+接口摘要
+    Iterator extends Traversable {
+        /* Methods */
+        abstract public mixed current ( void )
+        abstract public scalar key ( void )
+        abstract public void next ( void )
+        abstract public void rewind ( void )
+        abstract public bool valid ( void )
+    }
+foreach循环中各个方法的实际调用顺序
+    1. Before the first iteration of the loop, Iterator::rewind() is called.
+    2. Before each iteration of the loop, Iterator::valid() is called.
+    3a. It Iterator::valid() returns false, the loop is terminated.
+    3b. If Iterator::valid() returns true, Iterator::current() and Iterator::key() are called.
+    4. The loop body is evaluated.
+    5. After each iteration of the loop, Iterator::next() is called and we repeat from step 2 above.
+
+如果 foreach 中没有去获取 key ，那么是不会调用 key 方法的。
+如果 foreach 中有去获取 key ，那么是会调用 key 方法的，而且是先调用 current 方法再调用 key 方法。
