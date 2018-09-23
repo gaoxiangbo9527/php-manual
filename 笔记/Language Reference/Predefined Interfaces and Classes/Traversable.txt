@@ -1,0 +1,30 @@
+该接口可以用于检测某个类是否能够使用foreach进行遍历。
+个人补充：下面的代码来自用户贡献的笔记，可以解释上面用法
+    if(!is_array( $items ) && !$items instanceof Traversable)
+
+该接口是一个抽象基础接口，是不能被单独实现的，相反的，必须要借助 Iterator 或者 IteratorAggregate 才能被间接的实现。
+该接口是一个内部引擎接口，所以在 PHP 脚本中不能实现它，相反的必须要使用 Iterator 或者 IteratorAggregate 。
+
+当实现一个继承了Traversable的接口时，请确保在实现子句中在它（一般就是某个类名）的前面列出 Iterator 或者 IteratorAggregate 。
+上面的描述用代码表示的话，差不多就像下面这样
+    interface Foo extends Traversable {
+        public function bar();
+    }
+
+    class Baz implements Iterator, Foo {
+        public function bar() {
+            echo 'function bar';
+        }
+        ...其他需要实现的方法
+    }
+
+
+实现此接口的内置类就可以使用 foreach 进行遍历而无需实现 IteratorAggregate 或 Iterator 接口。
+
+接口摘要
+    Traversable {
+    }
+    这个接口没有方法，它的唯一目的就是作为所有可遍历类的基接口。
+
+
+

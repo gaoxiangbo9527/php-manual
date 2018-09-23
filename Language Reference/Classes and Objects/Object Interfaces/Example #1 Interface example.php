@@ -24,12 +24,20 @@ class Template implements iTemplate
     }
 }
 
-/*abstract */class BadTemplate implements iTemplate
+abstract class BadTemplate implements iTemplate
 {
     private $vars = [];
 
     public function setVariable($name, $var)
     {
         $this->vars[$name] = $var;
+    }
+}
+
+class BadClass extends BadTemplate
+{
+    public function getHtml($template)
+    {
+        // TODO: Implement getHtml() method.
     }
 }

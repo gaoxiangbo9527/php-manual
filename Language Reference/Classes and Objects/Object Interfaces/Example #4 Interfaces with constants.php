@@ -8,7 +8,7 @@ echo a::b;
 
 class b implements a
 {
-    //const b = 'Class constant';
+    const b = 'Class constant';
 }
 
 echo b::b;
