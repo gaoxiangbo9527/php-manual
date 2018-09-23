@@ -22,7 +22,9 @@ $obj->printHello();
 
 class MyClass2 extends MyClass
 {
+    public $public = 'Public2';
     protected $protected = 'Protected2';
+    private $private = 'Private2';
 
     function printHello()
     {
@@ -34,6 +36,7 @@ class MyClass2 extends MyClass
 
 $obj2 = new MyClass2();
 echo $obj2->public;
-echo $obj2->private;
 //echo $obj2->protected;
+//echo $obj2->private;
+
 $obj2->printHello();
