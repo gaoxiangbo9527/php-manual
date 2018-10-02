@@ -1,0 +1,5 @@
+unserialize_callback_func       NULL        PHP_INI_ALL     自 PHP 4.2.0 起可用。
+
+unserialize_callback_func string
+    如果 unserialize() 函数尝试使用一个未定义的类，则该指令指定的回调函数会被调用。如果指定的函数不存在，或者此函数没有
+    包含或实现该未定义类，则显示警告。

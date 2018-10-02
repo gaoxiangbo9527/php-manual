@@ -13,9 +13,10 @@ class obj implements Serializable
         return serialize($this->data);
     }
 
-    public function unserialize($serialized)
+    public function unserialize($data)
     {
-        $this->data = unserialize($serialized);
+        var_dump($data);
+        $this->data = unserialize($data);
     }
 
     public function getData()

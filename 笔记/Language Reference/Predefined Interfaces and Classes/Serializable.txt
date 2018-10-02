@@ -6,8 +6,8 @@
     当对象需要被序列化时，就会调用 serialize 方法；
     这个方法不会调用 __destruct() 或者有任何副作用，除非你故意在 serialize() 方法中这么编程。
 
-    当数据被反序列化时，类将被感知并且会去调用 unserialize() 方法而不是 __construct()方法；
-    如果要执行标准的构造方法，则应该在 unserialize() 方法中进行处理。
+    当数据被反序列化时，类将被感知并且会去调用 unserialize() 方法代替 __construct()方法（作为构造方法）；
+    此时，如果你需要去执行标准的构造方法，则应该在 unserialize() 方法中进行执行（调用）。
 
 接口摘要
     Serializable {
