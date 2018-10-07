@@ -1,0 +1,4 @@
+is_resource()
+get_resource_type()
+
+一共大概一百多种资源类型。

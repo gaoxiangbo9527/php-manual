@@ -1,0 +1,12 @@
+描述
+    string get_resource_type(resource $handle)
+    该函数用于获取给定资源的类型。
+参数
+    handle
+        待评估的资源的句柄。
+返回值
+    如果 handle 是一个资源
+        如果可以识别该资源，则返回其类型的字符串表示
+        如果不可以识别该资源，则返回字符串 Unknown
+    如果 handle 不是一个资源
+        返回 null ，并且会生成一个错误

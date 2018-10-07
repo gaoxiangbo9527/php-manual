@@ -1,0 +1,8 @@
+描述
+    bool is_null(mixed $var)
+    判断一个变量是否是 null 。
+参数
+    var
+        被评估的变量。
+返回值
+    如果 var 是 null 返回 true ，否则返回 false 。
