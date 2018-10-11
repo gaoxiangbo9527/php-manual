@@ -1,0 +1,8 @@
+描述
+    bool is_nan( float $val )
+    检查一个变量是否是 NaN 。
+参数
+    val
+        要检测的值
+返回值
+    如果 val 是 NaN 返回 true ，否者返回 false 。
