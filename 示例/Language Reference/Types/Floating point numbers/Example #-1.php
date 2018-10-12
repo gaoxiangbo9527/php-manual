@@ -6,3 +6,5 @@ var_dump((double)1);
 var_dump((real)1);
 
 var_dump((float)new stdClass());
+
+echo 1.11e-16;
