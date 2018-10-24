@@ -1,0 +1,11 @@
+描述
+    string strval(mixed $var)
+    获取变量 var 的字符串值。
+参数
+    var
+        要转换为字符串值得变量。
+返回值
+    var 的字符串值。
+
+个人补充
+    该函数的转换行为同 (string) 一致。
