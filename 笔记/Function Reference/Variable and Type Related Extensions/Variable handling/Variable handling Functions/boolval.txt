@@ -2,7 +2,7 @@
 
 描述
     bool boolval(mixed $var)
-    获取变量 var 的布尔值。
+    获取变量 var 的布尔型值。
 参数
     var
         要转换为布尔型的变量或者标量。
