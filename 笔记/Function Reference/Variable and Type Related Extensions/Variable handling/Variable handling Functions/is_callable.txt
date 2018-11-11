@@ -1,0 +1,4 @@
+描述
+    bool is_callable ( mixed $var [, bool $syntax_only = FALSE [, string &$callable_name ]] )
+    验证变量的内容是否可以作为函数来调用。
+    该函数可以检查包含了有效函数名的
