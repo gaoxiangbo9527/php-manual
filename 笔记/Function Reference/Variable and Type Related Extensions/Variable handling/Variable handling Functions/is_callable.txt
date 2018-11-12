@@ -1,4 +1,15 @@
 描述
     bool is_callable ( mixed $var [, bool $syntax_only = FALSE [, string &$callable_name ]] )
     验证变量的内容是否可以作为函数来调用。
-    该函数可以检查包含了有效函数名的
+    该函数可以检查包含了有效函数名的简单变量，或者一个包含了正确编码的对象及函数名的数组。
+参数
+    var
+        要检查的值。
+    syntax_only
+        如果设置为 TRUE，这个函数仅仅验证 name 可能是函数或方法。
+        它仅拒绝不是字符串类型的简单变量，以及未包含能用于回调函数的结构有效的数组。
+    callable_name
+        该参数用于获取 callable 的名字。
+
+在 PHP 5.3.0 以前，当给 is_callable() 传递的是构造方法时会返回 true ；PHP 5.3.0 以后，会返回 false ；这里所说的构造方法既包含 PHP 4 风格
+的构造方法，也包括 PHP 5 风格的构造方法。
