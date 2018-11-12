@@ -1,4 +1,26 @@
 对象实例化
     使用 new 操作符。
 转换为对象
+    显式转换
+        (object)
+    隐式转换
+
+    从布尔型
+    从整型
+    从浮点型
+    从字符串
+        有一个属性名为 scalar，值为被转换的值的 stdClass 实例。
+    从数组
+        空数组
+            空的 stdClass 实例（同 NULL 转换为对象行为一致）
+        非空数组
+            转换为 stdClass 实例，其中数组的各个键作为属性名，数组的各个值作为属性值。
+    从对象
+        无变化
+    从 callable
+    从 iterable
+    从资源
+        有一个属性名为 scalar，值为被转换的资源的 stdClass 实例。
+    从 NULL
+        空的 stdClass 实例。
 

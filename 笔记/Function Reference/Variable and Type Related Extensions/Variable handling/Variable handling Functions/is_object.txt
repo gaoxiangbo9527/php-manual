@@ -1,0 +1,10 @@
+描述
+    bool is_object ( mixed $var )
+    判断给定的变量是否是一个对象
+参数
+    var
+        带判断的变量
+返回值
+    如果 var 是一个对象返回 true ，否则返回 false
+
+
