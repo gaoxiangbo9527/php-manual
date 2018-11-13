@@ -1,0 +1,18 @@
+Iterable 是 PHP 7.1 引入的 伪类型。
+它可以接受任何数组或者实现了 Traversable 接口的对象；它们都可以使用 foreach 进行遍历，也能够在 生成器 内部同 yield from 一同使用。
+
+使用 Iterable
+    iterable 可以用于参数类型（提示），此时它表明函数需要一个值得集合，但是却不在乎这些值得形式；
+    此时，如果传入的值不是一个数组或者 Traversable的实例，则会生成 TypeError 错误。
+
+    声明为 iterable 类型的参数（只）可以使用 NULL 或者 一个数组 作为默认值。
+
+    iterable 也可以用于返回值，用于指明函数会返回一个可遍历的值；
+    如果此时返回值不是一个数组或者 Traversable 的实例，则会生成 TypeError 错误。
+
+    将 iterable 声明为返回值的函数也可以（可能）返回一个 生成器。
+
+Iterable 类型的变形
+    类的继承/实现可以（可能）：
+        对方法中被声明为 array 或者 Traversable 类型的参数进行放宽。
+        对方法中被声明为 array 或者 Traversable 类型的返回值进行收窄。
