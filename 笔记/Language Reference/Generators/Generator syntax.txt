@@ -1,0 +1,5 @@
+注意
+    在 PHP 5 中，生成器不能够 return 值，这么做会导致编译错误，然而空的 return 语句是有效的语法并且会终止生成器的继续执行。
+    从 PHP 7 开始，生成器可以 return 值，可以通过 Generator::getReturn() 来检索返回值。
+yield 关键字
+    生成器函数的核心是 yield 关键字。
