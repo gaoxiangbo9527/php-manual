@@ -1,7 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/12/2
- * Time: 12:08
- */
+function gen_one_to_three() {
+    for ($i = 1; $i <= 3; ++$i) {
+        yield $i;
+    }
+}
+
+$generator = gen_one_to_three();
+foreach ($generator as $key => $value) {
+    echo "$key => $value\n";
+}

@@ -3,3 +3,44 @@
     从 PHP 7 开始，生成器可以 return 值，可以通过 Generator::getReturn() 来检索返回值。
 yield 关键字
     生成器函数的核心是 yield 关键字。
+
+    最简单的 yield 调用形式看起来像一个 return 语句，不同之处在于普通的 return 会返回值并终止函数的执行，
+    而 yield 会返回一个值给循环调用此生成器的代码并且暂停生成器函数的执行。
+
+    注意
+        在内部，会为生成的值配对连续的整型索引，就像一个非关联的（索引）数组。
+
+    警告
+        在 PHP 5 中，如果你在表达式上下文中使用 yield （比如在赋值表达式的右侧），你必须使用圆括号包围 yield 语句，否则会报解析错误。
+        例如，这是有效的：
+            $data = (yield $value);
+        而这是无效的：
+            $data = yield $value;
+
+        上述圆括号限制不适用于 PHP 7 。
+
+        The value that will be assigned to $data is the value passed to Generator::send(), or NULL if Generator::next() is called instead.
+生成带有键的值
+    除了像前面描述的那样生成简单的值以外，你也可以在生成值的时候指定键名。
+    生成一个键/值对的语法与定义一个关联数组十分相似。
+
+    警告
+        和上文提到的生成简单值一样，在一个表达式上下文中生成键/值对也需要使用圆括号进行包围：
+        $data = (yield $key => $value);
+生成 null 值
+    在调用 yield 时可以不传入参数，此时会生成一个 null 值，并且带有一个自动的 key 。
+生成值的引用
+    生成函数可以像生成值一样来生成值的引用。同从函数中返回引用的方式一样，通过在函数名前加上 & 符号。
+通过 yield from 的生成器委托
+    在 PHP 中，生成器委托允许你通过 yield from 关键字从另一个生成器、Traversable 对象或者数组生成值。
+    外层的生成器会生成内层生成器、对象或者数组的所有的值，直到它们不再有效为止，然后执行会回到外层生成器并继续向下执行。
+
+    如果生成器同 yield from 一起使用，那么 yield from 表达式会 return 内部生成器 return 的任何值。
+
+    警告
+        yield from 不会重置键，它会保留内层生成器、Traversable对象或者数组的键。
+        因此一些值可能会同其它的 yield 或者 yield from （生成的值）分享同样的键。
+        在插入到数组中时，相同键的多个值，后面的值会覆盖前面的值。
+
+        最常见的情况是 iterator_to_array() 函数在默认情况下返回一个键控数组，这会可能会导致不期望的结果。
+        iterator_to_array() 函数的第二个参数 use_keys 可以被设置为 false ，从而能够得到所有的值，因为此时会忽略生成器返回的所有键。
