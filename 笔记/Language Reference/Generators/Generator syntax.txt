@@ -4,11 +4,11 @@
 yield 关键字
     生成器函数的核心是 yield 关键字。
 
-    最简单的 yield 调用形式看起来像一个 return 语句，不同之处在于普通的 return 会返回值并终止函数的执行，
+    最简单的 yield 形式看起来像一个 return 语句，不同之处在于普通的 return 会返回值并终止函数的执行，
     而 yield 会返回一个值给循环调用此生成器的代码并且暂停生成器函数的执行。
 
     注意
-        在内部，会为生成的值配对连续的整型索引，就像一个非关联的（索引）数组。
+        在内部，会为生成的值配对连续的整型索引，就像索引数组那样。
 
     警告
         在 PHP 5 中，如果你在表达式上下文中使用 yield （比如在赋值表达式的右侧），你必须使用圆括号包围 yield 语句，否则会报解析错误。
@@ -16,13 +16,13 @@ yield 关键字
             $data = (yield $value);
         而这是无效的：
             $data = yield $value;
+        上述的圆括号限制不适用于 PHP 7 。
 
-        上述圆括号限制不适用于 PHP 7 。
-
-        The value that will be assigned to $data is the value passed to Generator::send(), or NULL if Generator::next() is called instead.
+        赋给 $data 的值就是传递给 Generator::send() 方法的值；而如果调用的是 Generator::next() 方法，则会是 NULL 。
 生成带有键的值
     除了像前面描述的那样生成简单的值以外，你也可以在生成值的时候指定键名。
     生成一个键/值对的语法与定义一个关联数组十分相似。
+        yield $key => $value;
 
     警告
         和上文提到的生成简单值一样，在一个表达式上下文中生成键/值对也需要使用圆括号进行包围：
@@ -32,7 +32,7 @@ yield 关键字
 生成值的引用
     生成函数可以像生成值一样来生成值的引用。同从函数中返回引用的方式一样，通过在函数名前加上 & 符号。
 通过 yield from 的生成器委托
-    在 PHP 中，生成器委托允许你通过 yield from 关键字从另一个生成器、Traversable 对象或者数组生成值。
+    在 PHP 7 中，生成器委托允许你通过 yield from 关键字从另一个生成器、Traversable 对象或者数组生成值。
     外层的生成器会生成内层生成器、对象或者数组的所有的值，直到它们不再有效为止，然后执行会回到外层生成器并继续向下执行。
 
     如果生成器同 yield from 一起使用，那么 yield from 表达式会 return 内部生成器 return 的任何值。

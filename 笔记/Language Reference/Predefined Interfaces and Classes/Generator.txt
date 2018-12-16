@@ -1,0 +1,19 @@
+生成器对象是从生成器函数中返回的。
+警告
+    生成器对象无法通过 new 关键字来创建。
+个人补充
+    Generator 是一个类，而不是一个接口。
+
+类的概要
+    Generator implements Iterator {
+        /* Methods */
+        public mixed current ( void )
+        public mixed getReturn ( void )
+        public mixed key ( void )
+        public void next ( void )
+        public void rewind ( void )
+        public mixed send ( mixed $value )
+        public mixed throw ( Throwable $exception )
+        public bool valid ( void )
+        public void __wakeup ( void )
+    }

@@ -27,4 +27,4 @@ foreach ($gen as $num) {
     echo "$num ";
 }
 
-echo $gen->getReturn();
+//echo $gen->getReturn();

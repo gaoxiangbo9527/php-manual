@@ -1,25 +1,26 @@
-该接口可以用于检测某个类是否能够使用foreach进行遍历。
-个人补充：下面的代码来自用户贡献的笔记，可以解释上面用法
-    if(!is_array( $items ) && !$items instanceof Traversable)
+该接口用于判断某个类是否能使用foreach进行遍历。
+来自用户贡献的笔记，可以解释上面用法：
+    if(!is_array($items) && !$items instanceof Traversable)
 
-该接口是一个抽象基础接口，是不能被单独实现的，相反的，必须要借助 Iterator 或者 IteratorAggregate 才能被间接的实现。
-该接口是一个内部引擎接口，所以在 PHP 脚本中不能实现它，相反的必须要使用 Iterator 或者 IteratorAggregate 。
+该接口是一个抽象基接口，是不能被单独实现的，而必须要借助 Iterator 或者 IteratorAggregate 才能被间接的实现。
 
-当实现一个继承了Traversable的接口时，请确保在实现子句中在它（一般就是某个类名）的前面列出 Iterator 或者 IteratorAggregate 。
-上面的描述用代码表示的话，差不多就像下面这样
-    interface Foo extends Traversable {
-        public function bar();
-    }
+注意
+    PHP 的内置类可以直接实现该接口从而被 foreach 遍历，并且不需要借助 Iterator 或者 IteratorAggregate 。
 
-    class Baz implements Iterator, Foo {
-        public function bar() {
-            echo 'function bar';
+注意
+    Traversable 接口是一个内部引擎接口，所以在 PHP 脚本中不能实现它，相反的必须要借助 Iterator 或者 IteratorAggregate 。
+    当实现一个继承了 Traversable 接口的接口时，请确保在实现子句中，在它（一般就是某个类名）的前面列出 Iterator 或者 IteratorAggregate 。
+    上面的描述用代码表示的话差不多就像下面这样：
+        interface Foo extends Traversable {
+            public function bar();
         }
-        ...其他需要实现的方法
-    }
 
-
-实现此接口的内置类就可以使用 foreach 进行遍历而无需实现 IteratorAggregate 或 Iterator 接口。
+        class Baz implements Iterator, Foo {
+            public function bar() {
+                echo 'function bar';
+            }
+            ...其他需要实现的方法
+        }
 
 接口摘要
     Traversable {

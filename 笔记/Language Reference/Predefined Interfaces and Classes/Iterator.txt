@@ -21,5 +21,4 @@ foreach循环中各个方法的实际调用顺序
 
 如果 foreach 中没有去获取 key ，那么是不会调用 key 方法的。
 如果 foreach 中有去获取 key ，那么是会调用 key 方法的，而且是先调用 current 方法再调用 key 方法。
-
 如果 valid() 方法返回值为false，则循环会停止遍历。
