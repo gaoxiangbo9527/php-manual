@@ -18,7 +18,7 @@ yield 关键字
             $data = yield $value;
         上述的圆括号限制不适用于 PHP 7 。
 
-        赋给 $data 的值就是传递给 Generator::send() 方法的值；而如果调用的是 Generator::next() 方法，则会是 NULL 。
+        赋给 $data 的值就是传递给 Generator::send() 方法的值；而如果调用的是 Generator::next() 方法，则会传递 NULL 。
 生成带有键的值
     除了像前面描述的那样生成简单的值以外，你也可以在生成值的时候指定键名。
     生成一个键/值对的语法与定义一个关联数组十分相似。
