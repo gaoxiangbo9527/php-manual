@@ -19,6 +19,6 @@
         array       []
         object      从空标签生成的 SimpleXML 对象（即其他所有对象都会被转换成 true）
         callable    无（即所有 callable 类型的值都会转换成 true）
-        iterable    ？？？
+        iterable    无
         resource    无（即所有资源类型的值都会被转换成 true）
         null        null
