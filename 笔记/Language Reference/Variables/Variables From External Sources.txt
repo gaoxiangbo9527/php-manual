@@ -1,19 +1,15 @@
-HTML表单
-    从 PHP 5.4.0 开始，只有两种方式可以访问来自HTML表单的数据。
-        使用 $_POST、$_GET 等超全局变量。
-
+HTML表单（GET 和 POST）
+    PHP 5.4.0 以后，只有两种方式可以访问来自HTML表单的数据（这里的说的两种方式应该是指 GET 和 POST）。
     注意
         变量名中的点和空格都会转换为下划线。
-
     注意
-        如果外部变量名以有效的数组语法开始，后续的字符将会被自动忽略。
-        举例来说，<input name="foo[bar]baz"> 会成为 $_REQUEST['foo']['bar'] 。
+        如果外部变量名以有效的数组语法开始，后续的字符将会被自动忽略。例如 <input name="foo[bar]baz"> 会成为 $_REQUEST['foo']['bar'] 。
 
 IMAGE 提交的变量名
     <input type="image" src="image.gif" name="sub" />
     sub_x
     sub_y
-    有经验的用户可能会注意到被浏览器发送的实际变量名包含的是一个点而不是下划线（即 sub.x 和 sub.y），但 PHP 自动将点转换成了下划线。
+    有经验的用户可能会注意到被浏览器发送的实际变量名包含的是一个点而不是下划线（即 sub.x 和 sub.y），但 PHP 自动的将点转换成了下划线。
 
 HTTP Cookies
     Cookies 是 HTTP 头中的一部分，因此 SetCookie 函数必须在向浏览器发送任何输出之前调用。

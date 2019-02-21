@@ -1,0 +1,18 @@
+HTTP POST 变量
+
+描述
+    当使用 Content-Type 为 application/x-www-form-urlencoded 或 multipart/form-data 的 HTTP POST 请求向脚本传递参数时，$_POST
+    中保存的就是传递进来参数的关联数组。
+
+    注意
+        在 PHP 5.4.0 之前，$HTTP_POST_VARS 中包含着和 $_POST 相同的信息，但它却不是一个超全局变量。
+        注意，$HTTP_POST_VARS 和 $_POST 是不同的变量，PHP 处理它们的方式也不同。
+
+更新日志
+    5.4.0	移除了 register_long_arrays 指令（功能），所以 $HTTP_POST_VARS 不再有效。
+    5.3.0	废弃了使 $HTTP_POST_VARS 生效的 register_long_arrays 指令。
+    4.1.0	引入 $_POST，弃用 $HTTP_POST_VARS。
+
+注意
+    $_POST 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在函数和
+    方法中访问它。

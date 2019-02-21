@@ -1,0 +1,8 @@
+
+
+文件上传
+    file_uploads    boolean
+        是否允许 HTTP 文件上传。
+    upload_max_filesize     integer
+        （一个）被上传的文件的最大尺寸。
+        如果使用整数值，则该值的单位为字节。也可以使用简写表示法。

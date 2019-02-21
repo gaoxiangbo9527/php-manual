@@ -1,0 +1,29 @@
+PHP 随文件信息数组一起返回一个对应的错误代码。
+该错误代码可以在文件上传时 PHP 创建的文件数组中的 error 字段中被找到，也就是 $_FILES['field_name']['error'] 。
+
+UPLOAD_ERR_OK
+    0
+    没有错误，文件上传成功。
+UPLOAD_ERR_INI_SIZE
+    1
+    上传的文件（的大小）超过了 php.ini 中 upload_max_filesize 指令（所指定的值）。
+UPLOAD_ERR_FORM_SIZE
+    2
+    上传的文件（的大小）超过了 HTML 表单中 MAX_FILE_SIZE 指令（所指定的值）。
+UPLOAD_ERR_PARTIAL
+    3
+    上传的文件只上传了一部分。
+UPLOAD_ERR_NO_FILE
+    4
+    没有文件被上传。
+UPLOAD_ERR_NO_TMP_DIR
+    6
+    缺少临时目录，PHP 5.0.3 引入。
+UPLOAD_ERR_CANT_WRITE
+    7
+    将文件写入磁盘失败。PHP 5.1.0 引进。
+UPLOAD_ERR_EXTENSION
+    8
+    某个 PHP 扩展停止了文件的上传。
+    PHP 并没有提供某种方式去确定哪一个扩展导致了文件上传的停止，通过 phpinfo() 去检查加载的扩展的列表可能会有所帮助。
+    PHP 5.2.0 引入。
