@@ -1,0 +1,15 @@
+告知文件是否是通过 HTTP POST 请求上传的文件。
+
+描述
+    is_uploaded_file ( string $filename ) : bool
+    如果名称为 $filename 的文件是通过 HTTP POST 请求上传的，则返回 true 。
+    这有助于确保恶意用户无法欺骗脚本去访问本不能访问的文件 —— 例如 /etc/passwd 。
+    这种检查是格外重要的如果对上传文件的任何操作会向用户显示它的内容，或者甚至是向同一系统中的其他用户。
+
+    为了能正常工作，该函数需要一个像 $_FILES['userfile']['tmp_name'] 的参数，而上传文件在客户端机器中的名称 $_FILES['userfile']['name']
+    是无法工作的。
+参数
+    filename
+        被检查的文件的名称。
+返回值
+    成功时返回 TRUE， 或者在失败时返回 FALSE。

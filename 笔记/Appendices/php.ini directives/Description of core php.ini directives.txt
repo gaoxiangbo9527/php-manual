@@ -1,8 +1,28 @@
-
-
+数据处理
+    post_max_size   integer
+        设置 post 数据允许的最大大小。
+        这个设置也会影响文件上传，想要上传大文件，则它的值必须大于 upload_max_filesize 的值。
+        通常来说，memory_limit 的值应当大于 post_max_size 的值。
+        如果使用整数值，则该值的单位为字节。也可以使用简写表示法。
+        如果 post 数据的大小超过了 post_max_size ，则全局变量 $_POST 和 $_FILES 都会是空的。
+        注意：
+            PHP 允许字节值的快捷方式，包括 K 、M 和 G 。如果你使用了它们当中的任何一个，PHP 会自动的进行转换。
+            注意不要超过 32 位有符号整数的限制（如果你使用的是 32 位的版本），因为这么做会导致你的脚本失败。
+        post_max_size 的更新日志
+            5.3.4           当 Content-Type 是 application/x-www-form-urlencoded 或者 PHP 没有注册的值，post_max_size = 0 不会
+                            禁用该限制。
+            5.3.2 , 5.2.12  通过将 post_max_size 设置为 0 ，即可不限制 post 的大小。
 文件上传
-    file_uploads    boolean
+    file_uploads            boolean
         是否允许 HTTP 文件上传。
+    upload_tmp_dir          string
+        当进行文件上传时，用于存放文件的临时目录。
+        如果没有指定，则使用系统默认的目录。
+        该目录对于运行 PHP 的用户必须可写才行。如果指定的目录是不可写的，PHP 会回退到系统默认的目录。
+        如果开启了 open_basedir ，那么系统默认的目录必须允许上传成功。
     upload_max_filesize     integer
         （一个）被上传的文件的最大尺寸。
         如果使用整数值，则该值的单位为字节。也可以使用简写表示法。
+    max_file_uploads        integer
+        允许同时进行上传的文件的最大数量。
+        从 PHP 5.3.4 开始，在提交时留空的上传字段不会计入该限制中。

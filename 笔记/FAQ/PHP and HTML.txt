@@ -1,0 +1,25 @@
+
+我如何在一个 HTML <form> 标签中创建数组？
+    要使你的 <form> 结果被当成数组发送到 PHP 脚本，要对 <input>，<select> 或者 <textarea> 元素这样命名：
+        <input name="MyArray[]" />
+        <input name="MyArray[]" />
+        <input name="MyArray[]" />
+        <input name="MyArray[]" />
+    注意变量名后面的方括号，是它这使该变量成为一个数组。
+
+    可以通过给不同的元素赋予相同的名字来把元素分组到不同的数组里：
+        <input name="MyArray[]" />
+        <input name="MyArray[]" />
+        <input name="MyOtherArray[]" />
+        <input name="MyOtherArray[]" />
+    这将产生两个数组，MyArray 和 MyOtherArray，并发送给 PHP 脚本。
+
+    还可以给数组赋予指定的键名：
+        <input name="AnotherArray[]" />
+        <input name="AnotherArray[]" />
+        <input name="AnotherArray[email]" />
+        <input name="AnotherArray[phone]" />
+    AnotherArray 数组将包含键名 0，1，email 和 phone。
+
+    注意
+        指定数组的键名是 HTML 的可选项。如果不指定键名，则数组按照元素在表单中出现的顺序填充。上面的第一个例子将包含键名 0，1，2 和 3。
