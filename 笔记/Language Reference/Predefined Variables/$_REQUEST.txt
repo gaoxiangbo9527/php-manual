@@ -1,0 +1,20 @@
+HTTP 请求变量
+个人补充：它没有对应的 $HTTP_*_VARS 变量
+
+描述
+    默认情况包含了 $_GET、$_POST 和 $_COOKIE 的内容的关联数组。
+
+更新日志
+    5.3.0	引入了 request_order ，该指令会影响 $_REQUEST 的内容。
+    4.3.0	$_FILES 的信息从 $_REQUEST 中移除了。
+    4.1.0	引入 $_REQUEST。
+
+注意
+    注意：
+        $_REQUEST 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在函数和
+        方法中访问它。
+    注意：
+        当以命令行方式运行时，$_REQUEST 将不会包含 argv 和 argc 信息；它们将存在于 $_SERVER 数组中。
+    注意：
+        由于 $_REQUEST 中的变量是通过 GET，POST 和 COOKIE 输入机制提供给脚本文件的，因此可以被远程用户修改而并不可信。
+        这个数组中会出现的变量以及它们出现的顺序是由 PHP 的 variables_order 配置指令定义的。
