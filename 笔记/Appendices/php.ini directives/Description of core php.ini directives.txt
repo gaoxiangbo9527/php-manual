@@ -26,6 +26,16 @@
             5.3.4           当 Content-Type 是 application/x-www-form-urlencoded 或者 PHP 没有注册的值，post_max_size = 0 不会
                             禁用该限制。
             5.3.2 , 5.2.12  通过将 post_max_size 设置为 0 ，即可不限制 post 的大小。
+    always_populate_raw_post_dat    mixed
+        警告：这个特性在 PHP 5.6.0 中被废弃了并且从 PHP 7.0.0 开始被移除了。
+
+        如果设置为 TRUE，则 PHP 总是会填充 $HTTP_RAW_POST_DATA，其中包含了原生的 POST 数据。
+        否则（个人补充：这里可能表示设置为 FALSE 时），只有当无法识别 MIME 的类型时才会填充该变量。
+        将 always_populate_raw_post_data 设置为 -1 将在 PHP 未来的版本中实现的新的行为，即不会定义 $HTTP_RAW_POST_DATA 。
+        不论如何设置，$HTTP_RAW_POST_DATA 在 enctype="multipart/form-data" 时不可用。
+
+        访问原生 POST 数据的推荐方式是 php://input，并且 $HTTP_RAW_POST_DATA 从 PHP 5.6.0 开始被废弃了。
+
 文件上传
     file_uploads            boolean
         是否允许 HTTP 文件上传。
