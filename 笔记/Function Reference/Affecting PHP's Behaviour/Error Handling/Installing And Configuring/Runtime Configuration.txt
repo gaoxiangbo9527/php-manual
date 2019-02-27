@@ -1,0 +1,4 @@
+
+track_errors    boolean
+    如果启用，则最后一个错误消息总是会出现在变量 $php_errormsg 中。
+    个人补充：这里的总是是不准确的，预定义变量 $php_errormsg 的手册中有解释。

@@ -4,7 +4,7 @@
     $_SESSION 是一个包含了当前脚本可用的会话变量的关联数组。
     可以查看 会话函数 的文件去了解如何使用该变量。
 
-    在 PHP 5.4.0 之前，$HTTP_SESSION_VARS 中包含着和 $_SESSION 相同的信息，但它却不是一个超全局变量。
+    在 PHP 5.4.0 之前，$HTTP_SESSION_VARS 中包含着和 $_SESSION 相同的初始信息，但它却不是一个超全局变量。
     注意，$HTTP_SESSION_VARS 和 $_SESSION 是不同的变量，PHP 处理它们的方式也不同。
 
 更新日志
