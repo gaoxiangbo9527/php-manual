@@ -13,6 +13,8 @@
         该指令描述了 PHP 会按何种顺序把 GET，POST 和 COOKIE 变量注册进 $_REQUEST 数组中。注册是从左向右进行的，后出现的值会覆盖先出现的值。
         如果没有设置该指令，则会使用 variables_order 去计算 $_REQUEST 的内容。
         注意由于安全性原因，默认的 php.ini 文件中不会包含 "C" 从而去包含 cookie 。
+    register_argc_argv  boolean
+        告知 PHP 是否声明 argc 和 argv 变量（它们将包含 GET 信息）。另请参阅 命令行。
     post_max_size   integer
         设置 post 数据允许的最大大小。
         这个设置也会影响文件上传，想要上传大文件，则它的值必须大于 upload_max_filesize 的值。
