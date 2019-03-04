@@ -1,0 +1,15 @@
+整数除法
+
+描述
+    intdiv ( int $dividend , int $divisor ) : int
+    返回 dividend 除以 divisor 的商的整数部分。
+参数
+    dividend
+        被除数
+    divisor
+        除数
+返回值
+    dividend 除以 divisor 的商的整数部分。
+错误/异常
+    如果 divisor 是 0，会抛出一个 DivisionByZeroError 异常。
+    如果 dividend 是 PHP_INT_MIN 且 divisor 是 -1，会抛出一个 ArithmeticError 异常.
