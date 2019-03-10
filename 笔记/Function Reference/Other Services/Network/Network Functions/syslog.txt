@@ -1,0 +1,35 @@
+生成一条系统日志消息
+
+描述
+    syslog ( int $priority , string $message ) : bool
+
+    syslog() 会生成一条将由系统日志记录器（system logger）分发的日志消息。
+
+    有关设置用户定义的日志处理程序的信息，请参阅 syslog.conf(5) 这个 Unix 手册页。
+    关于 syslog 的工具和选项的更多信息，可以在 Unix 机器上的 syslog(3) 手册页中找到。
+
+参数
+    priority
+        优先级是设施和级别的组合，可能的值有：
+
+        syslog() 的优先级（按降序排序）
+            常量             描述
+            LOG_EMERG       系统不可用
+            LOG_ALERT       必须立刻采取行动
+            LOG_CRIT	    临界情况
+            LOG_ERR         错误情况
+            LOG_WARNING     警告情况
+            LOG_NOTICE      正常，但很重要的情况
+            LOG_INFO	    信息消息
+            LOG_DEBUG       调试级别消息
+    message
+        将要发送的消息，除了两个字符的 %m 将被对应于 errno 当前值的错误消息字符串(strerror)替换之外。
+
+返回值
+    成功时返回 TRUE ，失败时返回 FALSE 。
+
+注意
+    在 Windows NT 中，syslog 服务是使用事件日志（Event Log）模拟的。
+
+    注意
+        在 Windows 中不能使用 LOG_LOCAL0 到 LOG_LOCAL7 作为 openlog() 的 facility 参数。

@@ -1,0 +1,20 @@
+设置哪些 PHP 错误会被报告。
+
+描述
+    error_reporting ([ int $level ] ) : int
+    error_reporting() 函数能在运行时设置 error_reporting 指令。
+    PHP 有许多错误级别，使用这个函数可以为脚本的持续时间(运行时)设置该级别。
+    如果没有设置可选的 level ，error_reporting() 会返回当前的错误报告级别。
+
+参数
+    level
+
+返回值
+    如果没有给出 level 参数，返回当前的错误报告级别。
+    如果给出了 level 参数，返回旧的错误报告级别。
+
+注意
+    警告 大多数 E_STRICT 错误是在编译时被计算的，因此即使 error_reporting 被增强为包含 E_STRICT ，这类错误也不会在文件中报告（反之亦然）。
+
+    建议 传入值 -1 将显示所有可能的错误，即使在将来的 PHP 中加入的新的错误级别和常量。 从 PHP 5.4 开始，E_ALL 常量也有这样的行为。
+

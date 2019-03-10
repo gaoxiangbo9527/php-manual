@@ -1,4 +1,68 @@
+这些函数的行为受 php.ini 中的设置影响。
 
+错误和日志记录配置选项
+    名称                     默认         可修改范围        变更日志
+    error_reporting         NULL        PHP_INI_ALL
+    display_errors          "1"         PHP_INI_ALL
+    display_startup_errors	"0"	        PHP_INI_ALL
+    log_errors	            "0"	        PHP_INI_ALL
+    track_errors	        "0"	        PHP_INI_ALL
+    error_log	            NULL	    PHP_INI_ALL
+
+关于 PHP_INI_* 模式的更多详情与定义，参阅 在哪里可以设置一个配置设置。
+这里是一份配置指令的简短说明。
+
+error_reporting     integer
+    设置错误报告的级别。该参数要么是一个表示一个位字段的整数，要么是若干已命名的常量。
+    error_reporting 的级别和常量在 预定义的常量 和 php.ini 中都有描述。
+    想要在运行时设置错误报告级别，可以使用 error_reporting() 函数。另请参阅 display_errors 指令。
+
+    PHP 5.3.0 及以后版本中，默认值是 E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED 。
+    该设置不会显示 E_NOTICE、 E_STRICT 和 E_DEPRECATED 级别的错误。你可能想在开发的过程中显示它们。
+    PHP 5.3.0 以前，默认值是 E_ALL & ~E_NOTICE & ~E_STRICT。
+    在 PHP 4 中，默认值是 E_ALL & ~E_NOTICE 。
+
+    注意
+        在开发阶段启用 E_NOTICE 会有一些好处。出于调试的目的：通知消息会对代码中可能的 bug 给出警告。比如，使用未赋值的变量就会被警告。
+        它在查找拼写错误和节省调试时间方面是非常有用的。通知消息还会对不良的风格向你警告。
+        比如，$arr[item] 最好写成 $arr['item']，因为 PHP 会尝试把 item 当作常量对待。如果它不是一个常量，PHP 才会把它当做数组的字符串索引。
+
+    注意
+        在 PHP 5之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你必须
+        显式的启用这类错误。
+        在开发阶段启用 E_STRICT 会有一些好处。STRICT（严格）消息会给出帮助确保代码拥有最好的互操作性和向前兼容性的建议。
+        这类消息可能会包括静态化调用非静态方法，在兼容的类定义中定义属性而这个类却定义在一个被使用的 trait 中，并且在 PHP 5.3 以前一些废弃的特性
+        可能会引发 E_STRICT 错误，比如在实例化时按引用赋值对象。
+
+    注意：PHP 外的 PHP 常量
+        在 PHP 之外使用 PHP 常量，比如在 httpd.conf 中，是没有意义的，因此在这种情况下需要使用整数值。
+        并且随着时间的推移可能会增加错误级别，因此最大的值（通常即 E_ALL）可能会改变。因此在使用 E_ALL 的地方应考虑使用一个更大的数值来涵盖当下和将来
+        会使用的所有位字段，比如类似 2147483647 的数值(将包含所有的错误，而不仅仅是 E_ALL)。
+display_errors      string
+    它决定了是否错误应当作为输出的一部分打印到显示器或者应当对用户隐藏。
+
+    值“stderr”会把错误发送到标准错误输出而不是标准输出。这个值从 PHP 5.2.4 开始可用，在这之前的版本中，该指令是布尔类型的。
+
+    注意
+        这是一个用于辅助开发的特性，因此永远不要在生产系统中使用 (比如链接到因特网的系统)。
+    注意
+        虽然 display_errors 能够在运行时设置（使用 ini_set()），但是如果脚本有致命的错误时它将没有任何影响，这是因为所需的运行时操作没有执行。
+display_startup_errors      boolean
+    即使启用了 display_errors ，发生在 PHP 启动序列期间发生的错误也不会被显示。除非为了调试，否者强烈建议保持 display_startup_errors 关闭。
+log_errors      boolean
+    告知是否应当把脚本的错误消息记录到服务器的错误日志或者 error_log 。因此，这个选项是特定于服务器的。
+
+    注意
+        在生产网站中，强烈建议你使用记录错误日志来代替显示错误。
 track_errors    boolean
     如果启用，则最后一个错误消息总是会出现在变量 $php_errormsg 中。
     个人补充：这里的总是是不准确的，预定义变量 $php_errormsg 的手册中有解释。
+error_log       string
+    脚本错误将要被记录到的文件的名字。该文件必须是 web 服务器的用户可写的。
+
+    如果特殊的值 syslog 被使用，则错误信息将会被发送到系统日志记录器（system logger）。在 Unix 上这意味着 syslog(3)而在 Windows 上这意味着
+    事件日志。另请参阅 syslog() 。
+
+    如果没有设置该指令，则错误会被发送到 SAPI 错误记录器。例如，在 Apache 中它会是一条错误日志，而在 CLI 中它会是 stderr 。
+    另请参与 error_log() 。
+

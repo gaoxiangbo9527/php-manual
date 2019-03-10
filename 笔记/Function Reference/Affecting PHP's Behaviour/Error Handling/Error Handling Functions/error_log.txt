@@ -1,0 +1,33 @@
+向定义的错误处理程序发送一条错误消息。
+
+描述
+    error_log ( string $message [, int $message_type = 0 [, string $destination [, string $extra_headers ]]] ) : bool
+    发送一条错误消息到 web 服务器的错误日志或者到某个文件。
+
+参数
+    message
+        将要发送的错误消息。
+    message_type
+        告知错误应该发送到何处。可能的消息类型如下：
+
+        error_log() 的日志类型
+        0   message 可能会被发送到 PHP 系统的日志记录器，也可能使用操作系统的系统日志机制或者一个文件，这取决于 error_log 配置指令如何设置。
+            它是默认的选项。
+        1   message 会通过电子邮件被发送到 destination 参数所指定的地址。这是惟一一种会使用第四个参数 extra_headers 的消息类型。
+        2   不再是一个选项了。
+        3   message 会被追加到 destination 所指定的文件。不会自动的将换行添加到消息字符串的末尾。
+        4   message 直接被发送到 SAPI 的日志处理程序中。
+    destination
+        目的地。它的含义取决于上面描述的 message_type 参数。
+    extra_headers
+        额外的头部。当 message_type 参数被设置为 1 时会用到它。该消息类型使用和 mail() 相同的内置函数。
+
+返回值
+    成功时返回 TRUE ，失败时返回 FALSE 。
+
+注意
+    警告 error_log() 不是二进制安全的。null 字符可能会截断 message。
+
+    建议
+        message 不应当包含 null 字符。 注意，message 可能会发送到文件、邮件和 syslog 等。
+        所以在调用 error_log() 前需要使用合适的转换/转义函数： base64_encode()、 rawurlencode() 或 addslashes()。
