@@ -1,0 +1,27 @@
+这些函数的行为受到 php.ini 中的设置的影响。
+
+输出控制配置选项
+名字                  默认值         可修改范围           更新日志
+output_buffering     "0"           PHP_INI_PERDIR
+output_handler	     NULL	       PHP_INI_PERDIR     自 PHP 4.0.4 开始可用。
+implicit_flush	     "0"	       PHP_INI_ALL	      PHP_INI_PERDIR 当 PHP <= 4.2.3 。
+
+关于 PHP_INI_* 模式的更多详情与定义，参阅 在哪里可以设置一个配置设置。
+这里是一份配置指令的简短说明。
+
+output_buffering    boolean/integer
+    你可以通过把这个指令设置为 On 为所有文件开启输出缓冲。
+    如果你希望把缓冲限制到一个特定的大小，你可以使用一个最大的字节数代替 On 来作为该指令的值（例如：output_buffering=4096）。
+    在 PHP-CLI 中这个指令总是 Off 。
+output_handler      string
+    你可以把脚本所有的输出都重定向到某个函数。比如你把 output_handler 设置为 mb_output_handler() ，那么字符编码就会透明的转换到特定的编码。
+    设置任何输出处理函数都会自动的开启输出缓冲。
+
+    注意
+        不能同时使用 mb_output_handler() 和 ob_iconv_handler()，也不能同时使用 ob_gzhandler() 和 zlib.output_compression 。
+
+    注意
+        只有内置的函数可以用于该指令，对于用户定义的函数，使用 ob_start() 。
+implicit_flush      boolean
+
+
