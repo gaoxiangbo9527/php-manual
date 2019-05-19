@@ -1,15 +1,15 @@
 接口摘要
     Iterator extends Traversable {
         /* Methods */
-        abstract public mixed current ( void )
-        abstract public scalar key ( void )
-        abstract public void next ( void )
-        abstract public void rewind ( void )
-        abstract public bool valid ( void )
+        abstract public current ( void ) : mixed
+        abstract public key ( void ) : scalar
+        abstract public next ( void ) : void
+        abstract public rewind ( void ) : void
+        abstract public valid ( void ) : bool
     }
 
 预定义的遍历器
-    PHP 已经内置提供了若干用于完成日常任务的遍历器，详细列表参见 SPL 遍历器。
+    PHP 已经内置提供了若干用于完成许多日常任务的遍历器，详细列表参见 SPL 遍历器。
 
 foreach循环中各个方法的实际调用顺序
     1. Before the first iteration of the loop, Iterator::rewind() is called.

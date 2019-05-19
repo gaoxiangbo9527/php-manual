@@ -1,5 +1,5 @@
 接口摘要
     IteratorAggregate extends Traversable {
         /* Methods */
-        abstract public Traversable getIterator ( void )
+        abstract public getIterator ( void ) : Traversable
     }
