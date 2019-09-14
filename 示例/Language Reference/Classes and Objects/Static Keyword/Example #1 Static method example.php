@@ -12,3 +12,5 @@ Foo::aStaticMethod();
 $classname = 'Foo';
 $classname::aStaticMethod();
 
+(new Foo)::aStaticMethod();
+

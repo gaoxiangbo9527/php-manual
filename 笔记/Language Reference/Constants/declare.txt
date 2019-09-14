@@ -1,0 +1,25 @@
+declare 结构用于为一块代码设置执行指令，declare 的语法同其他控制结构的语法非常相似：
+    declare(directive)
+        statement
+    （个人补充，上面的 statement 部分可以像其他控制结构一样使用花括号包围）
+directive 部分允许设置 declare 块的行为。目前只能识别三种 directive：ticks 指令、encoding 指令和 strict_types 指令。
+由于 directive 是在文件被编译时进行处理的，所以 directive 的值只接受字面量，不能使用变量和常量。
+declare 块的 statement 部分将被执行——它是如何执行的以及执行过程中会发生什么副作用可能取决于 directive 块中设置的 directive。
+declare 结构也可以在全局作用域中使用，影响它后面的所有代码(但是，如果带有 declare 的文件被别的文件引入，那么它是不会影响父文件的)。
+
+Ticks
+    一个 tick 是一个事件，每当解析器执行了 declare 块中的 N 条低级可计数的语句后，就会发生这个事件。
+    N 的值是在 declare 块的 directive 部分使用 ticks=N 来设定的。
+
+    不是所有的语句都是可计数的。通常，条件表达式和参数表达式是不可计数的。
+
+    每一次 tick 时会发生的事件是使用 register_tick_function() 函数指定的。注意，每个 tick 可能会发生多个事件。
+
+Encoding
+    可以使用 encoding 指令为每个脚本指定该脚本的编码。
+
+    警示 当与命名空间结合使用时，declare 惟一合法语法是 declare(encoding='…'); ，其中 … 表示编码值。declare(encoding='...') {} 会导致
+    一个解析错误。
+
+    encoding 声明的值在 PHP 5.3 中会被忽略，除非编译 PHP 时使用了 ——enable-zend-multibyte 。
+    注意 PHP 只会在 phpinfo() 中暴露是否在编译 PHP 时使用了 ——enable-zend-multibyte 。
