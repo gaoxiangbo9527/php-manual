@@ -13,7 +13,8 @@ Ticks
 
     不是所有的语句都是可计数的。通常，条件表达式和参数表达式是不可计数的。
 
-    每一次 tick 时会发生的事件是使用 register_tick_function() 函数指定的。注意，每个 tick 可能会发生多个事件。
+    每一次 tick 时会发生的事件是使用 register_tick_function() 函数指定的。
+    注意，每个 tick 可能会发生多个事件。（个人补充，应该是指可以注册多个事件）
 
 Encoding
     可以使用 encoding 指令为每个脚本指定该脚本的编码。

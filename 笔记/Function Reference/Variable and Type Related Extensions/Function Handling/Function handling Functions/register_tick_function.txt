@@ -1,0 +1,13 @@
+描述
+    register_tick_function ( callable $function [, mixed $... ] ) : bool
+    注册 function 参数指定的函数，每当 tick 被调用时，就会执行该函数。
+参数
+    function
+        被注册的函数
+    ...
+        应该是传递给函数的参数
+返回值
+    成功返回 true ，失败返回 false
+
+注意
+    register_tick_function() 不应该与 PHP 5.2 或更低版本的线程化 web 服务器模块一起使用。
