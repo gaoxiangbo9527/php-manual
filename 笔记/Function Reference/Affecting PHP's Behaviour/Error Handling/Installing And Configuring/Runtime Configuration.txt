@@ -1,13 +1,27 @@
 这些函数的行为受 php.ini 中的设置影响。
 
 错误和日志记录配置选项
-    名称                     默认         可修改范围        变更日志
+    名称                     默认值       可修改范围          变更日志
     error_reporting         NULL        PHP_INI_ALL
     display_errors          "1"         PHP_INI_ALL
     display_startup_errors	"0"	        PHP_INI_ALL
     log_errors	            "0"	        PHP_INI_ALL
-    track_errors	        "0"	        PHP_INI_ALL
+    log_errors_max_len      "1024"      PHP_INI_ALL
+    ignore_repeated_errors	"0"	        PHP_INI_ALL
+    ignore_repeated_source	"0"	        PHP_INI_ALL
+    report_memleaks	        "1"	        PHP_INI_ALL
+    html_errors	            "1"	        PHP_INI_ALL
+    xmlrpc_errors	        "0"	        PHP_INI_SYSTEM
+    xmlrpc_error_number	    "0"	        PHP_INI_ALL
+    docref_root	            ""	        PHP_INI_ALL
+    docref_ext	            ""	        PHP_INI_ALL
+    track_errors	        "0"	        PHP_INI_ALL       在 PHP 7.2.0 中被弃用
+    error_prepend_string	NULL	    PHP_INI_ALL
+    error_append_string	    NULL	    PHP_INI_ALL
     error_log	            NULL	    PHP_INI_ALL
+    syslog.facility	        "LOG_USER"	PHP_INI_SYSTEM    从 7.3.0 开始可用
+    syslog.filter	        "no-ctrl"	PHP_INI_ALL       从 7.3.0 开始可用
+    syslog.ident	        "php"	    PHP_INI_SYSTEM    从 7.3.0 开始可用
 
 关于 PHP_INI_* 模式的更多详情与定义，参阅 在哪里可以设置一个配置设置。
 这里是一份配置指令的简短说明。
@@ -31,22 +45,25 @@ error_reporting     integer
         在 PHP 5之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你必须
         显式的启用这类错误。
         在开发阶段启用 E_STRICT 会有一些好处。STRICT（严格）消息会给出帮助确保代码拥有最好的互操作性和向前兼容性的建议。
-        这类消息可能会包括静态化调用非静态方法，在兼容的类定义中定义属性而这个类却定义在一个被使用的 trait 中，并且在 PHP 5.3 以前一些废弃的特性
+        这类消息可能会包括静态化调用非静态方法，在类定义中以兼容的方式定义一个该类使用的 trait 中经存在的属性，并且在 PHP 5.3 以前一些废弃的特性
         可能会引发 E_STRICT 错误，比如在实例化时按引用赋值对象。
 
     注意：PHP 外的 PHP 常量
         在 PHP 之外使用 PHP 常量，比如在 httpd.conf 中，是没有意义的，因此在这种情况下需要使用整数值。
-        并且随着时间的推移可能会增加错误级别，因此最大的值（通常即 E_ALL）可能会改变。因此在使用 E_ALL 的地方应考虑使用一个更大的数值来涵盖当下和将来
-        会使用的所有位字段，比如类似 2147483647 的数值(将包含所有的错误，而不仅仅是 E_ALL)。
+        并且随着时间的推移可能会增加错误级别，因此最大的值（通常即 E_ALL）可能会改变。因此在使用 E_ALL 的地方应考虑使用一个更大的数值来涵盖当下和
+        将来会使用的所有位字段，比如类似 2147483647 的数值(将包含所有的错误，而不仅仅是 E_ALL)。
 display_errors      string
     它决定了是否错误应当作为输出的一部分打印到显示器或者应当对用户隐藏。
 
     值“stderr”会把错误发送到标准错误输出而不是标准输出。这个值从 PHP 5.2.4 开始可用，在这之前的版本中，该指令是布尔类型的。
+   （个人补充）stderr 只会影响 CGI/CLI 二进制程序。
 
     注意
         这是一个用于辅助开发的特性，因此永远不要在生产系统中使用 (比如链接到因特网的系统)。
     注意
         虽然 display_errors 能够在运行时设置（使用 ini_set()），但是如果脚本有致命的错误时它将没有任何影响，这是因为所需的运行时操作没有执行。
+        （个人补充）如果你在 ini 中将 display_errors 设置为启用，然后在代码中想要关闭 display_errors，如果在这段代码之前发生了错误，比如说
+        警告，此时还没执行到关闭 display_errors 的代码，警告仍会被显示。只有位于关闭 display_errors 的代码之后错误才会被关闭。
 display_startup_errors      boolean
     即使启用了 display_errors ，发生在 PHP 启动序列期间发生的错误也不会被显示。除非为了调试，否者强烈建议保持 display_startup_errors 关闭。
 log_errors      boolean
@@ -54,15 +71,67 @@ log_errors      boolean
 
     注意
         在生产网站中，强烈建议你使用记录错误日志来代替显示错误。
+log_errors_max_len      integer
+    设置 log_errors 按字节为单位的最大长度。
+    默认值是 1024，并且 0 允许不应用任何最大长度。
+    该长度会应用于记录错误、显示错误以及 $php_errormsg；但是不会应用于显示调用的函数，比如 error_log() 。
+    当整数被使用时，该值以字节为单位度量。你也可以使用这个 FAQ 中提到的缩写符号。
+ignore_repeated_errors      boolean
+    不记录重复的错误。
+    重复的错误必须发生在同一个文件的同一行，除非 ignore_repeated_source 被设置为 true 。
+ignore_repeated_source      boolean
+    当忽略重复的错误时，忽略消息的源。
+    开启此设置时，将不会记录重复的消息，即使它来自不同的文件或行。
+report_memleaks     boolean
+    如果该参数被设置为开启（默认值），那么该参数会显示由 Zend 内存管理器检测到的一份内存泄露报告。
+    在 Posix 平台上，该报告会被发送至 stderr 。在 Windows 上，它将使用 OutputDebugString() 发送到调试器并且可以使用 DbgView 这样的工具
+    进行查看。
+    此参数仅在 调试构建 中有效，并且 error_reporting 中要包含 E_WARNING 才行。
 track_errors    boolean
     如果启用，则最后一个错误消息总是会出现在变量 $php_errormsg 中。
-    个人补充：这里的总是是不准确的，预定义变量 $php_errormsg 的手册中有解释。
+    个人补充：因为 set_error_handler()，所以这里说的“总是”是不准确的，预定义变量 $php_errormsg 的手册中有解释。
+html_errors     boolean
+    如果启用，错误消息将包含 HTML 标签。
+    HTML 格式的错误会生成可点击的消息，它可以引导用户至某个描述了该错误的页面或者引发该错误的函数。
+    这些引用受 docref_root 和 docref_ext 的影响。
+    如果禁用，错误消息将仅为纯文本。
+xmlrpc_errors   boolean
+    如果启用，将关闭常规的错误报告并且会将错误格式化成 XML-RPC 格式的错误消息。
+xmlrpc_error_number     integer
+    该选项会被用作 XML-RPC faultCode 元素的值。
+docref_root     string
+    新的错误格式包含了一个到描述该错误的页面或者引发该错误的函数的引用。
+    对于手册页，你可以下载你的语言的手册，并将此 ini 指令设置为本地副本的 URL。如果手册的本地副本可以通过 /manual/ 访问到，你就可以简单地使用
+    docref_root=/manual/ 。另外，你必须设置 docref_ext 来匹配副本的文件扩展名 docref_ext=.html 。
+    可以使用外部引用。比如你可以使用 docref_root=http://manual/en/ 或
+    docref_root="http://landonize.it/?how=url&theme=classic&filter=Landon &url=http%3A%2F%2Fwww.php.net%2F" 。
+
+    通常你会希望 docref_root 以 / 结尾，但在上面的第二个示例中不需要这么做。
+    注意
+        这是一个对支持你的开发非常有用的特性，因为它使得查看某个函数说明变得非常容易。然而建议永远不要再生产系统中使用它 (例如连接到互联网的系统)。
+docref_ext      string
+    见 docref_root 。
+    注意
+        docref_ext 的值必须以 . 开头。
+error_prepend_string    string
+    在输出错误消息之前输出的字符串。
+error_append_string     string
+    在输出错误消息之后输出的字符串。
 error_log       string
     脚本错误将要被记录到的文件的名字。该文件必须是 web 服务器的用户可写的。
 
     如果特殊的值 syslog 被使用，则错误信息将会被发送到系统日志记录器（system logger）。在 Unix 上这意味着 syslog(3)而在 Windows 上这意味着
     事件日志。另请参阅 syslog() 。
 
-    如果没有设置该指令，则错误会被发送到 SAPI 错误记录器。例如，在 Apache 中它会是一条错误日志，而在 CLI 中它会是 stderr 。
+    如果没有设置该指令，则错误会被发送到 SAPI 的错误记录器。例如，在 Apache 中它会是一条错误日志，而在 CLI 中它会是 stderr 。
     另请参与 error_log() 。
-
+syslog.facility     string
+    指定记录消息的程序类型。仅当 error_log 设置为 syslog 时有效。
+syslog.filter       string
+    指定筛选器类型来筛选已记录的消息。允许的字符未经修改就被传递，所有其他的字符会用带 \x 前缀的十六进制表示形式重写。有三种支持的筛选器类型：
+        all – 所有字符
+        no-ctrl – 除控制字符外的所有字符
+        ascii – 所有可打印的 ASCII 字符以及 NL
+    仅当 error_log 设置为 syslog 时有效。
+syslog.ident        string
+    指定每个消息的前缀标识字符串。仅当 error_log 设置为 syslog 时有效。

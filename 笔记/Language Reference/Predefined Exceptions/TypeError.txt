@@ -1,0 +1,24 @@
+介绍
+    有三种场景会抛出 TypeError 。
+    第一种是传递给函数的参数的类型和该函数声明的参数的类型不一致。
+    第二种是从函数返回的值和函数声明的返回值的类型不一致。
+    第三种是在严格模式下传递给内置 PHP 函数的参数数目不对。
+类摘要
+    TypeError extends Error {
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Error::getMessage ( void ) : string
+        final public Error::getPrevious ( void ) : Throwable
+        final public Error::getCode ( void ) : mixed
+        final public Error::getFile ( void ) : string
+        final public Error::getLine ( void ) : int
+        final public Error::getTrace ( void ) : array
+        final public Error::getTraceAsString ( void ) : string
+        public Error::__toString ( void ) : string
+        final private Error::__clone ( void ) : void
+    }

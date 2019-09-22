@@ -1,0 +1,17 @@
+SPL 提供了一组标准的异常。
+
+SPL 异常类树
+    LogicException (extends Exception)
+        BadFunctionCallException
+            BadMethodCallException
+        DomainException
+        InvalidArgumentException
+        LengthException
+        OutOfRangeException
+
+    RuntimeException (extends Exception)
+        OutOfBoundsException
+        OverflowException
+        RangeException
+        UnderflowException
+        UnexpectedValueException

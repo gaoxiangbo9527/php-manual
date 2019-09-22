@@ -1,0 +1,23 @@
+介绍
+    如果一个值与一组值中的任何一个都不匹配会抛出该异常。
+    通常当一个函数调用另一个函数并期望返回值具有特定类型或值，当不包含算术或缓冲区相关错误时，就算作会发生该异常的情况。
+类摘要
+    UnexpectedValueException extends RuntimeException {
+
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Exception::getMessage ( void ) : string
+        final public Exception::getPrevious ( void ) : Throwable
+        final public Exception::getCode ( void ) : mixed
+        final public Exception::getFile ( void ) : string
+        final public Exception::getLine ( void ) : int
+        final public Exception::getTrace ( void ) : array
+        final public Exception::getTraceAsString ( void ) : string
+        public Exception::__toString ( void ) : string
+        final private Exception::__clone ( void ) : void
+    }

@@ -1,0 +1,6 @@
+描述
+    restore_error_handler ( void ) : bool
+    在使用 set_error_handler() 更改错误处理函数后，使用该函数可以恢复到以前的错误处理程序（可能是一个内置的或者用户定义的函数）。
+返回值
+    返回值总是 NULL 。
+

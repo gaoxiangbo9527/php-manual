@@ -1,0 +1,21 @@
+描述
+    set_exception_handler ( callable $exception_handler ) : callable
+    当一个异常没有被 try/catch 块捕获时，该函数可以为该异常设置一个默认的处理函数。
+    调用 exception_handler 后，脚本执行将停止。
+参数
+    exception_handler
+        当发生一个未被捕获的异常时，被调用的异常处理函数的名称。该函数需要接受一个参数，即被抛出的异常的对象。
+
+        PHP 7 之前，该函数的签名为：
+            handler ( Exception $ex ) : void
+        到了 PHP 7，大多数的错误是通过 Error 异常来报告的，而它也会被该处理函数捕获。Error 和 Exception 都实现了 Throwable 接口。
+        PHP 7 之前，该函数的签名为：
+            handler ( Throwable $ex ) : void
+        请注意，在回调函数中为 ex 参数显式提供 Exception 类型提示将导致 PHP 7 中更改的异常层次结构出现问题。
+
+        可以传递 NULL 做参数值，将处理程序重置为其默认状态（即表示不设置任何的处理程序）。
+
+返回值
+    如果前面没有定义异常处理函数或出错时返回 NULL，否则返回前面定义的异常处理程序的名称，
+
+（个人补充）应该可以多次调用 set_exception_handler 来设置不同的处理函数，但是只有最新的一个处理函数才会生效。

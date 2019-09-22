@@ -1,0 +1,23 @@
+介绍
+    当程序执行期间遇到范围错误时会抛出的异常。通常，这意味着存在算术错误，确又不是 Underflow 或者 Overflow 。
+    这是运行时版本的 DomainException 。
+类摘要
+    RangeException extends RuntimeException {
+
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Exception::getMessage ( void ) : string
+        final public Exception::getPrevious ( void ) : Throwable
+        final public Exception::getCode ( void ) : mixed
+        final public Exception::getFile ( void ) : string
+        final public Exception::getLine ( void ) : int
+        final public Exception::getTrace ( void ) : array
+        final public Exception::getTraceAsString ( void ) : string
+        public Exception::__toString ( void ) : string
+        final private Exception::__clone ( void ) : void
+    }

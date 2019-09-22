@@ -1,0 +1,24 @@
+PHP 7 改变了 PHP 报告大多数错误的方式。没有再使用 PHP 5 使用的那种传统的 错误报告（error reporting） 机制来报告错误，大多数的错误是通过抛出
+Error 类型的异常来报告的。
+
+就像常规的异常一样，Error 类型的异常也会向上冒泡直到遇到第一个匹配的 catch 块。如果没有匹配的 catch 块，那么使用 set_exception_handler()
+安装的默认异常处理程序会被调用，如果也没有设置默认的异常处理程序，那么该异常会被转换成一个致命的错误并且就会像一个传统的错误那样被处理。
+
+因为 Error 没有继承 Exception ，所以你会发现在 PHP 5 中为了处理未捕获的异常而会用到的 catch (Exception $e) { ... } 代码块并不会捕获到这
+些 Error 。需要一个 catch (Error $e) { ... } 代码块或者一个 set_exception_handler() 处理程序。
+
+Error 层次
+    Throwable
+        Error
+            ArithmeticError
+                DivisionByZeroError
+            AssertionError
+            CompileError
+                ParseError
+            TypeError
+                ArgumentCountError
+        Exception
+            ...
+
+来自用户的笔记
+    你可以通过 catch(Throwable) 来同时捕获 Error 和 Exception 。

@@ -1,0 +1,22 @@
+介绍
+    当解析 PHP 代码时如果发生错误，则会抛出 ParseError  错误，例如当调用 eval() 时。
+    注意：从 PHP 7.3.0 开始，ParseError 继承自 CompileError ，在这之前是继承自 Error 。
+类摘要
+    ParseError extends CompileError {
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Error::getMessage ( void ) : string
+        final public Error::getPrevious ( void ) : Throwable
+        final public Error::getCode ( void ) : mixed
+        final public Error::getFile ( void ) : string
+        final public Error::getLine ( void ) : int
+        final public Error::getTrace ( void ) : array
+        final public Error::getTraceAsString ( void ) : string
+        public Error::__toString ( void ) : string
+        final private Error::__clone ( void ) : void
+    }

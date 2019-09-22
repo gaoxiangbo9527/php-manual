@@ -1,0 +1,24 @@
+描述
+    debug_backtrace ([ int $options = DEBUG_BACKTRACE_PROVIDE_OBJECT [, int $limit = 0 ]] ) : array
+    生成一份 PHP 回溯。
+参数
+    options
+        从 PHP 5.3.6 开始，该参数是一个位掩码，可使用的选项如下：
+        debug_backtrace() 的选项
+            DEBUG_BACKTRACE_PROVIDE_OBJECT      是否填入 "object" 索引
+            DEBUG_BACKTRACE_IGNORE_ARGS         是否忽略 "args" 索引，从而忽略所有函数/方法的参数，以节省内存
+        在 PHP 5.3.6 以前，参数值仅识别 TRUE 和 FALSE 。分别同设置和不设置 DEBUG_BACKTRACE_PROVIDE_OBJECT 选项是一样的。
+    limit
+        从 PHP 5.4.0 开始，该参数可用于限制返回的堆栈帧数。默认情况（limit=0）下会返回所有的堆栈帧。
+返回值
+    返回一份关联数组的数组。关联数组可能返回的元素如下：
+    可能从 debug_backtrace() 中返回的元素
+        名称          类型      描述
+        function	 string	  当前的函数名称，参见 __FUNCTION__ 。
+        line	     integer  当前的行号，参见 __LINE__ 。
+        file	     string	  当前的文件名，参见 __FILE__ 。
+        class	     string	  当前的类名，参见 __CLASS__ 。
+        object	     object	  当前的对象。
+        type	     string	  当前的调用类型。如果是一个方法调用，返回 -> ，如果是一个静态方法调用，返回 :: ，如果是一个函数调用，不会返回任
+                              何内容。
+        args	     array	  如果在一个函数内，则返回该函数参数的列表。如果在一个包含文件内，则返回被包含的文件名的列表。

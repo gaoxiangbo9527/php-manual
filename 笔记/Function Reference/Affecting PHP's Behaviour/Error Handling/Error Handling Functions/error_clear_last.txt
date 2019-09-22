@@ -1,0 +1,5 @@
+描述
+    error_clear_last ( void ) : void
+    清除最近的错误，使它不能再通过 error_get_last() 获取。
+返回值
+    该函数没有返回值。

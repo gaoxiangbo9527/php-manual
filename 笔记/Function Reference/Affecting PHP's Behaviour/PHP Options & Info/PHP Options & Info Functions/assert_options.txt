@@ -1,0 +1,38 @@
+描述
+    assert_options ( int $what [, mixed $value ] ) : mixed
+    设置各种 assert() 控制选项或者查询它们当前的设置。
+参数
+    what
+        选项                 INI设置              默认值         描述
+        ASSERT_ACTIVE       assert.active 	    1	            启用 assert() 评测
+        ASSERT_WARNING	    assert.warning	    1	            为每一个失败的断言生成一个 PHP 警告
+        ASSERT_BAIL	        assert.bail	        0	            在断言失败时终止执行
+        ASSERT_QUIET_EVAL   assert.quiet_eval   0	            在断言表达式求值时禁用 error_reporting
+        ASSERT_CALLBACK     assert.callback     NULL	        断言失败时调用的回调函数
+    value
+        该选项的一个可选的新值
+返回值
+    发生错误返回 false，否则返回原来的设置。
+
+个人补充
+    当断言失败时会先后发生
+        如果设置了回调函数
+            调用设置的回调函数
+        如果没设置回调函数
+            则继续下一步
+
+        如果允许警告
+            则抛出警告
+        如果不允许警告
+            则不抛出警告
+
+        如果 ASSERT_BAIL 为假
+            继续执行
+        如果 ASSERT_BAIL 为真
+            停止执行
+
+
+来自用户贡献的笔记
+    想要重置 ASSERT_CALLBACK 时：
+        assert_options(ASSERT_CALLBACK, null); // 没有效果
+        assert_options(ASSERT_CALLBACK, "");   // 好像可以

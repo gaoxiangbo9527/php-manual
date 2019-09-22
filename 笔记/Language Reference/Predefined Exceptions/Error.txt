@@ -1,0 +1,33 @@
+介绍
+    Error 是所有 PHP 内部错误的基类。
+类摘要
+    Error implements Throwable {
+        /* Properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Methods */
+        public __construct ([ string $message = "" [, int $code = 0 [, Throwable $previous = NULL ]]] )
+        final public getMessage ( void ) : string
+        final public getPrevious ( void ) : Throwable
+        final public getCode ( void ) : mixed
+        final public getFile ( void ) : string
+        final public getLine ( void ) : int
+        final public getTrace ( void ) : array
+        final public getTraceAsString ( void ) : string
+        public __toString ( void ) : string
+        final private __clone ( void ) : void
+    }
+属性
+    message
+        错误消息
+    code
+        错误代码
+    file
+        发生错误的文件名
+    line
+        发生错误的行
+目录
+    不详述，需要用时去手册查询

@@ -1,0 +1,7 @@
+描述
+    error_get_last ( void ) : array
+    获取关于最近发生的错误的信息。
+返回值
+    返回一个关联数组，该数组使用键 type、message、file 和 line 描述错误。
+    如果错误是由 PHP 内部函数引起的，则 message 会以该函数的名称开头。
+    如果还没有出现错误，则返回 NULL 。

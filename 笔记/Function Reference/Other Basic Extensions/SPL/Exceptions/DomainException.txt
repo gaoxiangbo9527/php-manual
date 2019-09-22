@@ -1,0 +1,22 @@
+介绍
+    如果一个值不是一个已定义的有效数据域会抛出该异常。
+类摘要
+    DomainException extends LogicException {
+
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Exception::getMessage ( void ) : string
+        final public Exception::getPrevious ( void ) : Throwable
+        final public Exception::getCode ( void ) : mixed
+        final public Exception::getFile ( void ) : string
+        final public Exception::getLine ( void ) : int
+        final public Exception::getTrace ( void ) : array
+        final public Exception::getTraceAsString ( void ) : string
+        public Exception::__toString ( void ) : string
+        final private Exception::__clone ( void ) : void
+    }

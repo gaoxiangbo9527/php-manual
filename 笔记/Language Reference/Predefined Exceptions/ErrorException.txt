@@ -1,0 +1,34 @@
+介绍
+    一个错误异常。
+类摘要
+    ErrorException extends Exception {
+        /* Properties */
+        protected int $severity ;
+
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Methods */
+        public __construct ([ string $message = "" [, int $code = 0 [, int $severity = E_ERROR [, string $filename = __FILE__ [, int $lineno = __LINE__ [, Exception $previous = NULL ]]]]]] )
+        final public getSeverity ( void ) : int
+
+        /* Inherited methods */
+        final public Exception::getMessage ( void ) : string
+        final public Exception::getPrevious ( void ) : Throwable
+        final public Exception::getCode ( void ) : mixed
+        final public Exception::getFile ( void ) : string
+        final public Exception::getLine ( void ) : int
+        final public Exception::getTrace ( void ) : array
+        final public Exception::getTraceAsString ( void ) : string
+        public Exception::__toString ( void ) : string
+        final private Exception::__clone ( void ) : void
+    }
+属性
+    severity
+        异常的严重性
+示例
+
+

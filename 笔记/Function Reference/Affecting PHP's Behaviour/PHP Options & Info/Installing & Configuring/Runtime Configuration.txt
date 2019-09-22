@@ -1,4 +1,29 @@
+这些函数的行为受到 php.ini 中的设置项的影响。
 
+PHP Options/Info 配置选项
+    名称	                默认值	    可修改范围           更新日志
+    assert.active	    "1"	        PHP_INI_ALL
+    assert.bail	        "0"	        PHP_INI_ALL
+    assert.warning	    "1"	        PHP_INI_ALL
+    assert.callback 	NULL	    PHP_INI_ALL
+    assert.quiet_eval	"0"	        PHP_INI_ALL
+    assert.exception	"0"	        PHP_INI_ALL	       从 PHP 7.0.0 开始可用
+    max_input_time	    "-1"	    PHP_INI_PERDIR
+
+assert.active       boolean
+    启用 assert() 执行。
+assert.bail         boolean
+    断言失败时将中止脚本执行。
+assert.warning      boolean
+    为每个失败的断言产生一条 PHP 警告信息
+assert.callback     string
+    断言失败时将调用的用户函数
+assert.quiet_eval   boolean
+    在执行断言表达式时使用 error_reporting() 当前的设置。
+    如果启用静默执行，在执行时错误将不会被显示（隐式的 error_reporting(0)）。
+    如果禁用静默执行，错误将根据 error_reporting() 的设置来显示。
+assert.exception boolean
+    为失败的断言产生一个 AssertionError 异常。
 
 max_input_time      integer
     它设置了一个脚本允许解析输入数据（比如 GET 或者 POST）的最长时间，以秒为单位。计时从服务器调用 PHP 脚本时开始一直到脚本开始执行时截至。

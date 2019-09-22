@@ -1,0 +1,14 @@
+描述
+    trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] ) : bool
+    用于触发一个用户错误条件，它可以与内置的错误处理程序一起使用，或者同已设置为新的错误处理程序(set_error_handler())的用户定义函数一起使用。
+    当你需要在运行时生成对某个异常的特定响应时，此函数非常有用。
+参数
+    error_msg
+        此错误特定的错误消息。长度限制为 1024 个字节，超过此长度的额外的字符会被截断。
+    error_type
+        此错误特定的错误类型。它只适用于 E_USER 常量家族，并且默认为 E_USER_NOTICE 。
+返回值
+    如果指定了错误的 error_type 会返回 FALSE，否则返回 TRUE 。
+
+注意
+    警告 error_msg 中的 HTML 实体不会被转义，如果错误将要被显示在浏览器中，请使用 htmlentities() 转义该消息。

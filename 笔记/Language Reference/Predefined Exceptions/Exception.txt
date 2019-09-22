@@ -1,0 +1,36 @@
+介绍
+    在 PHP 5 中，Exception 是 所有异常 的基类，而在 PHP 7 中，Exception 是 所有用户异常 的基类。
+    在 PHP 7 之前，Exception 并没有实现 Throwable 接口。
+类简介
+    Exception implements Throwable {
+
+        /* Properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Methods */
+        public __construct ([ string $message = "" [, int $code = 0 [, Throwable $previous = NULL ]]] )
+        final public getMessage ( void ) : string
+        final public getPrevious ( void ) : Throwable
+        final public getCode ( void ) : mixed
+        final public getFile ( void ) : string
+        final public getLine ( void ) : int
+        final public getTrace ( void ) : array
+        final public getTraceAsString ( void ) : string
+        public __toString ( void ) : string
+        final private __clone ( void ) : void
+    }
+属性
+    message
+        异常的消息
+    code
+        异常的代码
+    file
+        创建异常的文件名
+    line
+        创建异常的行号
+
+目录
+    不详述，需要用时去手册查询

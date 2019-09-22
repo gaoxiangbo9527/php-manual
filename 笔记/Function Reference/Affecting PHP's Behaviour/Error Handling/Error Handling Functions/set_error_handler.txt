@@ -1,0 +1,41 @@
+描述
+    set_error_handler ( callable $error_handler [, int $error_types = E_ALL | E_STRICT ] ) : mixed
+    设置一个用户函数 error_handler 去处理脚本中的错误。
+
+    该函数可用于定义你自己的在运行时处理错误的方式。例如在一个应用程序中发生了危险的错误需要清理数据或文件时，或者在特定条件下你需要触发一个错误时。
+
+    记住这一点非常重要，对于 error_types 指定的错误类型，将完全绕过标准 PHP 错误处理程序，除非回调函数返回 FALSE。
+    error_reporting() 的设置将不起作用，并且无论如何都会调用你的错误处理程序——但是你仍然能够读取 error_reporting 的当前值并采取适当的操作。
+    特别需要注意的是，如果引起错误的语句由 @ 错误抑制操作符作为前缀，那么这个值将为 0 （意思是此时在错误处理函数中读取 error_reporting 的当前值
+    的话，会得到 0）。
+
+    还要注意，如果必要的话，你有责任去调用 die() 。如果错误处理函数返回，脚本将继续执行导致错误的语句之后的下一条语句。
+
+    用户定义的函数不能处理后面这些错误类型：E_ERROR、E_PARSE、E_CORE_ERROR、E_CORE_WARNING、E_COMPILE_ERROR、E_COMPILE_WARNING 以及
+    调用 set_error_handler() 所在的文件中产生的大多数 E_STRICT 。
+
+    如果错误发生在脚本执行之前(例如在文件上传时)，自定义的错误处理程序不会被调用，因为它当时还没有被注册。
+参数
+    error_handler
+        回调，签名如下。可以传递 NULL，将该处理程序重置为其默认状态。除了函数名，还可以提供一个包含了对象引用和方法名的数组。
+
+        handler ( int $errno , string $errstr [, string $errfile [, int $errline [, array $errcontext ]]] ) : bool
+        errno
+            第一个参数，errno 包含了发生的错误的级别，整数。
+        errstr
+            第二个参数，errstr 包含了错误的消息，字符串。
+        errfile
+            第三个参数是可选的，errfile 会包含错误发生在的文件名，字符串。
+        errline
+            第四个参数是可选的，errline 会包含错误发生在的行号，整数。
+        errcontext
+            第五个参数是可选的，errcontext 是一个指向错误发生时的活动符号表的数组。换句话说，errcontext 是一个其中包含了错误触发时作用域中存在
+            的每个变量的数组。用户的错误处理程序不能修改该错误环境。
+            警告：从 PHP 7.2.0 开始该参数被废弃，非常不鼓励依赖该参数。
+        如果该函数返回 FALSE，则会继续常规的错误处理。
+    error_types
+        就像 error_reporting ini 设置控制哪些错误会被显示一样，该参数可以用于屏蔽 error_handler 函数的触发。
+        如果没有该屏蔽设置，那么针对每一个错误都会调用 error_handler ，不论 error_reporting 如何设置。
+返回值
+    返回值一个字符串，它包含了之前定义的那个错误处理程序（如果有的话）。如果内置的错误处理程序被使用，则返回 NULL 。当发生错误，例如一个无效的回调，
+    也会返回 NULL 。如果前面的错误处理程序是一个类方法，该函数将返回一个带有类名和方法名的索引数组。

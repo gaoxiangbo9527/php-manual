@@ -1,0 +1,10 @@
+这些常量作为 PHP 核心的一部分总是可用的。
+
+断言常量，这些值用于设置 assert_options() 中的断言选项。
+assert() 常量
+    常量                     INI设置             描述
+    ASSERT_ACTIVE	        assert.active       启用 assert() 执行
+    ASSERT_CALLBACK	        assert.callback     断言失败时会调用的回调
+    ASSERT_BAIL	            assert.bail	        在断言失败时终止执行
+    ASSERT_WARNING	        assert.warning	    为每一个失败的断言生成一个 PHP 警告
+    ASSERT_QUIET_EVAL	    assert.quiet_eval	在断言表达式求值时禁用 error_reporting

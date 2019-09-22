@@ -1,3 +1,10 @@
+语言选项
+    zend.assertions	    integer
+        当设置为1时，断言代码会被生成和执行（开发模式）；当设置为0时，断言代码会生成但会被掉过（不执行）；当设置为-1时，断言代码不会被执行，使得断
+        言0成本（生产模式）。
+        注意
+            如果在生产模式中启动一个过程，那么在运行时期间不能改变 zend.assertions ，因为断言代码并没有生成。
+            如果在开发模式中启动一个过程，那么在运行时期间不能将 zend.assertions 设置为 -1 。
 数据处理
     variables_order string
         设置 EGPCS （Environment，Get，Post，Cookie 和 Server） 变量的解析顺序。

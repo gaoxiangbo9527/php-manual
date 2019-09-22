@@ -1,0 +1,21 @@
+介绍
+    当使用 assert() 做出的断言失败时会抛出 AssertionError 错误。
+类摘要
+    AssertionError extends Error {
+        /* Inherited properties */
+        protected string $message ;
+        protected int $code ;
+        protected string $file ;
+        protected int $line ;
+
+        /* Inherited methods */
+        final public Error::getMessage ( void ) : string
+        final public Error::getPrevious ( void ) : Throwable
+        final public Error::getCode ( void ) : mixed
+        final public Error::getFile ( void ) : string
+        final public Error::getLine ( void ) : int
+        final public Error::getTrace ( void ) : array
+        final public Error::getTraceAsString ( void ) : string
+        public Error::__toString ( void ) : string
+        final private Error::__clone ( void ) : void
+    }

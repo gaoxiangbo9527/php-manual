@@ -1,0 +1,37 @@
+通过继承内置的 Exception 类用户就可以定义一个自定义的异常类。
+下面的成员和属性显示了从内置的 Exception 类派生的子类中可以访问的内容:
+    class Exception extends Throwable
+    {
+        protected $message = 'Unknown exception';   // exception message
+        private   $string;                          // __toString cache
+        protected $code = 0;                        // user defined exception code
+        protected $file;                            // source filename of exception
+        protected $line;                            // source line of exception
+        private   $trace;                           // backtrace
+        private   $previous;                        // previous exception if nested exception
+
+        public function __construct($message = null, $code = 0, Exception $previous = null);
+
+        final private function __clone();           // Inhibits cloning of exceptions.
+
+        final public  function getMessage();        // message of exception
+        final public  function getCode();           // code of exception
+        final public  function getFile();           // source filename
+        final public  function getLine();           // source line
+        final public  function getTrace();          // an array of the backtrace()
+        final public  function getPrevious();       // previous exception
+        final public  function getTraceAsString();  // formatted string of trace
+
+        // Overrideable
+        public function __toString();               // formatted string for display
+    }
+    (个人补充)上面的内容可能不是完全准确的。
+如果一个类继承了内置的 Exception 类，并且重新定义了构造方法。强烈建议它调用 parent::__construct() 以确保所有可用的数据都得到了正确的赋值。
+可以重写 __toString() 方法，从而当对象以字符串形式呈现时提供自定义的输出。
+
+注意
+    不能克隆异常。试图克隆异常将导致致命的 E_ERROR 错误。
+
+注意
+    PHP 5.3.0之前的版本不支持异常嵌套。
+    （个人补充）即 $previous 属性。

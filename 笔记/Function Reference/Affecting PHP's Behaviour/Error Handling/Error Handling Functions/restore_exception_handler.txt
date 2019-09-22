@@ -1,0 +1,5 @@
+描述
+    restore_exception_handler ( void ) : bool
+    在使用 set_exception_handler() 改变了异常处理程序之后，可以通过该函数恢复前一个的异常处理程序（可能是内置的函数或者用户自定义的函数）。
+返回值
+    该函数总会返回 true 。
