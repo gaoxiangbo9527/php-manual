@@ -3,7 +3,7 @@
 $double = function($a) {
     return $a * 2;
 };
-echo gettype(function () {});exit;
+//echo gettype(function () {});exit;
 // This is our range of numbers
 $numbers = range(1, 5);
 

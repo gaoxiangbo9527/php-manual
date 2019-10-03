@@ -1,0 +1,42 @@
+手册中的每个函数都有文档，以便快速参考。知道如何阅读和理解这些文本会使学习 PHP 变得更加容易。所有人都应该知道如何阅读函数的定义（原型），而不是依靠
+示例以及复制和黏贴。让我们开始吧：
+
+注意：先决条件：对类型有基本的理解
+    虽然 PHP 是一个松散类型的编程语言，对类型有一个基本的理解也是十分重要的，因为这些类型有着重要的意义。
+
+函数的定义告诉我们它会返回何种类型的值。让我们使用 strlen() 的定义作为我们的第一个例子：
+    strlen
+
+    (PHP 4, PHP 5)
+    strlen -- Get string length
+
+    Description
+    strlen ( string $string ) : int
+
+    Returns the length of given string.
+
+一个函数定义的说明
+    部分                 说明
+    strlen	            函数名
+    (PHP 4, PHP 5)	    strlen() 已经出现在所有版本的 PHP 4 和 PHP 5 中
+    ( string $string )	该函数的第一个（本例中也是唯一的一个）参数命名为 string，并且它是一个字符串。
+    int	                该函数返回的值的类型，是一个整数（字符串的长度是用数字来度量的）。
+
+我们可以以一种通用的方式重写上面的函数定义：
+    function name   ( parameter type   parameter name ) : returned type
+许多函数接受多个参数，例如 in_array() 。它的原型如下：
+    in_array ( mixed $needle, array $haystack [, bool $strict = FALSE ] ) : bool
+这是什么意思? in_array() 返回一个布尔值，成功（如果 needle 在 haystack 中被找到）返回 TRUE 或失败（如果 needle 没有在 haystack 中被找到）
+返回 FALSE。第一个参数被命名为 needle 并且它可以是多种不同的类型，因此我们称它为 "mixed" 。这个混合的 neelde （我们要查找的东西）可以是一个标量
+值（字符串、整数或者浮点数）或者一个数组。haystack （我们会在其中进行搜索的数组）是第二个参数。第三个可选的参数被命名为 strict 。所有可选的参数可
+以在[]中看的到。该手册规定，strict 参数默认为布尔 FALSE 。关于每个函数是如何工作的详细信息，请参阅手册页。
+
+此外将 & （与）符号放置到函数参数的前面可以让参数按引用被传递。就像下面这样：
+     preg_match ( string $pattern , string $subject [, array &$matches [, int $flags = 0 [, int $offset = 0 ]]] ) : int
+在这个例子中，我们可以看到第三个可选的参数 &$matches 会被按引用传递。
+
+还有一些函数具有更复杂的 PHP 版本信息。拿  html_entity_decode() 作为一个例子来说：
+    (PHP 4 >= 4.3.0, PHP 5)
+这意味着该函数只在 PHP 4.3.0 及之后发布的版本中可用。
+
+

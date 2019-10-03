@@ -1,0 +1,20 @@
+PHP 支持变量函数的概念。
+这意味着如果一个变量名后跟着一对花括号，PHP 将查找与变量求值结果同名的函数，并且会尝试去执行它。除此之外，变量函数还可以用来实现回调、函数表等等。
+
+变量函数无法同语言结构一同工作，比如 echo、print、unset()、isset()、empty()、include 和 require 等等。
+利用包装函数可将这些构造中的任何一个用作变量函数。
+
+对象方法也可以使用变量函数语法调用。
+    比如 $foo->$funcname();
+
+当调用静态方法时，函数调用优先于静态属性操作符。
+    比如 Foo::$variable(); 相当于 Foo::($variable());
+
+从 PHP 5.4.0 开始，你可以调用在一个变量当中存储的任何一种 callable 。比如：
+    $func = array("Foo", "bar");
+    $func();
+    $func = array(new Foo, "baz");
+    $func();
+    $func = "Foo::bar";
+    $func(); // 从 PHP 7.0.0 开始可用，在这之前会报一个致命错误。
+

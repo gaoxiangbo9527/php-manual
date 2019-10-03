@@ -1,0 +1,11 @@
+描述
+    extension_loaded ( string $name ) : bool
+    查明扩展是否是已加载的。
+参数
+    name
+        扩展的名称，该参数是大小写不敏感的。
+
+        通过使用 phpinfo() 你可以看到各种扩展的名称；如果你正在使用 CGI 或 CLI 版本的 PHP 的话，你可以使用 -m 开关去列出所有可用的扩展。
+返回值
+    如果由 name 标识的扩展是已加载的，返回 TRUE，否则返回 FALSE 。
+

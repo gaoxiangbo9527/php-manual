@@ -9,30 +9,35 @@ PHP 的“解释器钩子”提供了动态的创建属性和方法的途径；
 
 所有的“解释器钩子”方法都必须被定义为 public 。
 
-这些魔术方法的参数都不能通过引用传递。
+注意
+    这些魔术方法的参数都不能通过引用传递。
+注意
+    PHP对重载的解释与大多数面向对象语言不同。传统上的重载提供了让多个方法具有相同名称但参数数量和类型却不同的能力。
 
 属性的“解释器钩子”
-    public void __set(string $name, $mixed $value);
-    public mixed __get(string $name);
-    public bool __isset(string $name);
-    public void __unset(string $name);
+    public __set ( string $name , mixed $value ) : void
+    public __get ( string $name ) : mixed
+    public __isset ( string $name ) : bool
+    public __unset ( string $name ) : void
 
-    在给不可访问属性赋值时，__set() 会被调用。
-    在读取不可访问属性的值时，__get() 会被调用。
-    在对不可访问属性调用 isset() 或 empty() 时，__isset() 会被调用。
-    在对不可访问属性调用 unset() 时，__unset() 会被调用。
+    当向不可访问的属性（protected 或者 private）或者不存在的属性写数据时时，__set() 会被调用。
+    当从不可访问的属性（protected 或者 private）或者不存在的属性读取数据时，__get() 会被调用。
+    当在不可访问的属性（protected 或者 private）或者不存在的属性上调用 isset() 或 empty() 时，__isset() 会被调用。
+    当对不可访问的属性（protected 或者 private）或者不存在的属性上使用 unset() 时，__unset() 会被调用。
 
-    参数 $name 是指要操作的变量名称。__set() 方法的 $value 参数指定了 $name 变量本应赋予的值。
+    参数 $name 是指要操作的变量名称。__set() 方法的 $value 参数指定了 $name 变量本应被设置的值。
 
-    属性的“解释器钩子”只在对象上下文中生效，在静态上下文中不会触发这些魔术方法，所以这些魔术方法都不能被声明为 static;
+    属性的“解释器钩子”只在对象上下文中生效，在静态上下文中不会触发这些魔术方法，所以这些魔术方法都不能被声明为 static ；
     从 PHP 5.3.0 起，如果将这些魔术方法中的任何一声明为 static 就会报一个警告。
 
-    注意，因为 PHP 处理赋值运算的方式（赋值表达式的值就是要赋予的值），所以__set()的返回值将被忽略。类似的, 在下面这样的链式赋值中，__get()不会被调用：
-    $a = $obj->b = 8;
+    注意
+        因为 PHP 处理赋值运算的方式（赋值表达式的值就是要赋予的值），所以 __set() 的返回值将被忽略。类似的, 在下面这样的链式赋值中，__get() 不
+        会被调用：
+        $a = $obj->b = 8;
 
 方法的“解释器钩子”
-    public mixed __call(string $name, array $arguments);
-    public static mixed __callStatic(string $name, array $arguments);
+    public __call ( string $name , array $arguments ) : mixed
+    public static __callStatic ( string $name , array $arguments ) : mixed
 
     在对象上下文中调用一个不可访问方法时，__call() 会被调用。
     在静态上下文中调用一个不可访问方法时，__callStatic() 会被调用。

@@ -1,0 +1,11 @@
+描述
+    get_loaded_extensions ([ bool $zend_extensions = FALSE ] ) : array
+    该函数返回所有被编译或者加载进 PHP 解释器的模块的名称。
+参数
+    zend_extensions
+        仅返回 Zend 扩展，如果没有，则还会列出常规扩展，如 mysqli 。默认为 FALSE 。
+返回值
+    返回所有模块名称的索引数组。
+更新日志
+    版本      描述
+    5.2.4	 添加了可选的 zend_extensions 参数

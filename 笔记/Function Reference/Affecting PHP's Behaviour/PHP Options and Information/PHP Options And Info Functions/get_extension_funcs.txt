@@ -1,0 +1,10 @@
+描述
+    get_extension_funcs ( string $module_name ) : array
+    该函数返回由 module_name 指定的模块中所有被定义的函数的名称。
+参数
+    module_name
+        模块的名称。
+        注意
+            该参数必须是小写的。
+返回值
+    返回所有函数的一个数组，或者当 module_name 不是一个有效的模块时返回 FALSE 。

@@ -6,6 +6,16 @@
             如果在生产模式中启动一个过程，那么在运行时期间不能改变 zend.assertions ，因为断言代码并没有生成。
             如果在开发模式中启动一个过程，那么在运行时期间不能将 zend.assertions 设置为 -1 。
 数据处理
+    数据处理配置选项
+        名称                             默认值       可修改范围            变化日志
+        variables_order	                "EGPCS"	    PHP_INI_PERDIR	    在 PHP <= 5.0.5 中是 PHP_INI_ALL
+        request_order	                ""	        PHP_INI_PERDIR	    从 PHP 5.3.0 开始可用
+        register_argc_argv	            "1"	        PHP_INI_PERDIR
+        post_max_size	                "8M"	    PHP_INI_PERDIR
+        auto_prepend_file               NULL        PHP_INI_PERDIR
+        auto_append_file	            NULL	    PHP_INI_PERDIR
+        always_populate_raw_post_data	"0"	        PHP_INI_PERDIR	    在 PHP 7.0.0 中被移除了。
+
     variables_order string
         设置 EGPCS （Environment，Get，Post，Cookie 和 Server） 变量的解析顺序。
         个人补充：个人理解由于 $_SESSION 是 PHP 内部的变量，不像上面的这几种变量是从 PHP 外来的，所以也就不在该指令的配置范围之内。
@@ -35,6 +45,15 @@
             5.3.4           当 Content-Type 是 application/x-www-form-urlencoded 或者 PHP 没有注册的值，post_max_size = 0 不会
                             禁用该限制。
             5.3.2 , 5.2.12  通过将 post_max_size 设置为 0 ，即可不限制 post 的大小。
+    auto_prepend_file   string
+        指定会自动的在主文件之前被解析的文件的文件名。
+        该文件会像使用 require 调用了该文件那样被包含（进主文件），并且会使用 include_path 。
+        特殊的值 none 会禁用自动前置。
+    auto_append_file    string
+        指定会自动的在主文件之后被解析的文件的文件名。
+        该文件会像使用 require 调用了该文件那样被包含（进主文件），并且会使用 include_path 。
+        特殊的值 none 会禁用自动后置。
+        注意：如果脚本被 exit() 终止，自动后置将不会发生。
     always_populate_raw_post_dat    mixed
         警告：这个特性在 PHP 5.6.0 中被废弃了并且从 PHP 7.0.0 开始被移除了。
 

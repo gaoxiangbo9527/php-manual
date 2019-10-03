@@ -1,0 +1,12 @@
+描述
+    get_defined_functions ([ bool $exclude_disabled = FALSE ] ) : array
+    获取所有已定义的函数的数组。
+参数
+    exclude_disabled
+        是否被禁用的函数应当从返回值中排除。
+返回值
+    返回一个多维数组，它包含了一份所有已定义的函数的清单，包括内置的(内部的)和用户定义的。
+    内部的函数可以通过 $arr["internal"] 访问，而用户定义的函数可以通过 $arr["user"] 访问。
+更新日志
+    版本              描述
+    7.0.15, 7.1.1    添加了 exclude_disabled 参数。

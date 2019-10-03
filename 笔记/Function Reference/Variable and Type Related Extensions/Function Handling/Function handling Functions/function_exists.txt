@@ -1,0 +1,13 @@
+描述
+    function_exists ( string $function_name ) : bool
+    在内置和用户定义的已定义的函数列表中检查 function_name 。
+参数
+    function_name
+        函数名，字符串。
+返回值
+    如果 function_name 存在而且是一个函数返回 TRUE ，反之返回 FALSE 。
+    注意
+        对于结构，例如 include_once 和 echo ，该函数会返回 FALSE 。
+注意事项
+    注意
+        一个函数名可能是存在的，即使该函数本身由于配置或编译选项的原因是不可用的(以图像函数为例)。
