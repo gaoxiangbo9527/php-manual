@@ -1,0 +1,16 @@
+介绍
+    用于表示匿名函数的类。
+
+    在 PHP 5.3 中实现的匿名函数会产生这种类型的对象。这个事实过去被认为是实现细节，但现在可以依赖它。
+    从 PHP 5.4 开始，这个类的方法允许在匿名函数创建之后进一步控制它。
+
+    除了在这里列出的方法，该类也有一个 __invoke 方法。这是为了与其他实现调用魔法的类保持一致，因为此方法不用于调用函数。
+类摘要
+    Closure {
+        /* Methods */
+        private __construct ( void )
+        public static bind ( Closure $closure , object $newthis [, mixed $newscope = "static" ] ) : Closure
+        public bindTo ( object $newthis [, mixed $newscope = "static" ] ) : Closure
+        public call ( object $newthis [, mixed $... ] ) : mixed
+        public static fromCallable ( callable $callable ) : Closure
+    }

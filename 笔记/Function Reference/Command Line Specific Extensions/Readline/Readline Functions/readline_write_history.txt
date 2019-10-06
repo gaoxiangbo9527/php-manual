@@ -1,0 +1,8 @@
+描述
+    readline_write_history ([ string $filename ] ) : bool
+    该函数将命令历史记录写入到一个文件。
+参数名
+    filename
+        保存文件的路径。
+返回值
+    成功返回 TRUE 失败返回 FALSE 。

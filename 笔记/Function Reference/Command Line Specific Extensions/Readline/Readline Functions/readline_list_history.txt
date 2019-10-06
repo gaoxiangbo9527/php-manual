@@ -1,0 +1,8 @@
+描述
+    readline_list_history ( void ) : array
+    获取全部的命令行历史记录。
+返回值
+    返回一个全部的命令行历史记录的数组。元素是由从零开始的整数索引的。
+来自用户的笔记
+    此函数仅在 PH P使用 libreadline 编译时可用，而在使用 libedit 编译时不可用。
+    所以你可能需要借助 function_exists() 来判断，然后进行相应的处理，比如说手动模拟。

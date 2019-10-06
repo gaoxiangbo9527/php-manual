@@ -1,0 +1,5 @@
+为了使用这些 readline 函数，你需要安装 libreadline 。你可以在 GNU Readline 项目的主页
+https://tiswww.case.edu/php/chet/readline/rltop.html 中找到 libreadline 。它是由 Chet Ramey 维护的，他也是 Bash 的作者。
+
+你还可以借助 libedit 库来使用这些函数，它是 readline 库的非 GPL 替代品。libedit 是 BSD 授权的并且可以从
+http://www.thrysoee.dk/editline/ 下载。

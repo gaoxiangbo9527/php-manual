@@ -1,0 +1,8 @@
+描述
+    readline ([ string $prompt = NULL ] ) : string
+    从用户处读取一行。你必须自己使用 readline_add_history() 才能将这一行添加到历史记录中。
+参数
+    prompt
+        你可以指定一个字符串，通过它可以提示用户。
+返回值
+    返回从用户处得到的一行字符串。返回的行删除了结束的换行符。

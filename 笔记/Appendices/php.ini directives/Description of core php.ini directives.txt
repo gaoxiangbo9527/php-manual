@@ -32,6 +32,7 @@
         注意由于安全性原因，默认的 php.ini 文件中不会包含 "C" 从而去包含 cookie 。
     register_argc_argv  boolean
         告知 PHP 是否声明 argc 和 argv 变量（它们将包含 GET 信息）。另请参阅 命令行。
+        (个人补充，这里说的不是很准确，具体看 $argc 和 $argv 中的个人总结)
     post_max_size   integer
         设置 post 数据允许的最大大小。
         这个设置也会影响文件上传，想要上传大文件，则它的值必须大于 upload_max_filesize 的值。

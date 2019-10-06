@@ -1,0 +1,12 @@
+这些函数的行为会受到 php.ini 中的设置的影响。
+
+Readline 配置选项
+    名称         默认值           修改范围          更新日志
+    cli.pager   ""	            PHP_INI_ALL     从 PHP 5.4.0 开始可用。
+    cli.prompt	"\\b \\> "	    PHP_INI_ALL     从 PHP 5.4.0 开始可用。
+
+下面是一份这些配置指令的简短说明。
+    cli.pager   string
+        用于显示命令行的输出的外部工具。
+    cli.prompt  string
+        命令行提示符。

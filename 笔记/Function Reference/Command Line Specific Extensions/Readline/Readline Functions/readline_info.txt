@@ -1,0 +1,12 @@
+描述
+    readline_info ([ string $varname [, string $newvalue ]] ) : mixed
+    获取或者设置各种内部的 readline 变量。
+参数
+    varname
+        一个变量的名称。
+    newvalue
+        如果提供，这将是设置的新值。
+返回值
+    如果没有使用参数调用，该函数会返回 readline 使用的所有设置的值的数组。这些元素将按照以下值进行索引：done、end、erase_empty_line、
+    library_version、line_buffer、mark、pending_input、point、prompt、readline_name 和 terminal_name 。
+    如果使用一个或两个参数调用，则返回旧的值。

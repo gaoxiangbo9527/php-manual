@@ -1,0 +1,9 @@
+描述
+    readline_read_history ([ string $filename ] ) : bool
+    该函数从一个文件读取命令历史记录。
+参数
+    filename
+        包含命令历史记录的文件路径。
+返回值
+    成功返回 TRUE 失败返回 FALSE 。
+

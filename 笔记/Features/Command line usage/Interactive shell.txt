@@ -1,0 +1,44 @@
+从 PHP 5.1.0 开始，如果 PHP 使用 --with-readline 选项编译，那么 CLI SAPI 就可以使用 -a 选项提供一个交互式的 shell 。
+从 PHP 7.1.0 开始，如果 readline 扩展是启用的，交互式 shell 也可以在 Windows 上使用。
+
+使用交互式 shell，你能够输入 PHP 代码并直接执行它。
+
+交互式 shell 还提供了函数、常量、类名、变量、静态方法调用和类常量的 tab 键补全功能。
+当有多个可能的补全时，按 tab 键两次将得到这些补全的列表。
+当只有一个可能的补全时，按 tab 键一次将在同一行完成剩余的补全。
+（个人补充，tab 键补全的功能在 Linux 和 Windows 中都可能和上面描述有些差异）
+对于在当前的交互式 shell 会话期间定义的名称，也可以使用补全。
+（个人补充，Windows 中好像不支持该补全用法）
+交互式 shell 保存了你的历史记录，可以使用向上和向下键访问这些记录。这些历史保存在 ~/.php_history 文件中。
+（个人补充，Linux 中没看到 ~/.php_history 文件，反而在 Windows 中却看到了，不确定是不是 Linux 用户和权限的原因）
+
+从 PHP 5.4.0 开始，CLI SAPI 提供了 php.ini 设置 cli.pager 和 cli.prompt 。
+cli.pager 设置允许一个外部程序（比如 less）作为输出的分页程序，而不是直接显示在屏幕上。
+cli.prompt 设置使得更改 php > 提示符成为可能。
+在 PHP 5.4.0 中，还可以使用简写符号在交互式 shell 中设置 php.ini 设置。
+    php > #cli.prompt=hello world :>
+    hello world :>
+使用反引号就可能在提示符中执行 PHP 代码:
+    php > #cli.prompt=`echo date('H:i:s');` php >
+    15:49:35 php > echo 'hi';
+    hi
+    15:49:43 php > sleep(2);
+    15:49:45 php >
+    （个人补充，不论 Linux 还是 Windows 都不完全是这样）
+把分页程序设置为 less ：
+    php > #cli.pager=less
+    php > phpinfo();
+    (output displayed in less)
+    php >
+cli.prompt 设置支持几个转义序列：
+    cli.prompt 转义序列
+        序列     描述
+        \e	    用于为提示符添加颜色。一个可能的例子是 \e[032m\v \e[031m\b \e[34m\> \e[0m
+        \v      PHP 版本
+        \b      指示 PHP 所在的块。例如 /* 表示在多行注释中。外部作用域由 php 表示。
+        \>      表示提示字符。默认时提示字符是 > ，但当 shell 位于未终止的块或字符串内时提示字符会改变，可能的字符有：' " { ( > 。
+注意
+    在该模式中，通过 auto_prepend_file 和 auto_append_file 包含进来的文件会被解析，但是存在一些限制 —— 例如，函数必须在被调用之前定义。
+
+注意
+    如果以 CLI 交互模式使用 PHP ，自动加载 是不可用的。

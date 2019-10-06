@@ -1,0 +1,27 @@
+本部分列出了不打算用于生产的扩展 —— 它们要么太“旧”(被废弃)，要么太“新”(实验性的)。
+
+被废弃的扩展
+    这些扩展通常因被其他的扩展取代而被弃用
+    Memtrack
+    Mimetype
+
+实验性质的扩展
+    这些扩展的行为 —— 包括它们的函数的名称以及关于这些扩展的任何文档 —— 都可能在将来的 PHP 发布中悄无声息的改变。请自行承担使用这些扩展的风险：
+    bcompiler
+    DB++
+    haru
+    Hash
+    ImageMagick
+    Ming
+    Ncurses
+    Newt
+    Paradox
+    MS SQL Server (PDO)
+    Firebird (PDO)
+    Oracle (PDO)
+    PS
+    SCA
+    SDO-DAS-Relational
+    Swish
+    vpopmail
+    XML-RPC

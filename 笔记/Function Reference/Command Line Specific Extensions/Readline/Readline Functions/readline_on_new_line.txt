@@ -1,0 +1,7 @@
+描述
+    readline_on_new_line ( void ) : void
+    告诉 readline 将光标移动到新的一行上。
+返回值
+    没有返回值。
+个人补充
+    在 Windows 上测试，该函数不存在。

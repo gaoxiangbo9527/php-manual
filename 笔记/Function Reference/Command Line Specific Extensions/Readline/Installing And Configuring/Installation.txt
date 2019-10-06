@@ -1,0 +1,4 @@
+为了使用这些函数，你必须编译具有 readline 支持的 CGI 或 CLI 版本的 PHP。你需要使用 -with-readline[=DIR] 配置 PHP 。
+如果你想要使用 libedit 这个 readline 的替代品，使用 --with-libedit[=DIR] 配置 PHP 。
+
+从 PHP 7.1.0 开始，这个库在 Windows 上是默认可用的。

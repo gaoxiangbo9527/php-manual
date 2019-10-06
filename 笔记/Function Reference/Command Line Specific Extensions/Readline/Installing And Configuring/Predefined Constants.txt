@@ -1,0 +1,4 @@
+下面的常量是由这个扩展定义的，而且这些常量只有在该扩展被编译进 PHP 或在运行时被动态的加载进 PHP 时才可用。
+
+READLINE_LIB    (string)
+    用于支持 readline 的库；目前要么是 readline，要么是 libedit。从 PHP 5.5.0 开始可用。

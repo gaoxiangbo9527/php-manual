@@ -1,0 +1,9 @@
+描述
+    readline_completion_function ( callable $function ) : bool
+    该函数会注册一个补全函数。这与你在使用 Bash 时按 tab 键得到的功能是相同的。
+参数
+    function
+        你必须提供一个已存在的函数的名称，该函数接受部分命令行并返回可能匹配的数组。
+返回值
+    成功返回 TRUE 失败返回 FALSE 。
+

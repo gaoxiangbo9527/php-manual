@@ -1,0 +1,10 @@
+描述
+    readline_add_history ( string $line ) : bool
+    该函数会添加一行到命令行历史记录中。
+参数
+    line
+        将要被添加到历史记录中的行。
+返回值
+    成功返回 TRUE 失败返回 FALSE 。
+来自用户贡献的笔记
+    readline_add_history() 也会添加空字符串到历史记录中，这可能不是你所期望的。

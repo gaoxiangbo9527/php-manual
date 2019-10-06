@@ -1,0 +1,127 @@
+这份由 PHP 二进制程序提供的命令行选项列表可以在任何时间通过运行带有 -h 开关的 PHP 查询到：
+    Usage: php [options] [-f] <file> [--] [args...]
+       php [options] -r <code> [--] [args...]
+       php [options] [-B <begin_code>] -R <code> [-E <end_code>] [--] [args...]
+       php [options] [-B <begin_code>] -F <file> [-E <end_code>] [--] [args...]
+       php [options] -- [args...]
+       php [options] -a
+
+      -a               交互式的运行
+      -c <path>|<file> 在该目录中查找 php.ini 文件
+      -n               没有 php.ini 文件会被使用
+      -d foo[=bar]     定义 INI 条目 foo，并将其值设置为 'bar'
+      -e               为调试器/分析器生成扩展的信息。
+      -f <file>        解析和执行 <file>
+      -h               本帮助
+      -i               PHP 信息
+      -l               只检查语法（lint）
+      -m               显示已编译进的模块
+      -r <code>        不使用脚本标签 <?..?> 运行 PHP <code>
+      -B <begin_code>  在处理输入行之前运行 PHP <begin_code>
+      -R <code>        为每个输入行运行 PHP <code>
+      -F <file>        为每个输入行解析和执行 <file>
+      -E <end_code>    在处理完所有的输入行之后运行 PHP <end_code>
+      -H               向外部工具隐藏所有传递的参数
+      -S <addr>:<port> 运行内置的 web 服务器
+      -t <docroot>     为内置的 web 服务器指定文档根目录 <docroot>
+      -s               输出 HTML 语法高亮显示的源代码
+      -v               版本号
+      -w               输出抽离了注释和空白的源代码
+      -z <file>        加载 Zend 扩展 <file>
+
+      args...          传递给脚本的参数。当第一个参数以 - 开头或者脚本是从 stdin 中读取时使用 -- 参数。
+
+      --ini            显示配置文件们的名称。
+
+      --rf <name>      显示关于函数 <name> 的信息
+      --rc <name>      显示关于类 <name> 的信息
+      --re <name>      显示关于扩展 <name> 的信息
+      --rz <name>      显示关于 Zend 扩展 <name> 的信息
+      --ri <name>      显示扩展 <name> 的配置信息
+
+命令行选项
+    选项         长选项               描述
+    -a	        --interactive	    交互式的运行 PHP 。更多信息请查看 交互式shell 章节。
+    -b          --bindpath          外部 FASTCGI 服务器模式的绑定路径（仅 CGI）。
+    -C	        --no-chdir	        不改变目录到脚本的目录（仅 CGI）。
+    -q	        --no-header	        静默模式。抑制 HTTP 头的输出（仅 CGI）。
+    -T	        --timing	        测量脚本重复计数次数的执行时间（仅 CGI）。
+    -c	        --php-ini           指定一个要在其中查找 php.ini 的目录，或者一个自定义的 INI 文件（它不需要被命名为 php.ini）。
+                                    如果未指定该选项，则会在默认位置搜索 php.ini 。
+    -n	        --no-php-ini	    完全忽略 php.ini 。
+    -d	        --define            为 php.ini 中允许的任何配置指令设置一个自定义值，语法为：
+                                    -d configuration_directive[=value]
+                                    省略 value 部分将会把指定的配置指令设置为 1
+                                    传递一个空 value 部分将会把指定的配置指令设置为 ""
+                                    其他情况下，配置指令将被设置为 = 字符之后传递的任何内容（个人补充，即使看起来不太对的内容）
+    -e	        --profile-info	    激活扩展信息模式，从而可以被某个调试器/分析器使用。
+    -f	        --file	            解析和执行特定的文件。-f 是可选的并且可以省略 —— 只提供要执行的文件名就足够了。
+                                    注意
+                                        想要将参数传递给脚本，第一个参数必须是 --，否则 PHP 会将把它们解释为 PHP 选项。
+                                        （个人补充，虽然这么非常好，但是只要传递给脚本的参数不是以 - 开头就不是必须要这么做的）
+    -h 和 -?     --help 和 --usage	输出一份命令行选项列表，并且用一行描述它们的作用。
+    -i	        --info	            调用 phpinfo() 并且会打印出结果。
+                                    如果 PHP 没有正常工作，建议使用 php -i 命令去查看是否在信息表的位置或者之前有打印出任何错误消息。
+                                    注意，当使用 CGI 模式时，输出是 HTML 格式的，因此会非常大。
+    -l	        --syntax-check      提供一种方便的方法去在特定的 PHP 代码上仅执行语法检查。
+                                    成功时，文本 No syntax errors detected in <filename> 会写如标准输出并且 shell 返回代码为 0 。
+                                    失败时，文本 text Errors parsing <filename> 以及内部解析器错误消息会写入标准输出并且 shell 的返
+                                    回代码被设置为 -1 。
+                                    该选项不会发现致命错误（如未定义的函数）。还可以使用 -f 去测试致命错误。
+                                    注意
+                                        该选项不能同 -r 选项一同工作。
+    -m	        --modules           显示内置的和已加载的 PHP 和 Zend 模块。
+    -r	        --run               允许执行直接在命令行上被包含的 PHP 。PHP 的起始和结束标签（<?php 和 ?>）不是必须的，而且如果出现还会
+                                    引发一个解析错误。
+                                    注意
+                                        使用这种形式的 PHP 时，必须注意不要与 shell 进行的命令行变量替换发生冲突。
+                                        sh/bash 在使用双引号时会执行变量替换，所以下面的代码：
+                                            $ php -r "$foo = get_defined_constants();"
+                                        在传递给 PHP 去执行时很可能变成这样：
+                                            $ php -r " = get_defined_constants();"
+                                        正确的方式是使用单引号，因为单引号字符串中的变量不会被 sh/bash 扩展：
+                                            php -r '$foo = get_defined_constants(); var_dump($foo);'
+                                        如果使用 sh/bash 之外的 shell，可能会遇到其他问题（在 Windows 命令行中上面的代码就会报错）。
+                                        尝试在命令行代码中使用变量（shell 和 PHP）或者反斜线转义仍然很容易陷入麻烦，因此当要这么做的时候
+                                        请务必小心，别说我没警告过你。
+
+                                    注意
+                                        -r 在 CLI SAPI 中是可用的，但是在 CGI SAPI 中是不可用的。
+                                    注意
+                                        该选项仅适用于非常基本的代码，因此在这中模式下一些配置指令（比如 auto_prepend_file 和
+                                        auto_append_file）会被忽略。
+    -B	        --process-begin     在开始处理 stdin 之前执行的 PHP 代码。在 PHP 5 中添加。
+    -R	        --process-code      为每个输入行执行的 PHP 代码。在 PHP 5 中添加。在该模式中有两个特殊的变量可以使用：$argn 和 $argi 。
+                                    $argn 会包含 PHP 此刻正在处理的行的内容，而 $argi 会包含该行的行号。
+    -F	        --process-file      为每个输入行执行的 PHP 文件。在 PHP 5 中添加。
+    -E	        --process-end       在处理完输入后会执行的 PHP 代码。在 PHP 5 中添加。
+                                    使用 -B，-R 和 -E 选项统计一个项目的总行数。
+                                    $ find my_proj | php -B '$l=0;' -R '$l += count(@file($argn));' -E 'echo "Total Lines: $l\n";'
+                                    Total Lines: 37328
+    -S	        --server	        启动内置的 web 服务器。从 PHP 5.4.0 开始可用。
+    -t	        --docroot	        为内置的 web 服务器指定文档根目录，从 PHP 5.4.0 开始可用。
+    -s	    --syntax-highlight      显示带有颜色的语法高亮显示的源代码。
+            --syntax-highlighting   此选项使用内部机制解析文件并将一份高亮显示的 HTML 版本写入到标准输出。
+                                    注意，它所做的只是生成一个 <code>[…]</code> HTML 标签，没有 HTML 头。
+                                    注意
+                                        该选项不能同 -r 选项一同工作。
+    -v	        --version           可以获取 PHP 和 Zend 的版本号，还可以获取到 SAPI 的名称。
+    -w	        --strip             显示注释和空白被抽离后的源代码。
+                                    注意
+                                        该选项不能同 -r 选项一同工作。
+    -z	        --zend-extension    加载 Zend 扩展。如果只给出一个文件名，PHP 将尝试从系统上的当前默认的库路径加载此扩展（例如，在 Linux
+                                    系统上通常使用 /etc/ld.so.conf）。传递一个带有绝对路径的文件名将不会使用系统的库搜索路径。一个包含目
+                                    录信息的相对文件名将告诉 PHP 尝试相对于当前目录加载扩展。
+                --ini	            显示配置文件名的名称以及被扫描的目录，从 PHP 5.2.3 开始可用。
+    --rf	    --rfunction	        显示关于指定函数或者类方法的信息（例如，参数的数量和名称）。从 PHP 5.1.2 开始可用。
+                                    只有当 PHP 被编译带有反射支持时才可以使用此选项。
+    --rc	    --rclass            显示关于指定类的信息（常量、属性和方法的列表）。从 PHP 5.1.2 开始可用。
+                                    只有当 PHP 被编译带有反射支持时才可以使用此选项。
+    --re	    --rextension	    显示关于指定扩展的信息（php.ini 选项，定义的函数，常量和类的列表）。从 PHP 5.1.2 开始可用。
+                                    只有当 PHP 被编译带有反射支持时才可以使用此选项。
+    --rz	    --rzendextension	显示指定 Zend 扩展的配置信息（与 phpinfo() 返回的信息相同）。从 PHP 5.4.0 开始可用。
+    --ri	    --rextinfo          显示指定扩展的配置信息（与 phpinfo() 返回的信息相同）。从 PHP 5.2.2 开始可用。
+                                    核心的配置信息是使用 “main” 作为扩展名。
+
+注意
+    选项 -rBRFEH， --ini 和 --r[fcezi] 只在 CLI 中可用。

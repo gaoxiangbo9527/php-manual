@@ -1,0 +1,9 @@
+这些函数的行为会受到 php.ini 中的设置的影响。
+
+Misc. 配置选项
+    名称                 默认值       可修改范围        更新日志
+    ignore_user_abort   "0"         PHP_INI_ALL
+
+ignore_user_abort   boolean
+    默认值 FALSE 。如果设置为 TRUE ，当客户端终止了脚本的连接后，这些脚本不会被中止。
+    另请参阅 ignore_user_abort() 。

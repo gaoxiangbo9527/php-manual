@@ -1,0 +1,5 @@
+描述
+    readline_clear_history ( void ) : bool
+    该函数会清除所有的命令行历史记录。
+返回值
+    成功返回 TRUE 失败返回 FALSE 。

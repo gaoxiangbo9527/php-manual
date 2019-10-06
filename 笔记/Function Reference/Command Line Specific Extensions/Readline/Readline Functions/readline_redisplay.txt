@@ -1,0 +1,7 @@
+描述
+    readline_redisplay ( void ) : void
+    重新绘制 readline 以重新绘制显示。
+返回值
+    没有返回值。
+个人补充
+    在 Windows 上测试，该函数不存在。
