@@ -1,0 +1,8 @@
+描述
+    unregister_tick_function ( callable $function ) : void
+    取消注册 function 参数指定的函数，从而当 tick 被调用时不会再执行该函数。
+参数
+    function
+        要取消注册的函数。
+返回值
+    没有返回值。
