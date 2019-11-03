@@ -3,7 +3,7 @@ class SimpleClass
 {
     public $var = 'a default value';
 
-    public function displayVar()
+    protected function displayVar()
     {
         echo $this->var;
     }

@@ -44,7 +44,6 @@ Method Visibility
     $myFoo->test(); // Bar::testPrivate
                     // Foo::testPublic
 
-
 Constant Visibility
     从 PHP 7.1.0 开始，类常量也可以被定义为 public、 protected 或 private；如果常量声明中没有显式指明可见性，则默认为 public。
 
