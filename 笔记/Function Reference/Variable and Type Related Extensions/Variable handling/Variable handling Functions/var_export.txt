@@ -1,27 +1,30 @@
 输出或者返回一个变量的 可解析的字符串表示
 
 描述
-    mixed var_export ( mixed $expression [, bool $return = FALSE ] )
+    var_export ( mixed $expression [, bool $return = FALSE ] ) : mixed
 
-    var_export() 可以获取特定变量的结构信息。它和 var_dump() 非常类似，不同的是其返回的表示是合法的 PHP 代码。
+    var_export() 可以获取关于特定变量的结构信息。它和 var_dump() 非常类似，不同的是它返回的表示是合法的 PHP 代码。
 
 参数
     expression
         你想要导出的变量。
     return
-        如果使用该参数且指定为 true ，则 var_export() 会返回变量的表示，而不是输出。
+        如果使用且设置为 true ，那么 var_export() 会返回变量的表示，而不是输出。
 
 返回值
-    当使用了 return 参数且指定为 true ，那么会返回该变量的表示；否则就返回 null
+    当使用了 return 参数且指定为 true ，那么会返回该变量的表示；否则该函数就返回 null
 
 变更日志
-    从 PHP 5.1.0 开始，才通过借助 __set_state() 方法，可以导出类或者包含类的数组。
+    版本         描述
+    5.1.0       使用 __set_state() 魔术方法，可能导出类和包含类的数组。
 
-注意
-    如果使用了 return 参数，该函数会使用内部输出缓冲，所以此时该函数不能用于 ob_start() 函数的回调函数中。
-
-    资源类型的变量不能使用该函数导出。
-
-    var_export() 函数无法处理循环引用，因为它几乎不可能生成可解析的PHP代码。
-
-    当 var_export() 导出对象时，对于在某个命名空间下的类，为了最大的兼容性，类名中不会包含开头的反斜线。
+注意事项
+    注意
+        资源类型的变量不能使用该函数导出。
+    注意
+        var_export() 函数无法处理循环引用，因为它几乎不可能生成可解析的 PHP 代码。如果你希望对一个数组或对象的完整表示形式进行处理，请使用
+        serialize() 。
+    警告
+        当 var_export() 导出对象时，对于在某个命名空间下的类，为了最大的兼容性，类名中不会包含开头的反斜线。
+    注意
+        为了能够求值 var_export() 生成的 PHP，所有被处理的对象都必须实现魔术方法 __set_state。注意 StdClass 并没有实现 __set_state 。

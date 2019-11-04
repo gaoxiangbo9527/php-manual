@@ -1,10 +1,10 @@
 介绍
-    该接口是用于自定义序列化的接口。
+    用于自定义序列化的接口。
 
-    实现 Serializable 接口的类将不再支持 __sleep() 和 __wakeup() 方法。
+    实现该接口的类将不再支持 __sleep() 和 __wakeup() 方法。
 
-    当对象需要被序列化时，就会调用 serialize 方法；
-    这个方法不会调用 __destruct() 或者有任何副作用，除非你故意在 serialize() 方法中这么编程。
+    当一个实例需要被序列化时，就会调用 serialize 方法；
+    这个方法不会调用 __destruct() 或者有任何副作用，除非在 serialize() 方法中这么编程。
 
     当数据被反序列化时，类将被感知并且会去调用 unserialize() 方法代替 __construct()方法（作为构造方法）；
     此时，如果你需要去执行标准的构造方法，则应该在 unserialize() 方法中进行执行（调用）。
@@ -12,6 +12,6 @@
 接口摘要
     Serializable {
         /* Methods */
-        abstract public string serialize ( void )
-        abstract public void unserialize ( string $serialized )
+        abstract public serialize ( void ) : string
+        abstract public unserialize ( string $serialized ) : void
     }

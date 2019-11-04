@@ -1,62 +1,61 @@
 PHP的类中名为 __construct()、 __destruct()、 __call()、 __callStatic()、 __get()、 __set()、 __isset()、 __unset()、
 __sleep()、 __wakeup()、 __toString()、 __invoke()、 __set_state()、 __clone() 和 __debugInfo() 的方法被称为“魔术方法”。
-
 在命名自己的类的方法时不能使用这些方法名，除非是本来就想使用其对应的魔术功能。
 
-注意：PHP将所有名字以__开头的方法保留为魔术方法，所以推荐在你自己的PHP代码中除非想使用上述既定的魔术方法，否则不要使用以__
+注意
+    所有魔术方法都必须被声明为 public 。
+
+警告：PHP将所有名字以__开头的方法保留为魔术方法，所以推荐在你自己的PHP代码中除非想使用上述既定的魔术方法，否则不要使用以__
 开头的方法名。
 
 __sleep() 和 __wakeup()
-    public array __sleep ( void )
-    void __wakeup ( void )
+    public __sleep ( void ) : array
+    __wakeup ( void ) : void
 
     serialize() 函数会检查类中是否存在一个魔术方法 __sleep()，如果存在，则该方法会先被调用，然后才执行序列化操作。
-    此功能可以用于清理对象，并返回一个包含对象中所有应被序列化的变量名称的数组。
+    它能够用于清理对象，并返回一个包含对象中所有应被序列化的变量的名称的数组。
     如果该方法未返回任何内容，则 NULL 被序列化，并产生一个 E_NOTICE 级别的错误。
 
     注意：
-        __sleep() 不能返回父类中的私有成员的名字。这样做会产生一个 E_NOTICE 级别的错误。
-        此时，你可以用 Serializable 接口来替代。
+        __sleep() 不能返回父类中的私有成员的名字。这样做会产生一个 E_NOTICE 级别的错误。此时，你应使用 Serializable 接口来替代。
 
-    __sleep() 方法常用于提交未决的数据或类似的清理操作。还有就是如果有一些很大的对象，但却不需要全部保存，这个功能就很好用。
+    使用 __sleep() 的意图是用于提交未决的数据或运行类似的清理任务。还有如果有一些很大的对象，但却不需要全部保存，这个功能就很有用。
 
-    与之相反，unserialize() 会检查是否存在一个 __wakeup() 方法。如果存在，则会调用 __wakeup 方法，这个方法可以重构
-    对象可能拥有的任何资源。
-    __wakeup() 经常用在反序列化操作中，例如重新建立数据库连接，或执行其它的重新初始化操作。
+    相反的，unserialize() 会检查是否存在一个 __wakeup() 方法。如果存在，则会调用 __wakeup 方法，它可以重构对象可能拥有的任何资源。
+    使用 __wakeup() 的意图是重建在序列化期间丢失的数据库连接和运行其它的重新初始化操作。
 
 __toString()
-    public string __toString ( void )
+    public __toString ( void ) : string
 
-    __toString() 方法可以让类决定当该类被当做字符串对待时该如何反应，比如 echo $obj 该输出什么内容。
+    __toString() 方法可以让类决定当该类被当做字符串对待时该如何反应，比如 echo $obj 时该打印什么内容。
     该方法必须返回一个字符串，否者就会报致命的 E_RECOVERABLE_ERROR 级别的错误。
 
-    警告：不能在 __toString() 方法中抛出异常，这么做会导致致命错误。
+    警告：不能在 __toString() 方法中抛出异常，这么做会产生致命的错误。
 
     值得注意的是，在 PHP 5.2.0 之前，__toString() 方法只有在直接使用于 echo 或 print 时才能生效。
     PHP 5.2.0 之后，则可以在任何字符串环境生效，但不能用于非字符串环境。
     自 PHP 5.2.0 起，如果将一个未定义 __toString() 方法的对象转换为字符串，会产生 E_RECOVERABLE_ERROR 级别的错误。
 
 __invoke()
-    mixed __invoke ([ $... ] )
+    __invoke ([ $... ] ) : mixed
 
-    当脚本中像调用函数一样去调用对象时，就会调用 __invoke() 方法。
+    当脚本尝试像调用函数一样去调用对象时，就会调用 __invoke() 方法。
     注意：该特性从 PHP 5.3.0 开始可用。
 
 __set_state()
-    static object __set_state ( array $properties )
+    static __set_state ( array $properties ) : object
 
     从 PHP 5.1.0 开始，当调用 var_export() 导出类时，会调用该静态方法。
-    本方法的唯一参数是一个数组，其中包含按 array('property' => value, ...) 格式排列的类属性。
+    该方法的唯一参数是一个数组，其中包含按 array('property' => value, ...) 格式排列的类属性。
 
     注意
-        当导出一个对象时，var_export() 并不会检查该对象所属的类是否已经实现了 __set_state() 方法，如果没有实现
-        __set_state() 方法，那么重新导入这些对象就会失败；尤其会影响一些内置的类。去验证"实现了 __set_state() 方法
-        的类才能导入"是编程者的责任。
+        当导出一个对象时，var_export() 并不会检查该对象所属的类是否已经实现了 __set_state() 方法，如果没有实现 __set_state() 方法，那么
+        重新导入这些对象就会失败；尤其会影响一些内置的类。去验证"实现了 __set_state() 方法的类才能导入"是编程者的责任。
 
 __debugInfo()
-    array __debugInfo ( void )
+    __debugInfo ( void ) : array
 
-    当使用 var_dump() 打印一个对象时，会调用本函数，去获取应当被显示的属性。
+    当使用 var_dump() 打印一个对象时，会调用该函数去获取应当被显示的属性。
     如果对象中没有定义该方法，则对象所有的 public、protected 和 private 的属性都会被显示。
 
     这个特性是 PHP 5.6.0 添加的。

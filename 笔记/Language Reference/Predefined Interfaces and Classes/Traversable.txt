@@ -10,7 +10,7 @@
 
 注意
     Traversable 是一个内部引擎接口，所以在 PHP 脚本中不能实现它，相反的必须要借助 Iterator 或者 IteratorAggregate 。
-    当实现一个 extends 了 Traversable 接口的接口时，请确保在实现子句中，在它（一般就是某个类名）的前面列出 Iterator 或者 IteratorAggregate 。
+    当实现一个 extends 了 Traversable 接口的接口时，请确保在实现子句中，在它的前面列出 Iterator 或者 IteratorAggregate 。
     上面的描述用代码表示的话差不多就像下面这样：
         interface Foo extends Traversable {
             public function bar();
