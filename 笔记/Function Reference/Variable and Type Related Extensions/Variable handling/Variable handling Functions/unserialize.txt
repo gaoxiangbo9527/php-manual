@@ -1,6 +1,6 @@
 描述
     unserialize ( string $str [, array $options ] ) : mixed
-    unserialize() 接受一个已序列化的变量（字符串）并将它转换回一个 PHP 值。
+    unserialize() 接受一个已序列化的变量并将它转换回一个 PHP 值。
 
     警告
         不论 options 参数的 allowed_classes 选项的值是什么，都不要把不可信的用户输入传给 unserialize() 函数；由于对象的实例化和自动加载，
