@@ -14,5 +14,5 @@
 返回值
     如果 var 是可调用的，返回 TRUE ，否则返回 FALSE 。
 
-在 PHP 5.3.0 以前，当给 is_callable() 传递的是构造方法时会返回 true ；PHP 5.3.0 以后，会返回 false ；这里所说的构造方法既包含 PHP 4 风格
+在 PHP 5.3.0 以前，当给 is_callable() 传递的是构造方法时会返回 true ，PHP 5.3.0 以后，会返回 false ；这里所说的构造方法既包含 PHP 4 风格
 的构造方法，也包括 PHP 5 风格的构造方法。

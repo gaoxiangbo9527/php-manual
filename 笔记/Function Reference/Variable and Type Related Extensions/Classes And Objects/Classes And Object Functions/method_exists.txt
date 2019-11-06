@@ -1,0 +1,13 @@
+描述
+    method_exists ( mixed $object , string $method_name ) : bool
+    检查在给定的 object 中是否存在这个方法。
+参数
+    object
+        一个对象实例或者一个类名
+    method_name
+        方法名
+返回值
+    如果 method_name 提供的方法对于给定 object 是已经定义的，则返回TRUE，否则返回FALSE。
+注意事项
+    注意
+        如果类是还不知道的类，则使用此函数将使用任何已注册的自动加载程序。

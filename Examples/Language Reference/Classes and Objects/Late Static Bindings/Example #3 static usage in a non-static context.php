@@ -4,6 +4,8 @@ class A {
         echo "success!\n";
     }
     public function test() {
+        echo get_class($this);
+
         $this->foo();
         static::foo();
     }

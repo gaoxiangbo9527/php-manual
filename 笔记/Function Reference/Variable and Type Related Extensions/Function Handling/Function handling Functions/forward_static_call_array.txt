@@ -1,0 +1,16 @@
+描述
+    forward_static_call_array ( callable $function , array $parameters ) : mixed
+    调用一个由 function 参数指定的用户定义的函数或者方法。
+    该函数必须在一个方法上下文中被调用，它不能被用在一个类的外部。它使用延迟静态绑定。
+    被转发方法的所有参数都按值传递的，并且是以数组传递的，类似于 call_user_func_array() 。
+参数
+    function
+        被调用的函数或者方法。
+        这个参数可以是一个数组，包含类的名称以及方法的名称，或者是一个包含方法名的字符串。
+    parameters
+        一个参数，把所有的方法参数收集到一个数组中。
+
+        注意
+            注意 forward_static_call_array() 的 parameters 参数是不能按引用传递的。
+返回值
+    返回 function 的结果，或者发生错误时返回 FALSE 。
