@@ -27,7 +27,7 @@
 许多函数接受多个参数，例如 in_array() 。它的原型如下：
     in_array ( mixed $needle, array $haystack [, bool $strict = FALSE ] ) : bool
 这是什么意思? in_array() 返回一个布尔值，成功（如果 needle 在 haystack 中被找到）返回 TRUE 或失败（如果 needle 没有在 haystack 中被找到）
-返回 FALSE。第一个参数被命名为 needle 并且它可以是多种不同的类型，因此我们称它为 "mixed" 。这个混合的 neelde （我们要查找的东西）可以是一个标量
+返回 FALSE。第一个参数被命名为 needle 并且它可以是多种不同的类型，因此我们称它为 "mixed" 。这个混合的 needle （我们要查找的东西）可以是一个标量
 值（字符串、整数或者浮点数）或者一个数组。haystack （我们会在其中进行搜索的数组）是第二个参数。第三个可选的参数被命名为 strict 。所有可选的参数可
 以在[]中看的到。该手册规定，strict 参数默认为布尔 FALSE 。关于每个函数是如何工作的详细信息，请参阅手册页。
 
