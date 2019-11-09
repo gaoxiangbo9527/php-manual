@@ -9,7 +9,7 @@
         PHP 7 之前，该函数的签名为：
             handler ( Exception $ex ) : void
         到了 PHP 7，大多数的错误是通过 Error 异常来报告的，而它也会被该处理函数捕获。Error 和 Exception 都实现了 Throwable 接口。
-        PHP 7 之前，该函数的签名为：
+        PHP 7 之后，该函数的签名为：
             handler ( Throwable $ex ) : void
         请注意，在回调函数中为 ex 参数显式提供 Exception 类型提示将导致 PHP 7 中更改的异常层次结构出现问题。
 

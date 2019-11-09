@@ -37,15 +37,15 @@ error_reporting     integer
     在 PHP 4 中，默认值是 E_ALL & ~E_NOTICE 。
 
     注意
-        在开发阶段启用 E_NOTICE 会有一些好处。出于调试的目的：通知消息会对代码中可能的 bug 给出警告。比如，使用未赋值的变量就会被警告。
+        在开发阶段启用 E_NOTICE 会有一些好处。出于调试的目的：notice 消息会对代码中可能的 bug 给出警告。比如，使用未赋值的变量就会被警告。
         它在查找拼写错误和节省调试时间方面是非常有用的。通知消息还会对不良的风格向你警告。
         比如，$arr[item] 最好写成 $arr['item']，因为 PHP 会尝试把 item 当作常量对待。如果它不是一个常量，PHP 才会把它当做数组的字符串索引。
 
     注意
-        在 PHP 5之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你必须
+        在 PHP 5 之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你必须
         显式的启用这类错误。
         在开发阶段启用 E_STRICT 会有一些好处。STRICT（严格）消息会给出帮助确保代码拥有最好的互操作性和向前兼容性的建议。
-        这类消息可能会包括静态化调用非静态方法，在类定义中以兼容的方式定义一个该类使用的 trait 中经存在的属性，并且在 PHP 5.3 以前一些废弃的特性
+        这类消息可能会包括静态化调用非静态方法，在类定义中以兼容的方式定义一个该类使用的 trait 中已存在的属性，并且在 PHP 5.3 以前一些废弃的特性
         可能会引发 E_STRICT 错误，比如在实例化时按引用赋值对象。
 
     注意：PHP 外的 PHP 常量
@@ -71,10 +71,10 @@ log_errors      boolean
 
     注意
         在生产网站中，强烈建议你使用记录错误日志来代替显示错误。
-log_errors_max_len      integer
+log_errors_max_len          integer
     设置 log_errors 按字节为单位的最大长度。
     默认值是 1024，并且 0 允许不应用任何最大长度。
-    该长度会应用于记录错误、显示错误以及 $php_errormsg；但是不会应用于显示调用的函数，比如 error_log() 。
+    该长度会应用于记录错误、显示错误以及 $php_errormsg；但是不会应用于显式调用的函数，比如 error_log() 。
     当整数被使用时，该值以字节为单位度量。你也可以使用这个 FAQ 中提到的缩写符号。
 ignore_repeated_errors      boolean
     不记录重复的错误。
@@ -118,7 +118,8 @@ error_prepend_string    string
 error_append_string     string
     在输出错误消息之后输出的字符串。
 error_log       string
-    脚本错误将要被记录到的文件的名字。该文件必须是 web 服务器的用户可写的。
+    脚本错误将要被记录到的文件的名字。
+    该文件必须是 web 服务器的用户可写的。（个人补充：这个不一定吧，如果不是发送到 SAPI 的话，应该 PHP 可写就够了吧）
 
     如果特殊的值 syslog 被使用，则错误信息将会被发送到系统日志记录器（system logger）。在 Unix 上这意味着 syslog(3)而在 Windows 上这意味着
     事件日志。另请参阅 syslog() 。

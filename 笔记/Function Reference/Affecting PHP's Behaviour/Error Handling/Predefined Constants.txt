@@ -12,15 +12,16 @@
     32      E_CORE_WARNING          在 PHP 的初始启动期间发生的警告（非致命的错误）。它类似于 E_WARNING，区别在于它是由 PHP 核心产生的。
     64      E_COMPILE_ERROR         致命的编译错误，它类似于 E_ERROR，区别在于它是由 Zend 脚本引擎产生的。
     128     E_COMPILE_WARNING       编译警告（非致命的错误）。它类似于 E_WARNING，区别在于它是由 Zend 脚本引擎产生的。
-    256     E_USER_ERROR            用户生成的错误消息。它类似于 E_ERROR，区别在于它是通过在 PHP 代码中调用 trigger_error() 函数产生的。
-    512     E_USER_WARNING          用户生成的警告消息。它类似于 E_WARNING，区别在于它是通过在 PHP 代码中调用 trigger_error() 函数产生的。
-    1024    E_USER_NOTICE           用户生成的通知消息。它类似于 E_NOTICE，区别在于它是通过在 PHP 代码中调用 trigger_error() 函数产生的。
+    256     E_USER_ERROR            用户生成的错误消息。它类似于E_ERROR，区别在于它是通过在 PHP 代码中调用trigger_error()函数产生的。
+    512     E_USER_WARNING          用户生成的警告消息。它类似于E_WARNING区别在于它是通过在 PHP 代码中调用trigger_error()函数产生的。
+    1024    E_USER_NOTICE           用户生成的通知消息。它类似于E_NOTICE，区别在于它是通过在 PHP 代码中调用trigger_error()函数产生的。
     2048    E_STRICT                启用 PHP 对代码的修改建议，以确保代码具有最佳的互操作性和向前兼容性。
     4096    E_RECOVERABLE_ERROR     可捕获的致命错误。它表示发生了一个可能非常危险的错误，但还没有导致引擎进入到不稳定的状态。
                                     如果该错误没有被用户自定义的错误处理程序（参见 set_error_handler()）捕获，应用程序会当它为 E_ERROR
                                     从而中止运行。
     8192    E_DEPRECATED            运行时通知。启用它就会对在未来版本中可能无法工作的代码给出警告。
-    16384   E_USER_DEPRECATED       用户生成的警告消息。它类似于 E_DEPRECATED，区别在于它是通过在 PHP 代码中调用 trigger_error() 函数产生的。
+    16384   E_USER_DEPRECATED       用户生成的警告消息。它类似于 E_DEPRECATED，区别在于它是通过在 PHP 代码中调用 trigger_error() 函数
+                                    产生的。
     32767   E_ALL                   所有的错误和警告。
 
 上面的值（不论是数字化的还是符号化的）常常用于构建一个指定了要报告哪些错误的位掩码。你可以使用位运算符来组合这些值或者屏蔽某些类型的错误。
