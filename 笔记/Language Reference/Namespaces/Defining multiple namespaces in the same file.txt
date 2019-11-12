@@ -5,7 +5,7 @@
 
         namespace AnotherProject;
             ...
-        对于将命名空间合并到单个文件中，不建议使用此语法。
+        不建议使用这种语法。
     花括号式语法。
         namespace MyProject {
             ...

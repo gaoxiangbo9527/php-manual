@@ -41,11 +41,11 @@ PHP 的命名空间实现会受其作为动态本质的编程语言的影响。
     $obj = new $a; // prints namespacename\classname::__construct
     $a = 'namespacename\classname';
     $obj = new $a; // also prints namespacename\classname::__construct
-    $b = 'namespacename\funcname';
-    $b(); // prints namespacename\funcname
     $b = '\namespacename\funcname';
+    $b(); // prints namespacename\funcname
+    $b = 'namespacename\funcname';
     $b(); // also prints namespacename\funcname
     echo constant('\namespacename\constname'), "\n"; // prints namespaced
     echo constant('namespacename\constname'), "\n"; // also prints namespaced
 注意，因为在一个动态的类名、函数名和方法名内，一个限定名和全限定名是没有区别的，所以开头的反斜线不是必须的。
-（个人补充：上面的例子说明，字符串中的名字进行解析时是基于全局命名空间的，而不会相对于当前命名空间，所以开头的反斜线是可以省略的。）
+（个人补充：上面的例子说明，字符串中的名字进行解析时不会相对于当前命名空间，而是基于全局空间的，所以开头的反斜线是可以省略的。）
