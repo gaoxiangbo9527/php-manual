@@ -1,0 +1,9 @@
+描述
+    get_included_files ( void ) : array
+    获取所有使用 include、include_once、require 或 require_once 包含的文件的名称。
+参数
+    无
+返回值
+    返回一个所有文件的名称的数组。
+    最开始调用的脚本（即主调脚本）也被认为是一个“被包含的文件”，因此它也会被和 include 系列函数引用的脚本们列在一起。
+    被 include 和 require 多次的文件在返回的数组里只会列出一次。

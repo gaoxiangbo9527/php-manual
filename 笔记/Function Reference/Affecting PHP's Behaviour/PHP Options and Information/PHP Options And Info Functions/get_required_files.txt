@@ -1,0 +1,2 @@
+描述
+    该函数是 get_included_files() 的别名。

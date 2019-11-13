@@ -1,0 +1,11 @@
+描述
+    set_include_path ( string $new_include_path ) : string
+    设置脚本执行期间的 include_path 配置选项。
+参数
+    new_include_path
+        include_path 的新的值。
+返回值
+    成功时返回旧的 include_path ，失败时返回 FALSE 。
+
+也可以使用 ini_set() 去设置 include_path 。
+利用 PATH_SEPARATOR 常量，就可以去扩展包含路径而不管操作系统是什么。

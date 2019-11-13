@@ -1,0 +1,9 @@
+描述
+    get_include_path ( void ) : string
+    获取配置选项 include_path 当前的值。
+参数
+    无
+返回值
+    返回一个字符串形式的路径。
+
+也可以使用 ini_get() 去获取 include_path 。

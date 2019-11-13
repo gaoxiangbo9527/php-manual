@@ -1,0 +1,2 @@
+require 与 include 相同，除了在失败时它会产生一个致命的 E_COMPILE_ERROR 级别的错误。
+换句话说，失败时 require 会停止脚本，然而 include 却只会产生一个警告（E_WARNING）并且允许脚本继续执行。
