@@ -1,0 +1,9 @@
+描述
+    spl_autoload_call ( string $class_name ) : void
+    该函数被用于使用所有已经注册的 __autoload() 函数去手动搜索一个类或者接口。
+参数
+    class_name
+        被搜索的类名。
+返回值
+    没有值会被返回
+

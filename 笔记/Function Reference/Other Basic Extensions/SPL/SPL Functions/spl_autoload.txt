@@ -1,0 +1,13 @@
+描述
+    spl_autoload ( string $class_name [, string $file_extensions = spl_autoload_extensions() ] ) : void
+    该函数意图被作用 __autoload() 的默认实现。
+    如果没有指定其它的内容并且不使用任何参数去调用 spl_autoload_register() ，那么对于后面的任何对 __autoload() 的调用都会使用本函数。
+参数
+    class_name
+        被实例化的类（以及命名空间）的小写名称。
+    file_extensions
+        默认情况下，该函数会检查所有的包含路径，以包含由小写类名追加文件名扩展名 .inc 和 .php 构成的文件名。
+返回值
+    没有值会被返回。
+错误/异常
+    当类没有被找到并且也没有注册其他的自动加载器时，会抛出 LogicException 。

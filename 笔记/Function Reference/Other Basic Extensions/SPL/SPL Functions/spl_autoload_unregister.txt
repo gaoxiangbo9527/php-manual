@@ -1,0 +1,9 @@
+描述
+    spl_autoload_unregister ( mixed $autoload_function ) : bool
+    从自动加载队列中移除一个函数。如果队列是被激活的并且在移除指定的函数后变成空队列的话，该队列会被取消激活。
+    当这个函数导致队列被取消激活，任何以前存在的 __autoload 函数都不会被重新激活。
+参数
+    autoload_function
+        被取消注册的自动加载函数。
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
