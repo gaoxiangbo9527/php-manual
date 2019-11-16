@@ -1,0 +1,19 @@
+描述
+    is_subclass_of ( mixed $object , string $class_name [, bool $allow_string = TRUE ] ) : bool
+    检查是否指定的 object 拥有类 class_name 作为其父类中的一个，或者实现了它。
+参数
+    object
+        一个类名或者对象实例。如果类不存在并不会生成错误。
+    class_name
+        类名。（个人补充接口名）
+    allow_string
+        如果本参数设置为 false ，那么 object 不允许是字符串的类名。这也会防止在类不存在的时候去调用自动加载器。
+返回值
+    如果 object 属于 class_name 的子类中的某一个，该函数返回 TRUE ，否则返回 FALSE 。
+变更日志
+    版本         描述
+    5.3.9	    添加了 allow_string 参数。
+    5.3.7	    添加了 class_name 可以和接口一起工作的支持。
+    5.0.3	    以也可以指定 object 参数为一个字符串（类的名称）。
+注意事项
+    注意：如果类是还不知道的，则使用此函数将使用任何已注册的自动加载程序。

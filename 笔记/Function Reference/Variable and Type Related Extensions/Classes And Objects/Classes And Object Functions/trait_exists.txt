@@ -1,0 +1,12 @@
+描述
+    trait_exists ( string $traitname [, bool $autoload ] ) : bool
+    检查 trait 是否存在。
+参数
+    traitname
+        待检查的 trait 的名称。Name of the trait to check
+    autoload
+        如果还未加载，是否会自动加载。
+返回值
+    如果 trait 存在返回 TRUE，不存在则返回 FALSE ，如果遇到错误则返回 NULL 。
+个人补充
+    手册可能不是特别全，该函数的一些行为可能会参考 class_exists 。

@@ -1,0 +1,6 @@
+描述
+    get_declared_interfaces ( void ) : array
+    获取已声明的接口。
+返回值
+    返回一个当前脚本中已声明接口的名称的数组。
+

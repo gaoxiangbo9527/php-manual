@@ -1,0 +1,20 @@
+描述
+    get_class ([ object $object ] ) : string
+    获取指定 object 的类名。
+参数
+    object
+        被测试的对象。当在一个类的内部时，可以省略该参数。
+        注意：从 PHP 7.2.0 开始，不在允许显式的传递 NULL 作为 object 参数。该参数仍是可选的并且在一个类中不带参数的调用 get_class() 仍是可
+        以工作的，但是传递 NULL 现在会产生一个 E_WARNING 通知。
+返回值
+    如果 object 是一个实例，返回该实例的类名。如果 object 不是一个对象则返回 FALSE 。
+    如果在一个类中，object 参数被省略，则会返回该类的的名称。
+    如果 object 是存在于某个命名空间中的类的实例，该类的全限定的命名空间名会被返回。
+错误和异常
+    如果调用 get_class() 时使用的不是对象，则会引发 E_WARNING 级别的错误。
+变更日志
+    版本         描述
+    7.2.0	    已经移除了 NULL 作为 object 默认值并且不再是一个有效的选项。
+    5.3.0	    NULL 成为了 object 的默认值，因此现在传递 NULL 给 object 和不传递任何值有相同的结果。
+个人补充
+    在类中使用 get_class() 时，它的行为类似于 self 而不是 static 。

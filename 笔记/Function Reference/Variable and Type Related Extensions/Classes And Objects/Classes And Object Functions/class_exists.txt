@@ -1,0 +1,15 @@
+描述
+    class_exists ( string $class_name [, bool $autoload = TRUE ] ) : bool
+    该函数会检查是否指定类已经被加载。
+参数
+    class_name
+        类名。名字是按照大小写不敏感的方式进行匹配的。
+    autoload
+        默认是否会调用 __autoload 。
+返回值
+    如果 class_name 是一个被定义的类返回 TRUE ，反之返回 FALSE 。
+变更日志
+    版本         变更日志
+    5.0.2	    对于已经定义的接口，不在返回 TRUE 。使用 interface_exists() 。
+来自用户的笔记
+    如果类是存在于命名空间中的，那么必须提供全限定名才可以。

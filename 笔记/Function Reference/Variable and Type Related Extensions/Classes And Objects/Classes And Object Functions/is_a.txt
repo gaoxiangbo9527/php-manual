@@ -1,0 +1,17 @@
+描述
+    is_a ( mixed $object , string $class_name [, bool $allow_string = FALSE ] ) : bool
+    检查指定的 object 是否属于 class_name 类或者是否 class_name 是其父类中的一个。
+参数
+    object
+        一个类名或者对象实例。
+    class_name
+        类名。（个人补充接口名）
+    allow_string
+        如果本参数设置为 false ，那么 object 不允许是字符串的类名。这也会防止在类不存在的时候去调用自动加载器。
+返回值
+    如果 object 属于 class_name 或者 class_name 是其父类中的一个，该函数返回 TRUE ，否则返回 FALSE 。
+变更日志
+    版本         描述
+    5.3.9	    添加了 allow_string 参数。
+    5.3.0	    这个函数不再是废弃的，并且因此不会再抛出 E_STRICT 警告。
+    5.0.0	    这个函数被弃用，代之以 instanceof 操作符。调用这个函数会导致 E_STRICT 警告。

@@ -1,0 +1,10 @@
+描述
+    class_uses ( mixed $class [, bool $autoload = TRUE ] ) : array
+    该函数返回指定的 class 使用的 trait 的名称数组。然而这并不会包含父类所使用的任何 trait 。
+参数
+    class
+        一个对象（类实例）或者一个字符串（类名）。
+    autoload
+        是否允许该函数通过 __autoload() 魔术方法去加载该类。
+返回值
+    成功时返回一个数组，或者错误时返回 FALSE 。

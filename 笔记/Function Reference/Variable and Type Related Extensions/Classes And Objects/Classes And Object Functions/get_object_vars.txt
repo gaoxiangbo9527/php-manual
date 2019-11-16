@@ -1,0 +1,10 @@
+描述
+    get_object_vars ( object $object ) : array
+    根据作用域去获取指定 object 的可访问的非静态属性。
+参数
+    object
+        一个对象实例
+返回值
+变更日志
+    版本         描述
+    5.3.0	    如果 object 不是一个对象，该函数现在会返回 NULL 。之前会返回 FALSE 。

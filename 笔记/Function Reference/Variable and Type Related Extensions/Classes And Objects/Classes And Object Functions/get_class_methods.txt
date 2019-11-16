@@ -1,0 +1,9 @@
+描述
+    get_class_methods ( mixed $class_name ) : array
+    获取类的方法名。
+参数
+    class_name
+        类名或者一个对象实例。
+返回值
+    返回由 class_name 指定的类中定义的方法名的数组。如果遇到错，则返回 NULL 。
+

@@ -1,0 +1,12 @@
+描述
+    interface_exists ( string $interface_name [, bool $autoload = TRUE ] ) : bool
+    检查是否指定接口已经被加载。
+参数
+    interface_name
+        接口名。
+    autoload
+        默认是否会调用 __autoload 。
+返回值
+    如果由 interface_name 指定的接口已经被定义返回 TRUE，反之返回 FALSE 。
+个人补充
+    手册可能不是特别全，该函数的一些行为可能会参考 class_exists 。

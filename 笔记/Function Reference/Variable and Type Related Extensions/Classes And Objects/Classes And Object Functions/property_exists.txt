@@ -1,0 +1,20 @@
+描述
+    property_exists ( mixed $class , string $property ) : bool
+    检查指定的 property 是否存在于特定的类中。
+    注意：和 isset() 相反，即使属性的值为 NULL ，property_exists() 也会返回 TRUE 。
+参数
+    class
+        待测试的类名或者该类的一个对象。
+    property
+        属性的名称。
+返回值
+    如果属性存在返回 TRUE ，如果不存在返回 FALSE ，如果遇到错误返回 NULL 。
+注意事项
+    注意
+        如果类是还不知道的，则使用此函数将使用任何已注册的自动加载程序。
+    注意
+       property_exists() 函数不会监测那些通过使用 __get 魔术方法后可以魔术访问的属性。
+变更日志
+    版本         描述
+    5.3.0	    此函数检查某个属性是否存在，与可访问性无关。
+

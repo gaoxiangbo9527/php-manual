@@ -1,0 +1,7 @@
+描述
+    get_declared_traits ( void ) : array
+    返回所有已声明的特性的数组。
+参数
+    该函数没有参数。
+返回值
+    返回一个数组，其中的值是所有已声明的 trait 。如果失败则返回 NULL 。

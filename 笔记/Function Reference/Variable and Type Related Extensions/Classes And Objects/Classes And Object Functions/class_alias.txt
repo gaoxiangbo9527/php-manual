@@ -1,0 +1,13 @@
+描述
+    class_alias ( string $original , string $alias [, bool $autoload = TRUE ] ) : bool
+    根据用户定义的类 original 创建一个名为 alias 的别名。别名类和原始类是完全一样的。
+参数
+    original
+        原始的类。
+    alias
+        该类的别名。
+    autoload
+        如果没有发现原始的类，是否去自动加载。
+返回值
+    成功时返回 TRUE ，失败时返回 FALSE 。
+
