@@ -1,0 +1,9 @@
+介绍
+    反射类
+类摘要
+    Reflection {
+
+        /* Methods */
+        public static export ( Reflector $reflector [, bool $return = FALSE ] ) : string
+        public static getModifierNames ( int $modifiers ) : array
+    }

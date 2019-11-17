@@ -1,0 +1,8 @@
+介绍
+    Reflector 是一个接口，它会被所有可导出的反射类实现。
+接口摘要
+    Reflector {
+        /* Methods */
+        public static export ( void ) : string
+        public __toString ( void ) : string
+    }
