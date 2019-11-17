@@ -3,7 +3,7 @@
     检查 trait 是否存在。
 参数
     traitname
-        待检查的 trait 的名称。Name of the trait to check
+        待检查的 trait 的名称。
     autoload
         如果还未加载，是否会自动加载。
 返回值
