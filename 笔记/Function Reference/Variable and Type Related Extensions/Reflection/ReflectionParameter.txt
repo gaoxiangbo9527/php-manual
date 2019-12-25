@@ -1,0 +1,37 @@
+介绍
+    ReflectionParameter 类获取关于一个函数或者方法的信息。
+    要内省函数参数，首先创建 ReflectionFunction 或 ReflectionMethod 类的实例并且然后使用它们的
+    ReflectionFunctionAbstract::getParameters() 方法去获取一个参数的数组。
+类摘要
+    ReflectionParameter implements Reflector {
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        public allowsNull ( void ) : bool
+        public canBePassedByValue ( void ) : bool
+        final private __clone ( void ) : void
+        public __construct ( string $function , string $parameter )
+        public static export ( string $function , string $parameter [, bool $return ] ) : string
+        public getClass ( void ) : ReflectionClass
+        public getDeclaringClass ( void ) : ReflectionClass
+        public getDeclaringFunction ( void ) : ReflectionFunctionAbstract
+        public getDefaultValue ( void ) : mixed
+        public getDefaultValueConstantName ( void ) : string
+        public getName ( void ) : string
+        public getPosition ( void ) : int
+        public getType ( void ) : ReflectionType
+        public hasType ( void ) : bool
+        public isArray ( void ) : bool
+        public isCallable ( void ) : bool
+        public isDefaultValueAvailable ( void ) : bool
+        public isDefaultValueConstant ( void ) : bool
+        public isOptional ( void ) : bool
+        public isPassedByReference ( void ) : bool
+        public isVariadic ( void ) : bool
+        public __toString ( void ) : string
+    }
+属性
+    name
+        参数的名字。只读，尝试写入会抛出  ReflectionException 。

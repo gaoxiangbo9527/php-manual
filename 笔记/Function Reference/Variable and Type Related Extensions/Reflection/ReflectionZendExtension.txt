@@ -1,0 +1,22 @@
+介绍
+    手册中这部分是空的，个人补充：ReflectionZendExtension 类报告关于一个 Zend 扩展的信息。
+类摘要
+    ReflectionZendExtension implements Reflector {
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        final private __clone ( void ) : void
+        public __construct ( string $name )
+        public static export ( string $name [, bool $return ] ) : string
+        public getAuthor ( void ) : string
+        public getCopyright ( void ) : string
+        public getName ( void ) : string
+        public getURL ( void ) : string
+        public getVersion ( void ) : string
+        public __toString ( void ) : string
+    }
+属性
+    name
+        扩展的名称。只读，尝试写入会抛出 ReflectionException 。

@@ -1,0 +1,13 @@
+介绍
+    手册中这部分是空的。
+类摘要
+    ReflectionNamedType extends ReflectionType {
+
+        /* Methods */
+        public getName ( void ) : string
+
+        /* Inherited methods */
+        public ReflectionType::allowsNull ( void ) : bool
+        public ReflectionType::isBuiltin ( void ) : bool
+        public ReflectionType::__toString ( void ) : string
+    ｝

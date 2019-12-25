@@ -1,0 +1,85 @@
+介绍
+    ReflectionMethod 类报告关于一个方法的信息。
+类摘要
+    ReflectionMethod extends ReflectionFunctionAbstract implements Reflector {
+
+        /* Constants */
+        const integer IS_STATIC = 1 ;
+        const integer IS_PUBLIC = 256 ;
+        const integer IS_PROTECTED = 512 ;
+        const integer IS_PRIVATE = 1024 ;
+        const integer IS_ABSTRACT = 2 ;
+        const integer IS_FINAL = 4 ;
+
+        /* Properties */
+        public $name ;
+        public $class ;
+
+        /* Methods */
+        public __construct ( mixed $class , string $name )
+        public static export ( string $class , string $name [, bool $return = FALSE ] ) : string
+        public getClosure ( object $object ) : Closure
+        public getDeclaringClass ( void ) : ReflectionClass
+        public getModifiers ( void ) : int
+        public getPrototype ( void ) : ReflectionMethod
+        public invoke ( object $object [, mixed $... ] ) : mixed
+        public invokeArgs ( object $object , array $args ) : mixed
+        public isAbstract ( void ) : bool
+        public isConstructor ( void ) : bool
+        public isDestructor ( void ) : bool
+        public isFinal ( void ) : bool
+        public isPrivate ( void ) : bool
+        public isProtected ( void ) : bool
+        public isPublic ( void ) : bool
+        public isStatic ( void ) : bool
+        public setAccessible ( bool $accessible ) : void
+        public __toString ( void ) : string
+
+        /* Inherited methods */
+        final private ReflectionFunctionAbstract::__clone ( void ) : void
+        public ReflectionFunctionAbstract::getClosureScopeClass ( void ) : ReflectionClass
+        public ReflectionFunctionAbstract::getClosureThis ( void ) : object
+        public ReflectionFunctionAbstract::getDocComment ( void ) : string
+        public ReflectionFunctionAbstract::getEndLine ( void ) : int
+        public ReflectionFunctionAbstract::getExtension ( void ) : ReflectionExtension
+        public ReflectionFunctionAbstract::getExtensionName ( void ) : string
+        public ReflectionFunctionAbstract::getFileName ( void ) : string
+        public ReflectionFunctionAbstract::getName ( void ) : string
+        public ReflectionFunctionAbstract::getNamespaceName ( void ) : string
+        public ReflectionFunctionAbstract::getNumberOfParameters ( void ) : int
+        public ReflectionFunctionAbstract::getNumberOfRequiredParameters ( void ) : int
+        public ReflectionFunctionAbstract::getParameters ( void ) : array
+        public ReflectionFunctionAbstract::getReturnType ( void ) : ReflectionType
+        public ReflectionFunctionAbstract::getShortName ( void ) : string
+        public ReflectionFunctionAbstract::getStartLine ( void ) : int
+        public ReflectionFunctionAbstract::getStaticVariables ( void ) : array
+        public ReflectionFunctionAbstract::hasReturnType ( void ) : bool
+        public ReflectionFunctionAbstract::inNamespace ( void ) : bool
+        public ReflectionFunctionAbstract::isClosure ( void ) : bool
+        public ReflectionFunctionAbstract::isDeprecated ( void ) : bool
+        public ReflectionFunctionAbstract::isGenerator ( void ) : bool
+        public ReflectionFunctionAbstract::isInternal ( void ) : bool
+        public ReflectionFunctionAbstract::isUserDefined ( void ) : bool
+        public ReflectionFunctionAbstract::isVariadic ( void ) : bool
+        public ReflectionFunctionAbstract::returnsReference ( void ) : bool
+        abstract public ReflectionFunctionAbstract::__toString ( void ) : void
+    }
+属性
+    name
+        方法名。
+    class
+        类名。
+预定义常量
+ReflectionMethod 的修饰符
+    ReflectionMethod::IS_STATIC
+        表示该方法是静态的。
+    ReflectionMethod::IS_PUBLIC
+        表示该方法是 public 的。
+    ReflectionMethod::IS_PROTECTED
+        表示该方法是 protected 的。
+    ReflectionMethod::IS_PRIVATE
+        表示该方法是 private 的。
+    ReflectionMethod::IS_ABSTRACT
+        表示该方法是抽象的。
+    ReflectionMethod::IS_FINAL
+        表示该方法是 final 方法。

@@ -1,0 +1,28 @@
+介绍
+    ReflectionExtension 类报告关于一个扩展的信息。
+类摘要
+    ReflectionExtension implements Reflector {
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        final private __clone ( void ) : void
+        public __construct ( string $name )
+        public static export ( string $name [, string $return = FALSE ] ) : string
+        public getClasses ( void ) : array
+        public getClassNames ( void ) : array
+        public getConstants ( void ) : array
+        public getDependencies ( void ) : array
+        public getFunctions ( void ) : array
+        public getINIEntries ( void ) : array
+        public getName ( void ) : string
+        public getVersion ( void ) : string
+        public info ( void ) : void
+        public isPersistent ( void ) : void
+        public isTemporary ( void ) : void
+        public __toString ( void ) : string
+    }
+属性
+    name
+        扩展的名称，和调用 ReflectionExtension::getName() 方法相同.

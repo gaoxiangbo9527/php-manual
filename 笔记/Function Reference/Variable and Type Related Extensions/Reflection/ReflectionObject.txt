@@ -1,0 +1,73 @@
+介绍
+    ReflectionObject 类报告关于一个对象的信息
+类摘要
+    ReflectionObject extends ReflectionClass implements Reflector {
+        /* Inherited constants */
+        const integer ReflectionClass::IS_IMPLICIT_ABSTRACT = 16 ;
+        const integer ReflectionClass::IS_EXPLICIT_ABSTRACT = 32 ;
+        const integer ReflectionClass::IS_FINAL = 64 ;
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        public __construct ( object $argument )
+        public static export ( string $argument [, bool $return ] ) : string
+
+        /* Inherited methods */
+        public ReflectionClass::__construct ( mixed $argument )
+        public static ReflectionClass::export ( mixed $argument [, bool $return = FALSE ] ) : string
+        public ReflectionClass::getConstant ( string $name ) : mixed
+        public ReflectionClass::getConstants ( void ) : array
+        public ReflectionClass::getConstructor ( void ) : ReflectionMethod
+        public ReflectionClass::getDefaultProperties ( void ) : array
+        public ReflectionClass::getDocComment ( void ) : string
+        public ReflectionClass::getEndLine ( void ) : int
+        public ReflectionClass::getExtension ( void ) : ReflectionExtension
+        public ReflectionClass::getExtensionName ( void ) : string
+        public ReflectionClass::getFileName ( void ) : string
+        public ReflectionClass::getInterfaceNames ( void ) : array
+        public ReflectionClass::getInterfaces ( void ) : array
+        public ReflectionClass::getMethod ( string $name ) : ReflectionMethod
+        public ReflectionClass::getMethods ([ int $filter ] ) : array
+        public ReflectionClass::getModifiers ( void ) : int
+        public ReflectionClass::getName ( void ) : string
+        public ReflectionClass::getNamespaceName ( void ) : string
+        public ReflectionClass::getParentClass ( void ) : ReflectionClass
+        public ReflectionClass::getProperties ([ int $filter ] ) : array
+        public ReflectionClass::getProperty ( string $name ) : ReflectionProperty
+        public ReflectionClass::getReflectionConstant ( string $name ) : ReflectionClassConstant
+        public ReflectionClass::getReflectionConstants ( void ) : array
+        public ReflectionClass::getShortName ( void ) : string
+        public ReflectionClass::getStartLine ( void ) : int
+        public ReflectionClass::getStaticProperties ( void ) : array
+        public ReflectionClass::getStaticPropertyValue ( string $name [, mixed &$def_value ] ) : mixed
+        public ReflectionClass::getTraitAliases ( void ) : array
+        public ReflectionClass::getTraitNames ( void ) : array
+        public ReflectionClass::getTraits ( void ) : array
+        public ReflectionClass::hasConstant ( string $name ) : bool
+        public ReflectionClass::hasMethod ( string $name ) : bool
+        public ReflectionClass::hasProperty ( string $name ) : bool
+        public ReflectionClass::implementsInterface ( string $interface ) : bool
+        public ReflectionClass::inNamespace ( void ) : bool
+        public ReflectionClass::isAbstract ( void ) : bool
+        public ReflectionClass::isAnonymous ( void ) : bool
+        public ReflectionClass::isCloneable ( void ) : bool
+        public ReflectionClass::isFinal ( void ) : bool
+        public ReflectionClass::isInstance ( object $object ) : bool
+        public ReflectionClass::isInstantiable ( void ) : bool
+        public ReflectionClass::isInterface ( void ) : bool
+        public ReflectionClass::isInternal ( void ) : bool
+        public ReflectionClass::isIterable ( void ) : bool
+        public ReflectionClass::isSubclassOf ( mixed $class ) : bool
+        public ReflectionClass::isTrait ( void ) : bool
+        public ReflectionClass::isUserDefined ( void ) : bool
+        public ReflectionClass::newInstance ([ mixed $... ] ) : object
+        public ReflectionClass::newInstanceArgs ([ array $args ] ) : object
+        public ReflectionClass::newInstanceWithoutConstructor ( void ) : object
+        public ReflectionClass::setStaticPropertyValue ( string $name , mixed $value ) : void
+        public ReflectionClass::__toString ( void ) : string
+    }
+属性
+    name
+        对象的类的名字。只读，尝试写入会抛出 ReflectionException 。

@@ -1,0 +1,56 @@
+介绍
+    ReflectionFunction 类报告关于一个函数的信息。
+类摘要
+    ReflectionFunction extends ReflectionFunctionAbstract implements Reflector {
+
+        /* Constants */
+        const integer IS_DEPRECATED = 262144 ;
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        public __construct ( mixed $name )
+        public static export ( string $name [, string $return ] ) : string
+        public getClosure ( void ) : Closure
+        public invoke ([ mixed $... ] ) : mixed
+        public invokeArgs ( array $args ) : mixed
+        public isDisabled ( void ) : bool
+        public __toString ( void ) : string
+
+        /* Inherited methods */
+        final private ReflectionFunctionAbstract::__clone ( void ) : void
+        public ReflectionFunctionAbstract::getClosureScopeClass ( void ) : ReflectionClass
+        public ReflectionFunctionAbstract::getClosureThis ( void ) : object
+        public ReflectionFunctionAbstract::getDocComment ( void ) : string
+        public ReflectionFunctionAbstract::getEndLine ( void ) : int
+        public ReflectionFunctionAbstract::getExtension ( void ) : ReflectionExtension
+        public ReflectionFunctionAbstract::getExtensionName ( void ) : string
+        public ReflectionFunctionAbstract::getFileName ( void ) : string
+        public ReflectionFunctionAbstract::getName ( void ) : string
+        public ReflectionFunctionAbstract::getNamespaceName ( void ) : string
+        public ReflectionFunctionAbstract::getNumberOfParameters ( void ) : int
+        public ReflectionFunctionAbstract::getNumberOfRequiredParameters ( void ) : int
+        public ReflectionFunctionAbstract::getParameters ( void ) : array
+        public ReflectionFunctionAbstract::getReturnType ( void ) : ReflectionType
+        public ReflectionFunctionAbstract::getShortName ( void ) : string
+        public ReflectionFunctionAbstract::getStartLine ( void ) : int
+        public ReflectionFunctionAbstract::getStaticVariables ( void ) : array
+        public ReflectionFunctionAbstract::hasReturnType ( void ) : bool
+        public ReflectionFunctionAbstract::inNamespace ( void ) : bool
+        public ReflectionFunctionAbstract::isClosure ( void ) : bool
+        public ReflectionFunctionAbstract::isDeprecated ( void ) : bool
+        public ReflectionFunctionAbstract::isGenerator ( void ) : bool
+        public ReflectionFunctionAbstract::isInternal ( void ) : bool
+        public ReflectionFunctionAbstract::isUserDefined ( void ) : bool
+        public ReflectionFunctionAbstract::isVariadic ( void ) : bool
+        public ReflectionFunctionAbstract::returnsReference ( void ) : bool
+        abstract public ReflectionFunctionAbstract::__toString ( void ) : void
+    }
+属性
+    name
+        函数的名称。只读，尝试写入会抛出 ReflectionException 。
+预定义的常量
+ReflectionFunction 的修饰符
+    ReflectionFunction::IS_DEPRECATED
+        表示被废弃的函数。

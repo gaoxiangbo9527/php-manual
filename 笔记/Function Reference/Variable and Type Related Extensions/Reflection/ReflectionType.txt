@@ -1,0 +1,11 @@
+介绍
+    ReflectionType 类报告关于一个函数的返回类型的信息。
+    （个人补充：这里的返回类型好像并不是单指返回值的类型，应该也包括参数的类型）
+类摘要
+    ReflectionType {
+
+        /* Methods */
+        public allowsNull ( void ) : bool
+        public isBuiltin ( void ) : bool
+        public __toString ( void ) : string
+    }

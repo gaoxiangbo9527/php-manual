@@ -1,0 +1,48 @@
+介绍
+    ReflectionProperty 类报告关于类属性的信息。
+类摘要
+    ReflectionProperty implements Reflector {
+
+        /* Constants */
+        const integer IS_STATIC = 1 ;
+        const integer IS_PUBLIC = 256 ;
+        const integer IS_PROTECTED = 512 ;
+        const integer IS_PRIVATE = 1024 ;
+
+        /* Properties */
+        public $name ;
+        public $class ;
+
+        /* Methods */
+        final private __clone ( void ) : void
+        public __construct ( mixed $class , string $name )
+        public static export ( mixed $class , string $name [, bool $return ] ) : string
+        public getDeclaringClass ( void ) : ReflectionClass
+        public getDocComment ( void ) : string
+        public getModifiers ( void ) : int
+        public getName ( void ) : string
+        public getValue ([ object $object ] ) : mixed
+        public isDefault ( void ) : bool
+        public isPrivate ( void ) : bool
+        public isProtected ( void ) : bool
+        public isPublic ( void ) : bool
+        public isStatic ( void ) : bool
+        public setAccessible ( bool $accessible ) : void
+        public setValue ( object $object , mixed $value ) : void
+        public __toString ( void ) : string
+    }
+属性
+    name
+        属性的名称。只读，尝试写入会抛出 ReflectionException 。
+    class
+        定义属性的类的名称。只读，尝试写入会抛出 ReflectionException 。
+预定义常量
+ReflectionProperty 修饰符
+    ReflectionProperty::IS_STATIC
+        表示静态属性。
+    ReflectionProperty::IS_PUBLIC
+        表示 public 属性。
+    ReflectionProperty::IS_PROTECTED
+        表示 protected 属性。
+    ReflectionProperty::IS_PRIVATE
+        表示 private 属性。

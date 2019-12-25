@@ -1,5 +1,5 @@
 介绍
-    ReflectionClass 类会报告关于一个类的信息。
+    ReflectionClass 类报告关于一个类的信息。
 类摘要
     ReflectionClass implements Reflector {
         /* Constants */
@@ -64,3 +64,16 @@
         public setStaticPropertyValue ( string $name , mixed $value ) : void
         public __toString ( void ) : string
     }
+属性
+    name
+        类的名称。只读，尝试写会抛出 ReflectionException 。
+预定义的常量
+ReflectionClass 的修饰符
+    ReflectionClass::IS_IMPLICIT_ABSTRACT
+        表示一个类是抽象的，因为它包含一些抽象方法。
+    ReflectionClass::IS_EXPLICIT_ABSTRACT
+        表示一个类是抽象的，因为它的定义如此。
+    ReflectionClass::IS_FINAL
+        表示最终类。
+
+

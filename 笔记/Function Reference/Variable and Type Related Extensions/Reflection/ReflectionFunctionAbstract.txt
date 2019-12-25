@@ -1,0 +1,40 @@
+介绍
+    ReflectionFunction 的父类。
+类摘要
+    ReflectionFunctionAbstract implements Reflector {
+
+        /* Properties */
+        public $name ;
+
+        /* Methods */
+        final private __clone ( void ) : void
+        public getClosureScopeClass ( void ) : ReflectionClass
+        public getClosureThis ( void ) : object
+        public getDocComment ( void ) : string
+        public getEndLine ( void ) : int
+        public getExtension ( void ) : ReflectionExtension
+        public getExtensionName ( void ) : string
+        public getFileName ( void ) : string
+        public getName ( void ) : string
+        public getNamespaceName ( void ) : string
+        public getNumberOfParameters ( void ) : int
+        public getNumberOfRequiredParameters ( void ) : int
+        public getParameters ( void ) : array
+        public getReturnType ( void ) : ReflectionType
+        public getShortName ( void ) : string
+        public getStartLine ( void ) : int
+        public getStaticVariables ( void ) : array
+        public hasReturnType ( void ) : bool
+        public inNamespace ( void ) : bool
+        public isClosure ( void ) : bool
+        public isDeprecated ( void ) : bool
+        public isGenerator ( void ) : bool
+        public isInternal ( void ) : bool
+        public isUserDefined ( void ) : bool
+        public isVariadic ( void ) : bool
+        public returnsReference ( void ) : bool
+        abstract public __toString ( void ) : void
+    }
+属性
+    name
+        函数的名称。只读，尝试写入会抛出 ReflectionException 。

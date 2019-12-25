@@ -1,0 +1,27 @@
+介绍
+    ReflectionClassConstant 类报告关于一个类常量的信息。
+类摘要
+    ReflectionClassConstant implements Reflector {
+
+        /* Properties */
+        public $name ;
+        public $class ;
+
+        /* Methods */
+        public __construct ( mixed $class , string $name )
+        public static export ( mixed $class , string $name [, bool $return ] ) : string
+        public getDeclaringClass ( void ) : ReflectionClass
+        public getDocComment ( void ) : string
+        public getModifiers ( void ) : int
+        public getName ( void ) : string
+        public getValue ( void ) : mixed
+        public isPrivate ( void ) : bool
+        public isProtected ( void ) : bool
+        public isPublic ( void ) : bool
+        public __toString ( void ) : string
+    }
+属性
+    name
+        类常量的名称。只读，尝试写入会抛出 ReflectionException。
+    class
+        类常量被定义的类的名称。只读，尝试写入会抛出 ReflectionException 。
