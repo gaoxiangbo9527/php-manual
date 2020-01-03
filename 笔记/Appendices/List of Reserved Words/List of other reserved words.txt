@@ -1,0 +1,21 @@
+下面的这些单词不能被用于去命名一个类、接口或者特性，并且它们也被禁止用在命名空间中。
+
+保留字
+    int (as of PHP 7)
+    float (as of PHP 7)
+    bool (as of PHP 7)
+    string (as of PHP 7)
+    true (as of PHP 7)
+    false (as of PHP 7)
+    null (as of PHP 7)
+    void (as of PHP 7.1)
+    iterable (as of PHP 7.1)
+    object (as of PHP 7.2)
+
+下面这份单词列表是被软保留的。尽管他们仍然可以被用作类、接口和特性的名称（以及命名空间中），但非常不推荐使用它们，因为在将来版本的 PHP 中可能
+会使用它们。
+
+软保留字
+    resource (as of PHP 7)
+    mixed (as of PHP 7)
+    numeric (as of PHP 7)
