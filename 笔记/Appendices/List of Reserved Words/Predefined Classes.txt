@@ -1,0 +1,45 @@
+本节列出了标准的预定义类。杂项扩展的参考中定义了其描述的其他类。
+
+标准定义的类
+    这些类是在 PHP 构建中包含的标准函数集中定义的。
+        Directory
+            通过 dir() 创建。
+        stdClass
+            通过 强制转换到对象 创建。
+        __PHP_Incomplete_Class
+            可能通过 unserialize() 创建。
+
+从 PHP 5 开始预定义的类。
+    这些附加的预定义类是在 PHP 5.0.0 中被引入的。
+
+    Exception
+    ErrorException
+        从 PHP 5.1.0 开始可用。
+    php_user_filter
+
+闭包
+    预定义的最终类 Closure 是在 PHP 5.3.0 中被引入的。它用于表示匿名函数。更多信息，请参考它的类页面。
+
+生成器
+    预定义的最终类 Generator 是在 PHP 5.5.0 中被引入的。它用于表示生成器。更多信息，请参考它的类页面。
+
+从 PHP 7 开始预定义的接口和类
+    这些附加的预定义接口和类是在 PHP 7.0.0 中被引入的。
+
+    ArithmeticError
+    AssertionError
+    DivisionByZeroError
+    Error
+    Throwable
+    ParseError
+    TypeError
+
+特殊的类
+    下面的标识符不可以用作一个类的名称，因为它们有特殊的目的。
+
+    self
+        当前类。
+    static
+        运行时的当前类。
+    parent
+        父类。

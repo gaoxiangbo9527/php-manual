@@ -1,5 +1,5 @@
 描述
-    string get_resource_type(resource $handle)
+    get_resource_type ( resource $handle ) : string
     该函数用于获取给定资源的类型。
 参数
     handle

@@ -1,0 +1,7 @@
+List of Keywords
+Predefined Classes
+Predefined Constants
+List of other reserved words
+
+以下是一份 PHP 中预定义的标识符的清单。这里列出来的标识符都不应该在你的任何脚本中被用作标识符，除非另有明确说明。这些清单包括关键字、预定义的
+变量、常量和类名。这些清单既不详尽也不完整。

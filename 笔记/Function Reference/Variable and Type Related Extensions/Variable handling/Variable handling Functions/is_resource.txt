@@ -1,10 +1,13 @@
 描述
-    bool is_resource(mixed $var)
-    判断一个变量是否是一个资源
+    is_resource ( mixed $var ) : bool
+    判断指定的变量是否是一个资源。
+
 参数
     var
-        被评估的变量。
+        被求值的变量。
+
 返回值
-    如果 var 是一个资源返回 true ，否者返回 false 。
-注意
-    is_resource() 不是一个严格的资源检查方法，如果 var 是一个被关闭的资源变量，它也会返回 false 。
+    如果 var 是一个资源，则返回 true ；否者返回 false 。
+
+注意事项
+    注意：is_resource() 不是一个严格的类型检查方法，如果 var 是一个被关闭的资源变量，它会返回 false 。
