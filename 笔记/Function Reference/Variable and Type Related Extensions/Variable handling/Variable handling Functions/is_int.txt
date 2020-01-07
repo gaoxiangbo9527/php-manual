@@ -1,10 +1,12 @@
 描述
-    bool is_int(mixed $var)
+    is_int ( mixed $var ) : bool
     判断给定变量的类型是否是整型。
 
-    注意：想要测试一个变量是否是一个数值或者数值化的字符串，你需要使用 is_numeric() 函数。
+    注意：要测试一个变量是否是一个数值或者数值化的字符串，你必须使用 is_numeric() 。
+
 参数
     var
-        被评估的变量。
+        被求值的变量。
+
 返回值
     如果 var 是整型返回 true ，否者返回 false 。

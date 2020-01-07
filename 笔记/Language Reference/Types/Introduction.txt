@@ -7,8 +7,8 @@ PHP 支持 10 种原始类型。
     四种复合类型：
         array
         object
-        callable
-        iterable（？？？）
+        callable（伪类型）
+        iterable（伪类型）
     两种特殊类型：
         resource
         NULL

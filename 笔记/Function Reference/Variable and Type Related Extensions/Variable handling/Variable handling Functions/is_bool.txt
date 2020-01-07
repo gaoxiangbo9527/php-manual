@@ -1,8 +1,10 @@
 描述
-    bool is_bool(mixed $var)
-    判断给定变量的类型是否是布尔型。
+    is_bool ( mixed $var ) : bool
+    判断给定的变量是否是布尔型。
+
 参数
     var
-        被评估的变量。
+        被求值的变量。
+
 返回值
     如果 var 是布尔型返回 true ，否者返回 false 。

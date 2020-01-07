@@ -1,8 +1,10 @@
-语法
-    要指定一个布尔型的字面量，可以使用常量 TRUE 或者 FALSE ，它们不区分大小写。
-    （个人补充）虽然 TRUE 和 FALSE 是常量，但编程时还是建议使用全小写形式，即 true 和 false 。
+这是最简单的类型。一个布尔值表示一个真值。它可以是 TRUE 也可以是 FALSE 。
 
-    通常返回布尔类型值的操作符的结果会被传递给控制流程使用。
+语法
+    想要指定一个布尔型的字面量，可以使用常量 TRUE 或者 FALSE ，它们不区分大小写。
+    个人补充：虽然 TRUE 和 FALSE 是常量，但建议使用全小写形式，即 true 和 false 。
+
+    通常返回布尔类型值的操作符的结果会被传递给控制结构。
 
 转换为布尔值
     显式转换
@@ -13,12 +15,11 @@
 
     当转换成布尔值时，以下值会转换为 false ：
         boolean     false
-        integer     0
-        float       0.0（NAN 也会被转换成 true ）
-        string      "" 或者 "0"（从编程语言的角度来说，"0"转换成 false 是不合理的，而从实用性角度来说 "0" 转换成 false 确实合理）
+        integer     0 和 -0
+        float       0.0 和 -0.0（NAN 也会被转换成 true ）
+        string      "" 或者 "0"（从编程语言的角度看，"0"转换成 false 是不合理的，而从实用性角度来说 "0" 转换成 false 确实合理）
         array       []
         object      从空标签生成的 SimpleXML 对象（即其他所有对象都会被转换成 true）
         callable    无（即所有 callable 类型的值都会转换成 true）
-        iterable    无
         resource    无（即所有资源类型的值都会被转换成 true）
         null        null
