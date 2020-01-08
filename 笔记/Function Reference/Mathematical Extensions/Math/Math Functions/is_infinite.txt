@@ -1,0 +1,10 @@
+描述
+    is_infinite ( float $val ) : bool
+    如果 val 是无穷数（正或者负），则返回 true ，就像 log(0) 或者任何太大从而不在本平台的浮点数内的数值。
+
+参数
+    val
+        待检查的值。
+
+返回值
+    如果 val 是无穷的，返回 true ，否则返回 false 。

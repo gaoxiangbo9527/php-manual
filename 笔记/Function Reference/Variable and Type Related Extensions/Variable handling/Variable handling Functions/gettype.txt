@@ -1,0 +1,24 @@
+描述
+    gettype ( mixed $var ) : string
+    返回 PHP 变量 var 的类型。要想进行类型检查，请使用 is_* 函数。
+
+参数
+    var
+        正在检查其类型的变量。
+
+返回值
+    被返回的字符串的可能值有：
+        "boolean"
+        "integer"
+        "double" （由于历史原因，当是一个浮点数时，会返回 "double" 而不是简单的 "float"）
+        "string"
+        "array"
+        "object"
+        "resource"
+        "resource (closed)" 从 PHP 7.2.0 开始
+        "NULL"
+        "unknown type"
+
+变更日志
+    版本         描述
+    7.2.0       关闭的资源现在会报告为 'resource (closed)' 。之前对于关闭的资源的返回值是 'unknown type' 。

@@ -1,0 +1,27 @@
+描述
+    print_r ( mixed $expression [, bool $return = FALSE ] ) : mixed
+
+    print_r() 会以一种人类可读的方式显示一个变量的信息。
+    print_r()，var_dump() 和 var_export() 也会显示对象的保护和私有属性。静态类成员不会显示。
+
+参数
+    expression
+        将要被打印的表达式。
+    return
+        如果你想要捕获 print_r() 的输出，使用 return 参数。当这个参数设置为 TRUE 时，print_r() 会返回信息而不是打印它。
+
+返回值
+    如果给定一个字符串、整型或者浮点型，值自身会被打印。如果给定一个数组，值将以一种会显示键和元素的格式显示。对象也会使用相似的表示法。
+    当 return 参数是 TRUE 时，该函数会返回一个字符串。否则，返回值为 TRUE 。
+
+注意事项
+    注意
+        当使用了 return 参数时（TRUE），该函数会使用内部的输出缓冲，因此它不能在一个 ob_start() 的回调函数内部使用。
+
+个人补充：
+    布尔型
+        true 会打印 1，而 false 会打印空
+    资源
+        会打印类似这样 Resource id #2 的字符串
+    NULL
+        会打印空

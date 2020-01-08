@@ -1,5 +1,9 @@
 <?php
-class A { public $var; }
+
+class A {
+    public $var;
+    private $privateVar = 1;
+}
 $a = new A;
 $a->var = 5;
 

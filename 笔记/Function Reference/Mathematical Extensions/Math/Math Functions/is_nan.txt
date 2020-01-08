@@ -1,8 +1,10 @@
 描述
-    bool is_nan( float $val )
-    检查一个变量是否是 NaN 。
+    is_nan ( float $val ) : bool
+    检查 val 是否是 NaN ，就像是 acos(1.01) 的结果。
+
 参数
     val
-        要检测的值
+        待检测的值。
+
 返回值
     如果 val 是 NaN 返回 true ，否者返回 false 。

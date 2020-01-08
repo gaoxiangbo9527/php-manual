@@ -1,10 +1,14 @@
 描述
-    bool is_object ( mixed $var )
-    判断给定的变量是否是一个对象
+    is_object ( mixed $var ) : bool
+    判断给定的变量是否是一个对象。
+
 参数
     var
-        带判断的变量
+        待求值的变量。
+
 返回值
     如果 var 是一个对象返回 true ，否则返回 false
 
-
+变更日志
+    版本         描述
+    7.2.0	    对于没有带类定义（即类是 __PHP_Incomplete_Class）的反序列化对象 is_object() 现在会返回 TRUE 。以前会返回 false 。

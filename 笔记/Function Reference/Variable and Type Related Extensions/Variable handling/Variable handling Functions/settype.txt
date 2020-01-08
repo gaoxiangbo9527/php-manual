@@ -1,0 +1,22 @@
+描述
+    settype ( mixed &$var , string $type ) : bool
+    将变量 var 的类型设置为 type 。
+
+参数
+    var
+        被转换的变量。
+    type
+        type 可能的值有：
+            "boolean" 或 "bool"
+            "integer" 或 "int"
+            "float" 或 "double"
+            "string"
+            "array"
+            "object"
+            "null"
+
+返回值
+    成功时返回 TRUE 或者失败时返回 FALSE 。
+
+注意事项
+    注意："int" 的最大值为 PHP_INT_MAX 。

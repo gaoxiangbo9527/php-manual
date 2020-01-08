@@ -1,5 +1,7 @@
 对象实例化
-    使用 new 语句。
+    为了创建一个新的对象，要使用 new 语句去实例化的一个类。
+    详细的讨论，请参阅 类和对象 一章。
+
 转换为对象
     显式转换
         (object)
@@ -15,12 +17,16 @@
             空的 stdClass 实例（同 NULL 转换为对象行为一致）
         非空数组
             转换为 stdClass 实例，其中数组的各个键作为属性名，数组的各个值作为属性值。
+            注意，这种情况下，在 PHP 7.2.0 之前，除非遍历，否则数值化的键是无法访问的。
+
+            <?php
+                $obj = (object) array('1' => 'foo');
+                var_dump(isset($obj->{'1'})); // outputs 'bool(true)' as of PHP 7.2.0; 'bool(false)' previously
+                var_dump(key($obj)); // outputs 'string(1) "1"' as of PHP 7.2.0; 'int(1)' previously
     从对象
         无变化
     从 callable
         不确定，待测试
-    从 iterable
-        参照数组和对象。
     从资源
         有一个属性名为 scalar，值为被转换的资源的 stdClass 实例。
     从 NULL
