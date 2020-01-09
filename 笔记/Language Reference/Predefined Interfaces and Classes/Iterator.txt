@@ -1,3 +1,6 @@
+介绍
+    用于 外部迭代器 或者 可在内部迭代自身的对象（应该就是指内部迭代器） 的接口。
+
 接口摘要
     Iterator extends Traversable {
         /* Methods */
@@ -9,7 +12,7 @@
     }
 
 预定义的遍历器
-    PHP 已经内置提供了若干用于完成许多日常任务的遍历器，详细列表参见 SPL 遍历器。
+    PHP 已经内置提供了若干用于完成许多日常任务的遍历器，详细清单参见 SPL 遍历器 。
 
 foreach循环中各个方法的实际调用顺序
     1. Before the first iteration of the loop, Iterator::rewind() is called.
@@ -20,5 +23,5 @@ foreach循环中各个方法的实际调用顺序
     5. After each iteration of the loop, Iterator::next() is called and we repeat from step 2 above.
 
 如果 foreach 中没有去获取 key ，那么是不会调用 key 方法的。
-如果 foreach 中有去获取 key ，那么是会调用 key 方法的，而且是先调用 current 方法再调用 key 方法。
-如果 valid() 方法返回值为false，则循环会停止遍历。
+如果 foreach 中有去获取 key ，那么会调用 key 方法，而且是先调用 current 方法再调用 key 方法。
+如果 valid() 方法返回值为 false，则循环会停止遍历。

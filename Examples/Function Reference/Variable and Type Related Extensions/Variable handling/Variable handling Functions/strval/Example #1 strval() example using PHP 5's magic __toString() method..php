@@ -1,6 +1,7 @@
 <?php
-//$a = [];
-//echo strval($a);
+$a = [];
+echo strval($a);
+exit;
 
 class StrValTest
 {

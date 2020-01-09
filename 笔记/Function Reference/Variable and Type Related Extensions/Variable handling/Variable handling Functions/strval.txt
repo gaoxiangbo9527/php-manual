@@ -1,11 +1,15 @@
 描述
-    string strval(mixed $var)
-    获取变量 var 的字符串值。
+    strval ( mixed $var ) : string
+    获取一个变量的字符串值。
+
 参数
     var
         要转换为字符串值的变量。
+
+        var 可以是任何的标量类型，也可以是实现了 __toString() 方法的对象。你不能对数组或没有实现 __toString() 方法的对象使用该函数。
+        个人补充：可以转回数组，结果是 "Array"，但是会产生一个 E_NOTICE 级别的错误。
+
 返回值
     var 的字符串值。
 
-个人补充
-    该函数的转换行为同 (string) 一致。
+个人补充：该函数的转换行为其实同 (string) 一致。

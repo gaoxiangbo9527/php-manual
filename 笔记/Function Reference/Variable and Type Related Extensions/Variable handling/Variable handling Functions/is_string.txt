@@ -1,8 +1,10 @@
 描述
-    bool is_string(mixed $var)
+    is_string ( mixed $var ) : bool
     判断给定变量的类型是否是字符串。
+
 参数
     var
-        被评估的变量。
+        待求值的变量。
+
 返回值
     如果 var 是字符串返回 true ，否者返回 false 。
