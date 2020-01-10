@@ -1,0 +1,10 @@
+描述
+    is_array ( mixed $var ) : bool
+    判断给定的变量是否是一个数组。
+
+参数
+    var
+        待求值的变量。
+
+返回值
+    如果 var 是一个数组则返回 TRUE ，否则返回 FALSE 。

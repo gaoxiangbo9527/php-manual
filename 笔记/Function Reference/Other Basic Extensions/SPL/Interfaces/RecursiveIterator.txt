@@ -1,0 +1,23 @@
+介绍
+    实现 RecursiveIterator 的类能够用于递归的遍历迭代器。
+
+接口摘要
+    RecursiveIterator extends Iterator {
+
+        /* Methods */
+        public getChildren ( void ) : RecursiveIterator
+        public hasChildren ( void ) : bool
+
+        /* Inherited methods */
+        abstract public Iterator::current ( void ) : mixed
+        abstract public Iterator::key ( void ) : scalar
+        abstract public Iterator::next ( void ) : void
+        abstract public Iterator::rewind ( void ) : void
+        abstract public Iterator::valid ( void ) : bool
+    }
+
+RecursiveIterator::getChildren
+    为当前记录返回一个迭代器。注意返回的迭代器的类型为： RecursiveIterator 。
+
+RecursiveIterator::hasChildren
+    返回是否能够为当前记录创建一个迭代器。

@@ -1,0 +1,12 @@
+>= 7.1.0
+
+描述
+    is_iterable ( mixed $var ) : bool
+   验证变量的内容是否被 iterable 伪类型接受，比如，它是否是一个数组或者一个实现了 Traversable 接口的对象。
+
+参数
+    var
+        待检查的变量
+
+返回值
+    如果 var 是可遍历的则返回 TRUE，否则返回 FALSE 。

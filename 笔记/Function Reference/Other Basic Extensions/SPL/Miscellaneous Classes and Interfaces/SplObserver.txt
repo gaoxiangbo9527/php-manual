@@ -1,7 +1,9 @@
 介绍
     SplObserver 接口与 SplSubject 一起用于实现观察者设计模式。
+
 接口摘要
     SplObserver {
+
         /* Methods */
         abstract public update ( SplSubject $subject ) : void
     }

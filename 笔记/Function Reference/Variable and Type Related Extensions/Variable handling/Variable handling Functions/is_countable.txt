@@ -1,0 +1,17 @@
+>= 7.3.0
+
+描述
+    is_countable ( mixed $var ) : bool
+    验证一个变量的内容是一个数组或者一个实现了 Countable 接口的对象。
+
+参数
+    var
+        待检查的变量。
+
+返回值
+    如果是可统计的返回 TRUE ，否则返回 FALSE 。
+
+变更日志
+    版本          描述
+    7.3.0	     is_countable() 被添加。
+

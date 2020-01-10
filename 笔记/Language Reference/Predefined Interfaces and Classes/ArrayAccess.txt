@@ -1,0 +1,41 @@
+介绍
+    提供按数组形式 访问 对象的接口。
+    个人补充：指的是使用数组的方括号式语法访问对象（新增、删除和修改和读取），但不包括遍历。其实 ArrayAccess 的名字很形象的反应可该接口的
+    实际用途。如果目的是遍历对象，而不是访问对象，那么请使用 Iterator 或者 IteratorAggregate 。如果想让一个对象完全像数组一样工作，那么
+    请使用 ArrayObject 接口。
+
+接口摘要
+    ArrayAccess {
+
+        /* Methods */
+        abstract public offsetExists ( mixed $offset ) : bool
+        abstract public offsetGet ( mixed $offset ) : mixed
+        abstract public offsetSet ( mixed $offset , mixed $value ) : void
+        abstract public offsetUnset ( mixed $offset ) : void
+    }
+
+ArrayAccess::offsetExists
+    当在实现了 ArrayAccess 接口的对象上使用 isset() or empty() 时，会执行该方法。
+
+    当时使用 empty() 时，会先调用 ArrayAccess::offsetExists() ，如果 ArrayAccess::offsetExists() 返回 TRUE ，则会继续调用
+    ArrayAccess::offsetGet() 去检查是否为空。
+
+    如果非布尔值被返回，则会强制转换成布尔值。
+
+ArrayAccess::offsetUnset
+    当使用强制类型转换 (unset) 时，并不会调用该方法。
+
+ArrayAccess::offsetGet
+    从 PHP 5.3.4 开始，简化了原型的检查，并且该方法的实现可以按引用返回。这使间接的修改 ArrayAccess 对象的重载数组维度成为可能。
+
+    直接修改就是完全替换数组维度的值，例如 $obj[6] = 7 。另一方面，间接修改就是只更改维度的一部分或者试图按引用把维度赋值给另外一个变量。
+    就像 $obj[6][7] = 7 或者 $var =& $obj[6] 。使用 ++ 递增和使用 -- 递减也是以一种需要间接修改的方式实现的。
+
+    相对于直接修改触发对 ArrayAccess::offsetSet() 的调用，间接修改会触发对 ArrayAccess::offsetGet() 的调用。在这种情况下，
+    ArrayAccess::offsetGet() 的实现必须能够按引用返回，否则会产生一条 E_NOTICE 消息。
+
+ArrayAccess::offsetSet
+    如果设置时没有指定索引值，那么 offset 参数将设置为 NULL。
+
+    在按引用赋值时不会引用这个函数，否则就会间接地改变使用 ArrayAccess 重载的数组的维数。而是调用 ArrayAccess::offsetGet()。只有当该方
+    法按引用返回时，操作才会成功，这只有在 PHP 5.3.4 中才有可能。

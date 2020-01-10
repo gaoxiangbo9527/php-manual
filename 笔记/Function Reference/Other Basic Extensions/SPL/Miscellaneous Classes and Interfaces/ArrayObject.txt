@@ -1,0 +1,49 @@
+介绍
+    这个类允许对象像数组一样工作。
+    个人补充：注意 ArrayObject 是一个类，而不是一个接口。
+
+类摘要
+    ArrayObject implements IteratorAggregate , ArrayAccess , Serializable , Countable {
+
+        /* Constants */
+        const integer STD_PROP_LIST = 1 ;
+        const integer ARRAY_AS_PROPS = 2 ;
+
+        /* Methods */
+        public __construct ([ mixed $input = array() [, int $flags = 0 [, string $iterator_class = "ArrayIterator" ]]] )
+        public append ( mixed $value ) : void
+        public asort ( void ) : void
+        public count ( void ) : int
+        public exchangeArray ( mixed $input ) : array
+        public getArrayCopy ( void ) : array
+        public getFlags ( void ) : int
+        public getIterator ( void ) : ArrayIterator
+        public getIteratorClass ( void ) : string
+        public ksort ( void ) : void
+        public natcasesort ( void ) : void
+        public natsort ( void ) : void
+        public offsetExists ( mixed $index ) : bool
+        public offsetGet ( mixed $index ) : mixed
+        public offsetSet ( mixed $index , mixed $newval ) : void
+        public offsetUnset ( mixed $index ) : void
+        public serialize ( void ) : string
+        public setFlags ( int $flags ) : void
+        public setIteratorClass ( string $iterator_class ) : void
+        public uasort ( callable $cmp_function ) : void
+        public uksort ( callable $cmp_function ) : void
+        public unserialize ( string $serialized ) : void
+    }
+
+预定义的常量
+    ArrayObject 的标志位
+        ArrayObject::STD_PROP_LIST
+            当作为一个列表被访问时，对象的属性拥有它们正常的功能。
+            个人补充：目前还不太理解这个标志位的含义。
+        ArrayObject::ARRAY_AS_PROPS
+            记录能够以属性的方式被访问（读和写）。就是说记录可以使用 -> 操作符访问。
+
+变更日志
+    版本	        描述
+    5.3.0	    实现了 Serializable 。
+
+该类有许多的方法，需要时再去查手册即可。

@@ -1,0 +1,28 @@
+介绍
+    实现了 OuterIterator 的类可以用于遍历迭代器。
+
+接口摘要
+    OuterIterator extends Iterator {
+
+        /* Methods */
+        public getInnerIterator ( void ) : Iterator
+
+        /* Inherited methods */
+        abstract public Iterator::current ( void ) : mixed
+        abstract public Iterator::key ( void ) : scalar
+        abstract public Iterator::next ( void ) : void
+        abstract public Iterator::rewind ( void ) : void
+        abstract public Iterator::valid ( void ) : bool
+    }
+
+OuterIterator::getInnerIterator
+    返回当前记录对应的内部迭代器。
+
+个人补充：该接口不应该叫外部迭代器，IteratorAggregate 才叫外部迭代器。该接口的名称应该叫外层迭代器，即遍历内层迭代器的外部迭代器。该接口从
+Iterator 继承的那些方法是用于遍历该对象本身的，遍历时通过 current() 得到的结果我们称为元素。
+如果这个元素本身不是一个迭代器，此时我们可以在 getInnerIterator() 中进行处理，就可以把这个元素改造成我们需要的迭代器；
+如果这个元素本身是一个迭代器，但是不是我们需要的迭代器，此时我们也可以在 getInnerIterator() 中进行改造，返回我们需要的迭代器；
+如果这个元素本身是一个迭代器，而且是我们需要的迭代器，可以直接在 getInnerIterator() 返回 current() 的结果，此时其实根本没必要用
+OuterIterator 接口，一般来说，就是要在 getInnerIterator() 加入我们自己的逻辑才会用 OuterIterator 接口的。
+
+PHP 提供了一大堆实现了 OuterIterator 接口的迭代器类，具体可以参考 SPL，如果这里面的类还不够你用，你就可以自己实现 OuterIterator 接口。

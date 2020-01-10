@@ -1,0 +1,22 @@
+介绍
+    可寻的迭代器。
+    个人补充：即可跳转到特定位置的迭代器。
+
+接口摘要
+    SeekableIterator extends Iterator {
+
+        /* Methods */
+        abstract public seek ( int $position ) : void
+
+        /* Inherited methods */
+        abstract public Iterator::current ( void ) : mixed
+        abstract public Iterator::key ( void ) : scalar
+        abstract public Iterator::next ( void ) : void
+        abstract public Iterator::rewind ( void ) : void
+        abstract public Iterator::valid ( void ) : bool
+    }
+
+SeekableIterator::seek
+    寻（跳转）到迭代器中的某个特定位置。
+    position 一般是从 0 开始的。
+    如果 position 是不可寻的，实现应该抛出一个 OutOfBoundsException 异常。

@@ -1,0 +1,8 @@
+介绍
+    实现了 Countable 接口的类可以与 count() 函数一起使用。
+
+接口摘要
+    Countable {
+        /* Methods */
+        abstract public count ( void ) : int
+    }

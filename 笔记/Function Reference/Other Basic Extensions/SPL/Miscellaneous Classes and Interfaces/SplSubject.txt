@@ -1,7 +1,9 @@
 介绍
     SplSubject 接口与 SplObserver 一起用于实现观察者设计模式。
+
 接口语法
     SplSubject {
+
         /* Methods */
         abstract public attach ( SplObserver $observer ) : void
         abstract public detach ( SplObserver $observer ) : void
