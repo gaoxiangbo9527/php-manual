@@ -1,0 +1,65 @@
+下面的表格们演示了 PHP 的类型和比较操作符的行为，包括松散比较和严格比较。这份补充也与 类型戏法 的手册章节相关。灵感来自于不同的用户评论以及
+BlueShoes 上的作品。
+
+在使用这些表之前，理解类型以及它们的含义是重要的。例如，"42" 是一个字符串，而 42 是一个整数。FALSE 是一个布尔值，而 "false" 是一个字符串。
+
+注意：HTML 表单不会传递整型、浮点型和布尔型；它们传递的是字符串。想要确定字符串是否是数值，可以使用 is_numeric() 。
+
+注意：当没有定义 $x 时，简单的进行 if($x) 会生成一个 E_NOTICE 级别的错误。相反，应该考虑使用 empty() 或者 isset() 和/或初始化你的变量。
+
+注意：一些数值操作可以得到一个使用常量 NAN 表示的值。将该值与任何其它的值，包括它自身，但除了 TRUE ，进行松散或者严格的比较，都会得到一个
+FALSE 结果。生成 NAN 的示例操作包括 sqrt(-1)、 asin(2) 和 acosh(0) 。
+
+比较 $x 和 PHP 函数
+    表达式	                gettype()	empty()	    is_null()	isset()	    boolean : if($x)
+    $x = "";	            string	    TRUE	    FALSE	    TRUE	    FALSE
+    $x = null;	            NULL	    TRUE	    TRUE	    FALSE	    FALSE
+    var $x;	                NULL	    TRUE	    TRUE	    FALSE	    FALSE
+    $x is undefined	        NULL	    TRUE	    TRUE	    FALSE	    FALSE
+    $x = array();	        array	    TRUE	    FALSE	    TRUE	    FALSE
+    $x = array('a', 'b');   array	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = false;	            boolean	    TRUE	    FALSE	    TRUE	    FALSE
+    $x = true;	            boolean	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = 1;	                integer	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = 42;	            integer	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = 0;	                integer	    TRUE	    FALSE	    TRUE	    FALSE
+    $x = -1;	            integer	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = "1";	            string	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = "0";	            string	    TRUE	    FALSE	    TRUE	    FALSE
+    $x = "-1";	            string	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = "php";	            string	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = "true";	        string	    FALSE	    FALSE	    TRUE	    TRUE
+    $x = "false";	        string	    FALSE	    FALSE	    TRUE	    TRUE
+
+松散比较 ==
+            TRUE	FALSE	1	    0	    -1	    "1"	    "0"	    "-1"	NULL	array()	"php"	""
+    TRUE	TRUE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE
+    FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	TRUE	TRUE	FALSE	TRUE
+    1	    TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    0	    FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	TRUE	TRUE
+    -1	    TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE
+    "1"	    TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    "0"	    FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE
+    "-1"	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE
+    NULL	FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	TRUE
+    array()	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	FALSE	FALSE
+    "php"	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE
+    ""	    FALSE	TRUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	TRUE
+个人补充：当数组和其他非数组的值进行 == 比较时，会将非数组的值转换成数组，然后再进行比较，注意，此时 == 是一个数组操作符。
+
+严格比较 ===
+            TRUE	FALSE	1	    0	    -1	    "1"	    "0"	    "-1"	NULL	array()	"php"	""
+    TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    1	    FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    0	    FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    -1	    FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    "1"	    FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE
+    "0"	    FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE
+    "-1"	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE
+    NULL	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE
+    array()	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	FALSE
+    "php"	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE
+    ""	    FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	TRUE
+
+
