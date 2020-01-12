@@ -1,4 +1,27 @@
 语言选项
+    语言和杂项配置选项
+        名称	                            默认值	    可修改范围	        变更日志
+        short_open_tag	                "1"	        PHP_INI_PERDIR
+        asp_tags	                    "0"	        PHP_INI_PERDIR	    在 PHP 7.0.0 中被移除了。
+        precision	                    "14"	    PHP_INI_ALL
+
+    short_open_tag  boolean
+        告诉 PHP 是否应该允许简短形式（<? ?>）的 PHP 开始标签。如果你想结合使用 PHP 和 XML ，你可以禁用此选项从而使用嵌入的 <?xml ?> 。
+        否则的话，你需要使用 PHP 去输出它，例如 <?php echo '<?xml version="1.0"?>'; ?> 。此外，如果禁用，则你必须使用长形式的 PHP
+        开放标签（<?php ? >）。
+
+        注意：
+            在 PHP 5.4.0 以前，这个指令也会影响简写形式的 <?= ，它相当于 <? echo 。使用这种快捷方式需要开启 short_open_tag 。从 PHP
+            5.4.0 开始，<?= 总是可用的。
+    asp_tags    boolean
+        除了通常的 <?php ?> 标签外，启用类 ASP 的 标签。这包括打印变量值的简写形式 <%= $value %> 。更多信息，请查看
+        Escaping from HTML 。
+
+        asp_tags 的变更日志
+            版本	    描述
+            7.0.0   从 PHP 中移除。
+    precision   integer
+        浮点数中会显示的有效数字的数目。-1 表示将使用一种改进的四舍五入算法。
     zend.assertions	    integer
         当设置为1时，断言代码会被生成和执行（开发模式）；当设置为0时，断言代码会生成但会被掉过（不执行）；当设置为-1时，断言代码不会被执行，使得断
         言0成本（生产模式）。
@@ -7,7 +30,7 @@
             如果在开发模式中启动一个过程，那么在运行时期间不能将 zend.assertions 设置为 -1 。
 数据处理
     数据处理配置选项
-        名称                             默认值       可修改范围            变化日志
+        名称                             默认值       可修改范围           变更日志
         variables_order	                "EGPCS"	    PHP_INI_PERDIR	    在 PHP <= 5.0.5 中是 PHP_INI_ALL
         request_order	                ""	        PHP_INI_PERDIR	    从 PHP 5.3.0 开始可用
         register_argc_argv	            "1"	        PHP_INI_PERDIR
