@@ -34,6 +34,7 @@
         variables_order	                "EGPCS"	    PHP_INI_PERDIR	    在 PHP <= 5.0.5 中是 PHP_INI_ALL
         request_order	                ""	        PHP_INI_PERDIR	    从 PHP 5.3.0 开始可用
         register_argc_argv	            "1"	        PHP_INI_PERDIR
+        register_long_arrays	        "1"	        PHP_INI_PERDIR	    在 PHP 5.3.0 中被废弃。在 PHP 5.4.0 中被移除。
         post_max_size	                "8M"	    PHP_INI_PERDIR
         auto_prepend_file               NULL        PHP_INI_PERDIR
         auto_append_file	            NULL	    PHP_INI_PERDIR
@@ -56,6 +57,13 @@
     register_argc_argv  boolean
         告知 PHP 是否声明 argc 和 argv 变量（它们将包含 GET 信息）。另请参阅 命令行。
         (个人补充，这里说的不是很准确，具体看 $argc 和 $argv 中的个人总结)
+    register_long_arrays    boolean
+        告知 PHP 是否去注册已经被废弃的长 $HTTP_*_VARS 类型的预定义变量。当启用时（默认），类似 $HTTP_GET_VARS 这种长的、预定义的 PHP
+        变量将会被定义。如果你不会使用它们，推荐关闭它们，出于性能原因。相应的，应使用超全局数组，比如 $_GET 。这个指令是在 PHP 5.0.0 中
+        变成可用的。
+
+        警告
+            从 PHP 5.3.0 开始这个特性已经被废弃并且从 PHP 5.4.0 开始被移除。
     post_max_size   integer
         设置 post 数据允许的最大大小。
         这个设置也会影响文件上传，想要上传大文件，则它的值必须大于 upload_max_filesize 的值。

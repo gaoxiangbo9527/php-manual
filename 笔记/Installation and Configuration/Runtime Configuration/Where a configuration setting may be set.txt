@@ -5,8 +5,8 @@
 然而 display_errors 指令是 PHP_INI_ALL ，因而就可以在任何地方被设定，包括 ini_set() 。
 
 PHP_INI_* 模式的定义
-模式              含义
-PHP_INI_USER	 条目可以在用户脚本（例如 ini_set()）或 Windows 注册表中设置，从 PHP 5.3 起条目也可以在 .user.ini 中设置
-PHP_INI_PERDIR	 条目可以在 php.ini，httpd.conf，.user.ini （从 PHP 5.3 起）或 .htaccess 中设置
-PHP_INI_SYSTEM	 条目可以在 php.ini 或 httpd.conf 中设置
-PHP_INI_ALL	     条目可以在任何地方设置
+    模式              含义
+    PHP_INI_USER	 条目可以在用户脚本（例如 ini_set()）或 Windows 注册表中设置，从 PHP 5.3 起条目也可以在 .user.ini 中设置
+    PHP_INI_PERDIR	 条目可以在 php.ini，httpd.conf，.user.ini （从 PHP 5.3 起）或 .htaccess 中设置
+    PHP_INI_SYSTEM	 条目可以在 php.ini 或 httpd.conf 中设置
+    PHP_INI_ALL	     条目可以在任何地方设置

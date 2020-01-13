@@ -1,9 +1,10 @@
 HTML表单（GET 和 POST）
-    PHP 5.4.0 以后，只有两种方式可以访问来自HTML表单的数据（这里的说的两种方式应该是指 GET 和 POST）。
-    注意
-        变量名中的点和空格都会转换为下划线。
-    注意
-        如果外部变量名以有效的数组语法开始，后续的字符将会被自动忽略。例如 <input name="foo[bar]baz"> 会成为 $_REQUEST['foo']['bar'] 。
+    PHP 5.4.0 以后，只有两种方式可以访问来自 HTML 表单的数据。个人补充：这里的说的两种方式应该是指 GET 和 POST 。
+
+    注意：变量名中的点和空格都会转换为下划线。
+
+    注意：如果外部变量名以有效的数组语法开始，后续的字符将会被自动忽略。例如 <input name="foo[bar]baz"> 会成为
+     $_REQUEST['foo']['bar'] 。
 
 IMAGE 提交的变量名
     <input type="image" src="image.gif" name="sub" />
@@ -12,11 +13,32 @@ IMAGE 提交的变量名
     有经验的用户可能会注意到被浏览器发送的实际变量名包含的是一个点而不是下划线（即 sub.x 和 sub.y），但 PHP 自动的将点转换成了下划线。
 
 HTTP Cookies
-    Cookies 是 HTTP 头中的一部分，因此 SetCookie 函数必须在向浏览器发送任何输出之前调用。
+    PHP 透明的支持按照 RFC 6265 定义的 HTTP Cookie 。cookie 是一种存储数据到远程浏览器的机制，并且会跟踪或者标识返回的用户。你可以使用
+    setcookie() 函数去设置 Cookie 。Cookie 是 HTTP 头中的一部分，因此 SetCookie 函数必须在向浏览器发送任何输出之前调用。这和
+    header() 函数有着相同的限制。然后，可以在适当的 Cookie 数据数组中使用 Cookie 数据，比如 $_COOKIE 和 $_REQUEST 。更多详情和示例请
+    查看 setcookie() 的手册页面。
+
+    如果你想将多个值赋值给单个 cookie 变量，你可以将其作为一个数组赋值。
+        <?php
+          setcookie("MyCookie[foo]", 'Testing 1', time()+3600);
+          setcookie("MyCookie[bar]", 'Testing 2', time()+3600);
+    这将创建两个单独的 cookie ，尽管 MyCookie 现在将是脚本中的单个数组。如果您只想设置一个具有多个值的 cookie ，考虑使用先对值使用
+    serialize() 或 explode() 。
+
+    请注意，除非路径或域不同，否则一个 cookie 将替换你的浏览器中前面的同名 cookie 。
 
 传入的变量名中的点
-    通常 PHP 不会改变传递给脚本的变量名。然而应该注意到点（号）不是 PHP 变量名中的合法字符。
-    出于此原因，要注意 PHP 将会自动将传入的变量名中的点替换成下划线。
+    通常 PHP 不会改变传递到脚本中的变量名。然而应该注意到点（号）不是 PHP 变量名中的合法字符。出于此原因，要注意 PHP 将会自动将传入的变量
+    名中的点替换成下划线。
 
 确定变量的类型
+    因为 PHP 会决定变量的类型并根据需要（通常）转换它们，所以在任何时候，给定变量的类型并不总是很明显。PHP 包含几个用于查找变量类型的函数，
+    比如：gettype()、is_array()、is_float()、is_int()、is_object() 和 is_string() 。 另请参阅 类型 章节。
 
+    HTTP 是一个文本协议，超全局数组中的大部分内容，像 $_POST 和 $_GET ，将保持为字符串（即便不是全部）。PHP 不会尝试转换值到一个特定的类
+    型。
+
+变更日志
+    版本         描述
+    5.4.0	    Register Globals，Magic Quotes 和 register_long_arrays 已经被移除了。
+    5.3.0	    Register Globals，Magic Quotes 和 register_long_arrays 成为被废弃的。
