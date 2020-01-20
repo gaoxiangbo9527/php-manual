@@ -1,8 +1,33 @@
 核心预定义常量
     这些常量是由 PHP 核心定义的，其中包括 PHP、Zend 引擎和 SAPI 模块。
+    PHP_VERSION （字符串）
+        当前 PHP 的版本，以 “major.minor.release[extra]” 表示法的一个字符串。
+    PHP_MAJOR_VERSION （整型）
+        当前 PHP 的“major”版本，以一个整数（例如，来自版本“5.2.7-extra”中的整数 5）。从 PHP 5.2.7 开始可用。
+    PHP_MINOR_VERSION （整型）
+        当前 PHP 的“minor”版本，以一个整数（例如，来自版本“5.2.7-extra”中的整数 2）。从 PHP 5.2.7 开始可用。
+    PHP_RELEASE_VERSION （整型）
+        当前 PHP 的“release”版本，以一个整数（例如，来自版本“5.2.7-extra”中的整数 7）。从 PHP 5.2.7 开始可用。
+    PHP_VERSION_ID （整型）
+        当前 PHP 的版本，以一个整数，用于版本比较（例如，来自版本“5.2.7-extra”中的整数 50207）。从 PHP 5.2.7 开始可用。
+    PHP_EXTRA_VERSION （字符串）
+        当前 PHP 的“extra”版本，以一个整数（例如，来自版本“5.2.7-extra”中的字符串 '-extra'）。发行版供应商经常使用它来指示一个包版本。
+        从 PHP 5.2.7 开始可用。
+    PHP_ZTS （整型）
+        从 PHP 5.2.7 开始可用。
+    PHP_DEBUG （整型）
+        从 PHP 5.2.7 开始可用。
+    PHP_MAXPATHLEN （整型）
+        被该 PHP 构建支持的文件名（包括路径）的最大长度。从 PHP 5.3.0 开始可用。
+    PHP_OS （字符串）
+        PHP 为其而构建的操作系统。
+    PHP_OS_FAMILY （字符串）
+        PHP 为其而构建的操作系统家族。其中包括 “Windows”、 “BSD”、 “Darwin”、 “Solaris”、 “Linux” 或 “Unknown” 。从 PHP 7.2.0
+        开始可用。
     PHP_SAPI
         为此 PHP 构建的服务器 API，另请参阅 php_sapi_name() 。
-
+    PHP_EOL （字符串）
+        此平台的正确“行结束”符号。从 PHP 5.0.2 开始可用。
     PHP_INT_MAX （整型）
         此 PHP 构建中支持的最大整数。通常在 32 位系统中是 2147483647 并且在 64 位系统中是 9223372036854775807 。从 PHP 5.0.5 开始
         可用。
@@ -22,13 +47,73 @@
         如果你需要表示最小的负浮点数，使用 -PHP_FLOAT_MAX 。
     PHP_FLOAT_MAX （整型）
         可以表示的最大的浮点数。从 PHP PHP 7.2.0 开始可用。
-
+    DEFAULT_INCLUDE_PATH （字符串）
+    PEAR_INSTALL_DIR （字符串）
+    PEAR_EXTENSION_DIR （字符串）
+    PHP_EXTENSION_DIR （字符串）
+    PHP_PREFIX （字符串）
+        在 configure 时设置的 --prefix 值。
+    PHP_BINDIR （字符串）
+        指定了二进制文件安装到何处。
+    PHP_BINARY （字符串）
+        指定在脚本执行期间的 PHP 二进制路径。从 PHP 5.4 开始可用。
+    PHP_MANDIR （字符串）
+        指定手册页安装在何处。从 PHP 5.3.7 开始可用。
+    PHP_LIBDIR （字符串）
+    PHP_DATADIR （字符串）
+    PHP_SYSCONFDIR （字符串）
+    PHP_LOCALSTATEDIR （字符串）
+    PHP_CONFIG_FILE_PATH （字符串）
+    PHP_CONFIG_FILE_SCAN_DIR （字符串）
+    PHP_SHLIB_SUFFIX （字符串）
+        构建平台的共享库的后缀，例如 "so"（大多数 Unix 系统） 或者 "dll"（Windows） 。
+    PHP_FD_SETSIZE （字符串）
+        选择系统调用的文件描述符的最大数目。从 PHP 7.1.0 开始可用。
+    E_ERROR （整型）
+        错误报告常量
+    E_WARNING （整型）
+        错误报告常量
+    E_PARSE （整型）
+       错误报告常量
+    E_NOTICE （整型）
+        错误报告常量
+    E_CORE_ERROR （整型）
+        错误报告常量
+    E_CORE_WARNING （整型）
+        错误报告常量
+    E_COMPILE_ERROR （整型）
+        错误报告常量
+    E_COMPILE_WARNING （整型）
+        错误报告常量
+    E_USER_ERROR （整型）
+        错误报告常量
+    E_USER_WARNING （整型）
+        错误报告常量
+    E_USER_NOTICE （整型）
+        错误报告常量
+    E_RECOVERABLE_ERROR （整型）
+        错误报告常量。从 PHP 5.2.0 开始可用。
+    E_DEPRECATED （整型）
+        错误报告常量。从 PHP 5.3.0 开始可用。
+    E_USER_DEPRECATED （整型）
+        错误报告常量。从 PHP 5.3.0 开始可用。
+    E_ALL （整型）
+        错误报告常量
+    E_STRICT （整型）
+        错误报告常量
+    __COMPILER_HALT_OFFSET__ （整型）
+        从 PHP 5.1.0 开始可用。
     TRUE （布尔型）
         参见 布尔型 。
     FALSE （布尔型）
         参见 布尔型 。
     NULL （null 类型）
         参见 null 类型。
+    PHP_WINDOWS_EVENT_CTRL_C (integer)
+        一个 Windows CTRL+C 事件。从 PHP 7.4.0 开始可用（仅 Windows）。
+    PHP_WINDOWS_EVENT_CTRL_BREAK (integer)
+        一个 Windows CTRL+BREAK 事件。从 PHP 7.4.0 开始可用（仅 Windows）。
+    另请参阅：魔术常量 。
 
 标准预定义常量
     所有来自 核心扩展 中的常量默认情况下在 PHP 中都是已定义的。
