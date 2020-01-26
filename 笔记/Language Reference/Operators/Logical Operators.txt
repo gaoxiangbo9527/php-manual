@@ -1,14 +1,15 @@
 逻辑运算符
-    示例          名称              结果
-    $a and $b    And（逻辑与）      如果 $a 和 $b 都是 TRUE 时结果是 TRUE 。
-    $a or $b	 Or（逻辑或）	      如果 $a 或 $b 是 TRUE 时结果是 TRUE 。
-    $a xor $b	 Xor（逻辑异或）	  如果 $a 或 $b 是 TRUE 但不同时是 TRUE 时结果是 TRUE 。
-    !$a	         Not（逻辑非）	  如果 $a 不是 TRUE 时 结果是 TRUE 。
-    $a && $b	 And（逻辑与）      如果 $a 和 $b 都是 TRUE 时结果是 TRUE 。
-    $a || $b	 Or（逻辑或）	      如果 $a 或 $b 是 TRUE 时结果是 TRUE 。
+    示例         名称              结果
+    $a and $b    逻辑与            如果 $a 和 $b 都是 TRUE 时结果是 TRUE 。
+    $a or $b	 逻辑或	          如果 $a 或 $b 是 TRUE 时结果是 TRUE 。
+    $a xor $b	 逻辑异或	      如果 $a 或 $b 是 TRUE 但不同时是 TRUE 时结果是 TRUE 。
+    !$a	         逻辑非	          如果 $a 不是 TRUE 时结果是 TRUE 。
+    $a && $b	 逻辑与            如果 $a 和 $b 都是 TRUE 时结果是 TRUE 。
+    $a || $b	 逻辑或            如果 $a 或 $b 是 TRUE 时结果是 TRUE 。
 
-有两种不同形式的“与”和“或”运算符的原因是它们运算的优先级不同（见 运算符优先级）。
+有两种不同形式的“与”和“或”操作符的原因是它们操作的优先级不同（见 运算符优先级）。
 
-&& 的优先级高于 and
-|| 的优先级高于 or
-它们四个均是短路求值的。
+来自示例
+    && 的优先级高于 and
+    || 的优先级高于 or
+    它们四个均是短路求值的。
