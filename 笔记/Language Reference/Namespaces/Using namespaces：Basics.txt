@@ -1,11 +1,12 @@
-请求命名空间中的元素的三种用法：
-    1. 非限定名，或者说一个没有前缀的类名，比如：$a = new foo(); 或 foo::staticmethod(); 。如果当前的命名空间是 currentnamespace，它会
-    解析到 currentnamespace\foo 。如果代码是全局的，非命名空间代码，这会解析到 foo 。
+请求命名空间中的类名的三种用法：
+    1. 非限定名，或者说一个没有前缀的类名，比如：$a = new foo(); 或 foo::staticmethod(); 。如果当前的命名空间是 currentnamespace，
+    它会解析到 currentnamespace\foo 。如果代码是全局的，非命名空间代码，这会解析到 foo 。
     一个警告：非限定名的函数和常量会被解析到全局的函数和常量，如果没有定义（对应的）命名空间的函数和常量的话。详情请参考：
     Using namespaces: fallback to global function/constant
 
-    2. 限定名，或者说一个有前缀的类名，比如：$a = new subnamespace\foo(); 或 subnamespace\foo::staticmethod() 。如果当前的命名空间是
-    currentnamespace，它会解析到 currentnamespace\subnamespace\foo 。如果代码是全局的，非命名空间代码，这会解析到 subnamespace\foo 。
+    2. 限定名，或者说一个有前缀的类名，比如：$a = new subnamespace\foo(); 或 subnamespace\foo::staticmethod() 。如果当前的命名空
+    间是 currentnamespace，它会解析到 currentnamespace\subnamespace\foo 。如果代码是全局的，非命名空间代码，这会解析到
+    subnamespace\foo 。
 
     3. 全限定名，或者说一个带有 全局前缀操作符 前缀的类名，比如：$a = new \currentnamespace\foo(); 或
     \currentnamespace\foo::staticmethod()。这总会解析到代码中指定的字面名称，currentnamespace\foo 。
