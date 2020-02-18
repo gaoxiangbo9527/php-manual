@@ -1,10 +1,12 @@
 描述
     spl_autoload_register ([ callable $autoload_function [, bool $throw = TRUE [, bool $prepend = FALSE ]]] ) : bool
     使用 spl 提供的 __autoload 队列注册一个函数。如果队列还没有被激活的话，会激活该队列。
+
     如果你的代码中已经存在 __autoload() 函数，那么该函数（$autoload_function）必须被显式的注册到 __autoload 队列中。这是因为
     spl_autoload_register() 将有效地用 spl_autoload() 或 spl_autoload_call() 来替换 __autoload() 函数的引擎缓存。
-    如果必须注册多个自动加载函数，spl_autoload_register() 可以满足这一点。它有效的创建了一个自动加载函数的队列，按照它们定义的顺序逐个运行过去。
-    相比之下，__autoload() 只可以被定义一次。
+
+    如果必须注册多个自动加载函数，spl_autoload_register() 可以满足这一点。它有效的创建了一个自动加载函数的队列，按照它们定义的顺序逐个运行
+    过去。相比之下，__autoload() 只可以被定义一次。
 参数
     autoload_function
         被注册的自动加载函数。如果没有参数被提供，那么默认的实现 spl_autoload() 会被注册。

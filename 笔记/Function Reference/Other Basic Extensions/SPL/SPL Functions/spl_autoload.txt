@@ -1,6 +1,6 @@
 描述
     spl_autoload ( string $class_name [, string $file_extensions = spl_autoload_extensions() ] ) : void
-    该函数意图被作用 __autoload() 的默认实现。
+    该函数意图被用作 __autoload() 的默认实现。
     如果没有指定其它的内容并且不使用任何参数去调用 spl_autoload_register() ，那么对于后面的任何对 __autoload() 的调用都会使用本函数。
 参数
     class_name
