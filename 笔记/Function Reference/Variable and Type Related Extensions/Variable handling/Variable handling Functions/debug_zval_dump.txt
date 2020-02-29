@@ -1,0 +1,52 @@
+描述
+    debug_zval_dump ( mixed $variable [, mixed $... ] ) : void
+
+    将内部 zend 值的字符串表示形式转储到输出。
+参数
+    variable
+        待求值的变量。
+返回值
+    没有返回值。
+示例
+    Example #1 debug_zval_dump() example
+        <?php
+        $var1 = 'Hello World';
+        $var2 = '';
+
+        $var2 =& $var1;
+
+        debug_zval_dump(&$var1);
+    上面的例子将输出：
+        &string(11) "Hello World" refcount(3)
+注意：小心 refcount
+    此函数返回的 refcount 值在某些情况下是不明显的，例如，开发人员可能希望上面的示例指示 refcount 为 2 。第三个引用实际上是在调用
+    debug_zval_dump() 时创建的。
+
+    如果没有通过引用将变量传递给 debug_zval_dump()，则会进一步加剧这种行为。为了说明这一点，请考虑上面例子的一个稍微修改过的版本:
+        <?php
+        $var1 = 'Hello World';
+        $var2 = '';
+
+        $var2 =& $var1;
+
+        debug_zval_dump($var1); // 这次，没有按引用传递
+    上面的例子将输出：
+        string(11) "Hello World" refcount(1)
+    为什么 refcount(1) ？是因为在调用该函数时，$var1 的副本正在生成。
+
+    个人补充：下面的内容并不适用于 PHP 7 。
+    当传递 refcount 为 1 的变量（按复制/值）时，这个函数变得更加混乱：
+        <?php
+        $var1 = 'Hello World';
+
+        debug_zval_dump($var1);
+    上面的例子将输出：
+        string(11) "Hello World" refcount(2)
+    这里的 refcount 为 2，非常的不明显。特别是考虑到上面的例子。那么发生了什么?
+
+    当一个变量只有一个引用时（就像 $var1 在用作 debug_zval_dump() 的参数之前所做的那样），PHP 引擎会优化该变量传递给函数的方式。在内部，
+    PHP 将 $var1 视为一个引用（故 refcount 对于这个函数的作用域是增加的），但需要注意的是，如果传递的引用恰好被写入，那么会生成一个副本，
+    但只是在写入的时候。这就是所谓的“写入复制”。
+
+    因此，如果 debug_zval_dump() 碰巧写入了它的唯一参数（它没有这样做），那么就会生成一个副本。在此之前，该参数仍然是引用，导致函数调用作用
+    域的 refcount 增加到 2 。
