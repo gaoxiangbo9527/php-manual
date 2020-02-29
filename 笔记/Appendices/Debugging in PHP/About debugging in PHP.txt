@@ -1,0 +1,2 @@
+PHP 5.6 装载了 phpdbg 这个交互式调试器。然而低于 5.6 的 PHP 版本没有一种内部调试功能。不过，你可以使用一种外部调试器。Zend IDE 包含一个
+调试器，还有一些免费的调试器扩展，比如 http://www.php-debugger.com/dbg/ 上的 DBG、Advanced PHP Debugger（APD）或 Xdebug 。
