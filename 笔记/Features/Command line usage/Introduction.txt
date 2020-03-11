@@ -4,19 +4,20 @@ CLI SAPI 和其它的 SAPIs 有许多的不同之处，本章会解释这些不�
 
 CLI SAPI 通过使用 --enable-cli 被默认启用了，但运行 ./configure 时使用 --disable-cli 可以禁用它。
 
-CLI/CGI 二进制文件的名称、位置和存在与否取决于 PHP 如何被安装在系统上。默认情况下，当执行 make 时，CGI 和 CLI 都会被构建且分别被保存为你的 PHP
-源码目录中的 sapi/cgi/php-cgi 和 sapi/cli/php 。你会注意到两者都被命名为 php 。在 make install 期间会发生什么取决于你的配置行。
-如果在配置过程中选择了模块 SAPI，例如 apxs ，或者使用了 --disable-cgi 选项，那么在 make install 期间 CLI 会被复制到 {PREFIX}/bin/php 。
-否者的话，CGI 会被复制到这里。
-所以，举个例子，如果 --with-apxs 在你的配置行中，那么在 make install 期间 CLI 会被复制到 {PREFIX}/bin/php 。
-如果你想要覆盖安装的 CGI 二进制文件，在 make install 之后使用 make install-cli 。另外一种方式是在配置行中指定 --disable-cgi 。
+CLI/CGI 二进制文件的名称、位置和存在与否取决于 PHP 如何被安装在系统上。默认情况下，当执行 make 时，CGI 和 CLI 都会被构建且分别被保存为你
+的 PHP 源码目录中的 sapi/cgi/php-cgi 和 sapi/cli/php 。你会注意到两者都被命名为 php 。在 make install 期间会发生什么取决于你的配置行
+。如果在配置过程中选择了模块 SAPI，例如 apxs ，或者使用了 --disable-cgi 选项，那么在 make install 期间 CLI 会被复制到
+{PREFIX}/bin/php 。否者的话，CGI 会被复制到这里。所以，举个例子，如果 --with-apxs 在你的配置行中，那么在 make install 期间 CLI 会被
+复制到 {PREFIX}/bin/php 。如果你想要覆盖安装的 CGI 二进制文件，在 make install 之后使用 make install-cli 。另外一种方式是在配置行中
+指定 --disable-cgi 。
 
 注意
-    由于 --enable-cli 和 --enable-cgi 都是默认就被启用的，所以在配置行中简单地使用 ——enable-cli 并不一定意味着在 make install 期间 CLI
-    会被复制为 {PREFIX}/bin/php 。
+    由于 --enable-cli 和 --enable-cgi 都是默认就被启用的，所以在配置行中简单地使用 ——enable-cli 并不一定意味着在 make install 期间
+    CLI 会被复制为 {PREFIX}/bin/php 。
 
-从 PHP 5 开始，在 Windows 中，CLI 二进制文件以 php.exe 的形式分布在主文件夹中。而 CGI 版本则以 php-cgi.exe 的形式分布在主文件夹中。另外，
-如果 PHP 使用了 --enable-cli-win32 进行配置，那么还会有一个 php-win.exe 。它和 CLI 版本相同，除了它不会输出任何内容，因此也不会提供控制台。
+从 PHP 5 开始，在 Windows 中，CLI 二进制文件以 php.exe 的形式分布在主文件夹中。而 CGI 版本则以 php-cgi.exe 的形式分布在主文件夹中。另
+外，如果 PHP 使用了 --enable-cli-win32 进行配置，那么还会有一个 php-win.exe 。它和 CLI 版本相同，除了它不会输出任何内容，因此也不会提
+供控制台。
 
 注意：我有哪种 SAPI ？
     在 shell 中，输入 php -v 将会告诉你 php 是 CGI 还是 CLI 。另请参阅函数 php_sapi_name() 和常量 PHP_SAPI 。

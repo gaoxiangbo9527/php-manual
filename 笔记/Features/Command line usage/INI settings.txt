@@ -1,6 +1,6 @@
 CLI SAPI 配置选项
-    名称                 默认值       可变范围          更新日志
-    cli_server.color    "0"	        PHP_INI_ALL	    从 PHP 5.4.0 开始可用
+    名称                 默认值       可变范围         更新日志
+    cli_server.color    "0"	        PHP_INI_ALL     从 PHP 5.4.0 开始可用
 下面是对配置指令的简短说明。
 cli_server.color    boolean
     让内置的开发 web 服务器在终端输出中启用 ANSI 颜色编码。

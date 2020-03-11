@@ -1,34 +1,34 @@
 CLI SAPI 和其他 SAPIs 显著的不同有：
     不像 CGI SAPI ，不会向输出写入头部。
-    尽管 CGI SAPI 提供了提供了一种抑制 HTTP 头部的方法，在 CLI SAPI 中并没有对应的开关可以去启用它们。
+    尽管 CGI SAPI 提供了提供了一种抑制 HTTP 头部的方法，但在 CLI SAPI 中并没有对应的开关可以去启用它们。
     CLI 默认情况下就是以静默模式启动的。尽管如此，为了兼容性 -q 和 --no-header 开关也得以保留，这样（CLI）就可以使用旧的 CGI 脚本。
-    它不会将工作目录更改为脚本的工作目录（为了兼容性 -C 和 --no-chdir 得以保留）。
+    它不会将工作目录更改为脚本所在的目录（为了兼容性 -C 和 --no-chdir 得以保留）。
     纯文本的错误消息（没有 HTML 格式）。
 
     有一些特定的 php.ini 指令被 CLI SAPI 覆盖了，因为它们在 shell 环境中没有意义：
     被覆盖的 php.ini 指令
         指令                 CLI SAPI 默认值      注释
-        html_errors	        FALSE	            默认为 FALSE，因为在 shell 环境中，当错误消息与未解释的 HTML 标签混杂在一起时，很难阅
-                                                读它们。
-        implicit_flush	    TRUE	            在 shell 环境中，对于来自诸如 print、echo 和 friends 的输出，通常希望立即被显示，而
-                                                不是驻留在缓冲区中。尽管如此，仍然可以使用输出缓冲延迟或操作标准输出。
-        max_execution_time  0 （不限制）	        与典型的基于 web 的脚本相比，shell 环境中的 PHP 用途更加广泛，因此它们可能是长期运行的
-                                                ，故最大执行时间设置为无限制。
-        register_argc_argv	TRUE                将其设置为 TRUE 意味着通过 CLI SAPI 执行的脚本始终可以访问 argc （传递给应用的参数个
-                                                数） 和 argv （实际的参数的数组）。
-                                                当使用 CLI SAPI 时，PHP 变量 $argc 和 $argv 被自动设置为适当的值。这些变量也可以在
-                                                $_SERVER 数组中被找到，比如：$_SERVER['argv'] 。
+        html_errors	        FALSE	            默认为 FALSE，因为在 shell 环境中，当错误消息与未解释的 HTML 标签混杂在一起时，很
+                                                难阅读它们。
+        implicit_flush	    TRUE	            在 shell 环境中，对于来自诸如 print、echo 和 friends 的输出，通常希望立即被显示，
+                                                而不是驻留在缓冲区中。尽管如此，仍然可以使用输出缓冲延迟或操作标准输出。
+        max_execution_time  0 （不限制）	        与典型的基于 web 的脚本相比，shell 环境中的 PHP 用途更加广泛，因此它们可能是长期运
+                                                行的，故最大执行时间设置为无限制。
+        register_argc_argv	TRUE                将其设置为 TRUE 意味着通过 CLI SAPI 执行的脚本始终可以访问 argc （传递给应用的参
+                                                数个数） 和 argv （实际的参数的数组）。
+                                                当使用 CLI SAPI 时，PHP 变量 $argc 和 $argv 被自动设置为适当的值。这些变量也可以
+                                                在 $_SERVER 数组中被找到，比如：$_SERVER['argv'] 。
         output_buffering	FALSE               尽管该 php.ini 设置被硬编码为 FALSE ，输出缓冲函数仍然是可用的。
         max_input_time	    FALSE               PHP CLI 不支持 GET 、POST 或者 文件上传。
     注意
-        无法通过 php.ini 配置文件或者某个自定义（如果有指定）的配置文件把这些指令初始化为另外的一个值。存在这个限制是因为这些值是在所有配置文件被
-        解析之后才应用的。然而，它们的值可以在运行时被改变（尽管这对它们来说并不全是明智的，比如 register_argc_argv ）。
+        无法通过 php.ini 配置文件或者某个自定义（如果有指定）的配置文件把这些指令初始化为另外的一个值。存在这个限制是因为这些值是在所有配置
+        文件被解析之后才应用的。然而，它们的值可以在运行时被改变（尽管这对它们来说并不全是明智的，比如 register_argc_argv ）。
         （个人补充，运行时改变 register_argc_argv 一点用都没有，因为脚本已经被执行到了，再去启用和关闭 register_argc_argv 已经晚了）
     注意
         推荐为命令行脚本设置 ignore_user_abort，更多信息请查看 ignore_user_abort() 。
 
-    为了更加容易的在 shell 环境中进行工作，为 I/O 流定义了许多的常量。
+    为了更加容易的在 shell 环境中进行工作，为 I/O 流 定义了许多的常量。
 
     CLI SAPI 不会将当前目录更改为正在被执行的脚本的目录。
-        注意
-            当从命令行运行时，CGI SAPI 通过 -C 开关支持这种 CLI SAPI 行为。
+    注意
+        当从命令行运行时，CGI SAPI 通过 -C 开关支持这种 CLI SAPI 行为。
