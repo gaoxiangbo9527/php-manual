@@ -39,33 +39,36 @@ error_reporting     integer
     注意
         在开发阶段启用 E_NOTICE 会有一些好处。出于调试的目的：notice 消息会对代码中可能的 bug 给出警告。比如，使用未赋值的变量就会被警告。
         它在查找拼写错误和节省调试时间方面是非常有用的。通知消息还会对不良的风格向你警告。
-        比如，$arr[item] 最好写成 $arr['item']，因为 PHP 会尝试把 item 当作常量对待。如果它不是一个常量，PHP 才会把它当做数组的字符串索引。
+        比如，$arr[item] 最好写成 $arr['item']，因为 PHP 会尝试把 item 当作常量对待。如果它不是一个常量，PHP 才会把它当做数组的字符串
+        索引。
 
     注意
-        在 PHP 5 之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你必须
-        显式的启用这类错误。
+        在 PHP 5 之中可以使用一个新的错误级别 E_STRICT 。在 PHP 5.4.0 以前 E_STRICT 没有被包含进 E_ALL 中，所以在 PHP < 5.4.0 中你
+        必须显式的启用这类错误。
         在开发阶段启用 E_STRICT 会有一些好处。STRICT（严格）消息会给出帮助确保代码拥有最好的互操作性和向前兼容性的建议。
-        这类消息可能会包括静态化调用非静态方法，在类定义中以兼容的方式定义一个该类使用的 trait 中已存在的属性，并且在 PHP 5.3 以前一些废弃的特性
-        可能会引发 E_STRICT 错误，比如在实例化时按引用赋值对象。
+        这类消息可能会包括静态化调用非静态方法，在类定义中以兼容的方式定义一个该类使用的 trait 中已存在的属性，并且在 PHP 5.3 以前一些废弃
+        的特性可能会引发 E_STRICT 错误，比如在实例化时按引用赋值对象。
 
     注意：PHP 外的 PHP 常量
         在 PHP 之外使用 PHP 常量，比如在 httpd.conf 中，是没有意义的，因此在这种情况下需要使用整数值。
-        并且随着时间的推移可能会增加错误级别，因此最大的值（通常即 E_ALL）可能会改变。因此在使用 E_ALL 的地方应考虑使用一个更大的数值来涵盖当下和
-        将来会使用的所有位字段，比如类似 2147483647 的数值(将包含所有的错误，而不仅仅是 E_ALL)。
+        并且随着时间的推移可能会增加错误级别，因此最大的值（通常即 E_ALL）可能会改变。因此在使用 E_ALL 的地方应考虑使用一个更大的数值来涵
+        盖当下和将来会使用的所有位字段，比如类似 2147483647 的数值(将包含所有的错误，而不仅仅是 E_ALL)。
 display_errors      string
     它决定了是否错误应当作为输出的一部分打印到显示器或者应当对用户隐藏。
 
     值“stderr”会把错误发送到标准错误输出而不是标准输出。这个值从 PHP 5.2.4 开始可用，在这之前的版本中，该指令是布尔类型的。
-   （个人补充）stderr 只会影响 CGI/CLI 二进制程序。
+   个人补充：stderr 只会影响 CGI/CLI 二进制程序。
 
     注意
         这是一个用于辅助开发的特性，因此永远不要在生产系统中使用 (比如链接到因特网的系统)。
     注意
-        虽然 display_errors 能够在运行时设置（使用 ini_set()），但是如果脚本有致命的错误时它将没有任何影响，这是因为所需的运行时操作没有执行。
-        （个人补充）如果你在 ini 中将 display_errors 设置为启用，然后在代码中想要关闭 display_errors，如果在这段代码之前发生了错误，比如说
-        警告，此时还没执行到关闭 display_errors 的代码，警告仍会被显示。只有位于关闭 display_errors 的代码之后错误才会被关闭。
+        虽然 display_errors 能够在运行时设置（使用 ini_set()），但是如果脚本有致命的错误时它将没有任何影响，这是因为所需的运行时操作没有
+        执行。
+        个人补充：如果你在 ini 中将 display_errors 设置为启用，然后在代码中想要关闭 display_errors，如果在这段代码之前发生了错误，比如
+        说警告，此时还没执行到关闭 display_errors 的代码，警告仍会被显示。只有位于关闭 display_errors 的代码之后错误才会被关闭。
 display_startup_errors      boolean
-    即使启用了 display_errors ，发生在 PHP 启动序列期间发生的错误也不会被显示。除非为了调试，否者强烈建议保持 display_startup_errors 关闭。
+    即使启用了 display_errors ，发生在 PHP 启动序列期间发生的错误也不会被显示。除非为了调试，否者强烈建议保持 display_startup_errors
+    关闭。
 log_errors      boolean
     告知是否应当把脚本的错误消息记录到服务器的错误日志或者 error_log 。因此，这个选项是特定于服务器的。
 
@@ -84,9 +87,9 @@ ignore_repeated_source      boolean
     开启此设置时，将不会记录重复的消息，即使它来自不同的文件或行。
 report_memleaks     boolean
     如果该参数被设置为开启（默认值），那么该参数会显示由 Zend 内存管理器检测到的一份内存泄露报告。
-    在 Posix 平台上，该报告会被发送至 stderr 。在 Windows 上，它将使用 OutputDebugString() 发送到调试器并且可以使用 DbgView 这样的工具
-    进行查看。
-    此参数仅在 调试构建 中有效，并且 error_reporting 中要包含 E_WARNING 才行。
+    在 Posix 平台上，该报告会被发送至 stderr 。在 Windows 上，它将使用 OutputDebugString() 发送到调试器并且可以使用 DbgView 这样的
+    工具进行查看。
+    此参数仅在一个 调试构建 中有效，并且 error_reporting 中要包含 E_WARNING 才行。
 track_errors    boolean
     如果启用，则最后一个错误消息总是会出现在变量 $php_errormsg 中。
     个人补充：因为 set_error_handler()，所以这里说的“总是”是不准确的，预定义变量 $php_errormsg 的手册中有解释。
@@ -108,7 +111,8 @@ docref_root     string
 
     通常你会希望 docref_root 以 / 结尾，但在上面的第二个示例中不需要这么做。
     注意
-        这是一个对支持你的开发非常有用的特性，因为它使得查看某个函数说明变得非常容易。然而建议永远不要再生产系统中使用它 (例如连接到互联网的系统)。
+        这是一个对支持你的开发非常有用的特性，因为它使得查看某个函数说明变得非常容易。然而建议永远不要再生产系统中使用它 (例如连接到互联网的
+        系统)。
 docref_ext      string
     见 docref_root 。
     注意
@@ -121,8 +125,8 @@ error_log       string
     脚本错误将要被记录到的文件的名字。
     该文件必须是 web 服务器的用户可写的。（个人补充：这个不一定吧，如果不是发送到 SAPI 的话，应该 PHP 可写就够了吧）
 
-    如果特殊的值 syslog 被使用，则错误信息将会被发送到系统日志记录器（system logger）。在 Unix 上这意味着 syslog(3)而在 Windows 上这意味着
-    事件日志。另请参阅 syslog() 。
+    如果特殊的值 syslog 被使用，则错误信息将会被发送到系统日志记录器（system logger）。在 Unix 上这意味着 syslog(3) 而在 Windows 上这
+    意味着事件日志。另请参阅 syslog() 。
 
     如果没有设置该指令，则错误会被发送到 SAPI 的错误记录器。例如，在 Apache 中它会是一条错误日志，而在 CLI 中它会是 stderr 。
     另请参与 error_log() 。

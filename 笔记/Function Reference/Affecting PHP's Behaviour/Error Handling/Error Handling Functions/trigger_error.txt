@@ -1,6 +1,7 @@
 描述
     trigger_error ( string $error_msg [, int $error_type = E_USER_NOTICE ] ) : bool
-    用于触发一个用户错误条件，它可以与内置的错误处理程序一起使用，或者同已设置为新的错误处理程序(set_error_handler())的用户定义函数一起使用。
+    用于触发一个用户错误条件，它可以与内置的错误处理程序一起使用，或者同已设置为新的错误处理程序(set_error_handler())的用户定义函数一起使
+    用。
     当你需要在运行时生成对某个异常的特定响应时，此函数非常有用。
 参数
     error_msg

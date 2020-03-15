@@ -1,5 +1,5 @@
 介绍
-    如果发生只能在运行时才出现的错误，会抛出该异常。
+    如果发生一个只能在运行时才出现的错误，会抛出该异常。
 类摘要
     RuntimeException extends Exception {
 
