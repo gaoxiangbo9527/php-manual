@@ -1,6 +1,9 @@
 描述
     assert_options ( int $what [, mixed $value ] ) : mixed
     设置各种 assert() 控制选项或者查询它们当前的设置。
+
+    注意：从 PHP 7.0.0 开始，建议不要使用 assert_options() 来设置和获取 php.ini 的指令 zend.assertions 和 assert.exception 。相
+    应的，应分别使用 ini_set() 和 ini_get() 。
 参数
     what
         选项                 INI设置              默认值         描述
@@ -10,7 +13,19 @@
         ASSERT_QUIET_EVAL   assert.quiet_eval   0	            在断言表达式求值时禁用 error_reporting
         ASSERT_CALLBACK     assert.callback     NULL	        断言失败时调用的回调函数
     value
-        该选项的一个可选的新值
+        该选项的一个可选的新值。
+
+        通过 ASSERT_CALLBACK 或 assert.callback 设置的回调函数的签名应该如下：
+
+        assert_callback ( string $file , int $line , string $assertion [, string $description ] ) : void
+            file
+                调用 assert() 所在的文件。
+            line
+                调用 assert() 所在的行。
+            assertion
+                传递给 assert() 的断言，转换为一个字符串。
+            description
+                传递给 assert() 的描述。
 返回值
     发生错误返回 false，否则返回原来的设置。
 
@@ -30,7 +45,6 @@
             继续执行
         如果 ASSERT_BAIL 为真
             停止执行
-
 
 来自用户贡献的笔记
     想要重置 ASSERT_CALLBACK 时：
