@@ -4,9 +4,11 @@
 
     注意：从 PHP 7.0.0 开始，建议不要使用 assert_options() 来设置和获取 php.ini 的指令 zend.assertions 和 assert.exception 。相
     应的，应分别使用 ini_set() 和 ini_get() 。
+    个人补充：该函数的 what 参数中也没提供设置 zend.assertions 和 assert.exception 的选项啊，所以可以设置一说从何而来？
+
 参数
     what
-        选项                 INI设置              默认值         描述
+        选项                 INI设置             默认值           描述
         ASSERT_ACTIVE       assert.active 	    1	            启用 assert() 评测
         ASSERT_WARNING	    assert.warning	    1	            为每一个失败的断言生成一个 PHP 警告
         ASSERT_BAIL	        assert.bail	        0	            在断言失败时终止执行
@@ -32,15 +34,13 @@
 个人补充
     当断言失败时会先后发生
         如果设置了回调函数
-            调用设置的回调函数
+            调用设置的回调函数，继续
         如果没设置回调函数
-            则继续下一步
-
+            继续
         如果允许警告
-            则抛出警告
+            则抛出警告，继续
         如果不允许警告
-            则不抛出警告
-
+            则不抛出警告，继续
         如果 ASSERT_BAIL 为假
             继续执行
         如果 ASSERT_BAIL 为真

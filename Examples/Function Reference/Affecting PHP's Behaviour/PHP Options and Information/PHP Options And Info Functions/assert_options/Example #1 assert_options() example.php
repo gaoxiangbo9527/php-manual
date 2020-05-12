@@ -1,9 +1,9 @@
 <?php
 // This is our function to handle
 // assert failures
-function assert_failure()
+function assert_failure($file, $line, $assertion, $message)
 {
-    echo 'Assert failed';
+    echo "The assertion $assertion in $file on line $line has failed: $message";
 }
 
 // This is our test function
@@ -13,11 +13,11 @@ function test_assert($parameter)
 }
 
 // Set our assert options
-assert_options(ASSERT_ACTIVE,   true);
+assert_options(ASSERT_ACTIVE, true);
 assert_options(ASSERT_CALLBACK, 'assert_failure');
-assert_options(ASSERT_CALLBACK, '');
-assert_options(ASSERT_WARNING,  false);
-assert_options(ASSERT_BAIL,     true);
+//assert_options(ASSERT_CALLBACK, '');
+assert_options(ASSERT_WARNING, false);
+assert_options(ASSERT_BAIL, true);
 
 // Make an assert that would fail
 test_assert(1);
