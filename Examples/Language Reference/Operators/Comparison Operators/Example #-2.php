@@ -41,3 +41,7 @@ echo $a <=> $b; // 1
 $a = (object) ["a" => "b"];
 $b = (object) ["b" => "b"];
 echo $a <=> $b; // 1
+
+$a = (object) ["a" => "b"];
+$b = (object) ["b" => "b"];
+echo $b <=> $a; // 1
