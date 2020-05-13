@@ -1,0 +1,34 @@
+PHP 为它的一些控制结构提供了一种可选语法；即，if， while， for， foreach 和 switch。在每种情况下，可选语法的基本形式是将左大括号更改为冒
+号（:）并且右大括号对应的更改为 endif;、 endwhile;、 endfor;、 endforeach; 或 endswitch;。
+    <?php if ($a == 5): ?>
+    A is equal to 5
+    <?php endif; ?>
+
+可选语法也可以应用于 else 和 elseif 。下面是带有可选格式的 elseif 和 else 的 if 结构：
+    <?php
+    if ($a == 5):
+        echo "a equals 5";
+        echo "...";
+    elseif ($a == 6):
+        echo "a equals 6";
+        echo "!!!";
+    else:
+        echo "a is neither 5 nor 6";
+    endif;
+
+注意：不支持在同一个控制块中混合两种语法。
+
+警告：
+    switch 语句和第一个 case 之间的任何输出（包括空格）都将导致语法错误。例如，这就是无效的：
+        <?php switch ($foo): ?>
+            <?php case 1: ?>
+            ...
+        <?php endswitch ?>
+
+    然而这是有效的，因为 switch 语句后面的换行符被认为是结束 ?> 的一部分，因此在 switch 和 case 之间没有输出任何东西:
+        <?php switch ($foo): ?>
+        <?php case 1: ?>
+            ...
+        <?php endswitch ?>
+
+    个人补充：看样子 endswitch 它们后面的分号也是可以省略的，只要它们是对应 php 块的最后一条语句的话，不过不推荐这种用法。
