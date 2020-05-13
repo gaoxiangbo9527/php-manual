@@ -1,0 +1,40 @@
+switch 语句类似于同一表达式上的一系列 if 语句。在许多场合中，你可能希望将同一个变量（或表达式）与许多不同的值进行比较，并根据它所等于的值去
+执行一段不同的代码。这正是 switch 语句的作用。
+
+注意：注意不像其他语言，continue 语句可以用于 switch ，并且其行为类似于 break 。如果你在循环中有一个 switch ，并且希望继续到外部循环的下
+一个迭代，那么可以使用 continue 2 。
+
+注意：注意 switch/case 执行的是 松散比较 。
+
+变更日志
+    版本      描述
+    7.0.0     多个 default 将引发一个 E_COMPILE_ERROR 错误。
+
+为了避免错误，理解 switch 语句是如何执行的是很重要的。switch 语句是逐行执行的（实际上，是逐语句执行的）。在开始时，不执行任何代码。只有当发
+现 case 语句的表达式求值为与 switch 表达式的值匹配的值时，PHP才开始执行这些语句。PHP 继续执行这些语句，直到 switch 块结束，或者第一次看到
+break 语句。如果不在 case 语句列表的末尾编写 break 语句，PHP 将继续执行下一个 case 的语句。因此，重要的是不要忘记 break 语句。
+
+在 switch 语句中，条件只会被求值一次并且求值结果会同每一个 case 语句比较。在一个 elseif 语句中，条件会再次被求值。如果你的条件比简单的比较
+和/或处于一个紧密循环中更复杂，则 switch 可能更快。
+
+case 语句列表也可以为空，这会简单的将控制传递给下一个 case 的语句列表。
+
+一种特殊情况是 default 情况。这种情况会与其他情况不匹配的任何事物相匹配。
+
+switch 支持用于控制结构的可选语法。更多信息请看 控制结构的可选语法 。
+    <?php
+    switch ($i):
+        case 0:
+            echo "i equals 0";
+            break;
+        case 1:
+            echo "i equals 1";
+            break;
+        case 2:
+            echo "i equals 2";
+            break;
+        default:
+            echo "i is not equal to 0, 1 or 2";
+    endswitch;
+
+可以在 case 后面使用分号而不是冒号。
