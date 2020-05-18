@@ -1,0 +1,9 @@
+描述
+    timezone_version_get ( void ) : string
+
+    返回 timezonedb 当前的版本。
+
+返回值
+    返回一个字符串。
+
+

@@ -1,0 +1,107 @@
+介绍
+    DateTimeInterface 的目的是让 DateTime 和 DateTimeImmutable 都可以被类型提示。用户空间的类不可能实现这个接口。
+
+类摘要
+    DateTimeInterface {
+        /* Constants */
+        const string ATOM = "Y-m-d\TH:i:sP" ;
+        const string COOKIE = "l, d-M-Y H:i:s T" ;
+        const string ISO8601 = "Y-m-d\TH:i:sO" ;
+        const string RFC822 = "D, d M y H:i:s O" ;
+        const string RFC850 = "l, d-M-y H:i:s T" ;
+        const string RFC1036 = "D, d M y H:i:s O" ;
+        const string RFC1123 = "D, d M Y H:i:s O" ;
+        const string RFC7231 = "D, d M Y H:i:s \G\M\T" ;
+        const string RFC2822 = "D, d M Y H:i:s O" ;
+        const string RFC3339 = "Y-m-d\TH:i:sP" ;
+        const string RFC3339_EXTENDED = "Y-m-d\TH:i:s.vP" ;
+        const string RSS = "D, d M Y H:i:s O" ;
+        const string W3C = "Y-m-d\TH:i:sP" ;
+
+        /* Methods */
+        public diff ( DateTimeInterface $datetime2 [, bool $absolute = FALSE ] ) : DateInterval
+        public format ( string $format ) : string
+        public getOffset ( void ) : int
+        public getTimestamp ( void ) : int
+        public getTimezone ( void ) : DateTimeZone
+        public __wakeup ( void )
+    }
+
+预定义的常量
+    DateTimeInterface::ATOM
+    DATE_ATOM
+        Atom (example: 2005-08-15T15:52:01+00:00)
+
+    DateTimeInterface::COOKIE
+    DATE_COOKIE
+        HTTP Cookies (example: Monday, 15-Aug-2005 15:52:01 UTC)
+
+    DateTimeInterface::ISO8601
+    DATE_ISO8601
+        ISO-8601 (example: 2005-08-15T15:52:01+0000)
+
+        注意: 这种格式与 ISO-8601 不兼容，但是由于向后兼容的原因而保留了这种格式。为了与 ISO-8601 兼容，请使用 DateTime::ATOM 或
+        DATE_ATOM 。
+
+    DateTimeInterface::RFC822
+    DATE_RFC822
+        RFC 822 (example: Mon, 15 Aug 05 15:52:01 +0000)
+
+    DateTimeInterface::RFC850
+    DATE_RFC850
+        RFC 850 (example: Monday, 15-Aug-05 15:52:01 UTC)
+
+    DateTimeInterface::RFC1036
+    DATE_RFC1036
+        RFC 1036 (example: Mon, 15 Aug 05 15:52:01 +0000)
+
+    DateTimeInterface::RFC1123
+    DATE_RFC1123
+        RFC 1123 (example: Mon, 15 Aug 2005 15:52:01 +0000)
+
+    DateTimeInterface::RFC7231
+    DATE_RFC7231
+        RFC 7231 (since PHP 7.0.19 and 7.1.5) (example: Sat, 30 Apr 2016 17:52:13 GMT)
+
+    DateTimeInterface::RFC2822
+    DATE_RFC2822
+        RFC 2822 (example: Mon, 15 Aug 2005 15:52:01 +0000)
+
+    DateTimeInterface::RFC3339
+    DATE_RFC3339
+        Same as DATE_ATOM (since PHP 5.1.3)
+
+    DateTimeInterface::RFC3339_EXTENDED
+    DATE_RFC3339_EXTENDED
+        RFC 3339 EXTENDED format (since PHP 7.0.0) (example: 2005-08-15T15:52:01.000+00:00)
+
+    DateTimeInterface::RSS
+    DATE_RSS
+        RSS (example: Mon, 15 Aug 2005 15:52:01 +0000)
+
+    DateTimeInterface::W3C
+    DATE_W3C
+        World Wide Web Consortium (example: 2005-08-15T15:52:01+00:00)
+
+变更日志
+    版本      描述
+    7.2.0	 DateTime 的类常量现在被定义在 DateTimeInterface 上了。
+    5.5.8	 现在尝试去实现 DateTimeInterface 会引发一个致命错误。之前实现这个接口不会引发一个错误，但是行为会错误。
+
+目录
+    public DateTimeInterface::diff ( DateTimeInterface $datetime2 [, bool $absolute = FALSE ] ) : DateInterval
+        返回两个 DateTimeInterface 对象之间的差值。
+        个人补充：注意计算差值是用 $datetime2 - $this 。
+    public DateTimeInterface::format ( string $format ) : string
+        返回根据指定格式格式化后的日期。
+
+        注意：该方法不使用本地化。所有输出都是英语。
+    public DateTimeInterface::getOffset ( void ) : int
+        返回同 UTC 的时区偏移量。
+        个人补充：同一个时区夏令时和非夏令时的时区偏移量可能是不一样的。
+    public DateTimeInterface::getTimestamp ( void ) : int
+        获得 Unix 时间戳。
+    public DateTimeInterface::getTimezone ( void ) : DateTimeZone
+        返回给定日期时间的时区。
+    public DateTimeInterface::__wakeup ( void )
+        __wakeup() 处理程序。

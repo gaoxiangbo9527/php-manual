@@ -1,0 +1,18 @@
+描述
+    date_parse_from_format ( string $format , string $date ) : array
+
+    返回关于给定日期的详细信息的数组。
+
+参数
+    format
+        被 DateTime::createFromFormat() 接受的格式。
+    date
+        表示日期的字符串。
+
+返回值
+    返回关于给定日期的详细信息的数组。
+
+变更日志
+    版本    描述
+    7.2.0   现在，返回的数组中的元素 zone 表示的是秒而不是分钟，并且它的符号现在是反过来的。例如 -120 现在是 7200 。
+

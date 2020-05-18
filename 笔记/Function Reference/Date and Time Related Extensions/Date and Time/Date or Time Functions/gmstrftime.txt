@@ -1,0 +1,16 @@
+描述
+    gmstrftime ( string $format [, int $timestamp = time() ] ) : string
+
+    行为同 strftime() 相同，除了返回的时间是格林威治时间（GMT）。例如，当在东部标准时间（GMT -0500）运行时，下面的第一行打印
+    “Dec 31 1998 20:00:00”，而下面的第二行打印 “Jan 01 1999 01:00:00”。
+
+参数
+    format
+        查看 strftime() 中的描述。
+    timestamp
+        可选的 timestamp 参数是一个整型的 Unix 时间戳，如果没有指定 timestamp ，那么它默认为当前的本地时间。换句话说，它默认为 time()
+        的值。
+
+返回值
+    根据 format 返回一个格式化后的字符串，使用指定的 timestamp ，或者如果没有指定 timestamp 则使用当前的本地时间。月和工作日名称以及其他
+    与语言相关的字符串会遵从通过 setlocale() 设置的当前区域。

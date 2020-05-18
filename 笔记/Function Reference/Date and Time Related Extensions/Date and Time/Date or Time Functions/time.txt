@@ -1,0 +1,7 @@
+描述
+    time ( void ) : int
+
+    返回当前时间，以 Unix 纪元（January 1 1970 00:00:00 GMT）以来的秒数来计算。
+
+注意事项
+    提示 从 PHP 5.1 开始，$_SERVER['REQUEST_TIME'] 中提供了请求开始的时间戳。

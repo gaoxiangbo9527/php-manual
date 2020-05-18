@@ -1,0 +1,29 @@
+描述
+    localtime ([ int $timestamp = time() [, bool $is_associative = FALSE ]] ) : array
+
+    该函数会返回一个结构和 C 函数调用结构相同的数组。
+
+参数
+    timestamp
+        可选的 timestamp 参数是一个整型的 Unix 时间戳，如果没有指定 timestamp 则默认为当前的本地时间。换句话说，它默认为 time() 的值。
+    is_associative
+        如果没有提供或者设置为 FALSE ，那么返回的数组是一个常规的，数值化的索引数组。如果该参数设置为 TRUE ，那么 localtime() 会返回一个
+        关联数组，包含由对 localtime 的 C 函数调用返回的结构的所有不同元素。关联数组中不同键的名称如下：
+
+        "tm_sec" - 秒，0 到 59
+        "tm_min" - 分，0 到 59
+        "tm_hour" - 小时，0 到 23
+        "tm_mday" - 月中的天，1 到 31
+        "tm_mon" - 年中的月，0（一月） 到 11（12月）
+        "tm_year" - 从 1900 以来的年
+        "tm_wday" - 周中的天，0（周天） 到 6（周六）
+        "tm_yday" - 年中的天，0 到 365
+        "tm_isdst" - 夏令时是否有效？有效则为正数，无效则为 0，如果不知道则为负数
+
+错误/异常
+    如果时区是无效的，那么每一个对日期/时间函数的调用将会生成一个 E_NOTICE ，如果使用系统设置或者 TZ 环境变量，且/或生成一个 E_STRICT 或
+    E_WARNING 消息，另请参阅 date_default_timezone_set() 。
+
+变更日志
+    版本        描述
+    5.1.0       现在会产生 E_STRICT 和 E_NOTICE 时区错误。

@@ -1,0 +1,27 @@
+描述
+    gmmktime ([ int $hour = gmdate("H") [, int $minute = gmdate("i") [, int $second = gmdate("s") [, int $month = gmdate("n") [, int $day = gmdate("j") [, int $year = gmdate("Y") [, int $is_dst = -1 ]]]]]]] ) : int
+
+    和 mktime() 相同，除了传入的参数表示的是一个 GMT 日期。gmmktime() 在内部使用 mktime()，因此只能使用派生的本地时间中有效的时间。
+
+    像 mktime() 一样，参数可以按从右到左的顺序被省略。任何被省略的参数将被设置为当前对应的 GMT 值。
+
+参数
+    hour
+    minute
+    second
+    month
+    day
+    year
+        请参考 mktime() 函数的同名参数的说明。
+    is_dst
+        因为已经被废弃和移除了，所以不翻译了。
+
+        注意：在 PHP 7.0.0 中，该参数已经被移除了。
+
+返回值
+    返回一个整型的 Unix 时间戳。
+
+变更日志
+    版本     描述
+    7.0.0   is_dst 参数已经被移除了。
+    5.1.0	is_dst 参数变为被废弃状态。因此，应该使用新的时区处理特性。

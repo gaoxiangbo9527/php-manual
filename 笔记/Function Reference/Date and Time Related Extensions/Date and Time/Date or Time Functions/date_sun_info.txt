@@ -1,0 +1,38 @@
+描述
+    date_sun_info ( int $time , float $latitude , float $longitude ) : array
+
+参数
+    time
+        时间戳。
+    latitude
+        纬度。
+    longitude
+        经度。
+
+返回值
+    成功时返回一个数组，失败时返回 FALSE 。数组的详细结构如下：
+
+    sunrise
+        日出的时间（天顶角 = 90°35'）。
+    sunset
+        日落的时间（天顶角 = 90°35'）。
+    transit
+        太阳到达顶点的时刻，即太阳到达最高点的时刻。
+    civil_twilight_begin
+        民用黎明的开始（天顶角= 96°）。它在日出时结束。
+    civil_twilight_end
+        民用黄昏结束（天顶角= 96°）。它在日落时开始。
+    nautical_twilight_begin
+        航海黎明的开始（天顶角= 102°）。它在 civil_twilight_begin 时结束。
+    nautical_twilight_end
+        航海黄昏的结束（天顶角= 102°）。它在 civil_twilight_end 时开始。
+    astronomical_twilight_begin
+        天文黎明的开始（天顶角= 108°）。它在 nautical_twilight_begin 时结束。
+    astronomical_twilight_end
+        天文黄昏的开始（天顶角= 108°）。它在 nautical_twilight_end 时开始。
+
+    数组元素的值要么是 UNIX 时间戳，如果太阳低于全天的天顶，则为 FALSE；如果太阳高于全天的天顶，则为 TRUE 。
+
+变更日志
+    版本    描述
+    5.2.2   latitude 和 longitude 的顺序被交换了。

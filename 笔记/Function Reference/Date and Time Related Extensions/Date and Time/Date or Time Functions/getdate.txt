@@ -1,0 +1,26 @@
+描述
+    getdate ([ int $timestamp = time() ] ) : array
+
+    返回一个关联数组，包含了 timestamp 的日期信息，或者如果没有指定 timestamp 则使用当前本地的时间。
+
+参数
+    timestamp
+        可选的 timestamp 参数是一个整型的 Unix 时间戳，如果没有指定 timestamp 则默认为当前的本地时间。换句话说，它默认为 time() 的值。
+
+返回值
+    返回一个和 timestamp 相关的信息的关联数组。返回的关联数组中的元素如下：
+
+    返回的关联数组的关键元素
+    键           描述                                      示例返回值
+    "seconds"   秒的数值化表示形式                           0 到 59
+    "minutes"	分的数值化表示形式                           0 到 59
+    "hours"	    小时的数值化表示形式                         0 到 23
+    "mday"	    月中的天的数值化表示形式                      1 到 31
+    "wday"	    周中的天的数值化表示形式                      0 （周天）到 6 （周六）
+    "mon"	    月的数值化表示形式                           1 到 12
+    "year"	    年的完整数值化表示形式，4 位数字               示例：1999 或 2003
+    "yday"	    年中的天的数值化表示形式                      0 到 365
+    "weekday"   周中的天的完整文本化表示形式                   Sunday 到 Saturday
+    "month"	    月的完整文本化表示形式，例如 January 或 March  January 到 December
+    0	        从 Unix 纪元依赖的秒数，同 time() 返回的值和   依赖于系统，一般是 -2147483648 到 2147483647 。
+                date() 使用的值相似。

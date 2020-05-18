@@ -1,0 +1,22 @@
+内容目录
+    Africa
+    America
+    Antarctica
+    Arctic
+    Asia
+    Atlantic
+    Australia
+    Europe
+    Indian
+    Pacific
+    Others
+
+个人补充：这份目录下的所有时区就不一一列举和翻译了，需要的时候临时去查一下手册即可。
+
+在这里你可以找到所有被 PHP 支持的时区的完整列表，这些时区可同诸如 date_default_timezone_set() 的函数一起使用。
+
+小心 这里没有列出的时区的行为是未定义的。
+
+注意：最新版本的时区数据库可以通过 PECL 的 timezonedb 安装。
+
+注意：这份列表基于时区数据库版本 2020.1 。

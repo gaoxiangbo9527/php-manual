@@ -1,0 +1,19 @@
+描述
+    timezone_name_from_abbr ( string $abbr [, int $gmtOffset = -1 [, int $isdst = -1 ]] ) : string
+
+    从时区缩写返回时区名。
+
+参数
+    abbr
+        时区缩写。
+    gmtOffset
+        与 GMT 的时间偏移，以秒为单位。默认值为 -1，这意味着会返回第一个找到的与 abbr 对应的时区。否则将搜索精确的偏移量，并且只有在没有找
+        到该偏移量时才返回第一个带有任意偏移量的时区。
+    isdst
+        夏令时指示器。默认为值 -1，这意味着搜索时不考虑时区是否有夏令时。如果设置为 1，那么 gmtOffset 会被假设为一个带有生效的夏令时的偏移
+        量。如果是 0 ，那么 gmtOffset 会被假设成一个不带有生效的夏令时的偏移量。如果 abbr 不存在，那么时区仅按 gmtOffset 和 isdst 搜索。
+
+返回值
+    成功时返回时区名，失败时返回 FALSE 。
+
+

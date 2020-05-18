@@ -1,0 +1,46 @@
+介绍
+    该类的行为和 DateTime 相同，除了它不会修改自身而是会返回一个新的对象。
+
+    个人补充：即值对象。
+
+类摘要
+    DateTimeImmutable implements DateTimeInterface {
+        /* Inherited constants */
+        const string DateTimeInterface::ATOM = "Y-m-d\TH:i:sP" ;
+        const string DateTimeInterface::COOKIE = "l, d-M-Y H:i:s T" ;
+        const string DateTimeInterface::ISO8601 = "Y-m-d\TH:i:sO" ;
+        const string DateTimeInterface::RFC822 = "D, d M y H:i:s O" ;
+        const string DateTimeInterface::RFC850 = "l, d-M-y H:i:s T" ;
+        const string DateTimeInterface::RFC1036 = "D, d M y H:i:s O" ;
+        const string DateTimeInterface::RFC1123 = "D, d M Y H:i:s O" ;
+        const string DateTimeInterface::RFC7231 = "D, d M Y H:i:s \G\M\T" ;
+        const string DateTimeInterface::RFC2822 = "D, d M Y H:i:s O" ;
+        const string DateTimeInterface::RFC3339 = "Y-m-d\TH:i:sP" ;
+        const string DateTimeInterface::RFC3339_EXTENDED = "Y-m-d\TH:i:s.vP" ;
+        const string DateTimeInterface::RSS = "D, d M Y H:i:s O" ;
+        const string DateTimeInterface::W3C = "Y-m-d\TH:i:sP" ;
+
+        /* Methods */
+        public __construct ([ string $time = "now" [, DateTimeZone $timezone = NULL ]] )
+        public add ( DateInterval $interval ) : DateTimeImmutable
+        public static createFromFormat ( string $format , string $time [, DateTimeZone $timezone ] ) : DateTimeImmutable
+        public static createFromMutable ( DateTime $datetime ) : DateTimeImmutable
+        public static getLastErrors ( void ) : array
+        public modify ( string $modify ) : DateTimeImmutable
+        public static __set_state ( array $array ) : DateTimeImmutable
+        public setDate ( int $year , int $month , int $day ) : DateTimeImmutable
+        public setISODate ( int $year , int $week [, int $day = 1 ] ) : DateTimeImmutable
+        public setTime ( int $hour , int $minute [, int $second = 0 [, int $microseconds = 0 ]] ) : DateTimeImmutable
+        public setTimestamp ( int $unixtimestamp ) : DateTimeImmutable
+        public setTimezone ( DateTimeZone $timezone ) : DateTimeImmutable
+        public sub ( DateInterval $interval ) : DateTimeImmutable
+        public diff ( DateTimeInterface $datetime2 [, bool $absolute = FALSE ] ) : DateInterval
+        public format ( string $format ) : string
+        public getOffset ( void ) : int
+        public getTimestamp ( void ) : int
+        public getTimezone ( void ) : DateTimeZone
+        public __wakeup ( void )
+    }
+
+目录
+    不在赘述，请参考 DateTime 的相关内容。

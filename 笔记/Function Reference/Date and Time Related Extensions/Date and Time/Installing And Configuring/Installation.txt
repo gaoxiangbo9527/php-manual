@@ -1,0 +1,8 @@
+使用这些函数不需要安装；它们是 PHP 核心的一部分。
+
+注意：获取最新的时区数据库
+    最新版本的时区数据库可以通过 PECL 的 timezonedb 安装。
+
+注意：PHP 5.1.x 中实验性的 DateTime 支持
+    虽然 DateTime 类（和相关函数）自 PHP 5.2.0 以来默认启用，但是在 configure/compile 前通过使用下面的标志：
+    CFLAGS=-DEXPERIMENTAL_DATE_SUPPORT=1 就能够在 PHP 5.1.x 中添加实验性的支持。

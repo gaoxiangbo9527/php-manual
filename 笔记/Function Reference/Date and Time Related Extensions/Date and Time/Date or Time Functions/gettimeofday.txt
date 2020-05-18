@@ -1,0 +1,21 @@
+描述
+    gettimeofday ([ bool $return_float = FALSE ] ) : mixed
+
+    该函数是 gettimeofday(2) 的一个接口。它返回一个关联数组，其中包含了从该系统调用处返回的数据。
+
+参数
+    return_float
+        当设置为 TRUE 时，会返回一个浮点数而不是一个数组。
+
+返回值
+    默认回返回一个数组。如果设置了 return_float ，那么会返回一个 float 。
+
+    数组的键：
+        "sec" —— 从 Unix 纪元以来的秒
+        "usec" —— 微秒
+        "minuteswest" —— 格林威治以西的分钟
+        "dsttime" —— dst 校正的类型
+
+变更日志
+    版本     描述
+    5.1.0   return_float 参数被添加。

@@ -1,0 +1,32 @@
+这些函数的行为受 php.ini 中的设置项影响。
+
+Date/Time 配置选项
+    名称	                    默认值           可修改范围         变更日志
+    date.default_latitude	"31.7667"	    PHP_INI_ALL
+    date.default_longitude	"35.2333"	    PHP_INI_ALL
+    date.sunrise_zenith	    "90.583333"	    PHP_INI_ALL
+    date.sunset_zenith	    "90.583333"	    PHP_INI_ALL
+    date.timezone	        ""	            PHP_INI_ALL	     从 PHP 5.1.0 开始可用
+
+关于 PHP_INI_* 模式的更多详情与定义，参阅 在哪里可以设置一个配置设置。
+这里是一份配置指令的简短说明。
+
+date.default_latitude   float
+    默认的纬度。
+
+date.default_longitude  float
+    默认的经度。
+
+date.sunrise_zenith     float
+    默认的日出最高点。
+
+date.sunset_zenith      float
+    默认的日落最高点。
+
+date.timezone           string
+    被所有日期/时间函数所使用的默认时区。
+    PHP 5.4.0 以前，只有当没有设置 TZ 环境变量时，该配置才会工作。
+    如果没有显式指定时区，那么哪个时区会被使用的优先顺序，可以在 date_default_timezone_get() 页面中找到。
+    关于被支持的时区列表，请参见 被支持的时区列表 。
+
+注意：前四个配置选项现在只被 date_sunrise() 和 date_sunset() 使用。

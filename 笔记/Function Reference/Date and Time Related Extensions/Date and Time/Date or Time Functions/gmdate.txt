@@ -1,0 +1,14 @@
+描述
+    gmdate ( string $format [, int $timestamp = time() ] ) : string
+
+    和 date() 函数相同，除了返回的时间是格林威治时间（GMT）。
+
+参数
+    format
+        被输出的日期字符串的格式。请参考 date() 函数的格式化选项。
+    timestamp
+        可选的 timestamp 参数是一个整型的 Unix 时间戳，如果没有给定一个 timestamp 则默认为当前的本地时间。换句话说，它默认为 time() 的
+        值。
+
+返回值
+    返回一个格式化后的日期字符串。如果 timestamp 使用一个非数字值，将返回 FALSE 并且会产生一个 E_WARNING 级别的错误。

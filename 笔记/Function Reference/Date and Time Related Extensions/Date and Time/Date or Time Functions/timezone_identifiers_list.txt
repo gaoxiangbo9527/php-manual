@@ -1,0 +1,2 @@
+描述
+    该函数是 DateTimeZone::listIdentifiers() 的一个别名。

@@ -1,0 +1,21 @@
+描述
+    date_default_timezone_set ( string $timezone_identifier ) : bool
+
+    date_default_timezone_set() 会设置被所有日期/时间函数用到的默认时区。
+
+    注意：从 PHP 5.1.0 （日期/时间函数被重写的时间）开始，如果时区是无效的话，那么每一个对日期/时间函数的调用都将会生成一个 E_NOTICE ，
+    如果使用了系统设置或者 TZ 环境变量的话，并且/或者将会生成一个 E_WARNING 。
+
+    除了使用这个函数去设置脚本中的默认时区，你还可以使用 INI 设置 date.timezone 去设置默认时区。
+
+参数
+    timezone_identifier
+        时区标识符，比如 UTC 或 Europe/Lisbon 。可供使用的有效标识符的列表在 受支持的时区列表 中。
+
+返回值
+    如果 timezone_identifier 不是有效的，那么该函数返回 FALSE，否则返回 TRUE 。
+
+变更日志
+    版本     描述
+    5.3.0   现在会抛出 E_WARNING 而不是 E_STRICT 。
+    5.1.2	该函数开始验证 timezone_identifier 参数了。

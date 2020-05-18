@@ -1,0 +1,2 @@
+描述
+    该函数是 DateTime::setTimestamp() 的一个别名。

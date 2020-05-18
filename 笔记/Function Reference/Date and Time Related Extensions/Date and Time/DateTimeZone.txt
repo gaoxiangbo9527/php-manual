@@ -1,0 +1,80 @@
+介绍
+    表示时区。
+
+类摘要
+    DateTimeZone {
+        /* Constants */
+        const integer AFRICA = 1 ;
+        const integer AMERICA = 2 ;
+        const integer ANTARCTICA = 4 ;
+        const integer ARCTIC = 8 ;
+        const integer ASIA = 16 ;
+        const integer ATLANTIC = 32 ;
+        const integer AUSTRALIA = 64 ;
+        const integer EUROPE = 128 ;
+        const integer INDIAN = 256 ;
+        const integer PACIFIC = 512 ;
+        const integer UTC = 1024 ;
+        const integer ALL = 2047 ;
+        const integer ALL_WITH_BC = 4095 ;
+        const integer PER_COUNTRY = 4096 ;
+
+        /* Methods */
+        public __construct ( string $timezone )
+        public getLocation ( void ) : array
+        public getName ( void ) : string
+        public getOffset ( DateTimeInterface $datetime ) : int
+        public getTransitions ([ int $timestamp_begin = PHP_INT_MIN [, int $timestamp_end = PHP_INT_MAX ]] ) : array
+        public static listAbbreviations ( void ) : array
+        public static listIdentifiers ([ int $what = DateTimeZone::ALL [, string $country = NULL ]] ) : array
+    }
+
+预定义的常量
+    DateTimeZone::AFRICA
+        非洲时区。
+    DateTimeZone::AMERICA
+        美洲时区。
+    DateTimeZone::ANTARCTICA
+        南极时区。
+    DateTimeZone::ARCTIC
+        北极时区。
+    DateTimeZone::ASIA
+        亚洲时区。
+    DateTimeZone::ATLANTIC
+        大西洋时区。
+    DateTimeZone::AUSTRALIA
+        澳洲时区。
+    DateTimeZone::EUROPE
+        欧洲时区。
+    DateTimeZone::INDIAN
+        印度时区。
+    DateTimeZone::PACIFIC
+        太平洋时区。
+    DateTimeZone::UTC
+        UTC 时区。
+    DateTimeZone::ALL
+        所有的时区。
+    DateTimeZone::ALL_WITH_BC
+        包含向后兼容的所有时区。
+    DateTimeZone::PER_COUNTRY
+        每个国家的时区。
+
+目录
+    public DateTimeZone::__construct ( string $timezone )
+        创建新的 DateTimeZone 对象。
+    public DateTimeZone::getLocation ( void ) : array
+        返回一个时区的位置信息，包括国家代码，纬度，经度和描述。
+    public DateTimeZone::getName ( void ) : string
+        返回时区的名字。
+        个人补充：返回值可能是 Asia/Shanghai 或者 +08:00 。
+    public DateTimeZone::getOffset ( DateTimeInterface $datetime ) : int
+        该函数为 datetime 参数指定的日期/时间返回 GMT 偏移量，单位为秒。
+        GMT 偏移量是使用 DateTimeZone 对象中包含的时区信息进行计算的。
+        个人补充：同一个时区在不同的时间，偏移量可能是不同的，参考夏令时。所以该函数必须要从 $datetime 参数中获取时间信息，才能进行计算。
+    public DateTimeZone::getTransitions ([ int $timestamp_begin = PHP_INT_MIN [, int $timestamp_end = PHP_INT_MAX ]] ) : array
+        获取时区的所有转变。
+    public static DateTimeZone::listAbbreviations ( void ) : array
+        返回包含夏令时、偏移量和时区名的关联数组。
+    public static DateTimeZone::listIdentifiers ([ int $what = DateTimeZone::ALL [, string $country = NULL ]] ) : array
+        返回一个包含了所有被定义的时区标识符的数值化的索引数组。
+        只有当 what 参数被设置为 DateTimeZone::PER_COUNTRY 时才需要使用 country 参数。

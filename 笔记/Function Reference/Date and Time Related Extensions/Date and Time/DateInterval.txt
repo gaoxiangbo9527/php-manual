@@ -1,0 +1,109 @@
+介绍
+    表示一个日期间隔。
+
+    一个日期间隔要么存储了一个固定长度的时间（以年，月，日，小时等），要么以 DateTime 构造函数支持的格式存储了一个相对的时间字符串。
+
+类摘要
+    DateInterval {
+        /* Properties */
+        public integer $y ;
+        public integer $m ;
+        public integer $d ;
+        public integer $h ;
+        public integer $i ;
+        public integer $s ;
+        public float $f ;
+        public integer $invert ;
+        public mixed $days ;
+
+        /* Methods */
+        public __construct ( string $interval_spec )
+        public static createFromDateString ( string $time ) : DateInterval
+        public format ( string $format ) : string
+    }
+
+属性
+    y
+        年的数量。
+    m
+        月的数量。
+    d
+        天的数量。
+    h
+        小时的数量。
+    i
+        分钟的数量。
+    s
+        秒的数量。
+    f
+        微秒的数量，以几分之一秒为单位。
+    invert
+        如果间隔表示的是一个负的时间段，那么为 1；反之，为 0 。请查看 DateInterval::format() 。
+    days
+        如果 DateInterval 对象是通过 DateTime::diff() 创建的，那么 days 将是开始日期和结束日期之间的总天数；否则，days 将是 FALSE 。
+
+        在 PHP 5.4.20/5.5.4 之前，在访问该属性时，你将收到 -99999，而不是 FALSE 。
+
+变更日志
+    版本         描述
+    7.1.0	    添加了 f 属性。
+
+目录
+    public DateInterval::__construct ( string $interval_spec )
+        创建一个 DateInterval 对象。
+
+        interval_spec
+            一个间隔的规范。
+
+            格式以字母 P 开头，表示周期。每个持续周期由一个整数值和一个周期标识符表示。如果持续时间包含时间元素，那么规范的这一部分的前面是
+            字母 T 。
+
+            周期标识符
+                周期标识符   描述
+                Y	        年
+                M	        月
+                D	        日
+                W       	周。它们会被转换成天，所以不能和 D 同时使用。
+                H	        小时
+                M	        分钟
+                S	        秒
+
+            注意：单位类型必须从左边的最大测量单位输入到右边的最小测量单位。所以年在月前，月在天前，天在分钟前，等等。
+
+            该规范也可以使用一个日期时间来表示。1 年零 4 天的一个样例是 P0001-00-04T00:00:00。但是这种格式中的值不能超过给定周期的翻转
+            点（比如 25 小时是无效的）。
+
+            这些格式基于 ISO 8601 持续时间规范 。
+    public static DateInterval::createFromDateString ( string $time ) : DateInterval
+        使用常规的日期解析器，并从已解析的字符串的相对部分设置一个 DateInterval 。
+
+        time
+            带有相对部分的日期。用于 strtotime() 和 DateTime 的解析器所支持的 相对格式 也可以用于构造 DateInterval 。
+    public DateInterval::format ( string $format ) : string
+        格式化间隔。
+
+        format
+            format 参数字符串可以识别下面这些字符。每一个格式化字符都必须以百分号（%）作为前缀。
+
+            格式化字符   描述                                                     示例值
+            %	        字面量 %	                                                %
+            Y	        年，数值，至少为带有前导 0 的两位数                          01, 03
+            y	        年，数值                                                 1, 3
+            M	        月，数值，至少为带有前导 0 的两位数                          01, 03, 12
+            m	        月，数值                                                 1, 3, 12
+            D	        天，数值，至少为带有前导 0 的两位数                          01, 03, 31
+            d	        天，数值                                                 1, 3, 31
+            a	        一个 DateTime::diff() 结果的总天数，否则为 unknown          4, 18, 8123
+            H	        小时，数值，至少为带有前导 0 的两位数	                    01, 03, 23
+            h	        小时，数值                                                1, 3, 23
+            I	        分钟，数值，至少为带有前导 0 的两位数	                    01, 03, 59
+            i	        分钟，数值                                                1, 3, 59
+            S	        秒，数值，至少为带有前导 0 的两位数	                        01, 03, 57
+            s	        秒，数值                                                  1, 3, 57
+            F	        微秒，数值，至少为带有前导 0 的六位数	 	                007701, 052738, 428291      >= PHP 7.1.0
+            f	        微秒，数值                           	                    7701, 52738, 428291         >= PHP 7.1.0
+            R	        符号 负数时为 "-" ，正数时为 "+"                            -, +
+            r	        符号 负数时为 "-" ，正数时为空                              -,
+
+        注意：DateInterval::format() 方法不会重新计算时间字符串或者日期部分中的进位点。这是可以预期的，因为不可能溢出如“32 days”这样的
+        值，它可能会被解释为从“1 month and 4 days”到“1 month and 1 day”之间的任何事物。

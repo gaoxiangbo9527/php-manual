@@ -1,0 +1,75 @@
+介绍
+    表示一个日期周期。
+
+    日期周期允许对一组日期和时间进行迭代，在给定的一个时间段内每隔一定时间重复。
+
+类摘要
+    DatePeriod implements Traversable {
+        /* Constants */
+        const integer EXCLUDE_START_DATE = 1 ;
+
+        /* Properties */
+        public DateTimeInterface $start ;
+        public DateInterval $interval ;
+        public integer $recurrences ;
+        public DateTimeInterface $end ;
+        public boolean $include_start_date ;
+        public DateTimeInterface $current ;
+
+        /* Methods */
+        public __construct ( DateTimeInterface $start , DateInterval $interval , int $recurrences [, int $options ] )
+        public __construct ( DateTimeInterface $start , DateInterval $interval , DateTimeInterface $end [, int $options ] )
+        public __construct ( string $isostr [, int $options ] )
+        public getDateInterval ( void ) : DateInterval
+        public getEndDate ( void ) : DateTimeInterface
+        public getRecurrences ( void ) : int
+        public getStartDate ( void ) : DateTimeInterface
+    }
+
+预定义的常量
+    DatePeriod::EXCLUDE_START_DATE
+        排除开始日期，在 DatePeriod::__construct() 中使用。
+
+属性
+    start
+        周期的开始日期。
+    interval
+        一个 ISO 8601 循环间隔规范。
+    recurrences
+        如果 DatePeriod 实例是通过显式传递 $recurrences 创建的，则表示重复的次数。
+        个人补充：该属性表示的是重复的次数，而不是遍历的总次数。
+    end
+        周期的结束日期。
+    include_start_date
+        是否将开始日期包含在循环日期的集合中。
+    current
+        在遍历期间，该属性会包含周期中的当前日期。
+
+变更日志
+    版本              描述
+    5.3.27, 5.4.17   公开了公有属性 recurrences，include_start_date，start，current，end 和 interval 。
+
+目录
+    public __construct ( DateTimeInterface $start , DateInterval $interval , int $recurrences [, int $options ] )
+    public __construct ( DateTimeInterface $start , DateInterval $interval , DateTimeInterface $end [, int $options ] )
+    public __construct ( string $isostr [, int $options ] )
+        创建一个新的 DatePeriod 对象。
+
+        注意 不支持 ISO 8601 第 4.5 节“重复时间间隔”中指定的无限重复次数，即将“R/…”传递为 isostr 或将 NULL 传递为 end 都不行。
+    public getStartDate ( void ) : DateTimeInterface
+        获取周期的开始日期。
+
+        如果是使用一个 DateTimeImmutable 对象作为 start 参数去初始化的 DatePeriod ，那么会返回一个 DateTimeImmutable 对象；否则，
+        会返回一个 DateTime 对象。
+    public getDateInterval ( void ) : DateInterval
+        返回一个用于表示周期中间隔的 DateInterval 对象。
+    public getRecurrences ( void ) : int
+        获取重复的次数。
+    public getEndDate ( void ) : DateTimeInterface
+        获取周期的结束日期。
+
+        如果 DatePeriod 没有一个结束日期，那么会返回 NULL 。比如使用 recurrences 参数或者 isostr 参数进行了初始化，而没有使用一个结束
+        日期。
+
+        如果是使用一个 DateTimeImmutable 对象作为 end 参数去初始化的 DatePeriod ，那么会返回一个 DateTimeImmutable 对象；否则，
+        会返回一个 DateTime 对象。

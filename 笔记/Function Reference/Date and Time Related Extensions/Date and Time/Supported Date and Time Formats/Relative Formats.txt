@@ -1,0 +1,78 @@
+该页面描述了 strtotime()，DateTime 和 date_create() 解析器所理解的不同的相对日期/时间格式。
+
+使用的符号
+描述      格式
+dayname	    'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' |
+            'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat'
+daytext	    'weekday' | 'weekdays'
+number      [+-]?[0-9]+
+ordinal     'first' | 'second' | 'third' | 'fourth' | 'fifth' | 'sixth' | 'seventh' | 'eighth' |
+            'ninth' | 'tenth' | 'eleventh' | 'twelfth' | 'next' | 'last' | 'previous' | 'this'
+reltext     'next' | 'last' | 'previous' | 'this'
+space       [ \t]+
+unit        (('sec' | 'second' | 'min' | 'minute' | 'hour' | 'day' | 'fortnight' | 'forthnight' | 'month' | 'year') 's'?) | 'weeks' | daytext
+
+基于日的表示法
+格式  	                            描述                                示例
+'yesterday'	                        昨天午夜	                            "yesterday 14:00"
+'midnight'	                        时间设置为 00:00:00
+'today'	                            时间设置为 00:00:00
+'now'	                            现在 —— 这完全被忽略了
+'noon'	                            时间被设置为 12:00:00	                "yesterday noon"
+'tomorrow'	                        明天午夜
+'back of' hour	                    超过指定时间15分钟	                "back of 7pm", "back of 15"
+'front of' hour	                    指定时间前15分钟	                     "front of 5am", "front of 23"
+'first day of'	                    设置当前月份的第一天。这个短语           "first day of January 2008"
+                                    最好和它后面的月份一起使用。
+'last day of'	                    将日期设置为当月的最后一天。这           "last day of next month"
+                                    个短语最好和它后面的月份一起使用。
+ordinal space dayname space 'of'	计算当前月份的第x个星期几。             "first sat of July 2008"
+'last' space dayname space 'of'	    计算当前月份的最后一个星期几。	        "last sat of July 2008"
+number space? (unit | 'week')	    处理值为数字的相对时间项。	            "+5 weeks", "12 day", "-7 weekdays"
+ordinal space unit	                处理值为文本的相对时间项。	            "fifth day", "second month"
+'ago'	                            否定以前找到的所有相对时间项的值。       "2 days ago", "8 days ago 14:00",
+                                                                        "2 months 5 days ago", "2 months ago 5 days"
+dayname	                            移动到下一个名字为该名字的天            "Monday"
+reltext space 'week'	            处理特殊的格式                        "Monday next week"
+                                    "weekday + last/this/next week".
+
+注意：
+    相对语句总是在非相对语句之后被处理。这使得"+1 week july 2008"和"july 2008 +1 week"是相同的。
+
+    这条规则的例外是："yesterday"， "midnight"， "today"， "noon" 和 "tomorrow"。注意"tomorrow 11:00" 和 "11:00 tomorrow" 是不
+    同的。比如今天是“July 23rd, 2008”，第一个产生的是“2008-07-24 11:00”，第二个产生的是“2008-07-24 00:00”。原因是这五种语句直接影响
+    了现在的时间。
+
+注意
+    相对月的值是根据它们经过的月的长度计算的。一个例子是“+2 month 2011-11-30”会生成“2012-01-30”。这是因为11月是30天的长度，12月是31天
+    的长度，总共产生61天。
+
+注意
+    当当前周中的天和日期/时间字符串里的周中的天相同时，注意下面的言论。当前的周中的天会被日期/时间字符串中的非相对部分重新计算。
+    1.“dayname”不会前进到另一天。（例子："Wed July 23rd, 2008" 意味着 "2008-07-23"）。
+    2."number dayname"不会前进到另一天。（例子："1 wednesday july 23rd, 2008" 意味着 "2008-07-23"）).
+    3."number week dayname"将先添加具体数量的星期数，但不前进到另一天。在本例中，“number week”和“dayname”是两个不同的块。（例子：
+    "+1 week wednesday july 23rd, 2008" 意味着 "2008-07-30"）。
+    4."ordinal dayname"会前进到另一天。（例子："first wednesday july 23rd, 2008" 意味着 "2008-07-30"）。
+    5."number week ordinal dayname"将会先加上具体数量的周数，然后在前进到另一天。这种情况下"number week"和"ordinal dayname"是两个
+    不同的块。（例子："+1 week first wednesday july 23rd, 2008" 意味着 "2008-08-06"）。
+    6."ordinal dayname 'of' "不会前进到另一天。（例子："first wednesday of july 23rd, 2008" 意味着 "2008-07-02" 因为特定的短语
+    'of'将月中的天数重置为 1 并且 23rd 在这里被忽略了）。
+
+    还要注意“ordinal space dayname space 'of' ”中的“of”和“'last' space dayname space 'of' ”中的“of”做了一些特别的事情。
+    1.它将月中的天设置为 1 。
+    2."ordinal dayname 'of' "不会前进到另一天。（例子："first tuesday of july 2008" 意味着 "2008-07-01"）。
+    3."ordinal dayname "会前进到另一天。（例子："first tuesday july 2008" 意味着 "2008-07-08"，另请参阅上面的列表中的第4点）。
+    4."'last' dayname 'of' "获取当前月份的最后一个 dayname。（例子： "last wed of july 2008" 意味着 "2008-07-30"）。
+    5."'last' dayname"会从当前日期获取前一个 dayname 。（例子："last wed july 2008" 意味着 "2008-06-25"；"july 2008" 先将当前日
+    期设置为 "2008-07-01" 接着然后 "last wed" 会移动到前一个 Wednesday ，也就是 "2008-06-25"）。
+
+注意
+    number 是一个整数；如果给定的是一个小数，点（或逗号）很可能被解释为分隔符。例如，'+1.5 hours' 会被解析为 '+1 5 hours'，而不会解析为
+    '+1 hour +30 minutes'.
+
+变更日志
+    版本              描述
+    5.6.23, 7.0.8	 周总是从周一开始。之前，周日也会被认为是一周的开始。
+    5.3.3	         "first day" and "last day" 的行为已经相应的被改为 "+1 day" and "-1 day"。以前，它们的行为如 "first day of"
+                     和"last day of"。

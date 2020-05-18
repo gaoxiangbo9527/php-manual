@@ -1,0 +1,11 @@
+从 PHP 5.1.1 开始，DATE_* 常量被定义，并且它们提供了标准的日期表示，可以与日期格式化函数（如date()）一起使用。
+
+从 PHP 5.1.2 开始，存在以下常量，并且指定了一种会由函数 date_sunrise() 和 date_sunset() 返回的格式。
+
+SUNFUNCS_RET_TIMESTAMP      integer
+    时间戳
+SUNFUNCS_RET_STRING         integer
+    小时:分钟 （例如：08:02）
+SUNFUNCS_RET_DOUBLE         integer
+    浮点数的小时（例如 8.75）
+    个人补充：integer 数据类型是不是错了？应该是 float 吧。
