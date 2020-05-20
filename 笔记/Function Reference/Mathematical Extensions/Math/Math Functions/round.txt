@@ -1,0 +1,32 @@
+描述
+    round ( float $val [, int $precision = 0 [, int $mode = PHP_ROUND_HALF_UP ]] ) : float
+
+    返回 val 舍入到指定的 precision（小数点后的数字的位数） 后的值。precision 也可以是负数或者 0 （默认）。
+
+    注意：PHP 默认情况下不能正确处理像“12,300.2”这样的字符串。参见 从字符串转换 。
+
+参数
+    val
+        待舍入的值。
+    precision
+        可选的将舍入到的小数数字的位数。
+
+        如果 precision 是正数，舍入会发生在小数点的后面。
+
+        如果 precision 是负数，舍入会发生在小数点的前面。如果 precision 的绝对值大于或等于数字的位数，则舍入的结果为 0 。
+    模式
+        使用下面这些常量中的一个去指定舍入发生的模式。
+
+        常量                    描述
+        PHP_ROUND_HALF_UP       将 val 舍入到远离 0 的 precision 位小数的位置，四舍五入。1.5 会舍入成 2 并且 -1.5 会舍入成 -2 。
+        PHP_ROUND_HALF_DOWN	    将 val 舍入到靠近 0 的 precision 位小数的位置，五舍六入。1.5 会舍入成 1 并且 -1.5 会舍入成 -1 。
+        PHP_ROUND_HALF_EVEN	    将 val 向最近的偶数值舍入到 precision 位小数的位置。
+        PHP_ROUND_HALF_ODD	    将 val 向最近的奇数值舍入到 precision 位小数的位置。
+
+返回值
+    舍入到给定 precision 的浮点数值。
+
+变更日志
+    版本     描述
+    5.3.0   引入了 mode 参数。
+    5.2.7	round() 的内部工作方式被更改了，以符合 C99 标准。
