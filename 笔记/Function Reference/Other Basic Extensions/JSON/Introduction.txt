@@ -1,0 +1,4 @@
+此扩展实现了 JavaScript Object Notation (JSON) 数据交换格式。PHP 5 中的解码是通过一个基于 Douglas Crockford 的 JSON_checker 的解
+析器来处理的。PHP 7 提供了一个全新的、经过改进的解析器，它是专门为 PHP 编写的，并在 PHP 许可下进行授权。
+
+注意：PHP 实现的是原始 RFC 7159 中所指定的 JSON 的一个超集。

@@ -1,0 +1,12 @@
+介绍
+    实现了 JsonSerializable 的对象，当使用 json_encode() 进行编码时可以自定义它们的 JSON 表示。
+
+类摘要
+    JsonSerializable {
+        /* Methods */
+        abstract public jsonSerialize ( void ) : mixed
+    }
+
+目录
+    abstract public JsonSerializable::jsonSerialize ( void ) : mixed
+        将对象序列化为一个值，该值可以由 json_encode() 直接序列化。
