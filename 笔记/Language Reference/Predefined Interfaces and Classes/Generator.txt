@@ -1,8 +1,8 @@
-生成器对象是从生成器函数中返回的。
-警告
-    生成器对象无法通过 new 关键字来创建。
-个人补充
-    Generator 是一个类，而不是一个接口。
+介绍
+    生成器对象是从生成器函数中返回的。
+
+    警告
+        生成器对象无法通过 new 关键字来实例化。
 
 类的概要
     Generator implements Iterator {
@@ -17,3 +17,5 @@
         public bool valid ( void )
         public void __wakeup ( void )
     }
+
+    个人补充：Generator 是一个类，而不是一个接口。
