@@ -101,6 +101,7 @@
     路径和目录的配置选项
         名称                     默认值                       可修改范围            变更日志
         include_path            ".;/path/to/php/pear"       PHP_INI_ALL
+        extension_dir	        "/path/to/php"	            PHP_INI_SYSTEM
     下面是配置指令们的一份简要描述。
     include_path        string
         指定了一个目录列表，require、include 以及 fopen()、file()、readfile() 和 file_get_contents() 函数会在其中查找文件。
@@ -114,6 +115,8 @@
 
         注意：在 .ini 文件中也可以访问 ENV 变量，因此可能通过使用 ${LOGIN} 和 ${USER} 去引用主目录。
         环境变量在服务器 API 之间可能会有所不同，因为这些环境（服务器 API）可能是不同的。
+    extension_dir       string
+        PHP 应该在哪个目录中寻找可动态加载的扩展。另请参阅：enable_dl 和 dl() 。
 
 文件上传
     file_uploads            boolean

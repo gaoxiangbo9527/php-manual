@@ -1,0 +1,27 @@
+介绍
+    SplFixedArray 类提供了数组的主要功能。SplFixedArray 和常规 PHP 数组的主要不同点是 SplFixedArray 是固定长度的并且只允许范围内的整
+    数作为索引。它的优点是比标准 array 使用更少的内存。
+
+类摘要
+    SplFixedArray implements Iterator , ArrayAccess , Countable {
+
+        /* Methods */
+        public __construct ([ int $size = 0 ] )
+        public count ( void ) : int
+        public current ( void ) : mixed
+        public static fromArray ( array $array [, bool $save_indexes = TRUE ] ) : SplFixedArray
+        public getSize ( void ) : int
+        public key ( void ) : int
+        public next ( void ) : void
+        public offsetExists ( int $index ) : bool
+        public offsetGet ( int $index ) : mixed
+        public offsetSet ( int $index , mixed $newval ) : void
+        public offsetUnset ( int $index ) : void
+        public rewind ( void ) : void
+        public setSize ( int $size ) : bool
+        public toArray ( void ) : array
+        public valid ( void ) : bool
+        public __wakeup ( void ) : void
+    }
+
+个人补充：具体方法等用到的时候临时查即可。

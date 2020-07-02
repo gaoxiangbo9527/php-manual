@@ -9,4 +9,3 @@
         abstract public detach ( SplObserver $observer ) : void
         abstract public notify ( void ) : void
     }
-

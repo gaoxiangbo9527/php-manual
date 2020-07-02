@@ -1,0 +1,16 @@
+描述
+    iterator_apply ( Traversable $iterator , callable $function [, array $args = NULL ] ) : int
+    为迭代器中的每一个元素调用一个函数。
+
+参数
+    iterator
+        将要迭代的迭代器对象。
+    function
+        将在每一个元素上调用的函数。这个函数只接收给定的 args，所以默认为空值。比如，如果 count($args) === 3，那么该回调函数是三元的。
+
+        注意：该函数必须返回 TRUE 以继续在该 iterator 上迭代。
+    args
+        一个参数数组；args 的每一个元素都会作为独立的参数传递给该回调函数。
+
+返回值
+    返回迭代的次数。

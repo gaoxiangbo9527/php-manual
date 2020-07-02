@@ -1,0 +1,10 @@
+描述
+    iterator_count ( Traversable $iterator ) : int
+    计算一个迭代器中的元素的数量。iterator_count() 不保证会保留迭代器的当前位置。
+
+参数
+    iterator
+        将要被计算的迭代器。
+
+返回值
+    迭代器中的元素的数量。

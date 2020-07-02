@@ -1,0 +1,60 @@
+目录
+    AppendIterator
+    ArrayIterator
+    CachingIterator
+    CallbackFilterIterator
+    DirectoryIterator
+    EmptyIterator
+    FilesystemIterator
+    FilterIterator
+    GlobIterator
+    InfiniteIterator
+    IteratorIterator
+    LimitIterator
+    MultipleIterator
+    NoRewindIterator
+    ParentIterator
+    RecursiveArrayIterator
+    RecursiveCachingIterator
+    RecursiveCallbackFilterIterator
+    RecursiveDirectoryIterator
+    RecursiveFilterIterator
+    RecursiveIteratorIterator
+    RecursiveRegexIterator
+    RecursiveTreeIterator
+    RegexIterator
+
+    SPL 提供了一组迭代器去遍历对象。
+
+SPL 迭代器类的树
+    ArrayIterator
+        RecursiveArrayIterator
+    EmptyIterator
+    IteratorIterator
+        AppendIterator
+        CachingIterator
+            RecursiveCachingIterator
+
+        FilterIterator
+            CallbackFilterIterator
+                RecursiveCallbackFilterIterator
+
+            RecursiveFilterIterator
+                ParentIterator
+
+            RegexIterator
+                RecursiveRegexIterator
+
+        InfiniteIterator
+        LimitIterator
+        NoRewindIterator
+    MultipleIterator
+    RecursiveIteratorIterator
+        RecursiveTreeIterator
+
+    DirectoryIterator (extends SplFileInfo)
+        FilesystemIterator
+            GlobIterator
+            RecursiveDirectoryIterator
+
+个人补充：需要的时候再去看。

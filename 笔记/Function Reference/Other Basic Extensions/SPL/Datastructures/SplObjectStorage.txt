@@ -1,0 +1,30 @@
+介绍
+    SplObjectStorage 类提供了从对象到数据的映射，或者通过忽略数据即可提供一个对象集合。在许多需要去惟一的标识对象的情况下，这种双重目的非
+    常有用。
+
+类摘要
+    SplObjectStorage implements Countable , Iterator , Serializable , ArrayAccess {
+
+        /* Methods */
+        public addAll ( SplObjectStorage $storage ) : void
+        public attach ( object $object [, mixed $data = NULL ] ) : void
+        public contains ( object $object ) : bool
+        public count ( void ) : int
+        public current ( void ) : object
+        public detach ( object $object ) : void
+        public getHash ( object $object ) : string
+        public getInfo ( void ) : mixed
+        public key ( void ) : int
+        public next ( void ) : void
+        public offsetExists ( object $object ) : bool
+        public offsetGet ( object $object ) : mixed
+        public offsetSet ( object $object [, mixed $data = NULL ] ) : void
+        public offsetUnset ( object $object ) : void
+        public removeAll ( SplObjectStorage $storage ) : void
+        public removeAllExcept ( SplObjectStorage $storage ) : void
+        public rewind ( void ) : void
+        public serialize ( void ) : string
+        public setInfo ( mixed $data ) : void
+        public unserialize ( string $serialized ) : void
+        public valid ( void ) : bool
+    }

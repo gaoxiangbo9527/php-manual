@@ -1,0 +1,30 @@
+目录
+    SplDoublyLinkedList
+    SplStack
+    SplQueue
+    SplHeap
+    SplMaxHeap
+    SplMinHeap
+    SplPriorityQueue
+    SplFixedArray
+    SplObjectStorage
+
+    SPL 提供了一组标准的数据结构。它们在这里是根据它们的底层实现分组的，底层实现通常定义了它们常规的应用领域。
+
+
+
+
+
+
+
+
+Arrays
+    数组是以连续的方式存储数据的结构，可以通过索引进行访问。不要把数组同 PHP 数组弄混了：PHP 数组实际上是以有序哈希表实现的。
+
+    SplFixedArray
+
+Map
+    map 是一种保存键-值对的数据结构。PHP 数组可以看作是从整数/字符串到值的映射。SPL 提供了一个从对象到数据的映射。该映射也能被用作一个对象
+    集合。
+
+    SplObjectStorage

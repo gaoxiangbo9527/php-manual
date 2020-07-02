@@ -1,0 +1,35 @@
+在 Unix 系统上安装 PDO
+    1. 从 PHP 5.1.0 开始，PDO 和 PDO_SQLITE 驱动是默认启用的。你可能需要为所选的数据库启用相应的 PDO 驱动；请参阅 数据库特定的 PDO 驱
+    动 的文档以了解更多相关信息。
+
+    注意：当将 PDO 构建为共享扩展（不推荐）时，所有的 PDO 驱动必须在 PDO 本身之后加载。
+
+    2. 当将 PDO 作为一个共享模块安装时，需要更新 php.ini 文件，以便在 PHP 运行时自动加载 PDO 扩展。你还需要启用任何数据库特定的驱动；确保
+    将它们列在 pdo.so 所在行的后面，因为在加载数据库特定的扩展之前，必须先初始化 PDO 。如果静态地构建 PDO 和数据库特定的扩展，则可以跳过此
+    步骤。
+
+    extension=pdo.so
+
+Windows 用户
+    1. PDO 和所有主要的驱动都以共享扩展的形式同 PHP 装载在一起，并且只需通过编辑 php.ini 文件即可激活：
+
+        extension=php_pdo.dll
+
+        注意：这一步对于 PHP 5.3 及以上版本来说是不必要的，因为 PDO 不再需要 DLL 。
+
+    2. 下一步，选中其他的数据库特定的 DLL 文件，要么在运行时使用 dl() 去加载它们，要么在 php.ini 中 php_pdo.dll 的下面 启用它们。例如：
+
+        extension=php_pdo.dll
+        extension=php_pdo_firebird.dll
+        extension=php_pdo_informix.dll
+        extension=php_pdo_mssql.dll
+        extension=php_pdo_mysql.dll
+        extension=php_pdo_oci.dll
+        extension=php_pdo_oci8.dll
+        extension=php_pdo_odbc.dll
+        extension=php_pdo_pgsql.dll
+        extension=php_pdo_sqlite.dll
+
+        这些 DLL 应该存在于系统的 extension_dir 中。
+
+注意：请记住，在对 php.ini 文件进行更改之后，你需要重新启动 PHP 以使新的配置指令生效。

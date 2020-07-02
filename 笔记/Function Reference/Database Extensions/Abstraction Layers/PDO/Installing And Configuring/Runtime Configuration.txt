@@ -1,0 +1,10 @@
+这些函数的行为会收到 php.ini 中的设置的影响。
+
+PDO 配置选项
+    名称          默认值	    可修改范围	    变更日志
+    pdo.dsn.*	 	        仅 php.ini
+
+这里是这些配置指令的简短解释。
+
+pdo.dsn.*   string
+    定义 DSN 别名。详尽的解释参见 PDO::__construct() 。

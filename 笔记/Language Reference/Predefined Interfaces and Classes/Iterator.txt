@@ -11,8 +11,8 @@
         abstract public valid ( void ) : bool
     }
 
-预定义的遍历器
-    PHP 已经内置提供了若干用于完成许多日常任务的遍历器，详细清单参见 SPL 遍历器 。
+预定义的迭代器
+    PHP 已经内置提供了若干用于完成许多日常任务的迭代器，详细清单参见 SPL 迭代器 。
 
 foreach循环中各个方法的实际调用顺序
     1. Before the first iteration of the loop, Iterator::rewind() is called.

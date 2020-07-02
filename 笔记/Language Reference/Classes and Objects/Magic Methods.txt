@@ -1,11 +1,12 @@
 PHP的类中名为 __construct()、 __destruct()、 __call()、 __callStatic()、 __get()、 __set()、 __isset()、 __unset()、
-__sleep()、 __wakeup()、 __toString()、 __invoke()、 __set_state()、 __clone() 和 __debugInfo() 的方法被称为“魔术方法”。
+__sleep()、__serialize()、 __unserialize()、 __wakeup()、 __toString()、 __invoke()、 __set_state()、 __clone() 和
+__debugInfo() 的方法被称为“魔术方法”。
 在命名自己的类的方法时不能使用这些方法名，除非是本来就想使用其对应的魔术功能。
 
 注意
     所有魔术方法都必须被声明为 public 。
 
-警告：PHP将所有名字以__开头的方法保留为魔术方法，所以推荐在你自己的PHP代码中除非想使用上述既定的魔术方法，否则不要使用以__开头的方法名。
+警告：PHP将所有名字以__开头的方法保留为魔术方法，所以推荐在你自己的 PHP 代码中除非想使用上述既定的魔术方法，否则不要使用以 __ 开头的方法名。
 
 __sleep() 和 __wakeup()
     public __sleep ( void ) : array
@@ -22,6 +23,28 @@ __sleep() 和 __wakeup()
 
     相反的，unserialize() 会检查是否存在一个 __wakeup() 方法。如果存在，则会调用 __wakeup() 方法，它可以重构对象可能拥有的任何资源。
     使用 __wakeup() 的意图是重建在序列化期间丢失的数据库连接和运行其它的重新初始化操作。
+
+__serialize() 和 __unserialize()
+    public __serialize ( void ) : array
+    public __unserialize ( array $data ) : void
+
+    serialize() 函数会检查类中是否存在一个魔术方法 __serialize()，如果存在，则该方法会先被调用，然后才执行序列化操作。
+    它必须构造并返回键/值对的关联数组，这些键/值对表示对象的序列化形式。如果没有返回一个数组，那么将抛出一个 TypeError 。
+
+    注意：如果在同一个对象中既定义了 __serialize() 又定义了 __sleep() ，只有  __serialize() 将会被调用。__sleep() 将会被忽略。如果
+    该对象实现了 Serializable 接口，该接口的 serialize() 方法将会被忽略并且会使用 __serialize() 。
+
+    __serialize() 的意图是去定义对象的一种序列化友好的、任意的表示形式。数组的元素可以去对应对象的属性，但这不是必需的。
+
+    相反的，unserialize() 会检查是否存在一个 __unserialize() 方法。如果存在，将把从 __serialize() 返回的复原数组传递给
+    __unserialize() 方法。然后它可以适当地从该数组中恢复对象的属性。
+
+    注意：如果在同一个对象中既定义了 __unserialize() 又定义了 __wakeup() ，只有 __unserialize() 将会被调用。__wakeup() 将会被忽略。
+
+    注意：该特性从 PHP 7.4.0 开始可用。
+
+    个人补充：可以看的出来，__sleep()、__wakeup() 和 __serialize()、__unserialize() 的用途是类似的，不过后一组更加的灵活和完善，名称
+    也更能反应意图，优先级也高，所以更推荐使用，我想在不远的将来 __sleep()、 __wakeup() 将会被废弃。
 
 __toString()
     public __toString ( void ) : string

@@ -1,13 +1,16 @@
 描述
     class_implements ( mixed $class [, bool $autoload = TRUE ] ) : array
     该函数返回指定的 class 和它的父类们实现的一份接口的名称数组。
+
 参数
     class
         一个对象（类实例）或者一个字符串（类名）。
     autoload
         是否允许该函数通过 __autoload() 魔术方法去加载该类。
+
 返回值
     成功时返回一个数组，或者错误时返回 FALSE 。
+
 变更日志
     版本         描述
     5.1.0	    添加了按字符串传递 class 参数的的选项。添加了 autoload 参数。
