@@ -1,0 +1,26 @@
+描述
+    array_fill ( int $start_index , int $num , mixed $value ) : array
+    用 num 条 value 参数的值填充一个数组，键从 start_index 参数开始。
+
+参数
+    start_index
+        返回的数组的第一个索引。
+
+        如果 start_index 是负数，那么返回数组的第一个索引将是 start_index 然后后续的索引将从 0 开始。
+    num
+        要插入的元素的数量必须大于或者等于 0 。
+    value
+        用于填充的值。
+
+返回值
+    返回填充后的数组。
+
+错误/异常
+    如果 num 小于 0 会抛出一个 E_WARNING 。
+
+变更日志
+    版本	    描述
+    5.6.0	num 现在可以是 0 。以前，num 必须大于 0 。
+
+注意事项
+    请参阅手册中的 数组 章节以获得负数键的详细解释。
