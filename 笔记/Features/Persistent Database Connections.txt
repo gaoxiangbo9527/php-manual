@@ -47,6 +47,5 @@ PHP 就会使用它。如果不存在，PHP 会创建该连接。“相同”的
 一个重要的总结。持久连接被设计成和常规连接一一对应。这意味着你应当总是能使用非持久连接替换持久连接，并且不会改变脚本的行为。它可以（并且很可能
 会）改变脚本的效率，但不会改变脚本的行为。
 
-
 另请参阅 fbsql_pconnect()、ibase_pconnect()、ifx_pconnect()、ingres_pconnect()、msql_pconnect()、mssql_pconnect()、
 mysql_pconnect()、ociplogon()、odbc_pconnect()、oci_pconnect()、pfsockopen()、pg_pconnect() 和 sybase_pconnect() 。
