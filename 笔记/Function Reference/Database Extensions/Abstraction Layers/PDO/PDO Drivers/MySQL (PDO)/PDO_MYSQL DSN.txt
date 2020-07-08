@@ -1,0 +1,45 @@
+描述
+    PDO_MYSQL 的数据源名称（DSN）由以下元素组成：
+
+    DSN prefix
+        DNS 前缀是 mysql: 。
+
+    host
+        数据库服务器所在的主机名。
+
+    port
+        数据库服务器正在监听的端口号。
+
+    dbname
+        数据库的名称。
+
+    unix_socket
+        MySQL 的 Unix socket（不应该同 host 或者 port 一起使用） 。
+
+    charset
+        字符集。更多信息请参阅 字符集 概念文档。
+
+        在 PHP 5.3.6 之前，这个元素会被悄悄地忽略。相同的行为可以部分复制 PDO::MYSQL_ATTR_INIT_COMMAND 驱动程序选项，如下面的例子所示。
+
+        Warning 下面示例中的方法只能使用那些与 ASCII 共享相同低 7 位表示的字符集，例如 ISO-8859-1 和 UTF-8。使用具有不同表示形式的字符
+        集（例如 UTF-16 或 Big5）的用户,必须使用 PHP 5.3.6 以及更高版本中提供的 charset 选项。
+
+        Example #1 Setting the connection character set to UTF-8 prior to PHP 5.3.6
+            <?php
+            $dsn = 'mysql:host=localhost;dbname=testdb';
+            $username = 'username';
+            $password = 'password';
+            $options = array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            );
+            $dbh = new PDO($dsn, $username, $password, $options);
+
+更新日志
+    版本	    描述
+    5.3.6	5.3.6 版本以前，charseet 会被忽略。
+
+注意事项
+    注意：仅 Unix：当主机名设置为 "localhost"，那么到服务器的连接是通过一个域名套接字建立的。如果 PDO_MYSQL 是用 libmysqlclient 编译
+    的，那么套接字文件的位置就在 libmysqlclient 被编译的位置。如果 PDO_MYSQL 是用 mysqlnd 编译的，那么就可以通过
+    pdo_mysql.default_socket 设置项来设置一个默认的套接字。
+

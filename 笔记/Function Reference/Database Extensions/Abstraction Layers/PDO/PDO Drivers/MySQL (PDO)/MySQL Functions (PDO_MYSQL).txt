@@ -1,0 +1,19 @@
+TODO:这部分有太多 MySQL 特定的内容，暂时先不看，以后找时间再了解吧。
+
+介绍
+    PDO_MYSQL 是一个实现了 PHP 数据对象（PDO）接口驱动程序，以启用从 PHP 访问 MySQL 数据库。
+
+    从 PHP 5.2.1 开始，PDO_MYSQL 默认使用模拟的预备。以前，PDO_MYSQL 会在 MySQL 4.1及更高版本中默认为原生的预备语句，并为旧版本的
+    MySQL 客户端库模拟它们。
+
+    MySQL 8
+
+
+安装
+
+预定义的常量
+
+运行时配置
+
+目录
+    PDO_MYSQL DSN —— 连接到 MySQL 数据库

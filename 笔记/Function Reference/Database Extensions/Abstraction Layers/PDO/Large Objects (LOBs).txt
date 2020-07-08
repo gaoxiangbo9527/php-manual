@@ -1,0 +1,4 @@
+在应用程序的某个时候，你可能会发现你需要往数据库中存储“大”的数据。大通常意味着“大概4kb或者更多”，尽管有些数据库可以在数据变得“大”之前愉快地处
+理 32kb 的数据。在本质上，大型对象可以是文本的，也可以是二进制的。PDO 允许你在 PDOStatement::bindParam() 或
+PDOStatement::bindColumn() 调用中使用 PDO::PARAM_LOB 类型代码来与这个大数据类型一起工作。PDO::PARAM_LOB 告诉 PDO 把数据映射为流，
+从而你可以使用 PHP Streams API 对其进行操作。

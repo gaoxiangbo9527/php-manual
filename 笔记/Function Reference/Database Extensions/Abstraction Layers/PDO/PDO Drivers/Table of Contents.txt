@@ -1,0 +1,28 @@
+目录
+    CUBRID (PDO)
+    MS SQL Server (PDO)
+    Firebird (PDO)
+    IBM (PDO)
+    Informix (PDO)
+    MySQL (PDO)
+    MS SQL Server (PDO)
+    Oracle (PDO)
+    ODBC and DB2 (PDO)
+    PostgreSQL (PDO)
+    SQLite (PDO)
+    4D (PDO)
+
+以下驱动程序当前实现了 PDO 接口：
+    驱动程序名称	    支持的数据库
+    PDO_CUBRID	    Cubrid
+    PDO_DBLIB	    FreeTDS / Microsoft SQL Server / Sybase
+    PDO_FIREBIRD	Firebird
+    PDO_IBM	        IBM DB2
+    PDO_INFORMIX	IBM Informix Dynamic Server
+    PDO_MYSQL	    MySQL 3.x/4.x/5.x
+    PDO_OCI	        Oracle Call Interface
+    PDO_ODBC	    ODBC v3 (IBM DB2, unixODBC and win32 ODBC)
+    PDO_PGSQL	    PostgreSQL
+    PDO_SQLITE	    SQLite 3 and SQLite 2
+    PDO_SQLSRV	    Microsoft SQL Server / SQL Azure
+    PDO_4D	        4D

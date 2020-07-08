@@ -1,0 +1,102 @@
+介绍
+    表示一条预备语句，并且在语句被执行后表示一个关联的结果集。
+
+类摘要
+    PDOStatement implements Traversable {
+
+        /* Properties */
+        readonly string $queryString;
+
+        /* Methods */
+        public bindColumn ( mixed $column , mixed &$param [, int $type [, int $maxlen [, mixed $driverdata ]]] ) : bool
+        public bindParam ( mixed $parameter , mixed &$variable [, int $data_type = PDO::PARAM_STR [, int $length [, mixed $driver_options ]]] ) : bool
+        public bindValue ( mixed $parameter , mixed $value [, int $data_type = PDO::PARAM_STR ] ) : bool
+        public closeCursor ( void ) : bool
+        public columnCount ( void ) : int
+        public debugDumpParams ( void ) : void
+        public errorCode ( void ) : string
+        public errorInfo ( void ) : array
+        public execute ([ array $input_parameters = NULL ] ) : bool
+        public fetch ([ int $fetch_style [, int $cursor_orientation = PDO::FETCH_ORI_NEXT [, int $cursor_offset = 0 ]]] ) : mixed
+        public fetchAll ([ int $fetch_style [, mixed $fetch_argument [, array $ctor_args = array() ]]] ) : array
+        public fetchColumn ([ int $column_number = 0 ] ) : mixed
+        public fetchObject ([ string $class_name = "stdClass" [, array $ctor_args ]] ) : mixed
+        public getAttribute ( int $attribute ) : mixed
+        public getColumnMeta ( int $column ) : array
+        public nextRowset ( void ) : bool
+        public rowCount ( void ) : int
+        public setAttribute ( int $attribute , mixed $value ) : bool
+        public setFetchMode ( int $mode ) : bool
+    }
+
+属性
+    queryString
+        被使用的查询字符串。
+
+目录
+    PDOStatement::bindColumn — 绑定一个列到一个 PHP 变量
+        注意：由于在语句被执行之前 PDO 并不总是可以获得有关列的信息，因此可移植的应用程序应该在 PDOStatement::execute() 之后再调用该函
+        数。然而，为了能在使用 PgSQL 驱动程序时把一个 LOB 列绑定为一个流，应用程序应该在调用 PDOStatement::execute() 之前调用该方法，
+        否则大对象的 OID 将会返回为一个整数。
+    PDOStatement::bindParam — 绑定一个参数到一个指定的变量名
+    PDOStatement::bindValue — 绑定一个参数到一个值
+    PDOStatement::closeCursor — 关闭游标，使语句可以再次被执行
+        该方法释放到服务器的连接从而可以发起其他的 SQL 语句，但是使该语句处于能够被再次执行的状态。
+
+        对于那些“先前的 PDOStatement 对象仍有未提取的行，就不能执行下一个 PDOStatement 对象”的数据库驱动来说，该方法是很有用的。如果你
+        的数据库驱动存在这种限制，这个问题可能表现为乱序错误。
+
+        该方法要么作为一个可选的、驱动特定的方法（考虑到最大的效率）来实现，要么作为通用的 PDO 回退来实现，如果没有任何驱动特定的函数被安装
+        的话。PDO 通用回退在语义上与在 PHP 脚本中编写以下代码相同：
+            <?php
+            do {
+                while ($stmt->fetch())
+                    ;
+                if (!$stmt->nextRowset())
+                    break;
+            } while (true);
+
+        个人补充：其实不用考虑什么底层原理，只要知道，如果有一个后面不会再用到的 PDOStatement 对象，就可以使用 closeCursor() 关闭它，从
+        而让所有的数据库驱动都可以正常工作。
+    PDOStatement::columnCount — 返回结果集中列的数目
+        如果 PDOStatement 对象是由 PDO::query() 返回的，列数就是立即可用的。
+        如果 PDOStatement 对象是由 PDO::prepare() 返回的，直到你调用 PDOStatement::execute()，准确的列数才是可用的。
+
+        如果没有结果集，PDOStatement::columnCount() 返回 0 ；否则返回由 PDOStatement 对象所代表的结果集中的列数，即使该结果集是空的。
+    PDOStatement::debugDumpParams — 转储一个 SQL 准备好的命令
+    PDOStatement::errorCode — 获取和语句句柄上最后一次操作相关的 SQLSTATE 。
+    PDOStatement::errorInfo — 获取和语句句柄上最后一次操作相关的扩展错误信息。
+    PDOStatement::execute — 执行一条预备语句
+        注意：一些驱动程序需要在执行下一条语句前 关闭游标 。
+    PDOStatement::fetch — 获取一个结果集中的下一行
+    PDOStatement::fetchAll — 返回一个包含所有结果集行的数组
+    PDOStatement::fetchColumn — 返回一个结果集中下一行的单个列。
+        返回一个结果集中下一行的单个列，或者如果没有更多的行则返回 FALSE 。
+
+        注意：PDOStatement::fetchColumn() 不应该被用于去获取布尔型列，因为它无法区分 FALSE 值和没有更多的行要检索两种情况。这时请使用
+        PDOStatement::fetch() 。
+
+        警告：如果你使用 PDOStatement::fetchColumn() 去获取数据，那么就无法从返回同一行的另一个列。
+
+        个人补充：该方法的 column_number 所表示的列号是从 0 开始索引的，这个该类的其他方法不太一样，它们是从 1 开始索引的。
+    PDOStatement::fetchObject — 获取下一行并将其作为一个对象返回
+    PDOStatement::getAttribute — 获取一个语句属性
+    PDOStatement::getColumnMeta — 为结果集中的一个列返回元数据
+        警告 不是所有的 PDO 驱动程序都支持 PDOStatement::getColumnMeta() 。
+        下面的几个驱动程序支持该方法：
+            PDO_DBLIB
+            PDO_MYSQL
+            PDO_PGSQL
+            PDO_SQLITE
+        $column 参数是从 0 开始索引的。
+    PDOStatement::nextRowset — 在多行集语句句柄中前进到下一个行集（行集也可以理解为结果集）
+    PDOStatement::rowCount — 返回被最后的 SQL 语句影响的行数
+        对 INSERT、UPDATE 和 DELETE 语句，该函数会返回被影响的行数；但是对于 SELECT 语句，只有少数数据库会返回该语句返回的行数，所以不
+        能依赖。想要获取 SELECT 语句能查到的行数，应该使用 COUNT(*) 汇总函数，此时使用 PDO::query() 和 PDOStatement::fetchColumn()
+        是一个不错的选择。
+
+        注意：对于 SQLite 驱动程序，以及把 PDO::ATTR_CURSOR 语句属性设置为 PDO::CURSOR_SCROLL 的 PostgreSQL 驱动程序，该方法总是返
+        回 0 。
+    PDOStatement::setAttribute — 设置一个语句属性
+    PDOStatement::setFetchMode — 为该语句设置默认的 fetch 模式
+        个人补充：该方法有好几种形式，个人猜测其中第二种形式的 $colno 参数所表示的索引应该是从 0 开始的，而不是从 1 开始。

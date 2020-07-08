@@ -1,0 +1,169 @@
+下面这些常量是由此扩展定义的，并且仅在该扩展被编译进 PHP 或者在运行时被动态加载才可以使用。
+
+警告 从 PHP 5.1 开始，PDO 使用类常量。之前的版本使用 PDO_PARAM_BOOL 这种形式的全局常量。
+
+PDO::PARAM_BOOL (integer)
+    表示一个 SQL BOOLEAN 数据类型。
+PDO::PARAM_NULL (integer)
+    表示 SQL NULL 数据类型。
+PDO::PARAM_INT (integer)
+    表示 SQL INTEGER 数据类型。
+PDO::PARAM_STR (integer)
+    表示 SQL CHAR、VARCHAR 或者其它的字符串数据类型。
+PDO::PARAM_STR_NATL (integer)
+    一个表示使用国际哈字符集的字符串的表示。从 PHP 7.2.0 。
+PDO::PARAM_STR_CHAR (integer)
+    一个表示使用常规字符集的字符串的标志。从 PHP 7.2.0 。
+PDO::PARAM_LOB (integer)
+    表示 SQL large object 数据类型。
+PDO::PARAM_STMT (integer)
+    表示一个 recordset 类型。当前没有被任何驱动支持。
+PDO::PARAM_INPUT_OUTPUT (integer)
+    表示该参数是一个存储过程的 INOUT 参数。你必须把该值和某个显式的 PDO::PARAM_* 数据类型按位或。
+PDO::FETCH_LAZY (integer)
+    Specifies that the fetch method shall return each row as an object
+    with variable names that correspond to the column names returned in the result set.
+
+    PDO::FETCH_LAZY creates the object variable names as they are accessed.Not valid inside PDOStatement::fetchAll().
+PDO::FETCH_ASSOC (integer)
+    指定 fetch 方法应将每一行作为一个数组返回，该数组用结果集中返回的相应列名作为索引。
+    如果结果集包含多个具有相同名称的列，那么 PDO::FETCH_ASSOC 只会为每个列名返回单个值（个人补充：只保留最后一个列）。
+PDO::FETCH_NAMED (integer)
+    指定 fetch 方法应将每一行作为一个数组返回，该数组用结果集中返回的相应列名作为索引。
+    如果结果集包含多个具有相同名称的列，PDO::FETCH_NAMED 会为每个列名返回一个值数组（个人补充：该数组包含所有同名列的值）。
+PDO::FETCH_NUM (integer)
+    指定 fetch 方法应将每一行作为一个数组返回，该数组用结果集中返回的列号作为索引，从 0 列开始。
+PDO::FETCH_BOTH (integer)
+    指定 fetch 方法应将每一行作为一个数组返回，该数组用结果集中返回的相应列名或者列号作为索引，从 0 列开始。
+PDO::FETCH_OBJ (integer)
+    指定 fetch 方法应将每一行作为一个对象返回，其属性名称对应于结果集中返回的列名。
+    个人补充：实测返回的对象是 stdClass 的实例，这也是合情合理的，PDO::fetchObject() 方法的签名也是这么暗示的，不过 PDO::fetch() 方法
+    的手册页中说返回的是匿名类的实例，很可能是错了。
+PDO::FETCH_BOUND (integer)
+    指定 fetch 方法应该返回 TRUE 并且把结果集中各个列的值赋给通过 PDOStatement::bindParam() 或 PDOStatement::bindColumn() 方法绑
+    定的 PHP 变量。
+PDO::FETCH_COLUMN (integer)
+    指定 fetch 方法只应该从结果集中下一行返回一个被请求的列。
+PDO::FETCH_CLASS (integer)
+    指定 fetch 方法应该返回被请求类的一个新的实例，并把列映射到类中的命名属性。
+
+    注意：如果在被请求的类中某属性不存在的话，那么会调用魔数方法 __set() 。
+PDO::FETCH_INTO (integer)
+    指定 fetch 方法应该更新被请求类的一个已存在的实例，并把列映射到类中的命名属性。
+PDO::FETCH_FUNC (integer)
+    允许完全自定义动态处理数据的方式（只在 PDOStatement::fetchAll() 中有效）。
+PDO::FETCH_GROUP (integer)
+    按值分组返回。通常联合 PDO::FETCH_COLUMN 或 PDO::FETCH_KEY_PAIR 使用。
+PDO::FETCH_UNIQUE (integer)
+    只获取唯一的值。
+PDO::FETCH_KEY_PAIR (integer)
+    Fetch a two-column result into an array where the first column is a key and the second column is the value. Available since PHP 5.2.3.
+PDO::FETCH_CLASSTYPE (integer)
+    从第一列的值确定类名。
+PDO::FETCH_SERIALIZE (integer)
+    As PDO::FETCH_INTO but object is provided as a serialized string. Available since PHP 5.1.0. Since PHP 5.3.0 the class constructor is never called if this flag is set.
+PDO::FETCH_PROPS_LATE (integer)
+    在设置属性之前调用构造方法。从 PHP 5.2.0 开始可用。
+PDO::ATTR_AUTOCOMMIT (integer)
+    如果该值为 FALSE，PDO 尝试禁用自动提交，以便连接开始一个事务。
+PDO::ATTR_PREFETCH (integer)
+    Setting the prefetch size allows you to balance speed against memory usage for your application. Not all database/driver combinations support setting of the prefetch size. A larger prefetch size results in increased performance at the cost of higher memory usage.
+PDO::ATTR_TIMEOUT (integer)
+    设置同数据库通信的超时时间值，单位为秒。
+PDO::ATTR_ERRMODE (integer)
+    关于这个属性的更多信息请查看 错误和错误处理 章节。
+PDO::ATTR_SERVER_VERSION (integer)
+    This is a read only attribute; it will return information about the version of the database server to which PDO is connected.
+PDO::ATTR_CLIENT_VERSION (integer)
+    This is a read only attribute; it will return information about the version of the client libraries that the PDO driver is using.
+PDO::ATTR_SERVER_INFO (integer)
+    This is a read only attribute; it will return some meta information about the database server to which PDO is connected.
+PDO::ATTR_CONNECTION_STATUS (integer)
+PDO::ATTR_CASE (integer)
+    强制列名为由 PDO::CASE_* 常量指定指定的大小写。
+PDO::ATTR_CURSOR_NAME (integer)
+    获取或设置要用于游标的名称。当使用可滚动游标和定位更新时最有用。
+PDO::ATTR_CURSOR (integer)
+    选择游标的类型。PDO 当前支持 PDO::CURSOR_FWDONLY 和 PDO::CURSOR_SCROLL 。保持使用 PDO::CURSOR_FWDONLY，除非你清楚你需要一个可
+    滚动的光标。
+PDO::ATTR_DRIVER_NAME (string)
+    Returns the name of the driver.
+    Example #1 using PDO::ATTR_DRIVER_NAME
+
+    <?php
+    if ($db->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql') {
+      echo "Running on mysql; doing something mysql specific here\n";
+    }
+    ?>
+PDO::ATTR_ORACLE_NULLS (integer)
+    在数据获取时将空字符串转换为 SQL NULL 。
+PDO::ATTR_PERSISTENT (mixed)
+    请求一个持久连接，而不是创建一个新的连接。关于这个属性的更多内容请查看 连接和连接管理 。
+PDO::ATTR_STATEMENT_CLASS (integer)
+    Sets the class name of which statements are returned as.
+PDO::ATTR_FETCH_CATALOG_NAMES (integer)
+    Prepend the containing catalog name to each column name returned in the result set. The catalog name and column name are separated by a decimal (.) character. Support of this attribute is at the driver level; it may not be supported by your driver.
+PDO::ATTR_FETCH_TABLE_NAMES (integer)
+    Prepend the containing table name to each column name returned in the result set. The table name and column name are separated by a decimal (.) character. Support of this attribute is at the driver level; it may not be supported by your driver.
+PDO::ATTR_STRINGIFY_FETCHES (integer)
+    强制把所有获取的数据作为字符串处理。
+PDO::ATTR_MAX_COLUMN_LEN (integer)
+    Sets the maximum column name length.
+PDO::ATTR_DEFAULT_FETCH_MODE (integer)
+    设置默认的获取方式。从 PHP 5.2.0 开始可用。
+PDO::ATTR_EMULATE_PREPARES (integer)
+    启用或者禁用预备语句的模拟。从 PHP 5.1.3 开始可用。
+PDO::ATTR_DEFAULT_STR_PARAM (integer)
+    Sets the default string parameter type, this can be one of PDO::PARAM_STR_NATL and PDO::PARAM_STR_CHAR. Available since PHP 7.2.0.
+PDO::ERRMODE_SILENT (integer)
+    如果发生错误，不会引发错误或异常。开发人员应该显式地检查错误。这是默认的模式。关于这个属性的更多信息请查看 错误和错误处理 章节。
+PDO::ERRMODE_WARNING (integer)
+    如果发生错误，会发出一个 PHP E_WARNNING 消息。关于这个属性的更多信息请查看 错误和错误处理 章节。
+PDO::ERRMODE_EXCEPTION (integer)
+    如果发生错误，会抛出一个 PDOException。关于这个属性的更多信息请查看 错误和错误处理 章节。
+PDO::CASE_NATURAL (integer)
+    保留数据库驱动程序返回的列名。
+PDO::CASE_LOWER (integer)
+    强制列名为小写。
+PDO::CASE_UPPER (integer)
+    强制列名为大写。
+PDO::NULL_NATURAL (integer)
+    不转换。
+PDO::NULL_EMPTY_STRING (integer)
+    空字符串会被转换成 NULL 。
+PDO::NULL_TO_STRING (integer)
+    NULL 会被转换成一个空字符串。
+PDO::FETCH_ORI_NEXT (integer)
+    获取结果集中的下一行。仅对可滚动游标有效。
+PDO::FETCH_ORI_PRIOR (integer)
+    获取结果集中的前一行。仅对可滚动游标有效。
+PDO::FETCH_ORI_FIRST (integer)
+    获取结果集中的第一行。仅对可滚动游标有效。
+PDO::FETCH_ORI_LAST (integer)
+    获取结果集中的最后一行。仅对可滚动游标有效。
+PDO::FETCH_ORI_ABS (integer)
+    通过结果集中的绝对行号获取所请求的行。仅对可滚动游标有效。
+PDO::FETCH_ORI_REL (integer)
+    按相对位置从结果集中游标的当前位置获取所请求的行。仅对可滚动游标有效。
+PDO::CURSOR_FWDONLY (integer)
+    创建一个具有仅向前移动游标的 PDOStatement 对象。这是默认的游标选择，因为它是 PHP 中最快且最常见的数据访问模式。
+PDO::CURSOR_SCROLL (integer)
+    创建一个具有可滚动游标的 PDOStatement 对象。传递 PDO::FETCH_ORI_* 常量来控制从结果集中获取的行。
+PDO::ERR_NONE (string)
+    Corresponds to SQLSTATE '00000', meaning that the SQL statement was successfully issued with no errors or warnings. This constant is for your convenience when checking PDO::errorCode() or PDOStatement::errorCode() to determine if an error occurred. You will usually know if this is the case by examining the return code from the method that raised the error condition anyway.
+PDO::PARAM_EVT_ALLOC (integer)
+    Allocation event
+PDO::PARAM_EVT_FREE (integer)
+    Deallocation event
+PDO::PARAM_EVT_EXEC_PRE (integer)
+    Event triggered prior to execution of a prepared statement.
+PDO::PARAM_EVT_EXEC_POST (integer)
+    Event triggered subsequent to execution of a prepared statement.
+PDO::PARAM_EVT_FETCH_PRE (integer)
+    Event triggered prior to fetching a result from a resultset.
+PDO::PARAM_EVT_FETCH_POST (integer)
+    Event triggered subsequent to fetching a result from a resultset.
+PDO::PARAM_EVT_NORMALIZE (integer)
+    Event triggered during bound parameter registration allowing the driver to normalize the parameter name.
+PDO::SQLITE_DETERMINISTIC (integer)
+    Specifies that a function created with PDO::sqliteCreateFunction() is deterministic, i.e. it always returns the same result given the same inputs within a single SQL statement. (Available as of PHP 7.1.4.)

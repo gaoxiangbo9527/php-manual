@@ -1,0 +1,96 @@
+介绍
+    表示 PHP 和数据库服务器之间的一个连接。
+
+类摘要
+    PDO {
+        public __construct ( string $dsn [, string $username [, string $passwd [, array $options ]]] )
+        public beginTransaction ( void ) : bool
+        public commit ( void ) : bool
+        public errorCode ( void ) : string
+        public errorInfo ( void ) : array
+        public exec ( string $statement ) : int
+        public getAttribute ( int $attribute ) : mixed
+        public static getAvailableDrivers ( void ) : array
+        public inTransaction ( void ) : bool
+        public lastInsertId ([ string $name = NULL ] ) : string
+        public prepare ( string $statement [, array $driver_options = array() ] ) : PDOStatement
+        public query ( string $statement ) : PDOStatement
+        public quote ( string $string [, int $parameter_type = PDO::PARAM_STR ] ) : string
+        public rollBack ( void ) : bool
+        public setAttribute ( int $attribute , mixed $value ) : bool
+    }
+
+目录
+    PDO::beginTransaction — 初始化一个事务
+        一些数据库，包括 MySQL，当在事务中发出 DROP TABLE 或 CREATE TABLE 等数据库定义语言（DDL）语句时会自动的发起隐式提交。这种隐式
+        提交将防止你回滚事务边界内的任何其他更改。
+
+        错误/异常
+            如果驱动不支持事务或者已经开启了一个事务时会抛出一个 PDOException 。
+            注意：即使 PDO::ATTR_ERRMODE 属性不是 PDO::ERRMODE_EXCEPTION ，也会引发一个异常。
+    PDO::commit — 提交一个事务
+        错误/异常
+            如果没有一个激活的事务时会抛出一个 PDOException 。
+            注意：即使 PDO::ATTR_ERRMODE 属性不是 PDO::ERRMODE_EXCEPTION ，也会引发一个异常。
+
+        注意：不是所有的数据库都允许事务去操作 DDL 语句：一些数据库会生成错误，而其他的数据库（包括 MySQL）会在遇到第一个 DDL 语句后自动的
+        提交事务。
+    PDO::__construct — 创建一个表示到数据库的连接的 PDO 实例
+    PDO::errorCode — 获取和数据库句柄序上最后一次操作相关的 SQLSTATE
+        返回一个 SQLSTATE，这是 ANSI SQL-92 标准中定义的五个字符的字母数字标识符。
+
+        PDO::errorCode() 只能获取直接在数据库句柄上执行的操作的错误代码。如果你通过 PDO::prepare() 或 PDO::query() 创建了一个
+        PDOStatement 对象并且在语句句柄上调用了一个错误，那么 PDO::errorCode() 将不会反应该错误。你必须去调用
+        PDOStatement::errorCode() 来返回在特定语句句柄上执行的操作的错误代码。
+
+        如果在数据库句柄上还没有任何操作，则返回 NULL 。
+    PDO::errorInfo — 获取和数据库句柄上最后一次操作相关的扩展错误信息
+        返回一个数组，其中包含了和数据库句柄上最后一次操作相关的错误信息。数组由下面的字段组成：
+            元素     信息
+            0	    SQLSTATE 错误代码（ANSI SQL 标准中定义的五个字符的字母数字标识符）。
+            1	    驱动特定的错误代码。
+            2	    驱动特定的错误消息。
+
+        注意：如果没有设置 SQLSTATE 错误代码或者也没有驱动特定的错误代码，元素 0 后面的元素将会被设置 NULL 。
+
+        PDO::errorInfo() 只能获取直接在数据库句柄上执行的操作的错误信息。如果你通过 PDO::prepare() 或 PDO::query() 创建一个
+        PDOStatement 对象并且在语句句柄上调用了一个错误，那么 PDO::errorInfo() 将不会反映来自语句句柄的错误。必须调用
+        PDOStatement::errorInfo() 来返回在特定语句句柄上执行的操作的错误信息。
+    PDO::exec — 执行一条 SQL 语句并返回影响的行数
+        PDO::exec() 不会返回来自一条 SELECT 语句的结果。对于在程序中只需要发起一次的 SELECT 语句，可以考虑发出 PDO::query()。对于需要
+        多次发起的语句，使用 PDO::prepare() 准备一个 PDOStatement 对象，并用 PDOStatement::execute() 发起该语句。
+
+        警告 此函数可能返回布尔值 FALSE，但也可能返回求值结果为 FALSE 的非布尔值。请阅读 布尔值 章节以获得更多信息。请使用 === 操作符 测
+        试此函数的返回值。
+    PDO::getAttribute — 获取一个数据库连接属性
+        注意，一些数据库/驱动程序的组合可能不支持所有的数据库连接属性。
+    PDO::getAvailableDrivers — 返回一个可用的 PDO 驱动的数组。
+    PDO::inTransaction — 检查是否在一个事务中
+    PDO::lastInsertId — 返回最后插入的行或序列值的 ID
+        注意：此方法可能不会在不同的 PDO 驱动程序之间返回有意义的或一致的结果，因为底层数据库甚至可能不支持自动递增字段或序列的概念。
+    PDO::prepare — 准备一个要执行的语句并返回一个语句对象
+        注意：参数标记只能表示完整的数据字面量。字面量的一部分、关键字、标识符或任何的查询部分都不能使用参数绑定。例如，你不能在一条 SQL 语
+        句的 IN() 子句中只使用一个参数去绑定多个参数。
+    PDO::query — 执行一条 SQL 语句，以 PDOStatement 对象的形式返回一个结果集。
+        如果在下一次调用 PDO::query() 之前没有获取结果集中的所有数据，那么调用可能会失败。在下一次调用 PDO::query() 之前，调用
+        PDOStatement::closeCursor() 来释放与 PDOStatement 对象关联的数据库资源。
+
+        注意：如果传递给该函数的参数超过一个，其余的参数将像在生成的语句对象上调用 PDOStatement::setFetchMode() 时那样被对待。
+    PDO::quote — 引用一个要用于查询的字符串
+        原因不详述，但总的来说，更推荐使用 PDO::prepare()
+        警示
+            安全：默认的字符集
+            字符集必须在服务器级别或在数据库连接本身（取决于驱动程序）中设置，以便影响 PDO::quote() 。有关更多信息，请参阅 驱动程序特定的
+            文档。
+    PDO::rollBack — 回滚一个事务
+        一些数据库，包括 MySQL，当在事务中发出 DROP TABLE 或 CREATE TABLE 等数据库定义语言（DDL）语句时会自动的发起隐式提交。这种隐式
+        提交将防止你回滚事务边界内的任何其他更改。
+
+        错误/异常
+            如果没有一个激活的事务时会抛出一个 PDOException 。
+            注意：即使 PDO::ATTR_ERRMODE 属性不是 PDO::ERRMODE_EXCEPTION ，也会引发一个异常。
+    PDO::setAttribute — 设置一个属性
+
+个人补充：
+    包含外部输入的语句，建议使用 prepare()；不包含外部输入的语句，如果是 SELECT 语句，建议使用 query() ；如果是 INSERT、UPDATE 或
+    DELETE 语句，建议使用 exec() 。
