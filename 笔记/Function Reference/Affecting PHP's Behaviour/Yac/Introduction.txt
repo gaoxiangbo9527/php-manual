@@ -1,0 +1,3 @@
+Yac（Yet Another cache），是一个无锁，共享内存的用户数据缓存，可以被用于替代 APC，本地 memcache 。
+
+个人补充：手册中的内容非常少，觉得没必要翻译。如果需要了解 Yac，可以直接去看它的 Github 主页 https://github.com/laruence/yac 。
