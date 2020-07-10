@@ -102,6 +102,7 @@
         名称                     默认值                       可修改范围            变更日志
         include_path            ".;/path/to/php/pear"       PHP_INI_ALL
         extension_dir	        "/path/to/php"	            PHP_INI_SYSTEM
+        zend_extension	        NULL	                    仅 php.ini
     下面是配置指令们的一份简要描述。
     include_path        string
         指定了一个目录列表，require、include 以及 fopen()、file()、readfile() 和 file_get_contents() 函数会在其中查找文件。
@@ -117,6 +118,8 @@
         环境变量在服务器 API 之间可能会有所不同，因为这些环境（服务器 API）可能是不同的。
     extension_dir       string
         PHP 应该在哪个目录中寻找可动态加载的扩展。另请参阅：enable_dl 和 dl() 。
+    zend_extension      string
+        在 PHP 启动时要加载的可动态加载的 Zend 扩展的名称（例如 APD）。
 
 文件上传
     file_uploads            boolean
