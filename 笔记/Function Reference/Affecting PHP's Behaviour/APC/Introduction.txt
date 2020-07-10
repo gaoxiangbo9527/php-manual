@@ -1,0 +1,7 @@
+Alternative PHP Cache（APC）是一个免费和开源的 PHP 操作码缓存。它的目标是为缓存和优化 PHP 中间码提供一个免费、开源和健壮的框架。
+
+警告：该扩展被认为已经不再维护和死亡。然而，该扩展的源代码在 PECL GIT 中仍然可用：https://git.php.net/?p=pecl/caching/apc.git 。
+
+注意：该扩展的替代选择有 OPcache，APCu，Windows Cache for PHP 和 会话上传进度 API 。
+
+个人补充：因为已经不再维护和死亡，所以就不翻译剩余的内容了。
