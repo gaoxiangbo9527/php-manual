@@ -1,0 +1,35 @@
+安装 OPcache 的过程取决于你正在运行的 PHP 的版本。请参考下方合适的章节。
+
+注意：如果你想要同 Xdebug 一起使用 OPcache，你必须在 Xdebug 之前加载 OPcache 。
+
+PHP 5.5.0 和更新版本
+    OPcache 只能被编译为一个共享扩展。如果你使用 --disable-all 禁用了默认扩展的构建，那么你必须使用 --enable-opcache 选项去编译 PHP，
+    以使 OPcache 可用。
+
+    一旦被编译，你就可以使用 zend_extension 配置指令去把 OPcache 扩展加载到 PHP 中。在非 Windows 平台上可以通过
+    zend_extension=/full/path/to/opcache.so 完成，在 Windows 上则可以用 zend_extension=C:\path\to\php_opcache.dll 。
+
+PHP 5.2，5.3 和 5.4
+    该 PECL 扩展不是同 PHP 捆绑在一起的。
+
+    安装该 PECL 扩展的信息可以在手册中标题为 安装 PECL 扩展 的章节中找到。其他信息，如新版本、下载、源文件、维护人员信息以及变更日志，可以
+    在这里找到：https://pecl.php.net/package/ZendOpcache。
+
+    该 PECL 扩展的一个 DLL 当前不可用。另请参阅 在 Windows 上构建 章节。
+
+推荐的 php.ini 设置
+    通常建议使用下面的设置，因为可以提供良好的性能：
+
+    opcache.memory_consumption=128
+    opcache.interned_strings_buffer=8
+    opcache.max_accelerated_files=4000
+    opcache.revalidate_freq=60
+    opcache.fast_shutdown=1
+    opcache.enable_cli=1
+
+    你还可以考虑禁用 opcache.save_comments 并启用 opcache.enable_file_override ，但要注意，在生产中使用它们之前，必须先对代码进行测
+    试，因为它们会破坏一些框架和应用程序，特别是在使用文档注释注解的情况下。
+
+    在 Windows 上，应该启用 opcache.file_cache_fallback ，并且 opcache.file_cache 应该被设置为一个已经存在和可写的目录。
+
+    有一份 OPcache 支持的所有配置指令的完整列表可可供使用。

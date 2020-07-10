@@ -1,0 +1,9 @@
+描述
+    opcache_get_configuration ( void ) : array
+    该函数会返回当前缓存实例的配置信息。
+
+返回值
+    返回一个信息数组，包括 ini ，黑名单和版本。
+
+错误和异常
+    如果正在使用 opcache.restrict_api ，并且当前的路径违反了规则，将会引发一个 E_WARNING，且不会返回状态信息。

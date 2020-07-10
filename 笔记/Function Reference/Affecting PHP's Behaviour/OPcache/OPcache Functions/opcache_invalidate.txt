@@ -1,0 +1,13 @@
+描述
+    opcache_invalidate ( string $script [, bool $force = FALSE ] ) : bool
+    该函数使操作码缓存中的一个特定脚本失效。如果没有设置 force 或者设置为 FALSE ，脚本只有在其修改时间新于被缓存的操作码时才会被失效。
+
+参数
+    script
+        将要被失效的脚本的路径。
+
+    force
+        如果设置为 TRUE，该脚本将会被失效，不论是否真的需要失效。
+
+返回值
+    如果 script 的操作码缓存被失效或者不需要失效，返回 TRUE；如果操作码缓存被禁用，返回 FALSE 。

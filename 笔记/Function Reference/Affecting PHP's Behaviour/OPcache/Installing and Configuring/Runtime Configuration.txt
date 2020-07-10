@@ -1,0 +1,207 @@
+这些函数的行为会受到 php.ini 中的设置的影响。
+
+OPcache 配置选项
+名称	                                    默认值	        可修改范围	        变更日志
+opcache.enable	                        "1"	            PHP_INI_ALL
+opcache.enable_cli	                    "0"	            PHP_INI_SYSTEM	    从 PHP 7.1.2 到 7.1.6，默认值是 "1"
+opcache.memory_consumption	            "128"	        PHP_INI_SYSTEM	    PHP 7.0.0 以前默认值是 "64"
+opcache.interned_strings_buffer	        "8"	            PHP_INI_SYSTEM	    PHP 7.0.0 以前默认值是 "4"
+opcache.max_accelerated_files	        "10000"	        PHP_INI_SYSTEM	    PHP 7.0.0 以前默认值是 "2000"
+opcache.max_wasted_percentage	        "5"	            PHP_INI_SYSTEM
+opcache.use_cwd	                        "1"	            PHP_INI_SYSTEM
+opcache.validate_timestamps	            "1"	            PHP_INI_ALL
+opcache.revalidate_freq	                "2"	            PHP_INI_ALL
+opcache.revalidate_path	                "0"	            PHP_INI_ALL
+opcache.save_comments	                "1"	            PHP_INI_SYSTEM
+opcache.load_comments	                "1"	            PHP_INI_ALL	        在 PHP 7.0.0 中被移除。
+opcache.fast_shutdown	                "0"	            PHP_INI_SYSTEM	    在 PHP 7.2.0 中被移除。
+opcache.enable_file_override	        "0"	            PHP_INI_SYSTEM
+opcache.optimization_level	            "0x7FFEBFFF"	PHP_INI_SYSTEM	    在 PHP 7.3.0 中从 0x7FFFBFFF 变为 0x7FFEBFFF ，
+                                                                            并且在 PHP 5.6.18 中从 0xFFFFFFFF 变为
+                                                                            0x7FFEBFFF。
+opcache.inherited_hack	                "1"	            PHP_INI_SYSTEM	    在 PHP 7.3.0 中被移除。
+opcache.dups_fix	                    "0"	            PHP_INI_ALL
+opcache.blacklist_filename	            ""	            PHP_INI_SYSTEM
+opcache.max_file_size	                "0"	            PHP_INI_SYSTEM
+opcache.consistency_checks	            "0"	            PHP_INI_ALL
+opcache.force_restart_timeout	        "180"	        PHP_INI_SYSTEM
+opcache.error_log	                    ""	            PHP_INI_SYSTEM
+opcache.log_verbosity_level	            "1"	            PHP_INI_SYSTEM
+opcache.preferred_memory_model	        ""	            PHP_INI_SYSTEM
+opcache.protect_memory	                "0"	            PHP_INI_SYSTEM
+opcache.mmap_base	                    NULL	        PHP_INI_SYSTEM
+opcache.restrict_api	                ""	            PHP_INI_SYSTEM
+opcache.file_update_protection	        "2"	            PHP_INI_ALL
+opcache.huge_code_pages	                "0"	            PHP_INI_SYSTEM
+opcache.lockfile_path	                "/tmp"	        PHP_INI_SYSTEM
+opcache.opt_debug_level	                "0"	            PHP_INI_SYSTEM	    从 PHP 7.1.0 开始可用。
+opcache.file_cache	                    NULL	        PHP_INI_SYSTEM	    从 PHP 7.0.0 开始可用。
+opcache.file_cache_only	                "0"	            PHP_INI_SYSTEM	    从 PHP 7.0.0 开始可用。
+opcache.file_cache_consistency_checks	"1"	            PHP_INI_SYSTEM	    从 PHP 7.0.0 开始可用。
+opcache.file_cache_fallback	            "1"	            PHP_INI_SYSTEM	    仅 Windows 。从 PHP 7.0.0 开始可用。
+opcache.validate_permission	            "0"	            PHP_INI_SYSTEM	    从 PHP 7.0.14 开始可用。
+opcache.validate_root	                "0"	            PHP_INI_SYSTEM	    从 PHP 7.0.14 开始可用。
+opcache.preload	                        ""	            PHP_INI_SYSTEM	    从 PHP 7.4.0 开始可用。
+opcache.preload_user	                ""	            PHP_INI_SYSTEM	    从 PHP 7.4.0 开始可用。
+opcache.cache_id	                    "1"	            PHP_INI_SYSTEM	    仅 Windows 。从 PHP 7.4.0 开始可用。
+
+For further details and definitions of the PHP_INI_* modes, see the Where a configuration setting may be set.
+Here's a short explanation of the configuration directives.
+
+opcache.enable boolean
+    启用操作码缓存。当禁用时，代码不会被优化或缓存。设置项 opcache.enable 不能在运行时通过 ini_set() 启用，只能被禁用。尝试在一个脚本中
+    启用它会生成一个警告。
+
+opcache.enable_cli boolean
+    为 CLI 版本的 PHP 启用操作码缓存。
+
+opcache.memory_consumption integer
+    被 OPcache 使用的共享内存存储的大小，单位为兆字节。允许的最小值是 "8"，如果设置一个更小的值，则强制为该值。
+
+opcache.interned_strings_buffer integer
+    The amount of memory used to store interned strings, in megabytes. This configuration directive is ignored in PHP < 5.3.0.
+
+opcache.max_accelerated_files integer
+    OPcache 哈希表中键（也就是脚本）的最大数量。实际使用的值将是质数集合 { 223, 463, 983, 1979, 3907, 7963, 16229, 32531, 65407,
+    130987, 262237, 524521, 1048793 } 中第一个大于或者等于配置值的数字。最小值是 200。在 PHP < 5.5.6 中，最大值是 100000，且在更新
+    版本中是 1000000 。超出此范围的值将被拉回到允许的范围内。
+
+opcache.max_wasted_percentage integer
+    计划重启之前允许的最大内存浪费百分比。允许的最大值是 "50"，如果设置一个更大的值，则强制为该值。
+    个人补充：即内存浪费百分比超过该设置值，就会执行一次计划重启。
+
+opcache.use_cwd boolean
+    如果启用，OPcache 会把当前工作目录追加到脚本键，从而消除具有相同基名的文件之间冲突的可能。禁用这个指令可以提升性能，但可能会破坏现有的应
+    用程序。
+
+opcache.validate_timestamps boolean
+    如果启用，OPcache 将每 opcache.revalidate_freq 秒检查更新的脚本。当禁用该指令时，你必须通过 opcache_reset()，
+    opcache_invalidate() 或通过重启 Web 服务器来手动重置 OPcache ，好让文件系统的变化生效。
+
+opcache.revalidate_freq integer
+    检查脚本时间戳更新的频率，单位为秒。0 会导致 OPcache 为每次请求检查更新。
+
+    如果 opcache.validate_timestamps 被禁用，这个配置指令会被忽略。
+
+opcache.revalidate_path boolean
+    如果禁用，使用相同 include_path 的现有缓存文件将被重用。因此，如果在 include_path 中的别处有一个同名的文件，就不会找到它。
+
+opcache.save_comments boolean
+    如果禁用，所有的文档注释将会从操作码缓存中丢弃，以减少优化后代码的大小。禁用这个配置指令可能会破坏那些依赖注释去解析注解的应用程序和框架，
+    包括 Doctrine, Zend Framework 2 和 PHPUnit 。
+
+opcache.load_comments boolean
+    如果禁用，不会从操作码缓存中加载文档注释，即使它们存在。这可以同 opcache.save_comments 一起使用去为需要注释的应用程序加载注释。
+
+opcache.fast_shutdown boolean
+    如果启用，则会使用快速关闭序列，它不会释放每个分配的块，而是依赖于 Zend 引擎的内存管理器去释放全部的请求变量。
+
+    这个指令已经在 PHP 7.2.0 中被移除了。快速关闭序列的一个变体已经集成到了 PHP 中，并且如果可能的话将自动使用。
+
+opcache.enable_file_override boolean
+    如果启用，当 file_exists()，is_file() 和 is_readable() 被调用时，操作码缓存会去检查是否一个文件已经被缓存。这在那些要检查 PHP 脚本
+    的存在性和可读性的应用程序中可以提高性能，但如果 opcache.validate_timestamps 是禁用的，这可能会返回陈旧的数据。
+
+opcache.optimization_level integer
+    一个控制被执行的优化遍数的位掩码。
+
+opcache.inherited_hack boolean
+    In PHP < 5.3, OPcache stores the places where DECLARE_CLASS opcodes used inheritance;
+    when the file is loaded, OPcache then tries to bind the inherited classes using the current environment.
+    The problem is that while the DECLARE_CLASS opcode may not be needed for the current script,
+    if the script requires that the opcode be defined, it may not run.
+
+    在 PHP 5.3 和更新版本中会忽略该配置指令。
+
+opcache.dups_fix boolean
+    这个 hack 只应用来解决“Cannot redeclare class”错误。
+
+opcache.blacklist_filename string
+    OPcache 黑名单文件的位置。黑名单文件是一个文本文件，它包含了那些不应该被加速的文件的名称，每行一个。允许使用通配符，也可以提供前缀。以
+    分号开头的行会作为注释被忽略。
+
+    一个简单的黑名单文件可能看起来如下：
+    ; Matches a specific file.
+    /var/www/broken.php
+    ; A prefix that matches all files starting with x.
+    /var/www/x
+    ; A wildcard match.
+    /var/www/*-broken.php
+
+opcache.max_file_size integer
+    会被缓存的最大文件的大小，单位为字节。如果是 0 ，那么所有的文件都会被缓存。
+
+opcache.consistency_checks integer
+    如果不是 0 ，OPcache 会每 N 次请求就验证缓存的校验和，N 就是这个配置指令的值。该配置指令仅应在调式时启用，因为它会影响性能。
+
+opcache.force_restart_timeout integer
+    如果缓存没有激活，等待一个计划重启开始的时间长度，单位为秒。如果超时被触发，那么 OPcache 会假设发生了错误，并将杀死持有缓存锁的进程以允
+    许一次重启。
+
+    如果 opcache.log_verbosity_level 设置为 2 或以上，当发生这种情况时，错误日志中将记录一个警告。
+
+opcache.error_log string
+    OPcache 错误的错误日志。空字符串会像 stderr 那样被对待，并且会导致日志被发送到标准错误输出（大多数情况下将是 Web 服务器的错误日志）。
+
+opcache.log_verbosity_level integer
+    日志详细级别。默认情况下，只有致命错误（级别 0）和错误（级别 1）会被记录。其他可用的级别有警告（级别 2），信息消息（级别 3） 和调试消息
+    （级别 4）。
+
+opcache.preferred_memory_model string
+    OPcache 将使用的首选内存模型。如果留空，OPcache 将选择最合适的模型，这（即留空）在几乎所有情况下都是正确的行为。
+
+    可能的值包括 mmap，shm，posix 和 win32 。
+
+opcache.protect_memory boolean
+    在执行脚本时保护共享内存，以防止意外写入。这只对内部调式有用。
+
+opcache.mmap_base string
+    Windows 上用于共享内存段的基地址。所有的 PHP 进程都将共享内存映射到同样的地址空间。使用此配置指令可以避免
+    “Unable to reattach to base address”的错误。
+
+opcache.restrict_api string
+    只允许在路径以指定的字符串开头的 PHP 脚本中调用 OPcahce API 。默认的 "" 表示没有限制。
+
+opcache.file_update_protection string
+    防止去缓存那些年龄还少于这个秒数的文件。它可以防止缓存未完全更新的文件。在你网站上的所有文件都是原子更新的情况下，你可以通过把它设置为
+    "0" 来增加性能。
+
+opcache.huge_code_pages boolean
+    启用或禁用将 PHP 代码（文本段）复制到大型页面。这应该会提高性能，但是需要适当的操作系统配置。在 Linux 上从 PHP 7.0.0 开始可用，在
+    FreeBSD 上从 PHP 7.4.0 开始可用。
+
+opcache.lockfile_path string
+    用于存储共享锁文件的绝对路径（仅用于 *nix）。
+
+opcache.opt_debug_level string
+    为调试 优化的不同阶段 生成操作码转储。0x10000 将输出编译器在进行任何优化之前所生成的操作码，而 0x20000 将会输出优化后的操作码。
+
+opcache.file_cache string
+    启用和设置二级缓存目录。启用二级缓存可以在 SHM 内存满了、服务器重启或者重置 SHM 的时候提高性能。默认值的 "" 会禁用基于文件的缓存。
+
+opcache.file_cache_only boolean
+    启用或禁用在共享内存中缓存操作码。
+
+opcache.file_cache_consistency_checks boolean
+    当从文件缓存中加载脚本时，启用或者禁用校验和验证。
+
+opcache.file_cache_fallback boolean
+    对于一个无法重新连接到共享内存的特定进程，暗含 opcache.file_cache_only=1（仅适用于 Windows）。需要显示的启用文件缓存。
+
+    小心 禁用这个配置选项可能会阻止进程启动，因此不鼓励禁用它。
+
+opcache.validate_permission boolean
+    针对当前用户，验证缓存的文件的权限。
+
+opcache.validate_root boolean
+    防止 chroot 环境中的名称冲突。这应该在所有 chroot 环境中启用，以防止访问 chroot 之外的文件。
+
+opcache.preload string
+    指定一个 PHP 脚本，它将在服务器启动时被编译和执行，并且可以预加载其他文件，要么通过包含它们，要么通过使用 opcache_compile_file() 函
+    数。这些文件中定义的所有记录（例如，函数和类）都将对请求开箱即用，直到服务器关闭。
+
+opcache.preload_user string
+    出于安全原因，以 root 身份预加载代码是不允许的。这个指令有助于以另一个用户运行预加载。
+
+opcache.cache_id string
+    在 Windows 上，在具有相同缓存 ID 的相同用户帐户下运行相同 PHP SAPI 的所有进程共享一个 OPcache 实例。缓存 ID 的值可以自由选择。

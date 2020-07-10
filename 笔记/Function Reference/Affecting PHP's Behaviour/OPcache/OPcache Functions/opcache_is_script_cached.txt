@@ -1,0 +1,10 @@
+描述
+    opcache_is_script_cached ( string $file ) : bool
+    该函数会检查是否一个 PHP 脚本已经被缓存到 OPcache 中。这可以用于更容易地检测一个指定脚本的缓存“升温”。
+
+参数
+    file
+        待检测的 PHP 脚本的路径。
+
+返回值
+    如果 file 被缓存，返回 TRUE，否则返回 FALSE 。

@@ -1,0 +1,13 @@
+描述
+    opcache_get_status ([ bool $get_scripts = TRUE ] ) : array
+    该函数会返回缓存实例的状态信息。
+
+参数
+    get_scripts
+        包括脚本特定的状态信息
+
+返回值
+    返回一个信息数组，可选包含脚本特定的状态信息，或者失败时返回 FALSE 。
+
+错误/异常
+    如果正在使用 opcache.restrict_api ，并且当前的路径违反了规则，将会引发一个 E_WARNING，且不会返回状态信息。
