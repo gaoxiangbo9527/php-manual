@@ -1,0 +1,17 @@
+描述
+    apcu_cache_info ([ bool $limited = FALSE ] ) : array
+    从 APC 的数据存储中获取缓存信息和元数据。
+
+参数
+    limited
+        如果 limited 为 TRUE，返回值将排除各个缓存条目列表。这在尝试优化统计数据收集的调用时非常有用。
+
+返回值
+    缓存数据（以及元数据）的数组，否者失败时返回 FALSE 。
+
+    注意：如果 apcu_cache_info() 无法获取 APC 的缓存数据，则会引发一个警告。这通常发生在 APC 没有启用时。
+
+变更日志
+    版本        描述
+    3.0.11	    引入了 limited 参数。
+    3.0.16	    引入了 cache_type 参数的 "filehits" 选项。

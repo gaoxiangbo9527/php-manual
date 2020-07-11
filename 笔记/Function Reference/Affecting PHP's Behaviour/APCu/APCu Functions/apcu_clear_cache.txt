@@ -1,0 +1,9 @@
+描述
+    apcu_clear_cache ( void ) : bool
+    清除缓存。
+
+参数
+    该函数没有参数。
+
+返回值
+    总是返回 TRUE 。

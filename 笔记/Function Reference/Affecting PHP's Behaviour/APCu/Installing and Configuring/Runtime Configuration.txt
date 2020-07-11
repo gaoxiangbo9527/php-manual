@@ -1,0 +1,90 @@
+这些函数的行为受 php.ini 中的设置项的影响。
+
+虽然 APCu 默认的设置项对于许多安装来说都很合适，认真的用户应该考虑调优下面的参数。
+
+配置 APCu 需要做出一个决定。就是要分配多少内存给 APCu 。控制它的 ini 指令是 apc.shm_size，仔细阅读下面关于这个指令的部分。
+
+一旦服务器运行，应该将与该扩展绑定的 apc.php 脚本复制到 docroot 中的某处，并使用浏览器查看，因为它提供了 APCu 内部工作的详细分析。如果在
+PHP 中启用了 GD，该脚本甚至会显示一些有趣的图表。如果 APCu 正在工作，缓存满计数（Cache full count）数值（在左边）将显示缓存达到最大容量的
+次数并且必须强制清除任何在最近 apc.ttl 秒内没有被访问的记录。在一个配置良好的缓存中应最小化这个数值。如果缓存不断被填满，并且因此被强制释放，
+那么所产生的波动将对脚本性能产生不利影响。最小化这个数字最简单的方法是为 APCu 分配更多的内存。
+
+当 APCu 编译了对 mmap （Memory Mapping）的支持，它将只使用一个内存段，与 APCu 使用 SHM（SysV Shared Memory）支持构建时不同，此时它会
+使用多个内存段。MMAP 不像 SHM 那样在 /proc/sys/kernel/shmmax 有一个最大值限制。通常推荐使用 MMAP，因为在 web 服务器被重启时，它可以更
+快地回收内存，并且总的来说减少了启动时内存分配的影响。
+
+APCu 配置选项
+名称	                    默认值       可修改范围         变更日志
+apc.enabled	            "1"	        PHP_INI_SYSTEM
+apc.shm_segments	    "1"	        PHP_INI_SYSTEM
+apc.shm_size	        "32M"	    PHP_INI_SYSTEM
+apc.entries_hint	    "4096"	    PHP_INI_SYSTEM
+apc.ttl	                "0"	        PHP_INI_SYSTEM
+apc.gc_ttl	            "3600"	    PHP_INI_SYSTEM
+apc.mmap_file_mask	    NULL	    PHP_INI_SYSTEM
+apc.slam_defense	    "1"	        PHP_INI_SYSTEM
+apc.enable_cli	        "0"	        PHP_INI_SYSTEM
+apc.use_request_time    "1"	        PHP_INI_ALL
+apc.serializer	        "default"	PHP_INI_SYSTEM
+apc.coredump_unmap	    "0"	        PHP_INI_SYSTEM
+apc.preload_path	    NULL	    PHP_INI_SYSTEM
+
+For further details and definitions of the PHP_INI_* modes, see the Where a configuration setting may be set.
+Here's a short explanation of the configuration directives.
+
+apc.enabled boolean
+    可以把 apc.enabled 设置为 0 以禁用 APC 。这在 APC 被静态编译进 PHP 时非常有用，因为除此之外没有其他方式可以禁用它（当被编译为一个
+    DSO 时，php.ini 中该扩展的行可以被注释掉）。
+
+apc.shm_segments integer
+    要为编译器缓存分配的共享内存段的数目。如果 APC 正在耗尽共享内存，但是 apc.shm_size 已经设置为系统允许的最高值了，提高这个值可以防止
+    APC 耗尽其内存。
+
+apc.shm_size string
+    每个共享内存段的大小，由 这个 FAQ 中所描述的简写符号指定。默认情况下，一些系统（包括大多数 BSD 变体）把共享内存段的大小限制的非常低。
+
+apc.entries_hint integer
+    一个关于可能存储的不同变量数量的“提示”。如果不确定就设置为 0 或者省略。
+
+apc.ttl integer
+    允许一个插槽中的缓存记录空闲的秒数，以防该缓存记录插槽被另一条记录需要。将它设为 0 意味着 APC 的缓存可能会被陈旧的记录填满，而新的记录将
+    无法被缓存。在缓存耗尽可用内存的情况下，如果 ttl 等于 0，缓存将被完全擦除。反之，如果 ttl 大于 0，APC 将尝试删除过期的记录。
+
+apc.gc_ttl integer
+    缓存记录保留在垃圾收集列表中的秒数。当服务器进程在执行一个缓存的源文件时死亡时，此值提供了一个故障保护；如果该源文件被修改，则分配给旧版
+    本的内存将不会被回收，直到到达这个 TTL 。设置为 0 则禁用此功能。
+
+apc.mmap_file_mask string
+    如果通过使用 --enable-mmap 编译了对 MMAP 的支持，这是传递给 mmap 模块的 mktemp 风格的 file_mask，用于确定你的 mmap 内存区域将被
+    文件后备还是共享内存后备。对于直接的文件后备的 mmap，将其设置为 /tmp/apc.XXXXXX（正好 6 个 X）。要使用 POSIX 风格的
+    shm_open/mmap，请在你的掩码的某个地方放置一个 .shm 。例如：/apc.shm.XXXXXX 。你还可以将其设置为 /dev/zero，以使用内核对匿名 mmap
+    内存的 /dev/zero 接口。不定义它将强制使用一个匿名的 mmap 。
+
+apc.slam_defense integer
+    在非常繁忙的服务器上，无论何时启动服务器或修改文件，都可能导致多个进程在同一时间争相缓存同一文件。
+    此选项会设置将跳过尝试缓存未缓存文件的进程的百分比。或者把它看作是单个进程跳过缓存的概率。
+    例如，设置 apc.slam_defense 到 75 意味着进程有 75% 的机率不会去缓存未缓存的文件。因此，设置得越高，对缓存崩溃的防御能力就越强。
+    将其设置为 0 将禁用此特性。
+
+apc.enable_cli integer
+    主要用于测试和调试。设置它将会为 CLI 版本的 PHP 启用 APC 。在正常情况下，在每个 CLI 请求上创建、填充和销毁 APC 缓存并不理想（个人补
+    充：每个 CLI 请求都会建立一个自己的进程，APC 无法在各个 CLI 进程之间共享，所以说 APC 在 CLI 请求上会失去它的意义），但是对于各种测试
+    场景，能够轻松地为 CLI 版本的 PHP 启用 APC 是很有用的。
+
+apc.serializer string
+    用于配置 APC 以使用第三方的序列化器。
+
+apc.coredump_unmap boolean
+    使 APC 处理信号，如 SIGSEGV，当有信号时写核心文件。当接收到这些信号时，APC 将尝试取消共享内存段的映射，以便将其从核心文件中排除。
+    当接收到致命信号而且配置了一个大的 APC 共享内存段时，这个设置可以提高系统的稳定性。
+
+    警告 这个特性有潜在的风险。如果发生一个致命错误，在一个致命信号处理程序中取消共享内存段的映射可能会导致未定义的行为。
+
+    注意：虽然一些内核在生成一个核心转储文件时可能提供某种忽略各种类型的共享内存的功能，这些实现还可能会忽略重要的共享内存段，比如 Apache
+    记分牌。
+
+apc.preload_path string
+    可选地，设置一个目录的路径，APC 将在启动时从其中加载缓存数据。
+
+apc.use_request_time bool
+    为 TTL 使用 SAPI 的请求开始时间。

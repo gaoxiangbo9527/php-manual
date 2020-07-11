@@ -1,0 +1,18 @@
+描述
+    apcu_fetch ( mixed $key [, bool &$success ] ) : mixed
+    从缓存中获取一条记录。
+
+参数
+    key
+        用于存储值（使用 apcu_store()）的键。如果传递一个数组，那么每一个元素都会被获取和返回。
+    success
+        成功时设置为 TRUE 并且失败时设置为 FALSE 。
+
+返回值
+    成功时返回存储的变量或者变量数组；失败返回 FALSE 。
+
+变更日志
+    版本         描述
+    3.0.17      添加了 success 参数。
+
+个人补充：获取失败和获取的值是布尔值 FALSE 时，都将返回 FALSE ，借助 success 参数可以进行区分，这也是该参数的作用。

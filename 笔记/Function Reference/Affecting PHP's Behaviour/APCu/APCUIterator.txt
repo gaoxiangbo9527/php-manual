@@ -1,0 +1,29 @@
+介绍
+    APCUIterator 使遍历大型 APCu 缓存变得更加容易。这很有用，因为它可以逐步遍历大型缓存，直到获取到每个锁实例已定义的条目数量，因此，它会
+    释放其他活动的缓存锁，而不是持有整个缓存以获取 100（默认）项。另外，使用正则表达式匹配的效率更高，因为它已经转移到了 C 级别。
+
+类摘要
+    APCUIterator implements Iterator {
+
+        /* Methods */
+        public __construct ([ mixed $search = NULL [, int $format = APC_ITER_ALL [, int $chunk_size = 100 [, int $list = APC_LIST_ACTIVE ]]]] )
+        public current ( void ) : mixed
+        public getTotalCount ( void ) : int
+        public getTotalHits ( void ) : int
+        public getTotalSize ( void ) : int
+        public key ( void ) : string
+        public next ( void ) : bool
+        public rewind ( void ) : void
+        public valid ( void ) : bool
+    }
+
+目录
+    APCUIterator::__construct — Constructs an APCUIterator iterator object
+    APCUIterator::current — Get current item
+    APCUIterator::getTotalCount — Get total count
+    APCUIterator::getTotalHits — Get total cache hits
+    APCUIterator::getTotalSize — Get total cache size
+    APCUIterator::key — Get iterator key
+    APCUIterator::next — Move pointer to next item
+    APCUIterator::rewind — Rewinds iterator
+    APCUIterator::valid — Checks if current position is valid

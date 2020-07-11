@@ -1,0 +1,11 @@
+描述
+    apcu_sma_info ([ bool $limited = FALSE ] ) : array
+    获取 APCu 的共享内存分配的信息。
+
+参数
+    limited
+        如果设置为 FALSE（默认）apcu_sma_info() 将会为每个段返回一个详细信息。
+
+返回值
+    共享内存分配数据的数组，失败时返回 FALSE 。
+

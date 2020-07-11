@@ -1,0 +1,14 @@
+描述
+    apcu_cas ( string $key , int $old , int $new ) : bool
+    如果 old 参数和当前存储的值匹配，apcu_cas() 会使用 new 参数的值更新一个已存在的整型值。
+
+参数
+    key
+        将要被更新的值的键。
+    old
+        旧的值（当前存储的值）。
+    new
+        将要更新到的值。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。

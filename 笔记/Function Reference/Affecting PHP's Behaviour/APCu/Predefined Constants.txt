@@ -1,0 +1,22 @@
+下面的常量是由这个扩展定义的，并且只有当该扩展已经被编译进 PHP 或在运行时被动态的加载才可用。
+
+APC_ITER_ALL (integer)
+APC_ITER_ATIME (integer)
+APC_ITER_CTIME (integer)
+APC_ITER_DEVICE (integer)
+APC_ITER_DTIME (integer)
+APC_ITER_FILENAME (integer)
+APC_ITER_INODE (integer)
+APC_ITER_KEY (integer)
+APC_ITER_MD5 (integer)
+APC_ITER_MEM_SIZE (integer)
+APC_ITER_MTIME (integer)
+APC_ITER_NONE (integer)
+APC_ITER_NUM_HITS (integer)
+APC_ITER_REFCOUNT (integer)
+APC_ITER_TTL (integer)
+APC_ITER_TYPE (integer)
+APC_ITER_VALUE (integer)
+
+APC_LIST_ACTIVE (integer)
+APC_LIST_DELETED (integer)

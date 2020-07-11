@@ -1,0 +1,9 @@
+描述
+    apcu_enabled ( void ) : bool
+    返回 APCu 在当前环境中是否可用。
+
+参数
+    该函数没有参数。
+
+返回值
+    当 APCu 在当前环境中可用，返回 TRUE，否则返回 FALSE 。
