@@ -1,0 +1,10 @@
+描述
+    array_key_last ( array $array ) : mixed
+    获取给定 array 的最后一个键，不会影响内部的数组指针。
+
+参数
+    array
+        一个数组。
+
+返回值
+    如果数组不为空，就返回数组的最后一个键，否则返回 NULL 。

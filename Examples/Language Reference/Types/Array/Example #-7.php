@@ -10,3 +10,7 @@ class B extends A {
 }
 
 var_dump((array) new B());
+
+foreach (new B() as $key=>$value) {
+    echo $key . PHP_EOL;
+}

@@ -1,0 +1,25 @@
+描述
+    array_key_first ( array $array ) : mixed
+    获取指定 array 中的第一个键，不会影响内部的数组指针。
+
+参数
+    array
+        一个数组。
+
+返回值
+    如果数组不为空，就返回数组的第一个键，否则返回 NULL 。
+
+注意事项
+    提示 对于 PHP 7.3.0 之前的版本来说，有许多种方法提供了这项功能。可以使用 array_keys()，但是这样做的效率相当低。也可以使用 reset()
+    和 key()，但这样做会改变内部的数组指针。一种高效且不会改变内部的数组指针的方案，写成 polyfill：
+
+    <?php
+    if (!function_exists('array_key_first')) {
+        function array_key_first(array $arr) {
+            foreach($arr as $key => $unused) {
+                return $key;
+            }
+            return NULL;
+        }
+    }
+    ?>
