@@ -3,7 +3,7 @@
 
 为了更进一步，实现 Iterator 接口，就可以让对象自行决定如何遍历以及每次遍历时哪些值是可用的。
 
-也可以使用 IteratorAggregate 接口去实现 Iterator 接口的所有方法，IteratorAggregate 只需要你实现一个方法，
-即 IteratorAggregate::getIterator()，该方法应当返回一个实现了 Iterator 接口的类的实例。
+可以把使用 IteratorAggregate 接口作为去实现 Iterator 接口所有方法的一种替代。IteratorAggregate 只需要去实现一个方法，即
+IteratorAggregate::getIterator()，该方法应当返回一个实现了 Iterator 接口的类的实例。
 
-使用PHP 5.5 及以后版本的用户也可参考生成器，它提供了另一方法来定义 Iterators。
+使用 PHP 5.5 及以后版本的用户也可参考 生成器，它提供了另一方法来定义 Iterators 。
