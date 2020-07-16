@@ -1,10 +1,15 @@
 这些函数的行为受到 php.ini 中的设置的影响。
 
 文件系统和流的配置选项
-    名称                         默认值       可变范围              变更日志
-    allow_url_include	        "0"	        PHP_INI_SYSTEM      从 PHP 5.2.0 开始可用
+    名称                         默认值       可变范围             变更日志
+    allow_url_fopen	            "1"	        PHP_INI_SYSTEM
+    allow_url_include	        "0"	        PHP_INI_SYSTEM      从 PHP 5.2.0 开始可用。从 PHP 7.4.0 开始被废弃。
 下面是这些配置指令的一份简短描述。
 
+allow_url_fopen boolean
+    这个选项会启用 URL 感知的 fopen 包装器，允许像访问文件一样访问 URL 对象。为了能使用 ftp 或 http 协议访问远程文件，一些默认的包装器可
+    供使用，一些扩展（如 zlib）可能会注册其他的包装器。
+
 allow_url_include       boolean
-    该选项允许函数 include、include_once、require 和 require_once 使用能识别 URL 的 fopen 包装器。
+    该选项允许函数 include、include_once、require 和 require_once 使用 URL 感知的 fopen 包装器。
     注意：这个配置项需要 allow_url_fopen 被启用。
