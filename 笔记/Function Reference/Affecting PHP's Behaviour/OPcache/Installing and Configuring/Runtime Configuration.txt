@@ -59,29 +59,34 @@ opcache.memory_consumption integer
     被 OPcache 使用的共享内存存储的大小，单位为兆字节。允许的最小值是 "8"，如果设置一个更小的值，则强制为该值。
 
 opcache.interned_strings_buffer integer
-    The amount of memory used to store interned strings, in megabytes. This configuration directive is ignored in PHP < 5.3.0.
+    用于存储 interned strings 的内存大小，单位为兆字节。这项配置指令在 PHP < 5.3.0 中会被忽略。
 
 opcache.max_accelerated_files integer
     OPcache 哈希表中键（也就是脚本）的最大数量。实际使用的值将是质数集合 { 223, 463, 983, 1979, 3907, 7963, 16229, 32531, 65407,
-    130987, 262237, 524521, 1048793 } 中第一个大于或者等于配置值的数字。最小值是 200。在 PHP < 5.5.6 中，最大值是 100000，且在更新
-    版本中是 1000000 。超出此范围的值将被拉回到允许的范围内。
+    130987, 262237, 524521, 1048793 } 中第一个大于或者等于配置值的数字。最小值是 200。在 PHP < 5.5.6 中，最大值是 100000，在更新版
+    本中是 1000000 。超出此范围的值将被拉回到允许的范围内。
 
 opcache.max_wasted_percentage integer
     计划重启之前允许的最大内存浪费百分比。允许的最大值是 "50"，如果设置一个更大的值，则强制为该值。
-    个人补充：即内存浪费百分比超过该设置值，就会执行一次计划重启。
+
+    个人补充：浪费的含义以及计算方式见我自己的有道笔记。
 
 opcache.use_cwd boolean
     如果启用，OPcache 会把当前工作目录追加到脚本键，从而消除具有相同基名的文件之间冲突的可能。禁用这个指令可以提升性能，但可能会破坏现有的应
     用程序。
 
 opcache.validate_timestamps boolean
-    如果启用，OPcache 将每 opcache.revalidate_freq 秒检查更新的脚本。当禁用该指令时，你必须通过 opcache_reset()，
+    如果启用，OPcache 将每 opcache.revalidate_freq 秒检查一次被更新的脚本。当禁用该指令时，你必须通过 opcache_reset()，
     opcache_invalidate() 或通过重启 Web 服务器来手动重置 OPcache ，好让文件系统的变化生效。
+
+    个人补充：该选项是用于去控制更新的，无法控制新增和删除。
 
 opcache.revalidate_freq integer
     检查脚本时间戳更新的频率，单位为秒。0 会导致 OPcache 为每次请求检查更新。
 
     如果 opcache.validate_timestamps 被禁用，这个配置指令会被忽略。
+
+    个人补充：同 opcache.validate_timestamps，该选项是用于去控制更新的，无法控制新增和删除。
 
 opcache.revalidate_path boolean
     如果禁用，使用相同 include_path 的现有缓存文件将被重用。因此，如果在 include_path 中的别处有一个同名的文件，就不会找到它。
@@ -132,7 +137,7 @@ opcache.max_file_size integer
     会被缓存的最大文件的大小，单位为字节。如果是 0 ，那么所有的文件都会被缓存。
 
 opcache.consistency_checks integer
-    如果不是 0 ，OPcache 会每 N 次请求就验证缓存的校验和，N 就是这个配置指令的值。该配置指令仅应在调式时启用，因为它会影响性能。
+    如果不是 0 ，OPcache 会每 N 次请求就验证缓存的校验和，N 就是这个配置指令的值。该配置指令仅应在调试时启用，因为它会影响性能。
 
 opcache.force_restart_timeout integer
     如果缓存没有激活，等待一个计划重启开始的时间长度，单位为秒。如果超时被触发，那么 OPcache 会假设发生了错误，并将杀死持有缓存锁的进程以允
@@ -153,18 +158,21 @@ opcache.preferred_memory_model string
     可能的值包括 mmap，shm，posix 和 win32 。
 
 opcache.protect_memory boolean
-    在执行脚本时保护共享内存，以防止意外写入。这只对内部调式有用。
+    在执行脚本时保护共享内存，以防止意外写入。这只对内部调试有用。
 
 opcache.mmap_base string
     Windows 上用于共享内存段的基地址。所有的 PHP 进程都将共享内存映射到同样的地址空间。使用此配置指令可以避免
     “Unable to reattach to base address”的错误。
 
 opcache.restrict_api string
-    只允许在路径以指定的字符串开头的 PHP 脚本中调用 OPcahce API 。默认的 "" 表示没有限制。
+    只允许在路径以指定的字符串开头的 PHP 脚本中调用 OPcache API 。默认的 "" 表示没有限制。
 
 opcache.file_update_protection string
     防止去缓存那些年龄还少于这个秒数的文件。它可以防止缓存未完全更新的文件。在你网站上的所有文件都是原子更新的情况下，你可以通过把它设置为
     "0" 来增加性能。
+
+    个人补充：该选项的名称具有欺骗性，里面带了 update ，看起来好像是用于控制更新的，其实它可以控制插入和更新。该选项的描述的第一句充分说明了
+    它的作用：防止去缓存那些年龄还少于这个秒数的文件。
 
 opcache.huge_code_pages boolean
     启用或禁用将 PHP 代码（文本段）复制到大型页面。这应该会提高性能，但是需要适当的操作系统配置。在 Linux 上从 PHP 7.0.0 开始可用，在
@@ -199,6 +207,11 @@ opcache.validate_root boolean
 opcache.preload string
     指定一个 PHP 脚本，它将在服务器启动时被编译和执行，并且可以预加载其他文件，要么通过包含它们，要么通过使用 opcache_compile_file() 函
     数。这些文件中定义的所有记录（例如，函数和类）都将对请求开箱即用，直到服务器关闭。
+
+    个人补充：
+        该选项只能设置一个文件，不能设置目录或者多个文件。
+        文件被预加载后，即使后面修改该文件，预加载的缓存也不会更新，直到服务器重启，才会被重新预加载。
+        预计在的总结和相关的资料，请看有道笔记
 
 opcache.preload_user string
     出于安全原因，以 root 身份预加载代码是不允许的。这个指令有助于以另一个用户运行预加载。
