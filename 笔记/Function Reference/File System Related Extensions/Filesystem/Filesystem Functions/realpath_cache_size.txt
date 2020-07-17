@@ -1,0 +1,6 @@
+描述
+    realpath_cache_size ( void ) : int
+    获取被 realpath 缓存使用的内存的数量。
+
+返回值
+    返回 realpath 所使用的内存量。
