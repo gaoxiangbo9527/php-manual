@@ -1,0 +1,20 @@
+PHP 自带了许多内置的 URL 风格协议的包装器，用于同文件系统函数，如 fopen()、copy()、file_exists() 和 filesize() 一起使用。除了这些包装
+器，也可以使用 stream_wrapper_register() 函数去注册自定义的包装器。
+
+注意：对于用于去描述一个包装器的 URL 语法，只支持 scheme://... 形式的语法。不支持 scheme:/ 和 scheme: 形式的语法。
+
+目录
+    file:// — 访问一个本地的文件系统
+    http:// — 访问 HTTP(s) URLs
+    ftp:// — 访问 FTP(s) URLs
+    php:// — 访问各种I/O流
+    zlib:// — 压缩流
+    data:// — 数据 (RFC 2397)
+    glob:// — 查找匹配模式的路径名
+    phar:// — PHP 归档
+    ssh2:// — Secure Shell 2
+    rar:// — RAR
+    ogg:// — 音频流
+    expect:// — 进程交互流
+
+个人补充：真的需要深入了解这些包装器时，再去看吧。

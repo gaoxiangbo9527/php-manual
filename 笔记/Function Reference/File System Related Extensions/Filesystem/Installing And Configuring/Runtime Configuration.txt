@@ -7,8 +7,8 @@
 下面是这些配置指令的一份简短描述。
 
 allow_url_fopen boolean
-    这个选项会启用 URL 感知的 fopen 包装器，允许像访问文件一样访问 URL 对象。为了能使用 ftp 或 http 协议访问远程文件，一些默认的包装器可
-    供使用，一些扩展（如 zlib）可能会注册其他的包装器。
+    这个选项会启用 URL 感知的 fopen 包装器，允许像访问文件一样访问 URL 对象。默认提供了一些包装器，可以让你使用 ftp 或 http 协议访问远程
+    文件，一些扩展（如 zlib）可能会注册其他的包装器。
 
 allow_url_include       boolean
     该选项允许函数 include、include_once、require 和 require_once 使用 URL 感知的 fopen 包装器。
