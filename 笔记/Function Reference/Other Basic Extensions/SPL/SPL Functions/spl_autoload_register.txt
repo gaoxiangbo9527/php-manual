@@ -13,7 +13,7 @@
     throw
         这个参数指定了当 autoload_function 不能被注册时，spl_autoload_register() 是否会抛出异常。
     prepend
-        如果为 true，则 spl_autoload_register() 会将前置自动加载器到自动加载队列，而不是追加它。
+        如果为 true，则 spl_autoload_register() 会前置自动加载器到自动加载队列，而不是追加它。
 返回值
     成功是返回 TRUE，失败时返回 FALSE 。
 变更日志
