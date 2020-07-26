@@ -1,7 +1,8 @@
 核心预定义常量
     这些常量是由 PHP 核心定义的，其中包括 PHP、Zend 引擎和 SAPI 模块。
+
     PHP_VERSION （字符串）
-        当前 PHP 的版本，以 “major.minor.release[extra]” 表示法的一个字符串。
+        当前 PHP 的版本，以 “major.minor.release[extra]” 表示的一个字符串。
     PHP_MAJOR_VERSION （整型）
         当前 PHP 的“major”版本，以一个整数（例如，来自版本“5.2.7-extra”中的整数 5）。从 PHP 5.2.7 开始可用。
     PHP_MINOR_VERSION （整型）
@@ -11,7 +12,7 @@
     PHP_VERSION_ID （整型）
         当前 PHP 的版本，以一个整数，用于版本比较（例如，来自版本“5.2.7-extra”中的整数 50207）。从 PHP 5.2.7 开始可用。
     PHP_EXTRA_VERSION （字符串）
-        当前 PHP 的“extra”版本，以一个整数（例如，来自版本“5.2.7-extra”中的字符串 '-extra'）。发行版供应商经常使用它来指示一个包版本。
+        当前 PHP 的“extra”版本，以一个字符串（例如，来自版本“5.2.7-extra”中的字符串 '-extra'）。发行版供应商经常使用它来指示一个包版本。
         从 PHP 5.2.7 开始可用。
     PHP_ZTS （整型）
         从 PHP 5.2.7 开始可用。

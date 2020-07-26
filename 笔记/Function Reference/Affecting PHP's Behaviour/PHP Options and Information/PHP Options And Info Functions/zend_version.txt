@@ -1,0 +1,6 @@
+描述
+    zend_version ( void ) : string
+    返回一个包含了当前运行的 Zend 引擎的版本的字符串。
+
+返回值
+    返回 Zend 引擎的版本号，以字符串的形式。

@@ -1,0 +1,35 @@
+描述
+    version_compare ( string $version1 , string $version2 ) : int
+    version_compare ( string $version1 , string $version2 , string $operator ) : bool
+
+    version_compare() 比较两个“PHP 标准化的”版本号字符串。
+
+    这个函数首先使用点号替换版本字符串中的 _ 、- 和 + 并且在任何非数字前后插入点号，所以比如 '4.3.2RC1' 会成为 '4.3.2.RC.1' 。然后它开
+    始从左到右的比较各个部分。如果某个部分包含有特殊的版本字符串，那么它们会按照后面的顺序处理：任何不在这份列表中的字符串 < dev < alpha =
+    a < beta = b < RC = rc < # < pl = p 。以这种方式不仅可以比较像“4.1”和“4.1.2”这样不同级别的版本，还可以比较包含开发状态的任何特定
+    PHP 版本。
+
+参数
+    version1
+        第一个版本号。
+    version2
+        第二个版本号。
+    operator
+        如果指定了第三个可选的 operator 参数，则会去测试特定的关系。可用的运算符有：<，lt，<=，le，>，gt，>=，ge，==，=，eq，!=，<>，
+        ne 。
+
+        这个参数是大小写敏感的，值应该是小写的。
+
+返回值
+    默认情况下，如果第一个版本小于第二个版本，version_compare() 会返回 -1，如果它们相等则返回 0 ，如果第二个版本更小则返回 1 。
+
+    当使用了可选的 operator 参数时，如果关系确实是通过运算符参数所指定的那个关系，则返回 TRUE ，否则返回 FALSE 。如果给定了一个不支持的
+    operator ，则返回 NULL 。
+
+注意事项
+    注意：PHP_VERSION 常量持有当前 PHP 的版本。
+
+    注意：注意，预发布版本，比如 5.3.0-dev，被认为比最终发布版本（比如 5.3.0）要低。
+
+    注意：特殊的版本字符串，例如 alpha 和 beta ，是大小写敏感的。在调用 version_compare() 之前，可能需要通过 strtolower() 将来自不符
+    合 PHP 标准的任意源的版本字符串小写化。

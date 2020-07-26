@@ -1,0 +1,14 @@
+描述
+    phpversion ([ string $extension ] ) : string
+    返回一个包含了当前运行的 PHP 解析器或扩展的版本的字符串。
+
+参数
+    extension
+        一个可选的扩展名。
+
+返回值
+    如果指定了可选的扩展名，phpversion() 会返回该扩展的版本，如果没有关联的版本信息或未启用该扩展，则返回 FALSE 。
+
+注意事项
+    注意：这个信息也可以在预定义的常量 PHP_VERSION 中找到。使用 PHP_VERSION_* 常量可以使用更多的版本信息。
+    个人补充：PHP_VERSION_* 应该换成 PHP_*_VERSION 。
