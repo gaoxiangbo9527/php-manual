@@ -1,0 +1,17 @@
+描述
+    memory_get_usage ([ bool $real_usage = FALSE ] ) : int
+    返回当前分配给你的 PHP 脚本的内存数量，单位为字节。
+
+参数
+    real_usage
+        将其设置为 TRUE 就能得到从系统分配的全部内存，包括未使用的内存。如果没有设置或者设置为 FALSE ，那么只有被使用的内存会被报告。
+
+        注意：PHP 不会跟踪不是由 emalloc() 分配的内存。
+
+返回值
+    以字节为单位返回内存数量。
+
+变更日志
+    版本	        描述
+    5.2.1       为了使这个函数存在，不再需要在编译时使用 --enable-memory-limit 。
+    5.2.0	    添加了 real_usage 。
