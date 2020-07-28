@@ -1,0 +1,4 @@
+（加密安全的伪随机数生成器）cryptographically secure pseudo-random number generator （CSPRNG） API 提供了一种容易且可靠的方式去生成加密上强壮的随机整数和字节，
+以便在加密上下文中使用。
+
+从 PHP 7.0.0 开始存在，但是对于 PHP >= 5.2.0 也有一个 用户空间实现 。
