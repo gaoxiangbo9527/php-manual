@@ -1,0 +1,60 @@
+下面这些常量总是可用的，因为它们是 PHP 核心的一部分。
+
+PASSWORD_BCRYPT (string)
+    PASSWORD_BCRYPT 被用于使用 CRYPT_BLOWFISH 算法去创建新的密码散列。
+
+    这将始终导致一个使用 "$2y$" crypt 格式的散列，该格式总是 60 个字符宽。
+
+    支持的选项：
+        salt (string) - 当散列密码时，手动的提供一个要使用 salt 。注意，这将会覆盖并且阻止自动的创建一个 salt 。
+            如果省略，password_hash() 将会为每一个密码散列生成一个随机的 salt 。这是符合预期的运算模式（个人补充：就是在说，我们平时就应
+            该这么做）并且从 PHP 7.0.0 开始 salt 选项已经被废弃了。
+        cost (integer) - 表示应该使用的算法成本。这些值的例子可以在 crypt() 页面上找到。
+            如果省略，将会使用默认值 10 。这是一个很好的成本底线，但是你可能会根据你的硬件去考虑增加它。
+
+PASSWORD_ARGON2I (string)
+    PASSWORD_ARGON2I 被用于使用 Argon2i 算法去创建新的密码散列。
+
+    支持的选项：
+        memory_cost (integer) - 可用于去计算 Argon2 散列的最大内存（单位为 字节）。默认为 PASSWORD_ARGON2_DEFAULT_MEMORY_COST 。
+        个人补充：这里的单位和 password_hash() 页面中的单位不一样，使用时要注意。
+
+        time_cost (integer) - 可花费去计算 Argon2 散列的最大时间。默认为 PASSWORD_ARGON2_DEFAULT_TIME_COST 。
+
+        threads (integer) - 用于去计算 Argon2 散列的线程数。默认为 PASSWORD_ARGON2_DEFAULT_THREADS 。
+
+    从 PHP 7.2.0 开始可用。
+
+PASSWORD_ARGON2ID (string)
+    PASSWORD_ARGON2ID 被用于使用 Argon2id 算法去创建新的密码散列。它支持与 PASSWORD_ARGON2I 相同的选项。
+
+    从 PHP 7.3.0 开始可用。
+
+PASSWORD_ARGON2_DEFAULT_MEMORY_COST (integer)
+    当尝试去计算一个散列时，Argon2lib 将默认使用的内存数量，单位为字节。
+
+    从 PHP 7.2.0 开始可用。
+
+PASSWORD_ARGON2_DEFAULT_TIME_COST (integer)
+    当尝试去计算一个散列时，Argon2lib 将默认花费的时间长度。
+
+    从 PHP 7.2.0 开始可用。
+
+PASSWORD_ARGON2_DEFAULT_THREADS (integer)
+    Argon2lib 将默认使用的线程数量。
+
+    从 PHP 7.2.0 开始可用。
+
+PASSWORD_DEFAULT (mixed)
+    用于去散列的默认算法，如果没有提供算法的话。在新的 PHP 版本中，当更新的、更强的散列算法被支持时，这个常量的值可能会改变。
+
+    值得注意的是，随着时间的推移，这个常量会（而且很可能会）改变。因此你应当知道结果散列的长度可以改变。因此，如果你使用 PASSWORD_DEFAULT，
+    你就应该以一种可以存储超过 60 （255 是推荐的宽度）个字符的方式存储结果散列。
+
+    这个常量的值：
+        PHP 5.5.0 - PASSWORD_BCRYPT
+
+更新日志
+    版本        描述
+    7.4.0       密码算法 ID （PASSWORD_BCRYPT，PASSWORD_ARGON2I，PASSWORD_ARGON2ID 和 PASSWORD_DEFAULT）的值现在是字符串。以前
+                ，它们是整数。

@@ -1,0 +1,3 @@
+使用这些函数不需要进行安装，它们是 PHP 核心的一部分。
+
+然而，要想启用 Argon2 密码散列，PHP 必须使用 --with-password-argon2[=DIR] 配置选项去构建，以支持 libargon2 。
