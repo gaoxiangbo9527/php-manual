@@ -1,0 +1,20 @@
+描述
+    hash_init ( string $algo [, int $options = 0 [, string $key = NULL ]] ) : HashContext
+
+    初始化一个增量散列上下文。
+
+参数
+    algo
+        被选择的散列算法（例如，"md5"，"sha256"，"haval160,4" 等等）的名称。支持的算法的列表见 hash_algos() 。
+    options
+        可选的散列生成设置项，当前仅支持一个选项：HASH_HMAC 。当指定了该选项时，比如指定 key 参数。
+    key
+        当为 options 指定了 HASH_HMAC 时，那么必须在此参数中提供一个要与 HMAC 散列方法一起使用的共享私钥。
+
+返回值
+    返回一个用于与 hash_update()， hash_update_stream()，hash_update_file() 和 hash_final() 一起使用的散列上下文。
+
+变更日志
+    版本	    描述
+    7.2.0	与 HASH_MAC 一起的非加密散列算法函数（adler32，crc32，crc32b，fnv132，fnv1a32，fnv164，fnv1a64，joaat）的使用被禁用了。
+    7.2.0	返回 HashContext 而不是资源。

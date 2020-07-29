@@ -1,0 +1,23 @@
+描述
+    hash_hmac ( string $algo , string $data , string $key [, bool $raw_output = FALSE ] ) : string
+
+    使用 HMAC 方法生成一个键控散列值。
+
+参数
+    algo
+        被选择的散列算法（例如，"md5"，"sha256"，"haval160,4" 等等）的名称。支持的算法的列表见 hash_hmac_algos() 。
+    data
+        待散列的消息。
+    key
+        用于生成消息摘要的 HMAC 变体的共享私钥。
+    raw_output
+        当设置为 TRUE 时，输出原生的二进制数据。FALSE 则输出小写的十六进制字符串。
+
+返回值
+    返回一个包含计算后的消息摘要的字符串，除非 raw_output 被设置为 true，否则为小写的十六进制字符串，被设置为 true 时，会返回消息摘要的原
+    生的二进制表示形式。当 algo 是一个未知的或者非加密散列函数时会返回 FALSE 。
+
+变更日志
+    版本         描述
+    7.2.0	    非加密散列算法函数（adler32，crc32，crc32b，fnv132，fnv1a32，fnv164，fnv1a64，joaat）的使用被禁用了。
+

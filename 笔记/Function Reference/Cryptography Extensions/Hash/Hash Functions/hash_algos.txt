@@ -1,0 +1,12 @@
+描述
+    hash_algos ( void ) : array
+
+返回值
+    返回一个数字索引数组，包含受支持的散列算法的列表。
+
+变更日志
+    版本	    描述
+    7.1.0	添加了对 sha512/224， sha512/256， sha3-224， sha3-256， sha3-384 和 sha3-512 的支持。
+    5.6.0	添加了对 gost-crypto 的支持。它使用由 RFC 4357 第 11.2 节指定的 CryptoPro S-box 表实现了该 GOST 散列函数。
+    5.4.0	添加了对  joaat， fnv132 和 fnv164 的支持。移除了对 Salsa10 和 Salsa20 的支持。
+    5.3.0	添加了对 md2， ripemd256， ripemd320， salsa10， salsa20， snefru256 和 sha224 的支持。

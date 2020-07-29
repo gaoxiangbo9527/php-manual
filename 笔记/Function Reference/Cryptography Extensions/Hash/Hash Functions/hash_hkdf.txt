@@ -1,0 +1,29 @@
+描述
+    hash_hkdf ( string $algo , string $ikm [, int $length = 0 [, string $info = '' [, string $salt = '' ]]] ) : string
+
+    为提供的键输入生成一个 HKDF  派生的密钥。
+
+参数
+    algo
+        被选择的散列算法（例如，"md5"，"sha256"，"haval160,4" 等等）的名称。支持的算法的列表见 hash_algos() 。
+        注意：不允许非加密散列函数。
+    ikm
+        输入键材料（原生二进制）。不能为空。
+    length
+        期望的输出长度，单位为字节。不能大于所选的散列函数大小的 255 倍。
+
+        如果 length 是 0 ，那么输出的长度将会默认为所选的散列函数大小。
+    info
+        应用程序/上下文相关的 info 字符串。
+    salt
+        派生期间使用的 salt 。虽然是可选的，但是添加随机的 salt 会显著提高 HKDF 的强度。
+
+    length
+        输出字符串的长度。如果 raw_output 为 TRUE，则对应于派生键的字节长度，如果 raw_output 为 FALSE，则对应于派生键的两倍字节长度，
+        因为键的每个字节都会被返回为两个十六进制字符。
+
+返回值
+    返回一个包含派生密钥（也称作输出键控材料 - OKM）的原生二进制表示形式的字符串，或者失败时返回 FALSE 。
+
+错误/异常
+    如果算法未知、iterations 参数小于或等于 0、length 小于 0 或 salt 太长（大于 INT_MAX - 4），将会引发一个 E_WARNING 。

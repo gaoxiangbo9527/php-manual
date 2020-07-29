@@ -1,0 +1,16 @@
+描述
+    hash_file ( string $algo , string $filename [, bool $raw_output = FALSE ] ) : string
+
+    使用给定文件的内容去生成一个散列值。
+
+参数
+    algo
+        被选择的散列算法（例如，"md5"，"sha256"，"haval160,4" 等等）的名称。支持的算法的列表见 hash_algos() 。
+    filename
+        描述要散列的文件的位置的 URL ；支持 fopen 的包装器。
+    raw_output
+        当设置为 TRUE 时，输出原生的二进制数据。FALSE 则输出小写的十六进制字符串。
+
+返回值
+    返回一个包含计算后的消息摘要的字符串，除非 raw_output 被设置为 true，否则为小写的十六进制字符串，被设置为 true 时，会返回消息摘要的原
+    生的二进制表示形式。

@@ -1,0 +1,11 @@
+介绍
+    暂无
+
+类摘要
+    HashContext {
+        /* Methods */
+        private __construct ( void )
+    }
+
+目录
+    HashContext::__construct — 私有的构造函数，以禁用直接实例化

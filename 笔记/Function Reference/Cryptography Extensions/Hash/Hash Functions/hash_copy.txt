@@ -1,0 +1,15 @@
+描述
+    hash_copy ( HashContext $context ) : HashContext
+
+    拷贝散列上下文。
+
+参数
+    context
+        由 hash_init() 返回的散列上下文。
+
+返回值
+    返回散列上下文的一个拷贝。
+
+变更日志
+    版本	    描述
+    7.2.0	接受并返回 HashContext 而不是资源。

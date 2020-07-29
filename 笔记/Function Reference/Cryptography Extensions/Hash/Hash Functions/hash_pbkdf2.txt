@@ -1,0 +1,35 @@
+描述
+    hash_pbkdf2 ( string $algo , string $password , string $salt , int $iterations [, int $length = 0 [, bool $raw_output = FALSE ]] ) : string
+
+    为提供的密码生成一个 PBKDF2 派生密钥。
+
+参数
+    algo
+        被选择的散列算法（例如，"md5"，"sha256"，"haval160,4" 等等）的名称。支持的算法的列表见 hash_algos() 。
+    password
+        用于派生的密码。
+    salt
+        用于派生的 salt 。这个值应该随机生成。
+    iterations
+        要为派生执行的内部迭代次数。
+    length
+        输出字符串的长度。如果 raw_output 为 TRUE，则对应于派生键的字节长度，如果 raw_output 为 FALSE，则对应于派生键的两倍字节长度，
+        因为键的每个字节都会被返回为两个十六进制字符。
+
+        如果传递 0 ，则会使用所提供算法的整个输出。
+    raw_output
+        当设置为 TRUE 时，输出原生的二进制数据。FALSE 则输出小写的十六进制字符串。
+
+返回值
+    返回一个包含计算后的消息摘要的字符串，除非 raw_output 被设置为 true，否则为小写的十六进制字符串，被设置为 true 时，会返回消息摘要的原
+    生的二进制表示形式。
+
+错误/异常
+    如果算法未知、iterations 参数小于或等于 0、length 小于 0 或 salt 太长（大于 INT_MAX - 4），将会引发一个 E_WARNING 。
+
+变更日志
+    版本         描述
+    7.2.0	    非加密散列算法函数（adler32，crc32，crc32b，fnv132，fnv1a32，fnv164，fnv1a64，joaat）的使用被禁用了。
+
+注意事项
+    小心 PBKDF2 方法可用于对密码进行散列以存储。但是，应该注意，password_hash() 或使用 CRYPT_BLOWFISH 的 crypt() 更适合用于密码存储。

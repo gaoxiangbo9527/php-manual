@@ -1,0 +1,19 @@
+描述
+    hash_update_stream ( HashContext $context , resource $handle [, int $length = -1 ] ) : int
+
+    将来自于一个开启的流的数据注入到一个活跃的散列上下文中。
+
+参数
+    context
+        由 hash_init() 返回的散列上下文。
+    handle
+        由任何流创建函数返回的开启的文件句柄。
+    length
+        从 handle 拷贝到散列上下文中的字符的最大数量。
+
+返回值
+    从 handle 添加到散列上下文中的实际字节数。
+
+变更日志
+    版本	    描述
+    7.2.0	接受 HashContext 而不是资源。

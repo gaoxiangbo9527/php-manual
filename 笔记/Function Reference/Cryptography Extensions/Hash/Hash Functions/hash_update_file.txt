@@ -1,0 +1,19 @@
+描述
+    hash_update_file ( HashContext $hcontext , string $filename [, resource $scontext = NULL ] ) : bool
+
+    将来自于一个文件的数据注入到一个活跃的散列上下文中。
+
+参数
+    hcontext
+        由 hash_init() 返回的散列上下文。
+    filename
+        描述要散列的文件的位置的 URL ；支持 fopen 的包装器。
+    scontext
+        由 stream_context_create() 返回的流上下文。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+变更日志
+    版本	    描述
+    7.2.0	接受 HashContext 而不是资源。

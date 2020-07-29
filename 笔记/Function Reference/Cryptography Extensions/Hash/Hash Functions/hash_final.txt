@@ -1,0 +1,18 @@
+描述
+    hash_final ( HashContext $context [, bool $raw_output = FALSE ] ) : string
+
+    最后确定一个增量散列并返回结果摘要。
+
+参数
+    context
+        由 hash_init() 返回的散列上下文。
+    raw_output
+        当设置为 TRUE 时，输出原生的二进制数据。FALSE 则输出小写的十六进制字符串。
+
+返回值
+    返回一个包含计算后的消息摘要的字符串，除非 raw_output 被设置为 true，否则为小写的十六进制字符串，被设置为 true 时，会返回消息摘要的原
+    生的二进制表示形式。
+
+变更日志
+    版本	    描述
+    7.2.0	接受 HashContext 而不是资源。
