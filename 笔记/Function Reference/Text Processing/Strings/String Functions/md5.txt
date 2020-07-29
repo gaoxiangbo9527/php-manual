@@ -1,0 +1,16 @@
+警告
+    因为此散列算法的快速的本质，所以不推荐使用这个函数去保护密码。详细信息和最佳实践参见 Password Hashing FAQ 。
+
+描述
+    md5 ( string $str [, bool $raw_output = FALSE ] ) : string
+
+    使用 RSA 数据安全公司的 MD5 信息摘要算法 去计算 str 的 MD5 散列，并且返回该散列。
+
+参数
+    str
+        字符串。
+    raw_output
+        如果可选的 raw_output 设置为 TRUE，则会以原始的二进制格式返回 md5 摘要，长度为 16 。
+
+返回值
+    以 32 个字符的十六进制数字的形式返回散列。

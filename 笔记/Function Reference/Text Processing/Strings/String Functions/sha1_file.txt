@@ -1,0 +1,17 @@
+描述
+    sha1_file ( string $filename [, bool $raw_output = FALSE ] ) : string
+
+    使用 US 安全散列算法 1 去计算由 filename 参数所指定的文件的 sha1 散列，并且返回该散列。散列是一个 40 个字符的十六进制数字。
+
+参数
+    filename
+        文件名
+    raw_output
+        当为 TRUE 时，会以原始的二进制格式返回摘要，长度为 20 。
+
+返回值
+    成功时返回一个字符串，否则返回 FALSE 。
+
+变更日志
+    版本         描述
+    5.1.0	    更改了函数以使用 streams API。这意味着你可以把它与包装器一起使用，像 sha1_file('http://example.com/..') 。
