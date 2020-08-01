@@ -1,0 +1,22 @@
+描述
+    highlight_file ( string $filename [, bool $return = FALSE ] ) : mixed
+
+    使用 PHP 内置的语法高亮显示中定义的颜色去打印或返回 filename 中包含的代码的语法高亮后的版本。
+
+    许多服务器被配置为对具有 phps 扩展名的文件自动高亮显示。例如，当查看 example.phps 时，将会展示该文件语法高亮后的源代码。要启用它，在
+    httpd.conf 中添加下面的行：
+        AddType application/x-httpd-php-source .phps
+
+参数
+    filename
+        要高亮显示的 PHP 文件的路径。
+    return
+        把这个参数设置为 TRUE 会使此函数返回高亮显示后的代码。
+
+返回值
+    如果 return 设置为 TRUE，就会以字符串的形式返回高亮显示后的代码，而不是打印它。否则，它将在成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    小心 在使用 highlight_file() 函数时应小心，要确保不会无意中泄露敏感信息，比如密码或任何其他可能造成潜在安全风险的信息。
+
+    注意：当使用 return 参数时，该函数会使用内部输出缓冲，因此它不能在 ob_start() 回调函数中使用。

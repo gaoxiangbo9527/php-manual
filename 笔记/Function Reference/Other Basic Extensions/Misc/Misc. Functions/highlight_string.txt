@@ -1,0 +1,18 @@
+描述
+    highlight_string ( string $str [, bool $return = FALSE ] ) : mixed
+
+    使用 PHP 内置的语法高亮显示中定义的颜色去输出或返回给定的 PHP 代码的语法高亮后的版本的 html 标签。
+
+参数
+    str
+        要高亮显示的 PHP 代码。这应该包括开始标签。
+    return
+        把这个参数设置为 TRUE 会使此函数返回高亮显示后的代码。
+
+返回值
+    如果 return 设置为 TRUE，就会以字符串的形式返回高亮显示后的代码，而不是打印它。否则，它将在成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    注意：当使用 return 参数时，该函数会使用内部输出缓冲，因此它不能在 ob_start() 回调函数中使用。
+
+    生成的 HTML 标签可能会更改。

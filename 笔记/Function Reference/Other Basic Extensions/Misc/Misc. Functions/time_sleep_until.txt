@@ -1,0 +1,21 @@
+描述
+    time_sleep_until ( float $timestamp ) : bool
+
+    使脚本睡眠到指定的 timestamp 。
+
+参数
+    timestamp
+        脚本应该被唤醒时的时间戳。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+变更日志
+    版本        描述
+    5.3.0       这个函数现在可以在 Windows 平台上使用了。
+
+错误/异常
+    如果指定的 timestamp 在过去，这个函数将会生成一个 E_WARNING 。
+
+注意事项
+    注意：所有的信号都将在脚本被唤醒后发送。

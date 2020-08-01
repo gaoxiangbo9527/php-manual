@@ -1,0 +1,21 @@
+描述
+    sleep ( int $seconds ) : int
+
+    延迟程序的执行到给定的秒数。
+
+参数
+    seconds
+        停止的时长，单位为秒。
+
+返回值
+    成功时返回 0，发生错误时返回 FALSE 。
+
+    如果该调用被一个信号打断，sleep() 将返回一个非零值。在 Windows 上，这个值总是 192（Windows API 中 WAIT_IO_COMPLETION 常量的值）。
+    在其他平台上，返回值将是剩余的睡眠秒数。
+
+错误/异常
+    如果指定的 seconds 数是负数，此函数将会生成一个 E_WARNING 。
+
+变更日志
+    版本        描述
+    5.3.4	    在 PHP 5.3.4 之前，在 Windows 上，只要睡眠发生，sleep() 总是返回 NULL，不管睡眠是否被打断。

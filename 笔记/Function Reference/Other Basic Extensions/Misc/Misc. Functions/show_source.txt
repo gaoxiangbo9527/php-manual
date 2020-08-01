@@ -1,0 +1,1 @@
+此函数是 highlight_file() 的一个别名。

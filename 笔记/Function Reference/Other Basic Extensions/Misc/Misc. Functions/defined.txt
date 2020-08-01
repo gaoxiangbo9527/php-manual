@@ -1,5 +1,6 @@
 描述
     defined ( string $name ) : bool
+
     检查指定的常量是否存在并且已经定义。
 
     注意：如果你想检查一个变量是否存在，使用 isset() 就像 defined() 只适用于常量。

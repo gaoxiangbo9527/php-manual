@@ -1,12 +1,13 @@
 描述
     define ( string $name , mixed $value [, bool $case_insensitive = FALSE ] ) : bool
+
     在运行时定义一个常量。
 
 参数
     name
         常量的名称。
 
-        注意：可以使用 define() 定义保留甚至无效名字的常量，它们的值只能使用 constant() 获取。然而这么做时不推荐的。
+        注意：可以使用 define() 定义保留甚至无效名字的常量，它们的值只能使用 constant() 获取。然而这么做是不推荐的。
     value
         常量的值。在 PHP 5 中，值必须是一个常值（整型、浮点型、字符串、布尔型或者 NULL）。在 PHP 7 中，也可以接受数组值。
 

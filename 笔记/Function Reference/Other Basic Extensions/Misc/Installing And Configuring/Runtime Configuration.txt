@@ -3,7 +3,23 @@
 Misc. 配置选项
     名称                 默认值       可修改范围        更新日志
     ignore_user_abort   "0"         PHP_INI_ALL
+    highlight.string	"#DD0000"	PHP_INI_ALL
+    highlight.comment	"#FF8000"	PHP_INI_ALL
+    highlight.keyword	"#007700"	PHP_INI_ALL
+    highlight.bg	    "#FFFFFF"	PHP_INI_ALL	    在 PHP 5.4.0 中被移除。
+    highlight.default	"#0000BB"	PHP_INI_ALL
+    highlight.html	    "#000000"	PHP_INI_ALL
+    browscap	        NULL	    PHP_INI_SYSTEM
 
 ignore_user_abort   boolean
     默认值 FALSE 。如果设置为 TRUE ，当客户端断开了脚本的连接后，这些脚本不会被中止。
     另请参阅 ignore_user_abort() 。
+highlight.bg        string
+highlight.comment   string
+highlight.default   string
+highlight.html      string
+highlight.keyword   string
+highlight.string    string
+    用于语法高亮模式的颜色。任何 <font color="??????"> 中可接受的颜色都可以工作。
+browscap            string
+    浏览器功能文件的名称（例如：browscap.ini）和位置。另请查看 get_browser() 。

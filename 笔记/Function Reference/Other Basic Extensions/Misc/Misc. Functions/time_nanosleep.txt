@@ -1,0 +1,23 @@
+描述
+    time_nanosleep ( int $seconds , int $nanoseconds ) : mixed
+
+    延迟程序的执行到给定的 seconds 和 nanoseconds 。
+
+参数
+    seconds
+        必须是一个非负整数。
+    nanoseconds
+        必须是一个小于 10 亿的非负整数。
+
+        注意：在 Windows 上，系统睡眠的时间可能会超过给定的纳秒数，这取决于硬件。
+
+返回值
+    成功返回 TRUE，失败返回 FALSE 。
+
+    如果延迟被一个信号打断，会返回一个带有下面这些组件的关联数组：
+        seconds - 延迟中剩余的秒数
+        nanoseconds - 延迟中剩余的纳秒数
+
+变更日志
+    版本	    描述
+    5.3.0	这个函数现在可以在 Windows 平台上使用了。

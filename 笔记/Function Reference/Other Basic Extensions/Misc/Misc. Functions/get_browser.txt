@@ -1,0 +1,23 @@
+描述
+    get_browser ([ string $user_agent [, bool $return_array = FALSE ]] ) : mixed
+
+    通过在 browscap.ini 文件中查找浏览器的信息，尝试去确定用户的浏览器的功能。
+
+参数
+    user_agent
+        要分析的用户代理。默认情况下，会使用 HTTP User-Agent 头的值；然而，你可以通过传递这个参数来改变这个值（例如，查找另一个浏览器的信
+        息）。
+
+        您可以使用一个 NULL 值绕过此参数。
+    return_array
+        如果设置为 TRUE，此函数将会返回一个数组而不是一个对象。
+
+返回值
+    返回一个信息的对象或数组，其中包含表示的各种数据元素，例如，浏览器的主版本号和次版本号以及 ID 字符串；诸如框架、JavaScript 和 cookie
+    等特性的真/假值。
+
+    cookies 的值仅仅意味着浏览器自身能够接受 cookie，并不意味着用户已经启用了浏览器去接受或不接受 cookie。测试 cookie 是否被接受的唯一方
+    法是使用 setcookie() 设置一个 cookie，重新加载，并检查其值。
+
+注意事项
+    注意：
