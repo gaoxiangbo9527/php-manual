@@ -9,6 +9,7 @@ PHP Options/Info 配置选项
     assert.quiet_eval	"0"	        PHP_INI_ALL
     assert.exception	"0"	        PHP_INI_ALL	       从 PHP 7.0.0 开始可用
     enable_dl	        "1"	        PHP_INI_SYSTEM	   这个被弃用的特性将来肯定会被移除。
+    max_execution_time	"30"	    PHP_INI_ALL
     max_input_time	    "-1"	    PHP_INI_PERDIR
 
 assert.active       boolean
@@ -30,6 +31,16 @@ enable_dl           boolean
 
     关闭动态加载的主要原因是安全性。使用动态加载，可能就会忽略所有的 open_basedir 限制。默认是允许动态加载的，除非使用安全模式。在安全模式
     下，永远不可能使用 dl() 。
+max_execution_time  integer
+    这会设置脚本被解析器终止之前允许运行的最大时间，单位为秒。这有助于防止编写糟糕的脚本束缚住服务器。默认设置为 30 。当从命令行运行 PHP 时
+    ，默认设置为 0 。
+
+    最大执行时间不会被系统调用、流操作等影响，更多信息，请参看 set_time_limit() 函数。
+
+    当运行在安全模式下时，你不能使用 ini_set() 改变这个设置。唯一的变通办法是去关闭安全模式或者在 php.ini 中改变该时间限制。
+
+    你的 web 服务器可能还会有其他会去中断 PHP 执行的超时配置。Apache 有一个超时指令，IIS 有一个 CGI 超时功能。两者的默认值都是 300 秒。
+    特定的细节，请参阅你的 web 服务器的文档。
 max_input_time      integer
     它设置了一个脚本允许解析输入数据（比如 GET 或者 POST）的最长时间，以秒为单位。计时从服务器调用 PHP 脚本时开始一直到脚本开始执行时截至。
     默认值为 -1 ，表示使用 max_execution_time 设置的时长；设置为 0 表示不限制时间。

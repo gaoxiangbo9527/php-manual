@@ -1,0 +1,7 @@
+描述
+    connection_status ( void ) : int
+
+    获取连接状态的位字段。
+
+返回值
+    返回连接状态的位字段，它可以与 CONNECTION_XXX 常量一起使用以确定连接状态。
