@@ -1,0 +1,37 @@
+描述
+    addcslashes ( string $str , string $charlist ) : string
+
+    返回一个在 charlist 参数列出的字符前加上反斜线后的字符串。
+
+参数
+    str
+        要转义的字符串。
+    charlist
+        一个要转义的字符的列表。如果 charlist 包含 \n、\r 等字符，那么它们将被转换为类 C 的样式，而其他 ASCII 码小于 32 和大于 126 的
+        非字母数字字符将转换为八进制表示形式。
+
+        当你在 charlist 参数中定义了一个字符序列时，请确保你知道哪些字符位于你设置的范围开始和结束的字符之间。
+            <?php
+            echo addcslashes('foo[ ]', 'A..z');
+            // output:  \f\o\o\[ \]
+            // All upper and lower-case letters will be escaped
+            // ... but so will the [\]^_`
+            ?>
+
+        另外，如果范围中的第一个字符比范围中的的第二个字符拥有一个更高的 ASCII 值，那么不会构成一个范围。只有开始的字符、结束的字符以及 .
+        字符将会被转义。使用 ord() 函数去查找一个字符的 ASCII 值。
+            <?php
+            echo addcslashes("zoo['.']", 'z..A');
+            // output:  \zoo['\.']
+            ?>
+
+        如果你选择转义字符 0、a、b、f、n、r、t 和 v ，要小心，它们将被转换为 \0、\a、\b、\f、\n、\r、\t 和 \v，所有这些都是 C 语言中
+        预定义的转义序列。在其他派生自 C 的语言中，包括 PHP，也定义了许多这样的序列，这意味着如果你使用定义了这些字符的 charlist 参数的
+        addcslashed() 的输出去这些语言的代码，你可能不会得到期望的结果。
+
+返回值
+    返回转义后的字符串。
+
+变更日志
+    版本        描述
+    5.2.5       添加了转义序列 \v 和 \f 。
