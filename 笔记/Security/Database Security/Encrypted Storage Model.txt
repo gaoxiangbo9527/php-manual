@@ -1,0 +1,65 @@
+SSL/SSH 可以保护从客户机到服务器的数据传输：SSL/SSH 不能保护存储在数据库中的持久化数据。SSL 是一种线路协议。
+
+一旦攻击者得到了直接访问你的数据库的权限（绕过 web 服务器），那么存储的敏感数据可能会暴露或被滥用，除非这些信息是由数据库自身进行保护的。对数
+据进行加密是缓解这种威胁的一种好方法，但是很少有数据库会提供这种类型的数据加密。
+
+解决这个问题最简单的方法是先去创建你自己的加密包，然后在 PHP 脚本中使用它。PHP 可以通过几个扩展，例如 Mcrypt 和 Mhash，来帮助你实现这一点，
+这些扩展涵盖了各种加密算法。脚本在把数据插入到数据库之前对其进行加密，并在在检索时进行解密。有关加密如何工作的进一步示例，请参阅参考资料。有关
+加密是如何工作的进一步的示例，请参阅参考资料。
+
+散列
+    在真正隐藏数据的情况下，如果它的原始表示形式是不需要的（即不会被显示），那么应该考虑散列。散列的一个众所周知的示例是把密码加密后的散列存储
+    在数据库中，而不是存储密码本身。
+
+    在 PHP 5.5 和更新版本中，密码 函数提供了方便的方法去散列敏感的数据和与这些散列一起工作。在 PHP 5.3.7+ 中，还有一个可用的库
+    password_compat 。
+
+    password_hash() 常用于使用当前可用的最强算法去对给定字符串进行散列并且 password_verify() 会检查给定的密码是否会匹配存储在数据库中的
+    散列。
+
+    Example #1 散列 password 字段
+        <?php
+
+        // storing password hash
+        $query  = sprintf("INSERT INTO users(name,pwd) VALUES('%s','%s');",
+                    pg_escape_string($username),
+                    password_hash($password, PASSWORD_DEFAULT));
+        $result = pg_query($connection, $query);
+
+        // querying if user submitted the right password
+        $query = sprintf("SELECT pwd FROM users WHERE name='%s';",
+                    pg_escape_string($username));
+        $row = pg_fetch_assoc(pg_query($connection, $query));
+
+        if ($row && password_verify($password, $row['pwd'])) {
+            echo 'Welcome, ' . htmlspecialchars($username) . '!';
+        } else {
+            echo 'Authentication failed for ' . htmlspecialchars($username) . '.';
+        }
+
+        ?>
+
+    在旧版本的 PHP 中，可以使用 crypt() 函数来完成此任务。
+
+    Example #2 使用 crypt()s 散列 password
+        <?php
+
+        // storing password hash
+        // $random_chars retrieved e.g. using /dev/random
+        $query  = sprintf("INSERT INTO users(name,pwd) VALUES('%s','%s');",
+                    pg_escape_string($username),
+                    pg_escape_string(crypt($password, '$2a$07$' . $random_chars . '$')));
+        $result = pg_query($connection, $query);
+
+        // querying if user submitted the right password
+        $query = sprintf("SELECT pwd FROM users WHERE name='%s';",
+                    pg_escape_string($username));
+        $row = pg_fetch_assoc(pg_query($connection, $query));
+
+        if ($row && crypt($password, $row['pwd']) == $row['pwd']) {
+            echo 'Welcome, ' . htmlspecialchars($username) . '!';
+        } else {
+            echo 'Authentication failed for ' . htmlspecialchars($username) . '.';
+        }
+
+        ?>

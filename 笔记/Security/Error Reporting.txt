@@ -1,0 +1,52 @@
+对于 PHP 的安全性来说，错误报告有两面性。一种有利于增加安全性，而另一种是有害的。
+
+一种标准的攻击策略包括通过向系统提供不正确的数据，并检查返回的错误的类型和上下文来分析该系统。这允许系统黑客去探测关于服务器的信息，以确定可能
+的弱点。例如，如果一个攻击者根据之前提交的表单收集到了页面的信息，他们可能会尝试覆盖或修改变量：
+
+Example #1 使用一个自定义的 HTML 页面攻击变量
+    <form method="post" action="attacktarget?username=badfoo&amp;password=badfoo">
+    <input type="hidden" name="username" value="badfoo" />
+    <input type="hidden" name="password" value="badfoo" />
+    </form>
+
+正常返回的 PHP 错误对于一个尝试调试脚本的开发人员来说会相当有用，它们指明了失败的函数或文件、发生失败的 PHP 文件以及发生失败的行号。这些都是
+可以被利用的信息。php 开发人员经常使用 show_source()、highlight_string() 或 highlight_file() 作为一种调试方法，但是在一个活动站点中，
+这可能会暴露隐藏的变量、未检查的语法以及其他的危险信息。使用内置的调试处理程序或通用的调试技术去运行来自于已知来源的代码是特别危险的。如果攻击
+者能确定你使用的是哪种通用的技术，那么他们可能会尝试通过发送各种常见的调试字符串来暴力破解一个页面：
+
+Example #2 利用常用的调试变量
+    <form method="post" action="attacktarget?errors=Y&amp;showerrors=1&amp;debug=1">
+    <input type="hidden" name="errors" value="Y" />
+    <input type="hidden" name="showerrors" value="1" />
+    <input type="hidden" name="debug" value="1" />
+    </form>
+
+无论错误处理的方法是什么，探测系统错误的能力都会给攻击者提供更多的信息。
+
+例如，典型样式的 PHP 错误表明系统正在运行 PHP。如果攻击者正在查看一个 .html 页面，并希望去探测后端（以查找系统中已知的弱点），那么通过向后
+端提供错误的数据，他们可能就可以确定系统是用 PHP 构造的。
+
+一个函数错误可以表明系统是否运行着一个特定的数据库引擎，或者提供有关一个 web 页面是如何编写或设计的线索。这允许对打开的数据库端口进行更深入的
+调查，或者查找一个 web 页面中特定的错误或弱点。例如，通过提供错误数据的不同片段，攻击者可以确定一个脚本中的身份验证顺序（从行号错误），以及探
+测脚本中不同位置可能被利用的漏洞。
+
+一个文件系统或通用的 PHP 错误可以指明 web 服务器具有哪些权限，以及 web 服务器上文件的结构和组织方式。开发人员编写的错误代码会加剧这一问题，
+导致以前“隐藏”的信息容易被利用。
+
+这个问题有三种主要的解决方案。第一种方法是仔细检查所有函数，并尝试补偿大部分错误。第二种方法是完全禁用运行代码上的错误报告。第三种方法是使用
+PHP 的自定义错误处理函数来创建自己的错误处理程序。根据你的安全策略，你可能会发现这三种方法都适用于你的情况。
+
+提前发现这个问题的一种方法是使用 PHP 自己的 error_reporting()，以帮助你保护代码并发现可能有危险的变量用法。通过在部署之前使用 E_ALL 测试
+你的代码，你可以快速找到你的变量可能会以其他方式被毒害或修改的地方。一旦准备好部署，你应该通过将 error_reporting() 设置为 0 ，或者使用
+php.ini 的 display_errors 选项关闭错误显示来完全禁用错误报告，以阻止你的代码被探测。如果选择后者，还应该使用 error_log ini 指令定义日志
+文件的路径，并打开 log_errors 。
+
+Example #3 使用 E_ALL 找出危险的变量
+    <?php
+    if ($username) {  // Not initialized or checked before usage
+        $good_login = 1;
+    }
+    if ($good_login == 1) { // If above test fails, not initialized or checked before usage
+        readfile ("/highly/sensitive/data/index.html");
+    }
+    ?>

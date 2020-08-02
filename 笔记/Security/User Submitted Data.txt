@@ -1,0 +1,31 @@
+许多 PHP 程序中的最大弱点并不是语言本身固有的，而仅仅是编写代码时没有考虑到安全性的问题。出于这个原因，你应该始终花时间去考虑给定代码片段的含
+义，以确定向其提交意想不到的变量时可能会造成的损害。
+
+Example #1 危险的变量用法
+    <?php
+    // remove a file from the user's home directory... or maybe
+    // somebody else's?
+    unlink ($evil_var);
+
+    // Write logging of their access... or maybe an /etc/passwd entry?
+    fwrite ($fp, $evil_var);
+
+    // Execute something trivial.. or rm -rf *?
+    system ($evil_var);
+    exec ($evil_var);
+
+    ?>
+
+你总是应该认真的检查你的代码，以确保任何一个从 web 浏览器提交过来的变量都被正确的检查过，并且问问你自己下面这些问题：
+    这个脚本是否只会影响预期的文件?
+    是否会对不寻常或不期望的数据起作用？
+    这个脚本是否会以非预期的方式使用?
+    这个脚本是否可以和其他脚本一起以一种消极的方式使用?
+    任何事务都能被充分记录吗?
+
+通过在编写脚本时，而不是在以后充分地询问这些问题，可以防止在需要增强安全性时不幸的去重写。以这种思维方式开始，不能保证系统的安全性，但可以帮助
+你改进它。
+
+你可能还会考虑去关闭 register_globals、magic_quotes 或其他便利的设置，这些设置可能会使你对给定变量的有效性、源或值感到困惑。在
+error_reporting(E_ALL) 模式下使用 PHP ，还可以警告你变量在被检查或初始化之前就被使用了（这样就可以防止对不寻常的数据进行操作）。
+

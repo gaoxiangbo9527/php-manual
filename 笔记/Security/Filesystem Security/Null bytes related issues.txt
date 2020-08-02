@@ -1,0 +1,30 @@
+由于 PHP 使用底层的 C 函数来进行与文件系统相关的操作，所以它可能会以一种意想不到的方式处理空字节。由于空字节在 C 语言中表示字符串的结束，所
+以包含空字节的字符串将不会被完整的考虑，而是只会考虑到出现一个空字节的位置。下面的例子展示了一段会演示这个问题的脆弱的代码：
+
+Example #1 容易受到空字节攻击的脚本
+    <?php
+    $file = $_GET['file']; // "../../etc/passwd\0"
+    if (file_exists('/home/wwwrun/'.$file.'.php')) {
+        // file_exists will return true as the file /home/wwwrun/../../etc/passwd exists
+        include '/home/wwwrun/'.$file.'.php';
+        // the file /etc/passwd will be included
+    }
+    ?>
+
+因此，任何在文件系统操作中使用的受污染的字符串都应该进行正确的验证。这里有前面例子的一个更好的版本：
+
+Example #2 正确的验证输入
+    <?php
+    $file = $_GET['file'];
+
+    // Whitelisting possible values
+    switch ($file) {
+        case 'main':
+        case 'foo':
+        case 'bar':
+            include '/home/wwwrun/include/'.$file.'.php';
+            break;
+        default:
+            include '/home/wwwrun/include/main.php';
+    }
+    ?>

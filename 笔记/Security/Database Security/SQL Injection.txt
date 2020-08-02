@@ -1,0 +1,132 @@
+许多 web 开发人员不知道 SQL 查询是如何被篡改的，并假设 SQL 查询是一个可信任的命令。这意味着 SQL 查询能够绕过访问控制，从而绕过标准的身份验
+证和授权检查，并且有时 SQL 查询甚至允许访问主机操作系统级别的命令。
+
+直接的 SQL 命令注入是一种攻击者创建或修改现有的 SQL 命令去暴露隐藏的数据、或去覆盖有价值的数据，甚至去数据库主机上执行危险的系统级命令的技术。
+这是通过应用程序去获取用户输入并将其与静态参数组合以构建 SQL 查询来完成的。不幸的是，下面的例子基于的是真实的故事。
+
+由于缺乏输入验证并且代表超级用户或能够创建用户的用户去连接到数据库，攻击者可能会在你的数据库中创建一个超级用户。
+
+Example #1 Splitting the result set into pages ... and making superusers (PostgreSQL)
+    <?php
+
+    $offset = $argv[0]; // beware, no input validation!
+    $query  = "SELECT id, name FROM products ORDER BY name LIMIT 20 OFFSET $offset;";
+    $result = pg_query($conn, $query);
+
+    ?>
+
+普通用户单击“next”、“prev”链接，其中的 $offset 被编码到 URL 中。该脚本期望传入的 $offset 是一个十进制数。但是，如果有人试图通过在 URL
+后面附加一个经 urlencode() 编码形式的数据来入侵呢？
+
+0;
+insert into pg_shadow(usename,usesysid,usesuper,usecatupd,passwd)
+    select 'crack', usesysid, 't','t','crack'
+    from pg_shadow where usename='postgres';
+--
+
+如果发生这种情况，那么脚本将向他提供超级用户的访问权限。注意 0; 是为了向原始查询提供一个有效的偏移量并终止它。
+
+注意：强制 SQL 解析器去忽略开发人员用 -- 编写的剩余的查询部分是常见的技术，-- 是 SQL 中的注释符号。
+
+获得密码的一种可行的方法是绕过你的搜索结果页面。攻击者需要做的唯一一件事就是去查看 SQL 语句中是否有未被正确处理的提交变量。这些过滤器通常可以
+以前面的形式设置，以自定义 SELECT 语句中的 WHERE、ORDER BY、LIMIT 和 OFFSET 子句。如果你的数据库支持 UNION 结构，攻击者可以尝试向原始
+查询中追加一整个查询，以列出来自任意表中的密码。强烈建议使用加密的密码字段。
+
+Example #2 Listing out articles ... and some passwords (any database server)
+    <?php
+
+    $query  = "SELECT id, name, inserted, size FROM products
+               WHERE size = '$size'";
+    $result = odbc_exec($conn, $query);
+
+    ?>
+
+该查询的静态部分可以与另一个 SELECT 语句组合，而该语句将显示所有的密码：
+
+'
+union select '1', concat(uname||'-'||passwd) as name, '1971-01-01', '0' from usertable;
+--
+
+如果将这个查询（使用 ' 和 --）分配给 $query 中使用的一个变量，查询野兽就会被唤醒。
+
+SQL UPDATE 也容易受到攻击。通过截断并追加一个全新的查询也会对这些查询造成威胁。但是攻击者可能会篡改 SET 子句。在这种情况下，必须拥有一些结
+构信息才能成功的操作查询。这可以通过检查表单的变量名来获得，或者只是简单地去暴力破解。对于存储密码或用户名的字段来说，并没有太多命名惯例。
+
+Example #3 From resetting a password ... to gaining more privileges (any database server)
+    <?php
+    $query = "UPDATE usertable SET pwd='$pwd' WHERE uid='$uid';";
+    ?>
+
+但是如果一个恶意用户提交了值 ' or uid like'%admin% 给 $uid 来更改管理员的密码，或者简单的把 $pwd 设置为
+hehehe', trusted=100, admin='yes 以获取更多的权限，那么该查询将被扭曲：
+
+<?php
+
+// $uid: ' or uid like '%admin%
+$query = "UPDATE usertable SET pwd='...' WHERE uid='' or uid like '%admin%';";
+
+// $pwd: hehehe', trusted=100, admin='yes
+$query = "UPDATE usertable SET pwd='hehehe', trusted=100, admin='yes' WHERE
+...;";
+
+?>
+
+关于如何在一些数据库主机上访问操作系统级别的命令的一个可怕的示例。
+
+Example #4 Attacking the database hosts operating system (MSSQL Server)
+    <?php
+
+    $query  = "SELECT * FROM products WHERE id LIKE '%$prod%'";
+    $result = mssql_query($query);
+
+    ?>
+
+如果攻击者提交值 a%' exec master..xp_cmdshell 'net user test testpass /ADD' -- 给 $prod ，那么该 $query 将会是：
+
+<?php
+
+$query  = "SELECT * FROM products
+           WHERE id LIKE '%a%'
+           exec master..xp_cmdshell 'net user test testpass /ADD' --%'";
+$result = mssql_query($query);
+
+?>
+
+MSSQL Server 会在包含向本地帐户数据库添加新用户的批处理中执行该 SQL 语句。如果这个应用程序以 sa 运行，并且 MSSQLSERVER 服务以足够的权限
+运行，那么攻击者现在将拥有一个用于访问此机器的帐户。
+
+注意：上面的一些示例是与特定的数据库服务器绑定的。这并不意味着不可能对其他的产品进行类似的攻击。你的数据库服务器可能以另一种方式受到类似的攻击。
+
+避免技术
+    很明显，一个攻击者必须至少掌握一些数据库结构的知识才能进行成功的进行攻击，但获取这些信息通常非常简单。例如，如果数据库是开源代码或其他具有
+    默认安装的公开可用软件包的一部分，那么这些信息是完全开放和可用的。这些信息也可能被封闭源代码泄露 —— 即使它是编码过的、混淆过的或编译过的
+    —— 甚至会通过显示错误消息而由你自己的代码泄露。其他方法还包括使用常见的表名和列名。例如，一个使用具有列名 'id'、'username' 和
+    'password' 的 'users' 表的登录表单。
+
+    这些攻击手段主要基于去利用编写时没有考虑安全性的代码。永远不要相信任何类型的输入，特别是来自客户端的输入，即使它来自选择框、隐藏的输入字
+    段或 cookie 。第一个例子表明了这样一个无可指责的查询可能会导致灾难。
+
+    1. 永远不要以超级用户或以数据库所有者的身份去连接到数据库。应该总是使用权限非常有限的定制用户。
+    2. 使用预备语句和绑定变量。它们由 PDO、MySQLi 和其他库提供。
+    3. 检查给定的输入是否拥有期望的数据类型。PHP 有一份广泛的输入验证函数，从最简单的 变量函数 和 字符类型函数 （分别如 is_numeric()、
+    ctype_digit()）一直到 Perl 兼容的正则表达式 支持。
+    4. 如果应用程序等待的是数字的输入，可以考虑使用 ctype_digit() 验证数据，或者静默地使用 settype() 改变其类型，或者通过 sprintf() 使
+    用其数字表示形式。
+    Example #5 A more secure way to compose a query for paging
+        <?php
+
+        settype($offset, 'integer');
+        $query = "SELECT id, name FROM products ORDER BY name LIMIT 20 OFFSET $offset;";
+
+        // please note %d in the format string, using %s would be meaningless
+        $query = sprintf("SELECT id, name FROM products ORDER BY name LIMIT 20 OFFSET %d;", $offset);
+
+        ?>
+    5. 如果数据库层不支持绑定变量，那么就使用数据库特定的字符串转义函数（如 mysql_real_escape_string()，sqlite_escape_string() 等等）
+    去引用传递给数据库的由每个用户提供的非数字值。像 addslashes() 这样的通用函数只在非常特定的环境中才有用（例如，单字节字符集且禁用了
+    NO_BACKSLASH_ESCAPES 的 MySQL），所以最好避免使用它们。
+    6. 无论如何，都不要打印出任何数据库的特定信息，特别是关于结构的信息。请参阅 错误报告 和 错误处理和日志记录函数 。
+    7. 你可以使用存储过程和预先定义的游标来抽象数据访问，这样用户就不会直接访问表或视图，但是这个解决方案有另一个影响。
+
+    除此之外，还可以从记录查询日志中获益，要么通过你的脚本，要么通过数据库自身，如果它支持的话。显然，日志记录不能阻止任何有害的尝试，但是它
+    有助于跟踪哪个应用程序被绕过了。日志本身并不是很有用，但通过它包含的信息就会很有用。一般来说，细节越多越好。

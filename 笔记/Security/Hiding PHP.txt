@@ -1,0 +1,22 @@
+一般来说，模糊的安全性是最弱的安全性形式之一。但是在某些情况下，每一点额外的安全性都是可取的。
+
+一些简单的技术可以帮助去隐藏 PHP，可能会减慢一个试图发现系统弱点的攻击者的速度。通过在 php.ini 文件中把 expose_php 设置为 off，你就减少了
+对他们可用的信息数量。
+
+个人补充：现在来看，下面这种混淆的作用很小，如果再把前后端分离考虑进来，这种混淆几乎没有作用，反而副作用更大。建议除非真的需要，否则别用。
+
+另一种策略是配置诸如 apache 这样的 web 服务器去通过 PHP 解析不同的文件类型，要么使用一个 .htaccess 指令，要么在 apache 配置文件本身中。
+然后，你可以使用误导的文件扩展名：
+    Example #1 将 PHP 隐藏为另一种语言
+        # 使 PHP 代码看起来像其他代码类型
+        AddType application/x-httpd-php .asp .py .pl
+
+或者完全的模糊：
+    Example #2 为 PHP 扩展名使用未知的类型
+        # 使 PHP 代码看起来像未知的类型
+        AddType application/x-httpd-php .bop .foo .133t
+
+或者将其隐藏为 HTML 代码，由于所有的 HTML 都将通过 PHP 引擎解析，所以这种方法会略微影响性能：
+    Example #3 为 PHP 扩展名使用 HTML 类型
+        # 使所有 PHP 代码看起来像 HTML
+        AddType application/x-httpd-php .htm .html
