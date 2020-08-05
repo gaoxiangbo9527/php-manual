@@ -1,0 +1,27 @@
+此列表包含了你可以设置的 php.ini 段，以便基于每个主机或路径去配置你的 PHP 安装。这些段是可选的。
+
+这些段不会直接影响 PHP 。它们用于将其他的 php.ini 指令分组到一起，并让它们在特定主机或特定路径上起作用。
+
+这些段仅能在 CGI/FastCGI 模式下使用并且它们不能设置 extension 和 zend_extension 指令。
+
+段
+    名称	        可修改范围	        更新日志
+    [HOST=]	    PHP_INI_SYSTEM	    PHP 5.3.0 中增加。
+    [PATH=]	    PHP_INI_SYSTEM	    PHP 5.3.0 中增加。
+
+这里有一份配置指令的简短解释。
+
+[HOST=<host>]
+    这个段允许你去定义一组将在命名主机上生效的 php.ini 指令。
+
+    Example #1 为 dev.domain 激活全屏错误报告
+        [HOST=dev.site.com]
+        error_reporting = E_ALL
+        display_errors = On
+
+[PATH=<path>]
+    这个段允许你去定义一组当从命名路径运行某个脚本时才会生效的 php.ini 指令。
+
+    Example #2 为受保护的区域添加安全脚本
+        [PATH=/home/site/public/secure]
+        auto_prepend_file=security.php
