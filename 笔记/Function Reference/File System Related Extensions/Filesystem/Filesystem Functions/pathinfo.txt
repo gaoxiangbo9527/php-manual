@@ -1,0 +1,32 @@
+描述
+    pathinfo ( string $path [, int $options = PATHINFO_DIRNAME | PATHINFO_BASENAME | PATHINFO_EXTENSION | PATHINFO_FILENAME ] ) : mixed
+
+    pathinfo() 返回关于 path 的信息：要么是一个数组，要么是一个字符串，取决于 options 参数。
+
+    注意：关于检索当前路径信息的信息，请阅读 预定义的保留变量 部分。
+
+    小心 basename() 是区域感知的，因此要让正确的解析一个包含多字节字符的路径，必须使用 setlocale() 函数设置匹配的区域。
+
+参数
+    path
+        要解析的路径。
+    options
+        如果存在，则指定要返回的一个特定元素；PATHINFO_DIRNAME，PATHINFO_BASENAME，PATHINFO_EXTENSION 或 PATHINFO_FILENAME 之一。
+
+        如果没有指定 options，会返回所有可用的元素。
+
+返回值
+    如果没有传递 options 参数，会返回一个包含后面这些元素的关联数组：dirname，basename，extension（如果有的话） 和 filename 。
+
+    注意：如果 path 有多个扩展名，PATHINFO_EXTENSION 只会返回最后一个扩展名并且 PATHINFO_FILENAME 只会去除最后一个扩展名。
+
+    注意：如果 path 没有一个扩展名，将不会返回 extension 元素。
+
+    注意：如果 path 的 basename 以一个点号开头，后续字符被解释为 extension，而 filename 为空。个人补充：如果 basename 以点号开头，并
+    且后面还有一个点号，就不一样了，比如 .user.ini 是可以正确解析的。
+
+    如果存在 options，会返回一个包含被请求元素的字符串。
+
+变更日志
+    版本        描述
+    5.2.0       添加了 PATHINFO_FILENAME 常量。
