@@ -1,0 +1,48 @@
+将 PHP 作为一个 Apache 模块运行
+    当使用 PHP 作为一个 Apache 模块时，你也能在 Apache 的配置文件（例如 httpd.conf）和 .htaccess 文件中使用指令来更改配置设置。你将需
+    要“AllowOverride Options”或“AllowOverride All”权限来执行此操作。
+
+    有几种 Apache 指令允许你在 Apache 配置文件中更改 PHP 的配置。要了解哪些指令是 PHP_INI_ALL、PHP_INI_PERDIR 或 PHP_INI_SYSTEM，
+    请参阅附录中的 php.ini 指令列表 。
+
+    php_value name value
+        设置指定指令的值。只能用于 PHP_INI_ALL 和 PHP_INI_PERDIR 类型的指令。要想清除先前设置的值，使用 none 作为值即可。
+
+        注意：不要使用 php_value 去设置布尔值。而应该使用 php_flag（见下文）。
+
+    php_flag name on|off
+        用于去设置一个布尔型的配置指令。只能用于 PHP_INI_ALL 和 PHP_INI_PERDIR 类型的指令。
+
+    php_admin_value name value
+        设置指定指令的值。不能在 .htaccess 文件中使用它。任何通过 php_admin_value 设置的指令不能被 .htaccess 或 ini_set() 覆盖。要想
+        清除先前设置的值，使用 none 作为值即可。
+
+    php_admin_flag name on|off
+        用于去设置一个布尔型的配置指令。不能在 .htaccess 文件中使用它。任何通过 php_admin_flag 设置的指令不能被 .htaccess 或
+        ini_set() 覆盖。
+
+    Example #1 Apache 配置示例
+        <IfModule mod_php5.c>
+          php_value include_path ".:/usr/local/lib/php"
+          php_admin_flag engine on
+        </IfModule>
+        <IfModule mod_php4.c>
+          php_value include_path ".:/usr/local/lib/php"
+          php_admin_flag engine on
+        </IfModule>
+
+    小心 PHP 常量不存在于 PHP 之外。例如，在 httpd.conf 中你不能使用诸如 E_ALL 或 E_NOTICE 的 PHP 常量去设置 error_reporting 指令，
+    因为它们将没有意义并且将会计算为 0 。而应该使用相关联的位掩码。这些常量可以在 php.ini 中使用。
+
+通过 Windows 注册表更改 PHP 配置
+    当在 Windows 上运行 PHP 时，可以使用 Windows 注册表基于每个目录修改配置值。配置值存储在注册表键
+     HKLM\SOFTWARE\PHP\Per Directory Values 中，在对应于路径名的子键中。例如，目录 c:\inetpub\wwwroot 的配置值将存储在键
+     HKLM\SOFTWARE\PHP\Per Directory Values\c\inetpub\wwwroot 中。对于从这个目录或它的子目录运行的任何脚本，该目录的设置都将是激活
+     的。键下的值应该有 PHP 配置指令的名称和字符串值。值中的常量是不会被解析的。而且，只有在 PHP_INI_USER 中可更改的配置值可以这样设置，
+     PHP_INI_PERDIR 的值不能，因为这些配置值会为每个请求重新读取。
+
+PHP 的其他接口
+    无论你如何运行 PHP，你都可以在运行时通过 ini_set() 更改脚本的某些值。更多信息，可以看 ini_set() 页面上的文档。
+
+    如果你对系统上的配置设置的完整列表及其当前值的感兴趣，你可以执行 phpinfo() 函数，并查看结果页面。你还可以在运行时使用 ini_get() 或
+    get_cfg_var() 访问单个配置指令的值。

@@ -40,6 +40,7 @@
         注意
             如果在生产模式中启动一个过程，那么在运行时期间不能改变 zend.assertions ，因为断言代码并没有生成。
             如果在开发模式中启动一个过程，那么在运行时期间不能将 zend.assertions 设置为 -1 （但应该可以被设置为 0 ）。
+
 资源限制
     资源限制
         名称	                    默认值       可修改范围           变更日志
@@ -55,6 +56,7 @@
         当使用一个整数时，值是以字节为单位度量的。你也可以如 这篇 FAQ 中所描述的去使用简写记法。
 
     另请参阅：max_execution_time 。
+
 性能调节
     性能调节
         名称                     默认值       可修改范围           变更日志
@@ -73,6 +75,7 @@
         缓存记录数据所需的大小取决于系统。
     realpath_cache_ttl integer
         缓存给定文件或目录的 realpath 信息的持续时间（以秒计）。对于文件很少更改的系统，可以考虑增加这个值。
+
 数据处理
     数据处理配置选项
         名称                             默认值       可修改范围           变更日志
@@ -143,8 +146,10 @@
 
 路径和目录
     路径和目录的配置选项
-        名称                     默认值                       可修改范围            变更日志
+        名称                     默认值                       可修改范围           变更日志
         include_path            ".;/path/to/php/pear"       PHP_INI_ALL
+        user_ini.cache_ttl	    "300"	                    PHP_INI_SYSTEM	    从 PHP 5.3.0 开始可用。
+        user_ini.filename	    ".user.ini"	                PHP_INI_SYSTEM	    从 PHP 5.3.0 开始可用。
         extension_dir	        "/path/to/php"	            PHP_INI_SYSTEM
         zend_extension	        NULL	                    仅 php.ini
     下面是配置指令们的一份简要描述。
@@ -160,6 +165,10 @@
 
         注意：在 .ini 文件中也可以访问 ENV 变量，因此可能通过使用 ${LOGIN} 和 ${USER} 去引用主目录。
         环境变量在服务器 API 之间可能会有所不同，因为这些环境（服务器 API）可能是不同的。
+    user_ini.cache_ttl  integer
+        控制了用户 INI 文件被重新读取的频率。默认为 300 秒（5 分钟）。
+    user_ini.filename   string
+        设置了 PHP 会在每个目录中查找的文件的名称。如果设置一个空字符串，那么 PHP 根本不会进行扫描。默认为 .user.ini 。
     extension_dir       string
         PHP 应该在哪个目录中寻找可动态加载的扩展。另请参阅：enable_dl 和 dl() 。
     zend_extension      string

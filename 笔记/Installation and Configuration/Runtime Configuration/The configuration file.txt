@@ -1,0 +1,86 @@
+配置文件（php.ini）是在 PHP 启动时读取的。对于服务器模块版本的 PHP 来说，这只发生在 web 服务器启动时。对于 CGI 和 CLI 版本的 PHP 来说，
+这发生在每次调用时。
+
+会在这些位置（按顺序）搜索 php.ini：
+    1. SAPI 模块特定的位置（Apache 2 中的 PHPIniDir 指令，CGI 和 CLI 中的 -c 命令行选项，NSAPI 中的 php_ini 参数，THTTPD 中的
+    PHP_INI_PATH 环境变量）。
+    2. PHPRC 环境变量。在 PHP 5.2.0 之前，这是在下面提到的注册表项之后检查的。
+    3. 从 PHP 5.2.0 开始，可以为不同版本的 PHP 设置 php.ini 文件的位置。注册表项的根目录取决于安装的 32 或 64 位的 OS 和 PHP。对于 32
+    位 OS 上的 32 位 PHP 或者 64 位 OS 上的 64 位 PHP ，使用 [(HKEY_LOCAL_MACHINE\SOFTWARE\PHP] 。对于 64 位 OS 上的 32 位 PHP
+    使用 [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PHP]] 。对于相同的位的安装，按顺序检查以下注册表项：
+    [HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x.y.z]，[HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x.y] 和 [HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x]
+    ，其中 x、y 和 z 表示 PHP 的主要、次要和发布版本。对于 64位 OS 上的 32 位 PHP ，按顺序检查以下注册表项：
+    [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x.y.z]，[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x.y] 和
+    [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x]，其中 x、y 和 z 表示 PHP 的主要、次要和发布版本。如果在这些键中有一个
+    IniFilePath 的值，那么找到的第一个将被用作 php.ini 的位置（仅限 Windows）。
+    4. [HKEY_LOCAL_MACHINE\SOFTWARE\PHP] 或 [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PHP]，IniFilePath 的值（仅限 Windows）。
+    5. 当前工作目录（除了 CLI）。
+    6. web 服务器的目录（用于 SAPI 模块）或 PHP 的目录（否则在 Windows 中）。
+    7. Windows 目录 （C:\ Windows 或 C:\winnt）（用于 Windows），或 --with-config-file-path 编译时选项。
+
+如果存在 php-SAPI.ini（其中的 SAPI 表示的是正在使用的 SAPI，因此，例如，php-cli.ini 或 php-apache.ini），则会使用它代替 php.ini。
+可以使用 php_sapi_name() 判断 SAPI 的名称。
+
+注意：Apache web 服务器在启动时会把目录转到根目录，这将导致 PHP 尝试在根目录下读取 php.ini，如果存在的话。
+
+可以在 php.ini 中使用的环境变量，如下所示。
+
+Example #1 php.ini 环境变量
+    ; PHP_MEMORY_LIMIT 取自于环境
+    memory_limit = ${PHP_MEMORY_LIMIT}
+
+扩展所处理的 php.ini 指令记录在扩展自身的相应页面上。附录中有一份可用的 核心指令的列表 。不是所有的 PHP 指令都必须在本手册中记录：要获得你
+的 PHP 版本中的一份可用的完整指令列表，请阅读你的、注解的非常好的 php.ini 文件。另外，你还会发现来自 Git 的最新的 php.ini 也很有帮助。
+
+Example #2 php.ini 例子
+    ; any text on a line after an unquoted semicolon (;) is ignored
+    [php] ; section markers (text within square brackets) are also ignored
+    ; Boolean values can be set to either:
+    ;    true, on, yes
+    ; or false, off, no, none
+    register_globals = off
+    track_errors = yes
+
+    ; you can enclose strings in double-quotes
+    include_path = ".:/usr/local/lib/php"
+
+    ; backslashes are treated the same as any other character
+    include_path = ".;c:\php\lib"
+
+从 PHP 5.1.0 开始，可以在 .ini 文件中引用现有的 .ini 变量。例如：open_basedir = ${open_basedir}":/new/dir" 。
+
+扫描目录
+    可以配置 PHP 在读取 php.ini 后去扫描某个目录中的 .ini 文件。可以通过在编译时设置 --with-config-file-scan-dir 选项来完成。在 PHP
+    5.2.0 及以后版本中，可以在运行时通过设置 PHP_INI_SCAN_DIR 环境变量去覆盖扫描目录。
+
+    通过使用特定于平台的路径分隔符（在 Windows、NetWare 和 RISC OS 上是 ; ，在其他平台上是 : ，PHP 正在使用的路径分隔符可以用
+    PATH_SEPARATOR 常量获得）来分隔目录，就可以扫描多个目录。如果在 PHP_INI_SCAN_DIR 中给定一个空目录，PHP 仍将扫描在编译时通过
+    --with-config-file-scan-dir 给定的目录。
+
+    在每个目录中，PHP 将会按字母顺序扫描所有以 .ini 结尾的文件。可以通过调用 php_ini_scanned_files()，或使用 --ini 选项运行 PHP 得到
+    被加载的文件列表，以及它们的加载顺序。
+
+        Assuming PHP is configured with --with-config-file-scan-dir=/etc/php.d,
+        and that the path separator is :...
+
+        $ php
+          PHP will load all files in /etc/php.d/*.ini as configuration files.
+
+        $ PHP_INI_SCAN_DIR=/usr/local/etc/php.d php
+          PHP will load all files in /usr/local/etc/php.d/*.ini as
+          configuration files.
+
+        $ PHP_INI_SCAN_DIR=:/usr/local/etc/php.d php
+          PHP will load all files in /etc/php.d/*.ini, then
+          /usr/local/etc/php.d/*.ini as configuration files.
+
+        $ PHP_INI_SCAN_DIR=/usr/local/etc/php.d: php
+          PHP will load all files in /usr/local/etc/php.d/*.ini, then
+          /etc/php.d/*.ini as configuration files.
+
+变更日志
+    版本         描述
+    7.0.0	    井号（#）不再被认为是注释。
+    5.3.0	    井号（#）不应该再用作注释，而且如果使用德胡啊，将会抛出一个弃用的警告。
+    5.2.0	    可以设置 PHP_INI_SCAN_DIR 环境变量去覆盖通过配置脚本设置的扫描目录。
+    5.1.0	    可以在 .ini 文件中引用现有的 .ini 变量。

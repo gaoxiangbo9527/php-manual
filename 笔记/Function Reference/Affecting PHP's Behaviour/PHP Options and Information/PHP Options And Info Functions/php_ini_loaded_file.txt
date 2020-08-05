@@ -1,0 +1,10 @@
+描述
+    php_ini_loaded_file ( void ) : string
+
+    检查是否加载了一个 php.ini 文件，并且获取它的路径。
+
+参数
+    此函数没有参数。
+
+返回值
+    已加载的 php.ini 的路径，如果一个 php.ini 文件都没加载，则返回 FALSE 。
