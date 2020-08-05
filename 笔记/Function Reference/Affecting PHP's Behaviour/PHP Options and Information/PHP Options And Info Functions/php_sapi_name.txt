@@ -1,12 +1,16 @@
 描述
     php_sapi_name ( void ) : string
+
     返回一个小写字符串，该字符串描述了 PHP 使用的接口类型（服务器API、SAPI）。举例来说，在 CLI PHP 中该字符串会是 "cli" ，而对于 Apache
-    来说，它可能有几个不同的值，这取决于所使用的确切的 SAPI 。可能的值如下所示。
+    来说，它可能有几个不同的值，这取决于所使用的确切的 SAPI 。可能的值在下面有列出。
+
 返回值
-    返回接口类型，以小写字符粗的形式。
+    返回接口类型，以小写字符串的形式。
+
     虽然不是详尽的，但可能的返回值包括 aolserver，apache，apache2filter，apache2handler，caudium，cgi（直到 PHP 5.3），cgi-fcgi，
     cli，cli-server，continuity，embed，fpm-fcgi，isapi，litespeed，milter，nsapi，phpdbg，phttpd，pi3web，roxen，thttpd，
     tux 以及 webjames 。
+
 注意事项
     注意：另一种方法
         PHP 常量 PHP_SAPI 和 php_sapi_name() 有着相同的值。

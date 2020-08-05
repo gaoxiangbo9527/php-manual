@@ -26,7 +26,7 @@
         PHP 为其而构建的操作系统家族。其中包括 “Windows”、 “BSD”、 “Darwin”、 “Solaris”、 “Linux” 或 “Unknown” 。从 PHP 7.2.0
         开始可用。
     PHP_SAPI
-        为此 PHP 构建的服务器 API，另请参阅 php_sapi_name() 。
+        用于此 PHP 构建的服务器 API，另请参阅 php_sapi_name() 。
     PHP_EOL （字符串）
         此平台的正确“行结束”符号。从 PHP 5.0.2 开始可用。
     PHP_INT_MAX （整型）
