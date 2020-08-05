@@ -1,0 +1,20 @@
+描述
+    chroot ( string $directory ) : bool
+
+    更改当前进程的根目录到 directory ，并将当前工作目录更改为 "/" 。
+
+    此函数只在 GNU 和 BSD 系统上，且只在使用 CLI、CGI 或 Embed SAPI 时可用。另外，这个函数需要 root 权限。
+
+参数
+    directory
+        要将根目录更改到的路径。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    注意：在 Windows 平台上没有实现该函数。
+
+    注意：如果 PHP 解释器是在启用 ZTS （Zend 线程安全）的情况下构建的，那么此函数是不可用的。要想检查你的 PHP 副本是否是在启用 ZTS 的情况
+    下构建的，使用 php -i 或测试内置的常量 PHP_ZTS。
+
