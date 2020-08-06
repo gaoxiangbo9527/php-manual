@@ -1,0 +1,186 @@
+FPM 会为它的配置文件 php-fpm.conf 和池配置文件使用 php.ini 的语法。
+
+全局的 php-fpm.conf 指令的列表
+    pid     string
+        PID 文件的路径。默认值：none 。
+        个人补充：默认前缀很可能不是 PHP 的安装目录，而是 PHP 的安装目录下的 var 目录，具体见你自己的 php-fpm.conf 中的说明。另外，该指
+        令的默认值是 none，就是说默认不会生成 pid 文件，所以如果你在 php-fpm 启动的时候也没有在命令行上指定 --pid 选项，那么是不会生成
+        pid 文件的，此时不要觉得惊讶。
+    error_log   string
+        错误日志文件的路径。默认值：log/php-fpm.log 。如果把它设置为 "syslog"，会发送日志到 syslogd 而不是写入一个日志文件。
+        个人补充：默认前缀很可能不是 PHP 的安装目录，而是 PHP 的安装目录下的 var 目录，具体见你自己的 php-fpm.conf 中的说明。
+    log_level   string
+        错误日志的级别。可能的值：alert，error，warning，notice，debug。默认值：notice 。
+    log_limit   integer
+        对日志行的日志限制，允许在不折行的情况下记录长度超过 1024 个字符的消息。默认值：1024 。从 PHP 7.3.0 开始可用。
+        个人补充：该选项不是说超过该长度就不记录，而是说超过该长度就自动折行，实际上就相当于在控制最大的行长。
+    log_buffering   boolean
+        实验性质的没有额外缓冲的日志记录。默认值：yes 。从 PHP 7.3.0 开始可用。
+    syslog.facility     string
+        用于指定记录消息的程序类型。默认值：deamon 。
+    syslog.ident    string
+        前置到每条消息的开头。如果你有多个 FPM 实例运行在同一台服务器上，你可以去更改必须满足常见需求的默认值。默认值：php-fpm 。
+    emergency_restart_threshold     int
+        如果此数目的子进程数在由 emergency_restart_interval 设置的时间间隔内以 SIGSEGV 或 SIGBUS 退出，那么 FPM 将会重启。0 值意味
+        着 'off'。默认值： 0 （off）。
+    emergency_restart_interval      mixed
+        emergency_restart_interval 所使用的时间间隔，用于确定何时应启动一个平滑重启。这对于解决加速器共享内存的意外损坏非常有用。
+        可用的单位：s(econds)，m(inutes)，h(ours) 或 d(ays)。默认单位：seconds 。默认值： 0 （off）。
+    process_control_timeout     mixed
+        设置子进程接受主进程复用信号的超时时间。
+        可用的单位：s(econds)，m(inutes)，h(ours) 或 d(ays)。默认单位：seconds 。默认值： 0 。
+        个人补充：此选项可能会导致平滑重启不平滑，具体见 https://cloud.tencent.com/developer/article/1464133 。
+    process.max     int
+        FPM 将会 fork 的最大进程数。这样设计是为了在许多池中使用动态 PM 时去控制进程的全局数量。请小心使用它。默认值： 0 。
+    process.priority    int
+        指定了应用于主进程的 nice(2) 优先级（仅当设置了）。值可以从 -19（最高优先级）到 20（最低优先级）不等。默认值：没设置。
+    daemonize   boolean
+        把 FPM 送到后台。设置为 "no" 以保持 FPM 在前台用于进行调试。默认值：yes 。
+    rlimit_files    int
+        设置主进程打开的文件描述符的 rlimit 。默认值：系统定义的值。
+    rlimit_core     int
+        设置主进程最大核心大小的 rlimit 。默认值： 0 。
+    events.mechanism    string
+        指定 FPM 将会使用的事件机制。可用值如下：select，pool，epoll，kqueue（*BSD），port（Solaris）。默认值：没设置（自动选择）。
+    systemd_interval    int
+        当 FPM 被构建去带有 systemd 集成，指定健康报告会通知到 systemd 的时间间隔，以秒为单位。设置为 0 为禁用。默认值： 10 。
+        个人补充：目前可用的单位有 s(econds)，m(inutes)，h(ours)，默认为秒。
+
+池指令的列表
+    使用 FPM 你可以以不同的设置运行多个进程池。每个池都可以调整这些设置。
+
+    个人补充：有些指令的说明不准确，有些指令还漏掉了一些说明，可以自行参考 www.conf 文件中的说明。
+
+    listen  string
+        接受 FastCGI 请求的地址。此选项对于每个池都是强制性的。有效的语法是：'ip.add.re.ss:port'，'[ip:6:addr:ess]:port'，'port'，
+        '/path/to/unix/socket'。前三种监听的是一个 TCP 套戒指，最后一种监听的是一个 unix 套接字。
+    listen.backlog  int
+        设置 listen(2) 的 backlog 。值 -1 意味着不限制。默认值：511 （-1 on FreeBSD and OpenBSD）
+    listen.allowed_clients  string
+        允许连接的 FastCGI 客户端的 IPv4/IPv6 地址列表。相当于原来 PHP FCGI（5.2.2+）中的 FCGI_WEB_SERVER_ADDRS 环境变量。只在使用
+        一个 tcp 监听套接字时才有意义（即 listen 的前三种语法）。每个地址必须用逗号隔开。如果这个值留空，将接受来自任何 ip 地址的连接。默
+        认值：any 。从 PHP 5.5.20 和 5.6.4 开始允许 IPv6 地址。
+    listen.owner    string
+        如果使用了一个 unix 套接字的话，则设置 unix 套接字的权限。在 Linux 中，为了允许来自于一个 web 服务器的连接，必须设置读/写权限。
+        许多派生自 BSD 的系统允许连接，而不管权限如何。默认值：用户和组会设置为运行中的用户，权限会设置为 0660 。
+    listen.group    string
+        见 listen.owner 。
+    listen.mode     string
+        见 listen.owner 。
+    listen.acl_users    string
+        当支持 POSIX 访问控制列表（POSIX Access Control Lists）时，你可以使用这个选项来设置它们。当设置了此指令时，会忽略
+        listen.owner 和 listen.group 。值是一个逗号分隔的用户名称列表。从 PHP 5.6.5 开始。
+    listen.acl_groups   string
+        见 listen.acl_users 。值是一个逗号分隔的组名称列表。从 PHP 5.6.5 开始。
+    user    string
+        FPM 进程的 Unix 用户。此选项是强制性的。
+    group   string
+        FPM 进程的 Unix 组。如果没有设置，则使用默认用户的组。
+        个人补充：到底默认用户的组指的是哪个，并不是很清楚，所以还是显式的设置比较好。
+    pm      string
+        选择进程管理器将如何控制子进程的数量。可能的值有：static，ondemand，dynamic。这个选项是强制性的。
+
+        static - 子进程的数量是固定的（pm.max_children）。
+
+        ondemand - 按需产生子进程（被请求时才产生子进程，而不是 dynamic 的，dynamic 会在服务启动时启动 pm.start_servers 个子进程）。
+
+        dynamic - 根据以下指令动态的设置子进程的数量：pm.max_children，pm.start_servers，pm.min_spare_servers，
+        pm.max_spare_servers 。
+    pm.max_children     int
+        当 pm 设置为 static 时，将要被创建的子进程的数量。当 pm 设置为 dynamic 和 ondemand 时，将要被创建的子进程的最大数量。此选项是
+        强制性的。
+
+        此选项设置将服务的同时发生的请求数量的限制。相当于使用 mpm_prefork 的 ApacheMaxClients 指令以及原先的 PHP FastCGI 中的
+        PHP_FCGI_CHILDREN 环境变量。
+    pm.start_servers    int
+        启用时创建的子进程的数量。仅用于 pm 设置为 dynamic 时。默认值：
+        min_spare_servers + (max_spare_servers - min_spare_servers) / 2.
+    pm.min_spare_servers    int
+        期望的空闲服务器进程的最小数量。仅用于 pm 设置为 dynamic 时。此时，也是强制性的。
+    pm.max_spare_servers    int
+        期望的空闲服务器进程的最大数量。仅用于 pm 设置为 dynamic 时。此时，也是强制性的。
+    pm.process_idle_timeout     mixed
+        在多少秒之后将杀死一个空闲的进程。仅用于 pm 设置为 ondemand 时。可用的单位：s(econds)（默认），m(inutes)，h(ours) 或 d(ays)。
+        默认值：10s 。
+    pm.max_requests     int
+        在每个子进程再生之前应该执行的请求数。这可以用于去解决第三方库的内存泄露问题。对于无穷无尽的请求处理，指定 '0'。相当于
+        PHP_FCGI_MAX_REQUESTS 。默认值：0 。
+    pm.status_path      string
+        用于查看 FPM 状态页的 URI 。如果没有设置这个值，那么没有 URI 会被识别为一个状态页。默认值：none 。
+    ping.path           string
+        调用 FPM 监控页面的 ping URI 。如果没有设置这个值，那么没有 URI 会被识别为一个 ping 页。这可以用来从外部测试 FPM 是活着的和响应
+        中的。请注意该值必须以一个 / 开头。
+    ping.response       string
+        此指令可用于去自定义 ping 请求的响应。响应会被格式化为带一个响应代码 200 的 text/plain 。默认值：pong 。
+    process.priority    int
+        指定了应用于工作进程的 nice(2) 优先级（仅当设置了）。值可以从 -19（最高优先级）到 20（最低优先级）不等。默认值：没设置。
+    process.dumpable    boolean
+        Set the process dumpable flag (PR_SET_DUMPABLE prctl) even if the process user or group is different than
+        the master process user.
+        It allows to create process core dump and ptrace the process for the pool user. Default Value: no.
+        Since PHP 7.0.29, 7.1.17 and 7.2.5.
+    prefix      string
+        为路径计算指定前缀。
+    request_terminate_timeout   mixed
+        为单个请求服务的超时时间，在此之后工作进程将被杀死。当 'max_execution_time' ini 选项因为一些原因无法停止执行脚本时，应该使用此
+        选项。0 值意味着 'off' 。可用的单位：s(econds)（默认），m(inutes)，h(ours) 或 d(ays)。默认值：0 。
+    request_slowlog_timeout     mixed
+        为单个请求提供服务的超时时间，在此之后会将一个 PHP 回溯转储到 'slowlog' 文件。0 值意味着 'off'。可用的单位：s(econds)（默认），
+        m(inutes)，h(ours) 或 d(ays) 。默认值： 0 。
+    slowlog     string
+        用于慢请求的日志文件。默认值：#INSTALL_PREFIX#/log/php-fpm.log.slow 。
+    rlimit_files    int
+        为这个池中的子进程设置打开文件描述符的 rlimit 。默认值：系统定义的值。
+    rlimit_core     int
+        为这个池中的子进程设置最大核心大小的 rlimit 。可能的值：'unlimited' 或一个大于或等于 0 的整数。默认值：系统定义的值。
+    chroot  string
+        在开始时 Chroot 到这个目录。这个值必须定义为一个绝对路径。当没有设置这个值时，不会使用 chroot 。
+    chdir   string
+        在开始时 Chdir 到这个目录。这个值必须是一个绝对路径。当没有设置这个值时，不会使用 chroot 。默认值：当前目录或当 chroot 时为 / 。
+    catch_workers_output    boolean
+        重定向工作进程的 stdout 和 stderr 到主错误日志。如果没有设置，stdout 和 stderr 将会按照 FastCGI 规范被重定向到 /dev/null 。
+        默认值：no 。
+    decorate_workers_output     boolean
+        当 catch_workers_output 被启用时，为工作进程的输出启用输出装饰。默认值：是。从 PHP 7.3.0 开始可用。
+    clear_env   boolean
+        清理 FPM 工作进程中的环境。通过在此池配置中指定的 env 变量被添加之前清理工作进程中的环境，来防止任意环境变量到达 FPM 的工作进程。
+        从 PHP 5.4.27，5.5.11 和 5.6.0 开始。默认值：yes 。
+    security.limit_extensions   string
+        限制 FPM 允许去解析的主脚本的扩展名。这可以防止 web 服务器端的配置错误。你应该只将 FPM 限制为 .php 扩展名，以防止恶意用户使用其
+        他扩展来执行 php 代码。默认值：.php .phar 。
+    access.log      string
+        访问日志文件。默认值：没设置。
+    access.format   string
+        访问日志的格式。默认值："%R - %u %t \"%m %r\" %s" 。
+
+    能够传递额外的环境变量并且更新某个池的 PHP 设置。为此，你需要向池配置文件添加下面这些选项。
+
+    Example #1 传递环境变量和 PHP 设置项到一个池
+        env[HOSTNAME] = $HOSTNAME
+        env[PATH] = /usr/local/bin:/usr/bin:/bin
+        env[TMP] = /tmp
+        env[TMPDIR] = /tmp
+        env[TEMP] = /tmp
+
+        php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com
+        php_flag[display_errors] = off
+        php_admin_value[error_log] = /var/log/fpm-php.www.log
+        php_admin_flag[log_errors] = on
+        php_admin_value[memory_limit] = 32M
+
+    使用 php_value 或 php_flag 传递的 PHP 设置项将会覆盖它们以前的值。请注意，（在这里）定义 disable_functions 或 disable_classes
+    不会覆盖以前定义的 php.ini 值，但会追加新的值。
+
+    使用 php_admin_value 和 php_admin_flag 定义的设置项不能被 ini_set() 覆盖。
+
+    从 5.3.3 开始，也可以在 web 服务器中设置 PHP 的设置项。
+
+    Example #2 在 nginx.conf 中设置 PHP 的设置项
+        set $php_value "pcre.backtrack_limit=424242";
+        set $php_value "$php_value \n pcre.recursion_limit=99999";
+        fastcgi_param PHP_VALUE $php_value;
+
+        fastcgi_param PHP_ADMIN_VALUE "open_basedir=/var/www/htdocs";
+
+    小心 因为这些设置项会以 fastcgi 头传递给 php-fpm，所以 php-fpm 不应该绑定到一个全球可访问的地址。否则任何人都可以更改 PHP 配置选项。
+    另请参阅 listen.allowed_clients 。

@@ -1,0 +1,18 @@
+目录
+    安装
+    配置
+
+FPM（FastCGI Process Manager）是一个可供选择的 PHP FastCGI 实现，具有一些（主要）对重度负载站点有用的特性。
+
+这些特性包括：
+    1. 具有平滑停止/启动的高级进程管理；
+    2. 使用不同的 uid/gid/chroot/environment 去启动工作进程的能力，监听不同的端口并且使用不同的 php.ini（取代 safe_mode）；
+    3. stdout 和 stderr 日志记录；
+    4. 操作码缓存意外销毁时紧急重启；
+    5. 加速上传支持；
+    6. "slowlog" —— 日志记录那些执行异常缓慢的脚本（不仅是它们的名称，还有它们的 PHP 回溯，使用 ptrace 和类似的东西去读取远程进程的
+    execute_data）；
+    7. fastcgi_finish_request() —— 去完成请求并冲刷所有数据，同时继续执行一些耗时的操作（视频转换、统计处理等等）的特殊函数；
+    8. 动态/静态的子进程孵化；
+    9. 基本的 SAPI 状态信息（类似于 Apache 的 mod_status）；
+    10. 基于 php.ini 的配置文件。

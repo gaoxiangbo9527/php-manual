@@ -1,0 +1,3 @@
+FPM（FastCGI Process Manager）是一个可供选择的 PHP FastCGI 实现，具有一些（主要）对重度负载站点有用的特性。
+
+此 SAPI 与 PHP 5.3.3 以及更高版本绑定在一起。

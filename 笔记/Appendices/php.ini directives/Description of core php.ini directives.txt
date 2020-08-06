@@ -4,6 +4,8 @@
         short_open_tag	                "1"	        PHP_INI_PERDIR
         asp_tags	                    "0"	        PHP_INI_PERDIR      在 PHP 7.0.0 中被移除了。
         precision	                    "14"	    PHP_INI_ALL
+        disable_functions	            ""	        仅 php.ini（手册中这里好像出错了，我自己修改过来了）
+        disable_classes	                ""	        仅 php.ini
         expose_php                      "1"         仅 php.ini
         zend.assertions	                "1"	        PHP_INI_ALL 带限制   从 PHP 7.0.0 开始可用。
 
@@ -24,6 +26,14 @@
             7.0.0   从 PHP 中移除。
     precision   integer
         浮点数中会显示的有效数字的数目。-1 表示将使用一种改进的四舍五入算法。
+    disable_functions   string
+        这个指令允许你去禁用特定的函数。它接受一个逗号分隔的函数名称列表。
+
+        使用这个指令只能禁用内置函数。不会影响用户定义的函数。
+
+        这个指令必须在 php.ini 中设置。例如，你不能在 httpd.conf 中设置它。
+    disable_classes     string
+        这个指令允许你去禁用特定的类。它接受一个逗号分隔的类名称列表。这个指令必须在 php.ini 中设置。例如，你不能在 httpd.conf 中设置它。
     expose_php  boolean
         向外界公开 PHP 安装在服务器上，服务器会在 HTTP 头文中包含 PHP 的版本（例如，X-Powered-By: PHP/5.3.7）。在 PHP 5.5.0 之前也
         会公开 PHP logo guids，因此把它们追加到你 PHP 脚本的 URL 上将会显示适当的 logo（例如，

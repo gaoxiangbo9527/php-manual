@@ -1,0 +1,8 @@
+从源码编译
+    为了在你的 PHP 构建中启用 FPM，你需要把 --enable-fpm 添加到你的配置行中。
+
+    还有一些其他的 FPM 特定的配置选项（它们都是可选的）：
+        --with-fpm-user - 设置 FPM 用户（默认 - nobody）。
+        --with-fpm-group - 设置 FPM 组（默认 - nobody）。
+        --with-fpm-systemd - 激活 systemd 集成（默认 - no）。
+        --with-fpm-acl - 使用 POSIX 访问控制列表（默认 - no）。从 PHP 5.6.5 开始。
