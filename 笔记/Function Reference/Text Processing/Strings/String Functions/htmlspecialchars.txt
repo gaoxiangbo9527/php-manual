@@ -1,0 +1,103 @@
+描述
+    htmlspecialchars ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 [, string $encoding = ini_get("default_charset") [, bool $double_encode = TRUE ]]] ) : string
+
+    在 HTML 中，一些特定的字符具有特殊的意义，并且如果要保留其含义，则应该以 HTML 实体表示。此函数返回一个进行了这些转换后的字符串。如果你
+    需要翻译所有的与命名实体相关联的输入子字符串，请使用 htmlentities() 。
+
+    如果传递给这个函数的输入字符串和最终文档共享相同的字符集，那么在一个 HTML 文档的大多数上下文中，这个函数足以准备输入以进行包含。然而，如
+    果输入可以表示未在最终文档字符集中编码的字符并且你希望保留这些字符（作为数字或命名实体），这个函数和 htmlentities()（它只编码具有命名实
+    体等价物的子字符串） 可能都不行。你可能必须使用 mb_encode_numericentity() 。
+
+    进行的翻译
+    字符	                替换
+    & (ampersand)	    &amp;
+    " (double quote)	&quot;，除非设置了 ENT_NOQUOTES
+    ' (single quote)	&#039;（对于 ENT_HTML401） 或 &apos;（对于 ENT_XML1，ENT_XHTML 或 ENT_HTML5），但只在设置 ENT_QUOTES
+                        时使用
+    < (less than)	    &lt;
+    > (greater than)	&gt;
+
+参数
+    string
+        要转换的字符串。
+    flags
+        下列一个或多个标志的位掩码，指定了如何处理引号，无效代码单元序列和使用的文档类型。默认值是 ENT_COMPAT | ENT_HTML401 。
+
+        可用的 flags 常量
+        常量                 描述
+        ENT_COMPAT	        将转换双引号并且留下单引号。
+        ENT_QUOTES	        将转换双引号和单引号。
+        ENT_NOQUOTES	    将保留双引号和单引号不转换。
+        ENT_IGNORE          静默的丢弃无效的代码单元序列，而不是返回一个空字符串。不建议使用此标志，因为它 可能会带来安全隐患 。
+        ENT_SUBSTITUTE	    使用 Unicode 替换字符 U+FFFD(UTF-8) 或 &#xFFFD(否则) 替换无效代码单元序列，而不是返回一个空字符串。
+        ENT_DISALLOWED      使用 Unicode 替换字符 U+FFFD(UTF-8) 或 &#xFFFD(否则) 替换给定文档类型的无效代码点，而不是保留原样。
+                            例如，这可能有助于确保嵌入外部内容的 XML 文档的格式良好。
+        ENT_HTML401	        按 HTML 4.01 处理代码。
+        ENT_XML1	        按 XML 1 处理代码。
+        ENT_XHTML	        按 XHTML 处理代码。
+        ENT_HTML5	        按 HTML 5 处理代码。
+    encoding
+        一个定义了转换时所使用的编码的可选参数。
+
+        如果省略，encoding 的默认值取决于所使用的 PHP 版本。在 PHP 5.6 和更新版本中，会使用 default_charset 配置选项作为默认值。PHP
+        5.4 和 5.5 将会使用 UTF-8 作为默认值。更早的 PHP 版本使用 ISO-8859-1 。
+
+        尽虽然这个参数在技术上是可选的，但如果你正在使用 PHP 5.5 或更早版本或者如果 default_charset 配置选项可能对给定的输入设置不正确，
+        还是强烈建议为你的代码指定正确的值。
+
+        对于这个函数的目的来说，如果 string 本身对后面的编码有效，那么编码 ISO-8859-1、ISO-8859-15、UTF-8、cp866、cp1251、cp1252 和
+        KOI8-R 是等效的，因为受 htmlspecialchars() 影响的字符在所有这些编码中占据着相同的位置。
+
+        支持下面的字符集：
+
+        支持的字符集
+        字符集	        别名	                            描述
+        ISO-8859-1	    ISO8859-1	                    Western European, Latin-1.
+        ISO-8859-5	    ISO8859-5	                    Little used cyrillic charset (Latin/Cyrillic).
+        ISO-8859-15	    ISO8859-15	                    Western European, Latin-9. Adds the Euro sign, French and Finnish letters missing in Latin-1 (ISO-8859-1).
+        UTF-8	 	                                    ASCII compatible multi-byte 8-bit Unicode.
+        cp866	        ibm866, 866	                    DOS-specific Cyrillic charset.
+        cp1251	        Windows-1251, win-1251, 1251	Windows-specific Cyrillic charset.
+        cp1252	        Windows-1252, 1252	            Windows specific charset for Western European.
+        KOI8-R	        koi8-ru, koi8r	                Russian.
+        BIG5	        950	                            Traditional Chinese, mainly used in Taiwan.
+        GB2312	        936	                            Simplified Chinese, national standard character set.
+        BIG5-HKSCS	 	                                Big5 with Hong Kong extensions, Traditional Chinese.
+        Shift_JIS	    SJIS, SJIS-win, cp932, 932      Japanese
+        EUC-JP	        EUCJP, eucJP-win	            Japanese
+        MacRoman	 	                                Charset that was used by Mac OS.
+        ''	 	                                        An empty string activates detection from script encoding
+                                                        (Zend multibyte), default_charset and current locale
+                                                        (see nl_langinfo() and setlocale()), in this order.
+                                                        Not recommended.
+
+        注意：任何其他的字符集不会被识别。而会使用默认的字符集并且会生成一个警告。
+    double_encode
+        当 double_encode 被关闭时，PHP 将不会对现有的 html 实体进行编码，默认情况下是对所有内容进行转换。
+
+返回值
+    被转换后的字符串。
+
+    如果输入的 string 在给定 encoding 中包含有一个无效的代码单元序列，将会返回一个空字符串，除非设置了 ENT_IGNORE 或 ENT_SUBSTITUTE
+    标志。
+
+变更日志
+    版本         描述
+    5.6.0	    encoding 参数的默认值被更改为 default_charset 配置选项的值。
+    5.4.0	    encoding 参数的默认值被更改为 UTF-8 。
+    5.4.0	    添加了 ENT_SUBSTITUTE，ENT_DISALLOWED，ENT_HTML401，ENT_XML1，ENT_XHTML 和 ENT_HTML5 常量。
+    5.3.0	    添加了 ENT_IGNORE 常量。
+    5.2.3	    添加了 double_encode 参数。
+
+注意事项
+    注意：注意这个函数只会翻译上面列出的内容。有关完整的实体转换，见 htmlentities() 。
+
+    注意：在 flags 值含糊不清的情况下，会应用下面这些规则：
+        当 ENT_COMPAT，ENT_QUOTES，ENT_NOQUOTES 都没出现时，默认为 ENT_NOQUOTES 。
+        当 ENT_COMPAT，ENT_QUOTES，ENT_NOQUOTES 出现超过一个时，ENT_QUOTES 优先级最高，然后是 ENT_COMPAT（个人补充：最后是
+        ENT_NOQUOTES）。
+        当 ENT_HTML401，ENT_HTML5，ENT_XHTML，ENT_XML1 都没出现时，默认为 ENT_HTML401 。
+        当 ENT_HTML401，ENT_HTML5，ENT_XHTML，ENT_XML1 出现超过一个时，ENT_HTML5 优先级最高，然后依次是 ENT_XHTML，ENT_XML1 和
+        ENT_HTML401 。
+        当 ENT_DISALLOWED，ENT_IGNORE，ENT_SUBSTITUTE 出现超过一个时，ENT_IGNORE 优先级最高，然后是 ENT_SUBSTITUTE（个人补充：最
+        后是 ENT_DISALLOWED）。

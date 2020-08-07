@@ -1,0 +1,29 @@
+描述
+    htmlspecialchars_decode ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 ] ) : string
+
+    这个函数与 htmlspecialchars() 相反。它会把特殊的 HTML 实体转换回字符。
+
+    被转换的实体有：&amp;，&quot;（当没有设置 ENT_NOQUOTES 时），&#039;（当设置了 ENT_QUOTES 时），&lt; 和 &gt; 。
+
+参数
+    string
+        要解码的字符串。
+    flags
+        下列一个或多个标志的位掩码，指定了如何处理引号和使用哪种文档类型。默认值是 ENT_COMPAT | ENT_HTML401 。
+
+        可用的 flags 常量
+        常量                 描述
+        ENT_COMPAT	        将转换双引号并且留下单引号。
+        ENT_QUOTES	        将转换双引号和单引号。
+        ENT_NOQUOTES	    将保留双引号和单引号不转换。
+        ENT_HTML401	        按 HTML 4.01 处理代码。
+        ENT_XML1	        按 XML 1 处理代码。
+        ENT_XHTML	        按 XHTML 处理代码。
+        ENT_HTML5	        按 HTML 5 处理代码。
+
+返回值
+    返回解码后的字符串。
+
+变更日志
+    版本	    描述
+    5.4.0	添加了 ENT_HTML401，ENT_XML1，ENT_XHTML 和 ENT_HTML5 。

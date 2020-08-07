@@ -1,0 +1,37 @@
+描述
+    strip_tags ( string $str [, mixed $allowable_tags ] ) : string
+
+    这个函数尝试返回一个从给定的 str 中去除所有的空字节、HTML 和 PHP 标签后的字符串，它与 fgetss() 函数使用相同的标记去除状态机。
+
+参数
+    str
+        输入字符串。
+    allowable_tags
+        你可以使用可选的第二个参数去指定不应该去除哪些标签。要么以字符串的形式指定它们，要么从 PHP 7.4.0 开始，以数组的形式。有关此参数的格
+        式，请参考下面的示例。
+
+        注意：HTML 注释和 PHP 标签也会被去除。这是硬编码的并且不能通过 allowable_tags 更改。
+
+        注意：在 PHP 5.3.4 和以后版本中，自关闭 XHTML 标签会被忽略并且 allowable_tags 中只应该使用非自关闭的标签。例如，为了允许 <br>
+        和 <br/>，你应该使用：
+            <?php
+            strip_tags($input, '<br>');
+            ?>
+
+返回值
+    返回去除后的字符串。
+
+更新日志
+    版本	    描述
+    7.4.0	allowable_tags 现在可以接受一个数组，作为一种选择。
+    5.3.4	strip_tags() 会忽略 allowable_tags 中的自关闭的 XHTML 标签。
+
+注意事项
+    警告 这个函数不应该用于尝试防止 XSS 攻击。应使用更合适的函数，如 htmlspecialchars() 或其他的方法，取决于输出的上下文。
+
+    警告 因为 strip_tags() 实际上不会去验证 HTML，部分或损坏的标签会导致删除比预期更多的文本/数据。
+
+    警告 这个函数不会修改通过 allowable_tags 所允许的标签上的任何属性，包括 style 和 onmouseover 属性，当发布的文本将会显示给其他用户
+    时，一个调皮的用户可能会滥用这些属性。
+
+    注意：不管 allowable_tags 参数是什么，输入 HTML 中长度大于 1023 个字节的标签名称将被视为无效。

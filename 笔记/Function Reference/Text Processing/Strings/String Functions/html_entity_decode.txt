@@ -1,0 +1,69 @@
+描述
+    html_entity_decode ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 [, string $encoding = ini_get("default_charset") ]] ) : string
+
+    这个函数与 htmlentities() () 相反。它会把 string 中的 HTML 实体转换回相应的字符。
+
+    更准确地说，此函数会解码：a）对所选文档类型必须有效的所有实体（包括所有数字实体） —— 例如，对于 XML，此函数不会解码可能在某些 DTD 中定
+    义的命名实体；b）其字符或多个字符位于与所选编码相关联的编码字符集中，并且在所选文档类型中允许使用。所有其他实体都保持原样。
+
+参数
+    string
+        要解码的字符串。
+    flags
+        下列一个或多个标志的位掩码，指定了如何处理引号和使用哪种文档类型。默认值是 ENT_COMPAT | ENT_HTML401 。
+
+        可用的 flags 常量
+        常量                 描述
+        ENT_COMPAT	        将转换双引号并且留下单引号。
+        ENT_QUOTES	        将转换双引号和单引号。
+        ENT_NOQUOTES	    将保留双引号和单引号不转换。
+        ENT_HTML401	        按 HTML 4.01 处理代码。
+        ENT_XML1	        按 XML 1 处理代码。
+        ENT_XHTML	        按 XHTML 处理代码。
+        ENT_HTML5	        按 HTML 5 处理代码。
+    encoding
+        一个定义了转换时所使用的编码的可选参数。
+
+        如果省略，encoding 的默认值取决于所使用的 PHP 版本。在 PHP 5.6 和更新版本中，会使用 default_charset 配置选项作为默认值。PHP
+        5.4 和 5.5 将会使用 UTF-8 作为默认值。更早的 PHP 版本使用 ISO-8859-1 。
+
+        尽虽然这个参数在技术上是可选的，但如果你正在使用 PHP 5.5 或更早版本或者如果 default_charset 配置选项可能对给定的输入设置不正确，
+        还是强烈建议为你的代码指定正确的值。
+
+        支持下面的字符集：
+
+        支持的字符集
+        字符集	        别名	                            描述
+        ISO-8859-1	    ISO8859-1	                    Western European, Latin-1.
+        ISO-8859-5	    ISO8859-5	                    Little used cyrillic charset (Latin/Cyrillic).
+        ISO-8859-15	    ISO8859-15	                    Western European, Latin-9. Adds the Euro sign, French and Finnish letters missing in Latin-1 (ISO-8859-1).
+        UTF-8	 	                                    ASCII compatible multi-byte 8-bit Unicode.
+        cp866	        ibm866, 866	                    DOS-specific Cyrillic charset.
+        cp1251	        Windows-1251, win-1251, 1251	Windows-specific Cyrillic charset.
+        cp1252	        Windows-1252, 1252	            Windows specific charset for Western European.
+        KOI8-R	        koi8-ru, koi8r	                Russian.
+        BIG5	        950	                            Traditional Chinese, mainly used in Taiwan.
+        GB2312	        936	                            Simplified Chinese, national standard character set.
+        BIG5-HKSCS	 	                                Big5 with Hong Kong extensions, Traditional Chinese.
+        Shift_JIS	    SJIS, SJIS-win, cp932, 932      Japanese
+        EUC-JP	        EUCJP, eucJP-win	            Japanese
+        MacRoman	 	                                Charset that was used by Mac OS.
+        ''	 	                                        An empty string activates detection from script encoding
+                                                        (Zend multibyte), default_charset and current locale
+                                                        (see nl_langinfo() and setlocale()), in this order.
+                                                        Not recommended.
+
+        注意：任何其他的字符集不会被识别。而会使用默认的字符集并且会生成一个警告。
+
+返回值
+    返回解码后的字符串。
+
+变更日志
+    版本	        描述
+    5.6.0	    encoding 参数的默认值被更改为 default_charset 配置选项的值。
+    5.4.0	    默认的编码从 ISO-8859-1 更改为 UTF-8 。
+    5.4.0	    添加了 ENT_HTML401，ENT_XML1，ENT_XHTML 和 ENT_HTML5 。
+
+注意事项
+    注意：你可能想知道为什么 trim(html_entity_decode('&nbsp;')); 不会将字符串缩减为空字符串，这是因为 '&nbsp;' 实体不是 ASCII 码 32
+    （它会被 trim() 去除），而是默认编码 ISO 8859-1 中的 ASCII 码 160（0xa0）。

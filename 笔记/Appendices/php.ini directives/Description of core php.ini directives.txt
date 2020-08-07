@@ -96,6 +96,8 @@
         post_max_size	                "8M"	    PHP_INI_PERDIR
         auto_prepend_file               NULL        PHP_INI_PERDIR
         auto_append_file	            NULL	    PHP_INI_PERDIR
+        default_charset	                "UTF-8"	    PHP_INI_ALL	        从 PHP >= 5.6.0 起默认为 "UTF-8"；对于 PHP < 5.6.0
+                                                                        默认为空。
         always_populate_raw_post_data	"0"	        PHP_INI_PERDIR	    在 PHP 7.0.0 中被移除了。
 
     variables_order string
@@ -144,6 +146,15 @@
         该文件会像使用 require 调用了该文件那样被包含（进主文件），并且会使用 include_path 。
         特殊的值 none 会禁用自动后置。
         注意：如果脚本被 exit() 终止，自动后置将不会发生。
+    default_charset string
+        从 PHP 5.6 开始，"UTF-8" 是默认值并且它的值将用作 htmlentities()，html_entity_decode() 和 htmlspecialchars() 的默认字符
+        编码，如果省略了 encoding 参数的话。default_charset 的值还将用于为 iconv 函数设置默认字符集，如果没有设置配置选项
+        iconv.input_encoding，iconv.output_encoding 和 iconv.internal_encoding 的话，并且还将用于为 mbstring 函数设置默认字符集
+        ，如果没有设置配置选项 mbstring.http_input，mbstring.http_output 和 mbstring.internal_encoding 的话。
+
+        所有版本的 PHP 都将在 PHP 发送的 Content-Type 头中默认使用此值作为字符集，如果该头没有被一个 header() 调用覆盖的话。
+
+        把 default_charset 设置为一个空值是不推荐的。
     always_populate_raw_post_dat    mixed
         警告：这个特性在 PHP 5.6.0 中被废弃了并且从 PHP 7.0.0 开始被移除了。
 

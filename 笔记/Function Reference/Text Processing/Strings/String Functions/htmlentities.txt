@@ -1,0 +1,76 @@
+描述
+    htmlentities ( string $string [, int $flags = ENT_COMPAT | ENT_HTML401 [, string $encoding = ini_get("default_charset") [, bool $double_encode = TRUE ]]] ) : string
+
+    这个函数在所有方面都与 htmlspecialchars() 相同，除了在使用 htmlentities() 时，所有具有等价的 HTML 字符实体的字符都会被翻译成这些实
+    体。
+
+    如果你想解码（反向），你可以使用 html_entity_decode() 。
+
+参数
+    string
+        要转换的字符串。
+    flags
+        下列一个或多个标志的位掩码，指定了如何处理引号，无效代码单元序列和使用的文档类型。默认值是 ENT_COMPAT | ENT_HTML401 。
+
+        可用的 flags 常量
+        常量                 描述
+        ENT_COMPAT	        将转换双引号并且留下单引号。
+        ENT_QUOTES	        将转换双引号和单引号。
+        ENT_NOQUOTES	    将保留双引号和单引号不转换。
+        ENT_IGNORE          静默的丢弃无效的代码单元序列，而不是返回一个空字符串。不建议使用此标志，因为它 可能会带来安全隐患 。
+        ENT_SUBSTITUTE	    使用 Unicode 替换字符 U+FFFD(UTF-8) 或 &#xFFFD(否则) 替换无效代码单元序列，而不是返回一个空字符串。
+        ENT_DISALLOWED      使用 Unicode 替换字符 U+FFFD(UTF-8) 或 &#xFFFD(否则) 替换给定文档类型的无效代码点，而不是保留原样。
+                            例如，这可能有助于确保嵌入外部内容的 XML 文档的格式良好。
+        ENT_HTML401	        按 HTML 4.01 处理代码。
+        ENT_XML1	        按 XML 1 处理代码。
+        ENT_XHTML	        按 XHTML 处理代码。
+        ENT_HTML5	        按 HTML 5 处理代码。
+    encoding
+        一个定义了转换时所使用的编码的可选参数。
+
+        如果省略，encoding 的默认值取决于所使用的 PHP 版本。在 PHP 5.6 和更新版本中，会使用 default_charset 配置选项作为默认值。PHP
+        5.4 和 5.5 将会使用 UTF-8 作为默认值。更早的 PHP 版本使用 ISO-8859-1 。
+
+        尽虽然这个参数在技术上是可选的，但如果你正在使用 PHP 5.5 或更早版本或者如果 default_charset 配置选项可能对给定的输入设置不正确，
+        还是强烈建议为你的代码指定正确的值。
+
+        支持下面的字符集：
+
+        支持的字符集
+        字符集	        别名	                            描述
+        ISO-8859-1	    ISO8859-1	                    Western European, Latin-1.
+        ISO-8859-5	    ISO8859-5	                    Little used cyrillic charset (Latin/Cyrillic).
+        ISO-8859-15	    ISO8859-15	                    Western European, Latin-9. Adds the Euro sign, French and Finnish letters missing in Latin-1 (ISO-8859-1).
+        UTF-8	 	                                    ASCII compatible multi-byte 8-bit Unicode.
+        cp866	        ibm866, 866	                    DOS-specific Cyrillic charset.
+        cp1251	        Windows-1251, win-1251, 1251	Windows-specific Cyrillic charset.
+        cp1252	        Windows-1252, 1252	            Windows specific charset for Western European.
+        KOI8-R	        koi8-ru, koi8r	                Russian.
+        BIG5	        950	                            Traditional Chinese, mainly used in Taiwan.
+        GB2312	        936	                            Simplified Chinese, national standard character set.
+        BIG5-HKSCS	 	                                Big5 with Hong Kong extensions, Traditional Chinese.
+        Shift_JIS	    SJIS, SJIS-win, cp932, 932      Japanese
+        EUC-JP	        EUCJP, eucJP-win	            Japanese
+        MacRoman	 	                                Charset that was used by Mac OS.
+        ''	 	                                        An empty string activates detection from script encoding
+                                                        (Zend multibyte), default_charset and current locale
+                                                        (see nl_langinfo() and setlocale()), in this order.
+                                                        Not recommended.
+
+        注意：任何其他的字符集不会被识别。而会使用默认的字符集并且会生成一个警告。
+    double_encode
+        当 double_encode 被关闭时，PHP 将不会对现有的 html 实体进行编码，默认情况下是对所有内容进行转换。
+
+返回值
+    编码后的字符串。
+
+    如果输入的 string 在给定 encoding 中包含有一个无效的代码单元序列，将会返回一个空字符串，除非设置了 ENT_IGNORE 或 ENT_SUBSTITUTE
+    标志。
+
+变更日志
+    版本         描述
+    5.6.0	    encoding 参数的默认值被更改为 default_charset 配置选项的值。
+    5.4.0	    encoding 参数的默认值被更改为 UTF-8 。
+    5.4.0	    添加了 ENT_SUBSTITUTE，ENT_DISALLOWED，ENT_HTML401，ENT_XML1，ENT_XHTML 和 ENT_HTML5 常量。
+    5.3.0	    添加了 ENT_IGNORE 常量。
+    5.2.3	    添加了 double_encode 参数。

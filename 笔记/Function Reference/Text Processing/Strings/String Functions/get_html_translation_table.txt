@@ -1,0 +1,59 @@
+描述
+    get_html_translation_table ([ int $table = HTML_SPECIALCHARS [, int $flags = ENT_COMPAT | ENT_HTML401 [, string $encoding = "UTF-8" ]]] ) : array
+
+    get_html_translation_table() 将返回 htmlspecialchars() 和 htmlentities() 内部使用的翻译表。
+
+    注意：特殊字符可以用多种方式编码。例如 " 可以被编码为 &quot;，&#34; 或 &#x22 。get_html_translation_table() 只会返回被
+    htmlspecialchars() 和 htmlentities() 所使用的形式。
+
+参数
+    table
+        将返回的表。要么是 HTML_ENTITIES ，要么是 HTML_SPECIALCHARS 。
+    flags
+        下列一个或多个标志的位掩码，指定表将包含哪些引号以及表用于哪个文档类型。默认值是 ENT_COMPAT | ENT_HTML401 。
+
+        可用的 flags 常量
+        常量名	        描述
+        ENT_COMPAT	    表将包含双引号的实体，但不会包含单引号的实体。
+        ENT_QUOTES	    表将包含双引号和单引号的实体。
+        ENT_NOQUOTES	表将既不包含双引号的实体，又不会包含单引号的实体。
+        ENT_HTML401	    HTML 4.01 的表。
+        ENT_XML1	    XML 1 的表。
+        ENT_XHTML	    XHTML 的表。
+        ENT_HTML5	    HTML 5 的表。
+    encoding
+        要使用的编码。如果省略，在 PHP 5.4.0 之前，这个参数的默认值是 ISO-8859-1，并且从 PHP 5.4.0 开始是 UTF-8 。
+
+        支持下面的字符集：
+
+        支持的字符集
+        字符集	        别名	                            描述
+        ISO-8859-1	    ISO8859-1	                    Western European, Latin-1.
+        ISO-8859-5	    ISO8859-5	                    Little used cyrillic charset (Latin/Cyrillic).
+        ISO-8859-15	    ISO8859-15	                    Western European, Latin-9. Adds the Euro sign, French and Finnish letters missing in Latin-1 (ISO-8859-1).
+        UTF-8	 	                                    ASCII compatible multi-byte 8-bit Unicode.
+        cp866	        ibm866, 866	                    DOS-specific Cyrillic charset.
+        cp1251	        Windows-1251, win-1251, 1251	Windows-specific Cyrillic charset.
+        cp1252	        Windows-1252, 1252	            Windows specific charset for Western European.
+        KOI8-R	        koi8-ru, koi8r	                Russian.
+        BIG5	        950	                            Traditional Chinese, mainly used in Taiwan.
+        GB2312	        936	                            Simplified Chinese, national standard character set.
+        BIG5-HKSCS	 	                                Big5 with Hong Kong extensions, Traditional Chinese.
+        Shift_JIS	    SJIS, SJIS-win, cp932, 932      Japanese
+        EUC-JP	        EUCJP, eucJP-win	            Japanese
+        MacRoman	 	                                Charset that was used by Mac OS.
+        ''	 	                                        An empty string activates detection from script encoding
+                                                        (Zend multibyte), default_charset and current locale
+                                                        (see nl_langinfo() and setlocale()), in this order.
+                                                        Not recommended.
+
+        注意：任何其他的字符集不会被识别。而会使用默认的字符集并且会生成一个警告。
+
+返回值
+    返回一个翻译表数组，使用原始字符作为键，实体作为值。
+
+变更日志
+    Version	Description
+    5.4.0	encoding 参数的默认值被更改为 UTF-8 。
+    5.4.0	添加了 ENT_HTML401，ENT_XML1，ENT_XHTML 和 ENT_HTML5 常量。
+    5.3.4	添加了 encoding 参数。
