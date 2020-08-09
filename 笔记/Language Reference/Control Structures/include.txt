@@ -1,8 +1,9 @@
 include 语句会包含并且执行指定的文件。
+
 下方的文档也会应用于 require 。
 
 如果指定了文件路径，则会在该文件路径中查找；如果没有指定文件路径，则会在 include_path 中查找；如果在 include_path 中没有找到该文件，那么
-include 最终将在调用脚本文件所在的目录和当前工作目录中查找，如果还没找到就会失败。
+include 最终将在调用脚本文件所在的目录和当前工作目录中查找（个人测试过，确实会这样），如果还没找到就会失败。
 如果没有找到某个文件，include 结构会产生一个 E_WARNING，这和 require 的行为不同，它会产生一个 E_ERROR。
 
 如果定义了一个路径 —— 不管是绝对路径（在 Windows 下以盘符或者 \ 开头，在 Unix/Linux 下以 / 开头）还是相对当前目录的路径（以 . 或者 .. 开头）
@@ -12,8 +13,50 @@ include 最终将在调用脚本文件所在的目录和当前工作目录中查
 当一个文件被包含时，该文件所包含的代码会继承 include 所在行的 变量作用域。在调用文件的该行中可用的任何变量在被调用的文件中都是可用的。从那以后，所有
 在被包含的文件中定义的类和函数都拥有全局作用域。
 
+Example #1 基础的 include 示例
+    vars.php
+    <?php
+
+    $color = 'green';
+    $fruit = 'apple';
+
+    ?>
+
+    test.php
+    <?php
+
+    echo "A $color $fruit"; // A
+
+    include 'vars.php';
+
+    echo "A $color $fruit"; // A green apple
+
+    ?>
+
 如果 include 发生在调用文件的的某个函数内，那么被调用的文件中定义的所有代码将表现得如同是在该函数内定义的一样。所以它将遵从该函数的 变量作用域。
 此规则的一个例外是 魔术常量，它们在 include 发生前就已被解析器求值。
+
+Example #2 在函数中包含
+    <?php
+
+    function foo()
+    {
+        global $color;
+
+        include 'vars.php';
+
+        echo "A $color $fruit";
+    }
+
+    /* vars.php is in the scope of foo() so     *
+    * $fruit is NOT available outside of this  *
+    * scope.  $color is because we declared it *
+    * as global.                               */
+
+    foo();                    // A green apple
+    echo "A $color $fruit";   // A green
+
+    ?>
 
 当一个文件被包含时，解析器在目标文件的开头脱离 PHP 模式然后进入 HTML 模式，并且在文件的结尾再次恢复。出于这个原因，目标文件中需要作为 PHP 代码执行
 的任何代码都必须使用有效的 PHP 起始和结束标记包围。
@@ -21,10 +64,37 @@ include 最终将在调用脚本文件所在的目录和当前工作目录中查
 如果在 PHP 中启用了 “URL 包含包装器”，你就可以使用一个 URL （通过 HTTP 或者其他支持的包装器 - 有关协议的列表，请参阅 被支持的协议和包装器）而不
 是一个本地路径名去指定被包含的文件。如果目标服务器将目标文件解释为 PHP 代码，使用如同 HTTP GET 一样的 URL 请求字符串就能够传递变量到被包含的文件。
 严格来说，这与包含文件并让它继承父文件的变量作用域并不是一回事；脚本实际上是在远程服务器上运行的，然后结果将被包含到本地的脚本中。
+
+Example #3 通过 HTTP 包含
+    <?php
+
+    /* This example assumes that www.example.com is configured to parse .php
+    * files and not .txt files. Also, 'Works' here means that the variables
+    * $foo and $bar are available within the included file. */
+
+    // Won't work; file.txt wasn't handled by www.example.com as PHP
+    include 'http://www.example.com/file.txt?foo=1&bar=2';
+
+    // Won't work; looks for a file named 'file.php?foo=1&bar=2' on the
+    // local filesystem.
+    include 'file.php?foo=1&bar=2';
+
+    // Works.
+    include 'http://www.example.com/file.php?foo=1&bar=2';
+
+    $foo = 1;
+    $bar = 2;
+    include 'file.txt';  // Works.
+    include 'file.php';  // Works.
+
+    ?>
+
 警告：安全警告
     远程文件可能会在远程服务器上被处理（取决于文件的扩展名以及远程服务器是否运行 PHP 而定），而且它也必须生成一份有效的 PHP 脚本，因为它将在本地服
     务器上被处理（执行）。如果来自远程服务器的文件应在远程被处理（执行）且（在本地）只会被输出，那么 readfile() 是更好的函数。另外，还应该采取特殊
     的操作，去确保远程的脚本产生的是合法并且是所需的代码。
+
+请参阅 远程文件、fopen() 和 file() 获取相关信息。
 
 处理返回值：失败时 include 返回 FALSE 并且发出一个警告。成功包含则返回 1，除非被包含的文件覆盖。在一个被包含的文件中可以去执行一个 return 语句，
 从而终止该文件中的处理然后返回到调用它的脚本。也可以从被包含的文件中返回值。
@@ -32,8 +102,10 @@ include 最终将在调用脚本文件所在的目录和当前工作目录中查
 可以在标记内定义所需的变量，该变量在文件被包含的位置之后就可用了。
 
 因为 include 是一个特殊的语言结构，所以包围它的参数的圆括号不是必须的。在比较返回值时要注意。
-个人补充：这个示例的代码值得回顾
-    // won't work, evaluated as include(('vars.php') == TRUE), i.e. include('1')
+
+Example #4 比较 include 的返回值
+    <?php
+    // won't work, evaluated as include(('vars.php') == TRUE), i.e. include('')
     if (include('vars.php') == TRUE) {
         echo 'OK';
     }
@@ -42,11 +114,51 @@ include 最终将在调用脚本文件所在的目录和当前工作目录中查
     if ((include 'vars.php') == TRUE) {
         echo 'OK';
     }
+    ?>
+个人补充：下面这种写法也应该是可以的
+    if (TRUE == include 'vars.php') {
+        echo 'OK';
+    }
+
+Example #5 include 和 return 语句
+    return.php
+    <?php
+
+    $var = 'PHP';
+
+    return $var;
+
+    ?>
+
+    noreturn.php
+    <?php
+
+    $var = 'PHP';
+
+    ?>
+
+    testreturns.php
+    <?php
+
+    $foo = include 'return.php';
+
+    echo $foo; // prints 'PHP'
+
+    $bar = include 'noreturn.php';
+
+    echo $bar; // prints 1
+
+    ?>
 
 如果有函数定义在被包含的文件中，这些函数不管是在 return 之前还是之后，都可以在主文件中使用。如果文件被包含两次，PHP 会发出致命错误因为函数已经被声明。
 推荐使用 include_once 而不是检查文件是否已被包含或者在被包含的文件中有条件的返回。
 
 另外一种将 PHP 文件“包含”到一个变量中的方法是用输出控制函数结合 include 来捕获其输出，例如：
+
+Example #6 使用输出缓存去把一个 PHP 文件包含到一个字符串中
+    <?php
+    $string = get_include_contents('somefile.php');
+
     function get_include_contents($filename) {
         if (is_file($filename)) {
             ob_start();
@@ -55,7 +167,8 @@ include 最终将在调用脚本文件所在的目录和当前工作目录中查
         }
         return false;
     }
-    $string = get_include_contents('somefile.php');
+
+    ?>
 
 为了在脚本中自动的包含文件，请参阅 php.ini 中的 auto_prepend_file 和 auto_append_file 配置选项。
 
