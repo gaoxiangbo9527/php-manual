@@ -1,0 +1,43 @@
+用于验证的过滤器列表
+
+ID                      名称                     选项            标志                             描述
+FILTER_VALIDATE_BOOLEAN	"boolean"	            default	        FILTER_NULL_ON_FAILURE          对于 "1"，"true"，"on" 和 "yes" 返回 TRUE 。其他情况返回 FALSE 。
+                                                                                                如果设置了 FILTER_NULL_ON_FAILURE，只对 "0"，"false"，"off"，"no" 和 "" 返回 FALSE，并且对于非布尔值会返回 NULL 。
+                                                                                                个人补充：为了区分过滤器返回 FALSE 是属于哪种情况，非常建议对 FILTER_VALIDATE_BOOLEAN 使用 FILTER_NULL_ON_FAILURE。
+                                                                                                但对于 filter_input 来说，如果变量没设置则算作 FALSE，这在多达数情况下是合理的，但也不一定。
+
+FILTER_VALIDATE_DOMAIN	"validate_domain"	    default	        FILTER_FLAG_HOSTNAME            验证域名标签长度是否有效。依据 RFC 1034，RFC 1035，RFC 952，RFC 1123，RFC 2732，RFC 2181 和 RFC 1123 验证域名。
+                                                                                                可选的标志 FILTER_FLAG_HOSTNAME 添加了去专门验证主机名（它们必须以一个字母数组开头并且只能包含字母数字和连字符）的能力。
+FILTER_VALIDATE_EMAIL	"validate_email"	    default	        FILTER_FLAG_EMAIL_UNICODE       验证值是否是有效的电子邮件地址。
+                                                                                                通常，这会依据 RFC 822 中的语法去验证电子邮件地址，例外是不支持注释、空白折叠和无圆点域名。
+FILTER_VALIDATE_FLOAT	"float"	                default,        FILTER_FLAG_ALLOW_THOUSAND      验证值为浮点数，来自可选的指定范围，并且成功时会转换成一个浮点数。
+                                                decimal,
+                                                min_range,
+                                                max_range
+FILTER_VALIDATE_INT	    "int"	                default,        FILTER_FLAG_ALLOW_OCTAL,        验证值为整数，来自可选的指定范围，并且成功时会转换成一个整数。
+                                                min_range,      FILTER_FLAG_ALLOW_HEX
+                                                max_range
+FILTER_VALIDATE_IP	    "validate_ip"	        default	        FILTER_FLAG_IPV4,               验证值为 IP 地址，可选项有仅 IPv4 或 IPv6 或不从私有或保留范围。
+                                                                FILTER_FLAG_IPV6,
+                                                                FILTER_FLAG_NO_PRIV_RANGE,
+                                                                FILTER_FLAG_NO_RES_RANGE
+FILTER_VALIDATE_MAC	    "validate_mac_address"  default	 	                                    验证值为 MAC 地址。
+FILTER_VALIDATE_REGEXP  "validate_regexp"	    default,                                        依据 regexp（一个 Perl 兼容的正则表达式）验证值。
+                                                regexp
+FILTER_VALIDATE_URL	    "validate_url"	        default	        FILTER_FLAG_SCHEME_REQUIRED,    验证值为 URL（根据 http://www.faqs.org/rfcs/rfc2396），具有可选的所需组件。注意，一个有效的 URL 可能不会指定 HTTP 协议
+                                                                FILTER_FLAG_HOST_REQUIRED,      http://，因此，可能需要进一步的验证以确定 URL 使用了预期的协议，例如 ssh:// 或 mailto: 。（个人补充：要自己进行判断）注意，
+                                                                FILTER_FLAG_PATH_REQUIRED,      该函数将只认为 ASCII URL 是有效的；国际化域名（包含非 ascii 字符）将失败。
+                                                                FILTER_FLAG_QUERY_REQUIRED
+
+注意：
+    从 PHP 5.4.11 开始，数字 +0 和 -0 既可以被认为是整数也被认为是浮点数（使用 FILTER_VALIDATE_FLOAT 和 FILTER_VALIDATE_INT）。
+    在 PHP 5.4.11 之前，它们会被验证为浮点数（使用 FILTER_VALIDATE_FLOAT）。
+
+    当把 default 设置给 options 时，如果值是无效的，则使用该默认值。
+
+变更日志
+    版本	    描述
+    7.4.0	为 FILTER_VALIDATE_FLOAT 添加了 min_range 和 max_range 选项。
+    7.0.0	添加了 FILTER_FLAG_HOSTNAME
+    5.5.0	添加了 FILTER_VALIDATE_MAC
+    5.2.1	FILTER_VALIDATE_URL 现在隐式地使用 FILTER_FLAG_SCHEME_REQUIRED 和 FILTER_FLAG_HOST_REQUIRED 。

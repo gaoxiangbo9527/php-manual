@@ -1,0 +1,13 @@
+描述
+    filter_has_var ( int $type , string $variable_name ) : bool
+
+    检查指定类型的变量是否存在。
+
+参数
+    type
+        INPUT_GET，INPUT_POST，INPUT_COOKIE，INPUT_SERVER 或 INPUT_ENV 中的一个。
+    variable_name
+        要检查的变量的名称。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。

@@ -1,0 +1,30 @@
+描述
+    filter_input_array ( int $type [, mixed $definition [, bool $add_empty = TRUE ]] ) : mixed
+
+    这个函数对不用各自调用 filter_input() 而去检索多个值非常有用。
+
+参数
+    type
+        INPUT_GET，INPUT_POST，INPUT_COOKIE，INPUT_SERVER 或 INPUT_ENV 中的一个。
+    definition
+        一个定义了参数的数组。一个有效的键是包含一个变量名的字符串，而一个有效的值是一个 过滤器类型 ，或者是一个指定 filter、flags 和
+        options 的可选择的数组。如果值是一个数组，有效的键是指定了 过滤器类型 的 filter ，制定了要应用于该过滤器的任何标志的 flags 以及
+        指定了要应用于该过滤器的任何选项的 options 。为了更好地理解，请参阅下面的示例。
+
+        这个参数也可以是一个持有 过滤器常量 的整数。那么，该输入数组中的所有值都会被该过滤器过滤。
+    add_empty
+        把缺失的键按 NULL 添加到返回值。
+
+返回值
+    成功时返回一个包含有被请求的变量的值的数组。如果由 type 指定的输入数组未填充，如果没有指定 FILTER_NULL_ON_FAILURE ，那么该函数会返回
+    NULL ，反之返回 FALSE （个人补充：这种情况下，能在哪里全局指定呢？应该不行吧）。对其其他的失败，会返回 FALSE 。
+
+    如果过滤失败，数组值将为 FALSE，如果没有设置该变量，数组值为 NULL 。如果使用了标志 FILTER_NULL_ON_FAILURE，如果变量没有设置，则会返
+    回 FALSE 并且如果过滤失败，将返回 NULL 。如果 add_empty 参数是 FALSE ，那么对于没设置的变量，将不会添加数组元素。
+
+更新日志
+    版本	    描述
+    5.4.0	添加了 add_empty 参数。
+
+注意事项
+    注意：INPUT_SERVER 数组中没有 REQUEST_TIME 键，因为稍后才会将其插入到 $_SERVER 中。

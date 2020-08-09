@@ -1,0 +1,52 @@
+过滤器标志列表
+ID	                            Used with	                    Description
+FILTER_FLAG_STRIP_LOW	        FILTER_SANITIZE_ENCODED,        去除数值 < 32 的字符。
+                                FILTER_SANITIZE_SPECIAL_CHARS,
+                                FILTER_SANITIZE_STRING,
+                                FILTER_UNSAFE_RAW
+FILTER_FLAG_STRIP_HIGH	        FILTER_SANITIZE_ENCODED,        去除数值 > 127 的字符。
+                                FILTER_SANITIZE_SPECIAL_CHARS,
+                                FILTER_SANITIZE_STRING,
+                                FILTER_UNSAFE_RAW
+FILTER_FLAG_STRIP_BACKTICK	    FILTER_SANITIZE_ENCODED,        去除反引号字符。
+                                FILTER_SANITIZE_SPECIAL_CHARS,
+                                FILTER_SANITIZE_STRING,
+                                FILTER_UNSAFE_RAW
+FILTER_FLAG_ALLOW_FRACTION	    FILTER_SANITIZE_NUMBER_FLOAT	允许用句点（.）作为数字中的分数分隔符。
+FILTER_FLAG_ALLOW_THOUSAND	    FILTER_SANITIZE_NUMBER_FLOAT,   允许用逗号（,）作为数字中的千位分隔符。
+                                FILTER_VALIDATE_FLOAT
+FILTER_FLAG_ALLOW_SCIENTIFIC	FILTER_SANITIZE_NUMBER_FLOAT	允许用 e 或 E 作为数字中的科学计数法符号。
+FILTER_FLAG_NO_ENCODE_QUOTES	FILTER_SANITIZE_STRING	        如果存在此标志，将不会对单引号（'）和双引号（"）进行编码。
+FILTER_FLAG_ENCODE_LOW	        FILTER_SANITIZE_ENCODED,        编码数值 < 32 的字符。
+                                FILTER_SANITIZE_STRING,
+                                FILTER_SANITIZE_RAW
+FILTER_FLAG_ENCODE_HIGH	        FILTER_SANITIZE_ENCODED,        编码数值 < 127 的字符。
+                                FILTER_SANITIZE_SPECIAL_CHARS,
+                                FILTER_SANITIZE_STRING,
+                                FILTER_SANITIZE_RAW
+FILTER_FLAG_ENCODE_AMP	        FILTER_SANITIZE_STRING,         编码与符号（&）。
+                                FILTER_SANITIZE_RAW
+FILTER_NULL_ON_FAILURE	        FILTER_VALIDATE_BOOLEAN	        对于无法识别的布尔值返回 NULL 。
+FILTER_FLAG_ALLOW_OCTAL	        FILTER_VALIDATE_INT	            将以 0 开始的输入视为八进制数。这只允许后面的数字为 0-7 。
+FILTER_FLAG_ALLOW_HEX	        FILTER_VALIDATE_INT	            将以 0x 或 0x 开始的输入视为十六进制数字。这只允许后面的字符为 a-fA-F0-9 。
+FILTER_FLAG_EMAIL_UNICODE	    FILTER_VALIDATE_EMAIL	        允许电子邮件地址中的 local 部分包含 Unicode 字符。
+FILTER_FLAG_IPV4	            FILTER_VALIDATE_IP	            允许 IP 地址为 IPv4 格式。
+FILTER_FLAG_IPV6	            FILTER_VALIDATE_IP	            允许 IP 地址为 IPv6 格式。
+FILTER_FLAG_NO_PRIV_RANGE	    FILTER_VALIDATE_IP              对以下私有 IPv4 范围会验证失败：10.0.0.0/8，172.16.0.0/12 和 192.168.0.0/16.
+                                                                对以 FD 或 FC 开头的 IPv6 地址会验证失败。
+FILTER_FLAG_NO_RES_RANGE	    FILTER_VALIDATE_IP              对以下预留 IPv4 范围会验证失败：0.0.0.0/8，169.254.0.0/16，127.0.0.0/8 和 240.0.0.0/4 。
+                                                                对以下预留 IPv6 范围会验证失败：::1/128，::/128，::ffff:0:0/96 和 fe80::/10 。
+FILTER_FLAG_SCHEME_REQUIRED	    FILTER_VALIDATE_URL	            要求 URL 包含一个 schema 部分。
+FILTER_FLAG_HOST_REQUIRED	    FILTER_VALIDATE_URL	            要求 URL 包含一个 host 部分。
+FILTER_FLAG_PATH_REQUIRED	    FILTER_VALIDATE_URL	            要求 URL 包含一个 path 部分。
+FILTER_FLAG_QUERY_REQUIRED	    FILTER_VALIDATE_URL	            要求 URL 包含一个 query 部分。
+FILTER_REQUIRE_SCALAR		                                    要求值为标量。
+FILTER_REQUIRE_ARRAY		                                    要求值为数组。
+FILTER_FORCE_ARRAY		                                        如果值是标量，则将其视为标量值作为仅有元素的数组。
+
+更新日志
+    版本	    描述
+    7.3.0	显式的使用 FILTER_FLAG_SCHEME_REQUIRED 和 FILTER_FLAG_HOST_REQUIRED 已经被废弃。
+    7.1.0	添加了 FILTER_FLAG_EMAIL_UNICODE。
+    5.3.2	添加了 FILTER_FLAG_STRIP_BACKTICK 。
+    5.2.10	FILTER_FLAG_NO_RES_RANGE 也支持 IPv6 地址。

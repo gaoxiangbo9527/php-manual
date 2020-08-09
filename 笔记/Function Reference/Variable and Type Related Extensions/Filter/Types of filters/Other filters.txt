@@ -1,0 +1,3 @@
+杂项过滤器列表
+ID	                名称	        选项	                   标志	                描述
+FILTER_CALLBACK	    "callback"	callable 函数会方法      所有标志都会被忽略	    调用用户定义的函数来过滤数据。

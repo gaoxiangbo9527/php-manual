@@ -1,0 +1,52 @@
+用于清理的过滤器列表
+
+ID	                                名称                     标志	                        描述
+FILTER_SANITIZE_EMAIL	            "email"	 	                                            移除除了字母、数字和 !#$%&'*+-=?^_`{|}~@.[] 以外的所有字符。
+FILTER_SANITIZE_ENCODED	            "encoded"	            FILTER_FLAG_STRIP_LOW,          URL 编码字符串，可选的去除或编码特殊字符。
+                                                            FILTER_FLAG_STRIP_HIGH,
+                                                            FILTER_FLAG_STRIP_BACKTICK,
+                                                            FILTER_FLAG_ENCODE_LOW,
+                                                            FILTER_FLAG_ENCODE_HIGH
+FILTER_SANITIZE_MAGIC_QUOTES	    "magic_quotes"	 	                                    应用 addslashes() 。
+FILTER_SANITIZE_NUMBER_FLOAT	    "number_float"	        FILTER_FLAG_ALLOW_FRACTION,     移除除了数字、+- 和可选的 .,eE 以外的所有字符。
+                                                            FILTER_FLAG_ALLOW_THOUSAND,
+                                                            FILTER_FLAG_ALLOW_SCIENTIFIC
+FILTER_SANITIZE_NUMBER_INT	        "number_int"	 	                                    移除除了数字、+- 以外的所有字符。
+FILTER_SANITIZE_SPECIAL_CHARS	    "special_chars"	        FILTER_FLAG_STRIP_LOW,          HTML 转义 '"<>& 和 ASCII 值小于 32 的字符，可选的去除或编码
+                                                            FILTER_FLAG_STRIP_HIGH,         其它的特殊字符。
+                                                            FILTER_FLAG_STRIP_BACKTICK,
+                                                            FILTER_FLAG_ENCODE_HIGH
+FILTER_SANITIZE_FULL_SPECIAL_CHARS  "full_special_chars"    FILTER_FLAG_NO_ENCODE_QUOTES	相当于调用了 htmlspecialchars() 且设置了 ENT_QUOTES 。
+                                                                                            通过设置 FILTER_FLAG_NO_ENCODE_QUOTES 可以禁止编码引号。像
+                                                                                            htmlspecialchars()，这个过滤器可以识别 default_charset 且
+                                                                                            如果检测到构成当前字符集中无效字符的字节序列，则拒绝整个字符串，
+                                                                                            从而生成长度为 0 的字符串。当使用此过滤器作为一个默认筛选器时，
+                                                                                            请参阅下面有关将默认标志设置为 0 的警告。
+FILTER_SANITIZE_STRING	            "string"	            FILTER_FLAG_NO_ENCODE_QUOTES,   去除标签（和编码单引号和双引号），可选的去除或编码特殊字符。
+                                                            FILTER_FLAG_STRIP_LOW,
+                                                            FILTER_FLAG_STRIP_HIGH,
+                                                            FILTER_FLAG_STRIP_BACKTICK,
+                                                            FILTER_FLAG_ENCODE_LOW,
+                                                            FILTER_FLAG_ENCODE_HIGH,
+                                                            FILTER_FLAG_ENCODE_AMP
+FILTER_SANITIZE_STRIPPED	        "stripped"	 	                                        "string"过滤器的别名。
+FILTER_SANITIZE_URL	                "url"	 	                                            移除除了字母、数字和 $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&= 以
+                                                                                            外的所有字符。
+FILTER_UNSAFE_RAW	                "unsafe_raw"	        FILTER_FLAG_STRIP_LOW,          不做任何操作，可选的去除或编码特殊字符。这个过滤器也是
+                                                            FILTER_FLAG_STRIP_HIGH,         FILTER_DEFAULT 的别名。
+                                                            FILTER_FLAG_STRIP_BACKTICK,     个人补充：FILTER_UNSAFE_RAW 这个默认的过滤器对于 filter_input
+                                                            FILTER_FLAG_ENCODE_LOW,         来说不止表示不转义，还可以获得最原始（原生）未转义的数据，即使某些
+                                                            FILTER_FLAG_ENCODE_HIGH,        字符被去除掉了也能恢复回来。
+                                                            FILTER_FLAG_ENCODE_AMP
+
+警告
+    当通过 ini 文件或 web 服务器的配置来使用这些过滤器中都某个作为默认过滤器时，默认的标志会设置为 FILTER_FLAG_NO_ENCODE_QUOTES 。你
+    需要去显式的把 filter.default_flags 设置为 0 从而默认的对引号进行编码。像这样：
+
+    Example #1 将默认的过滤器配置的像 htmlspecialchars 一样
+        filter.default = full_special_chars
+        filter.default_flags = 0
+
+更新日志
+    描述             描述
+    5.2.11/5.3.1    斜杠（/）会被 FILTER_SANITIZE_EMAIL 删除。在此之前，它被保留下来。

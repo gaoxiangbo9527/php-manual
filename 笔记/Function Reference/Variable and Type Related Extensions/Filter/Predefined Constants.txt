@@ -1,0 +1,117 @@
+下面的常量是由此扩展定义的，并且仅在此扩展已编译进 PHP 或在运行时被动态的加载时可用。
+
+INPUT_POST (integer)
+    POST 变量。
+INPUT_GET (integer)
+    GET 变量。
+INPUT_COOKIE (integer)
+    COOKIE 变量。
+INPUT_ENV (integer)
+    ENV 变量。
+INPUT_SERVER (integer)
+    SERVER 变量。
+INPUT_SESSION (integer)
+    SESSION variables. (not implemented yet)
+INPUT_REQUEST (integer)
+    REQUEST 变量。（还没实现）
+FILTER_FLAG_NONE (integer)
+    没有标志。
+FILTER_REQUIRE_SCALAR (integer)
+    用于要求标量作为输入的标志。
+FILTER_REQUIRE_ARRAY (integer)
+    要求一个数组作为输入。
+FILTER_FORCE_ARRAY (integer)
+    总是返回一个数组。
+FILTER_NULL_ON_FAILURE (integer)
+    失败时使用 NULL 而不是 FALSE 。
+FILTER_VALIDATE_INT (integer)
+    "int"过滤器的 ID。
+FILTER_VALIDATE_BOOLEAN (integer)
+    "boolean"过滤器的 ID。
+FILTER_VALIDATE_FLOAT (integer)
+    "float"过滤器的 ID。
+FILTER_VALIDATE_REGEXP (integer)
+    "validate_regexp"过滤器的 ID。
+FILTER_VALIDATE_URL (integer)
+    "validate_url"过滤器的 ID。
+FILTER_VALIDATE_DOMAIN (integer)
+    "validate_domain"过滤器的 ID。（从 PHP 7.0.0 开始可用）
+FILTER_VALIDATE_EMAIL (integer)
+    "validate_email"过滤器的 ID。
+FILTER_VALIDATE_IP (integer)
+    "validate_ip"过滤器的 ID。
+FILTER_VALIDATE_MAC (integer)
+    "validate_mac_address"过滤器的 ID。（从 PHP 5.5.0 开始可用）
+FILTER_DEFAULT (integer)
+    默认（"unsafe_raw"）过滤器的 ID 。这等价于 FILTER_UNSAFE_RAW 。
+FILTER_UNSAFE_RAW (integer)
+    "unsafe_raw"过滤器的 ID 。
+FILTER_SANITIZE_STRING (integer)
+    "string"过滤器的 ID 。
+FILTER_SANITIZE_STRIPPED (integer)
+    "stripped"过滤器的 ID 。
+FILTER_SANITIZE_ENCODED (integer)
+    "encoded"过滤器的 ID 。
+FILTER_SANITIZE_SPECIAL_CHARS (integer)
+    "special_chars"过滤器的 ID 。
+FILTER_SANITIZE_EMAIL (integer)
+    "email"过滤器的 ID 。
+FILTER_SANITIZE_URL (integer)
+    "url"过滤器的 ID 。
+FILTER_SANITIZE_NUMBER_INT (integer)
+    "number_int"过滤器的 ID 。
+FILTER_SANITIZE_NUMBER_FLOAT (integer)
+    "number_float"过滤器的 ID 。
+FILTER_SANITIZE_MAGIC_QUOTES (integer)
+    "magic_quotes"过滤器的 ID 。（从 PHP 7.3.0 开始被废弃，使用 FILTER_SANITIZE_ADD_SLASHES 替代。）
+FILTER_SANITIZE_ADD_SLASHES (integer)
+    "add_slashes"过滤器的 ID 。（从 PHP 7.3.0 开始可用。）
+FILTER_CALLBACK (integer)
+    "callback"过滤器的 ID 。
+FILTER_FLAG_ALLOW_OCTAL (integer)
+    在"int"过滤器中允许八进制表示法（0[0-7]+）。
+FILTER_FLAG_ALLOW_HEX (integer)
+    在"int"过滤器中允许十六进制表示法（0x[0-9a-fA-F]+）。
+FILTER_FLAG_STRIP_LOW (integer)
+    去除 ASCII 值小于 32 的字符。
+FILTER_FLAG_STRIP_HIGH (integer)
+    去除 ASCII 值大于 127 的字符。
+FILTER_FLAG_STRIP_BACKTICK (integer)
+    去除反引号字符。（从 PHP 5.3.2 开始可用）
+FILTER_FLAG_ENCODE_LOW (integer)
+    编码 ASCII 值小于 32 的字符。
+FILTER_FLAG_ENCODE_HIGH (integer)
+    编码 ASCII 值大于 127 的字符。
+FILTER_FLAG_ENCODE_AMP (integer)
+    编码 & 。
+FILTER_FLAG_NO_ENCODE_QUOTES (integer)
+    不编码 ' 和 " 。
+FILTER_FLAG_EMPTY_STRING_NULL (integer)
+    (现在还没用到。)
+FILTER_FLAG_ALLOW_FRACTION (integer)
+    允许"number_float"过滤器中的 fractional 部分。
+FILTER_FLAG_ALLOW_THOUSAND (integer)
+    在"number_float"过滤器中允许千位分隔符。
+FILTER_FLAG_ALLOW_SCIENTIFIC (integer)
+    允许"number_float"过滤器中的科学计数法（e，E）。
+FILTER_FLAG_PATH_REQUIRED (integer)
+    在"validate_url"过滤器中要求 path 。
+FILTER_FLAG_QUERY_REQUIRED (integer)
+    在"validate_url"过滤器中要求 query 。
+FILTER_FLAG_SCHEME_REQUIRED (integer)
+    在"validate_url"过滤器中要求 scheme 。（从 PHP 7.3 开始被废弃，因为它已经暗含在该过滤器中了。）
+FILTER_FLAG_HOST_REQUIRED (integer)
+    在"validate_url"过滤器中要求 host 。（从 PHP 7.3 开始被废弃，因为它已经暗含在该过滤器中了。）
+FILTER_FLAG_HOSTNAME (integer)
+    要求主机名以一个字母数字字符开头，并且只包含字母数字或连字符。（从 PHP 7.0.0 开始可用）
+FILTER_FLAG_IPV4 (integer)
+    在"validate_ip"过滤器中仅允许 IPv4 地址。
+FILTER_FLAG_IPV6 (integer)
+    在"validate_ip"过滤器中仅允许 IPv6 地址。
+FILTER_FLAG_NO_RES_RANGE (integer)
+    在"validate_ip"过滤器中禁止预留地址。
+FILTER_FLAG_NO_PRIV_RANGE (integer)
+    在"validate_ip"过滤器中禁止私有地址。
+FILTER_FLAG_EMAIL_UNICODE (integer)
+    在"validate_email"过滤器的 local 部分中接受 Unicode 字符。（从 PHP 7.1.0 开始可用）
+    个人补充：该标志是为了支持新式尾缀的那种域名，比如 xyz.我爱你 这种格式的域名。

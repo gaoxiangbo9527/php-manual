@@ -1,0 +1,11 @@
+描述
+    filter_id ( string $filtername ) : int
+
+    返回属于一个已命名的过滤器的过滤器 ID 。
+
+参数
+    filtername
+        要获取的过滤器的名称。
+
+返回值
+    成功时返回一个过滤器的 ID，如果过滤器不存在则返回 FALSE 。

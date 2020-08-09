@@ -1,0 +1,52 @@
+描述
+    filter_var ( mixed $variable [, int $filter = FILTER_DEFAULT [, mixed $options ]] ) : mixed
+
+    使用一个指定的过滤器过滤一个变量。
+
+参数
+    variable
+        要过滤的值。注意，在过滤标量值之前，它们会在内部被 转换为字符串 。
+    filter
+        要应用的过滤器的 ID 。过滤器类型 手册页面上列出可用的过滤器。
+
+        如果省略，则将使用 FILTER_DEFAULT，这相当于 FILTER_UNSAFE_RAW 。这将导致默认情况下不会进行过滤。
+    options
+        选项的关联数组或按位析取的标志。如果过滤器接受选项，标志可以在数组的"flags"字段中提供(个人补充：此时选项在"options"字段中提供)。
+        对于 "callback" 过滤器，应该传递 callable 类型。回调必须接受一个参数，即要过滤的值，并返回过滤/清理后的值。
+
+        <?php
+        // for filters that accept options, use this format
+        $options = array(
+            'options' => array(
+                'default' => 3, // value to return if the filter fails
+                // other options here
+                'min_range' => 0
+            ),
+            'flags' => FILTER_FLAG_ALLOW_OCTAL,
+        );
+        $var = filter_var('0755', FILTER_VALIDATE_INT, $options);
+
+        // for filters that only accept flags, you can pass them directly
+        $var = filter_var('oops', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+        // for filters that only accept flags, you can also pass as an array
+        $var = filter_var('oops', FILTER_VALIDATE_BOOLEAN, array('flags' => FILTER_NULL_ON_FAILURE));
+
+        // callback validate filter
+        function foo($value)
+        {
+            // Expected format: Surname, GivenNames
+            if (strpos($value, ", ") === false) return false;
+            list($surname, $givennames) = explode(", ", $value, 2);
+            $empty = (empty($surname) || empty($givennames));
+            $notstrings = (!is_string($surname) || !is_string($givennames));
+            if ($empty || $notstrings) {
+                return false;
+            } else {
+                return $value;
+            }
+        }
+        $var = filter_var('Doe, Jane Sue', FILTER_CALLBACK, array('options' => 'foo'));
+
+返回值
+    返回过滤后的数据，如果过滤失败，则返回 FALSE 。

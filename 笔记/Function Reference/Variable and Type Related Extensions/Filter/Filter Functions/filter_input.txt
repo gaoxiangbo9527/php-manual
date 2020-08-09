@@ -1,0 +1,20 @@
+描述
+    filter_input ( int $type , string $variable_name [, int $filter = FILTER_DEFAULT [, mixed $options ]] ) : mixed
+
+    用名称获取一个指定的外部变量并且可选地对其进行过滤。
+
+参数
+    type
+        INPUT_GET，INPUT_POST，INPUT_COOKIE，INPUT_SERVER 或 INPUT_ENV 中的一个。
+    variable_name
+        要获取的变量的名称。
+    filter
+        要应用的过滤器的 ID 。过滤器类型 手册页面上列出可用的过滤器。
+
+        如果省略，则将使用 FILTER_DEFAULT，这相当于 FILTER_UNSAFE_RAW 。这将导致默认情况下不会进行过滤。
+    options
+        选项的关联数组或按位析取的标志。如果过滤器接受选项，标志可以在数组的"flags"字段中提供(个人补充：此时选项在"options"字段中提供)。
+
+返回值
+    成功时返回请求的变量的值，如果过滤失败则返回 FALSE ，如果 variable_name 变量没有设置，则返回 NULL 。如果使用了标志
+    FILTER_NULL_ON_FAILURE，那么如果变量没有设置会返回 FALSE 并且如果过滤失败会返回 NULL 。

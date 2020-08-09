@@ -1,0 +1,25 @@
+php.ini 中的设置项会影响这些函数的行为。
+
+过滤器配置选项
+    名称	                    默认值           可修改范围            更新日志
+    filter.default	        "unsafe_raw"	PHP_INI_PERDIR	    filter <= 0.9.4 中为 PHP_INI_ALL。从 PHP 5.2.0 开始可用。
+    filter.default_flags	NULL	        PHP_INI_PERDIR	    filter <= 0.9.4 中为 PHP_INI_ALL。从 PHP 5.2.0 开始可用。
+
+filter.default string
+    使用这个过滤器过滤所有的 $_GET，$_POST，$_COOKIE，$_REQUEST 和 $_SERVER 。可以通过 filter_input() 访问原始的数据。
+    个人补充：FILTER_UNSAFE_RAW 这个默认的过滤器对于 filter_input 来说不止表示不转义，还可以获得最原始（原生）未转义的数据，即使某些字符
+    被去除掉了也能恢复回来。
+
+    接受你想要默认使用的过滤器的名称。有关过滤器名称的列表，请参阅 现有过滤器 列表。
+
+    注意：
+        注意默认过滤器的默认标志。你应该显式地将它们设置为你想要的值。例如，要将默认过滤器配置为与 htmlspecialchars() 行为的完全相同，你
+        需要将它们的默认标志设置为 0，如下所示。
+
+        Example #1 将默认的过滤器配置的像 htmlspecialchars 一样
+            filter.default = full_special_chars
+            filter.default_flags = 0
+
+filter.default_flags integer
+    设置默认过滤器时会应用的默认标志。出于向后兼容性原因，这会默认设置为 FILTER_FLAG_NO_ENCODE_QUOTES 。关于所有标志名称的列表，请参阅
+    标志列表 。
