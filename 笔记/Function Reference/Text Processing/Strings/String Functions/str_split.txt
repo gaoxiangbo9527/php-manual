@@ -1,0 +1,19 @@
+描述
+    str_split ( string $string [, int $split_length = 1 ] ) : array
+
+    把一个字符串转换成一个数组。
+
+参数
+    string
+        输入字符串。
+    split_length
+        块的最大长度。
+
+返回值
+    如果指定了可选的 split_length 参数，返回的数组将被分解成多个长度为 split_length 块，否则，每个块的长度将是一个字符。
+
+    如果 split_length 小于 1，则返回 FALSE 。如果 split_length 的长度超过了 string 的长度，那么整个字符串会作为数组的第一个（且唯一的
+    一个）元素返回。
+
+注意事项
+    注意：在处理多字节编码的字符串时，str_split() 将按字节切分，而不是字符。

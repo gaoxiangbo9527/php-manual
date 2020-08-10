@@ -1,0 +1,16 @@
+描述
+    chunk_split ( string $body [, int $chunklen = 76 [, string $end = "\r\n" ]] ) : string
+
+    可以用于把一个字符串切分成更小的块，比如，这对于转换 base64_encode() 的输出以匹配 RFC 2045 的语义非常有用。它会为每 chunklen 个字符
+    插入 end 。
+
+参数
+    body
+        要分块的字符串。
+    chunklen
+        块的长度。
+    end
+        行结束序列。
+
+返回值
+    返回分块后的字符串。
