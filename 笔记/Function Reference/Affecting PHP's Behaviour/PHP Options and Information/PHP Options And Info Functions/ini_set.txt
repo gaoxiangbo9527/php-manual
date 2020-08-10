@@ -1,0 +1,13 @@
+描述
+    ini_set ( string $varname , string $newvalue ) : string
+
+    设置给定配置选项的值。该配置选项在脚本执行期间将持有这个新的值，并且将在脚本的结尾复原。
+
+参数
+    varname
+        不是所有可用的选项都能使用 ini_set() 更改。附录 中有一份所有可用的选项的清单。
+    newvalue
+        该选项的新值。
+
+返回值
+    成功时返回旧的值，失败时返回 FALSE 。

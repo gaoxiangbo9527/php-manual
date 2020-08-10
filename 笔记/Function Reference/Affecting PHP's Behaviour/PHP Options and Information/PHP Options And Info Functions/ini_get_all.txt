@@ -1,0 +1,29 @@
+描述
+    ini_get_all ([ string $extension [, bool $details = TRUE ]] ) : array
+
+    返回所有已注册的配置选项。
+
+参数
+    extension
+        一个可选的扩展名。如果设置，该函数只会返回特定于该扩展的选项。
+    details
+        检索详细信息设置或仅检索每个设置项的当前值。默认是 TRUE （检索详细信息）。
+
+返回值
+    返回一个关联数组，指令名作为数组的键。如果 extension 不存在，则返回 FALSE 并引发一个 E_WARNING 级别的错误。
+
+    当 details 设置为 TRUE（默认），该数组将包含 global_value（在 php.ini 中设置），local_value（可能通过 ini_set() 或 .htaccess
+    设置）以及 access（访问级别）。
+
+    当 details 设置为 FALSE ，值将是该选项的当前值。
+
+    关于访问级别意味着什么的信息，请参阅该 手册部分 。
+
+    注意：一个指令可能会有多个访问级别，这就是为什么 access 会显示适当位掩码值。
+
+注意事项
+    注意：ini_get_all() 会忽略“数组” ini 选项，例如 pdo.dsn.* 。
+
+更新日志
+    版本	    描述
+    5.3.0	添加了 details 。

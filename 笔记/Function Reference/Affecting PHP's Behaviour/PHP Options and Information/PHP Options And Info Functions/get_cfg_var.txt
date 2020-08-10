@@ -1,0 +1,25 @@
+描述
+    get_cfg_var ( string $option ) : mixed
+
+    获取一个 PHP 配置选项的值。
+
+    这个函数不会返回 PHP 被编译时所设置的配置信息，也不会返回读取自一个 Apache 配置文件的配置信息。
+
+    若要检查系统是否正在使用某个配置文件，尝试（个人补充：使用 get_cfg_var（）函数）检索 cfg_file_path 配置设置的值。如果这是可用的，则
+    表示正在使用该配置文件。
+
+    个人补充：该函数和 ini_get() 类似，但是会且只会读取 php.ini 中的配置选项值。另外不是所有 PHP 都会读取一个 php.ini 文件的，有没有读
+    取，以及读取的哪个 php.ini 文件，可以按照上面所说的，通过 get_cfg_var（'cfg_file_path'）得到，如果有读取一个 php.ini 文件，则返回
+    该文件的完整路径，如果没有读取一个 php.ini 文件则返回 FALSE （不好实测，不过从该函数的行为来看，应该是返回 FALSE ）。你也可以通过
+    php --ini 或 phpinfo() 的输出看到 PHP 是否有读取某个 php.ini 文件。
+
+参数
+    option
+        配置选项的名称。
+
+返回值
+    返回由 option 指定的 PHP 配置变量的当前值，如果发生一个错误，则返回 FALSE 。
+
+变更日志
+    版本	    描述
+    5.3.0	get_cfg_var() 被修复可以返回“数组” ini 选项。
