@@ -67,20 +67,17 @@ Example #2 php.ini 例子
           PHP will load all files in /etc/php.d/*.ini as configuration files.
 
         $ PHP_INI_SCAN_DIR=/usr/local/etc/php.d php
-          PHP will load all files in /usr/local/etc/php.d/*.ini as
-          configuration files.
+          PHP will load all files in /usr/local/etc/php.d/*.ini as configuration files.
 
         $ PHP_INI_SCAN_DIR=:/usr/local/etc/php.d php
-          PHP will load all files in /etc/php.d/*.ini, then
-          /usr/local/etc/php.d/*.ini as configuration files.
+          PHP will load all files in /etc/php.d/*.ini, then /usr/local/etc/php.d/*.ini as configuration files.
 
         $ PHP_INI_SCAN_DIR=/usr/local/etc/php.d: php
-          PHP will load all files in /usr/local/etc/php.d/*.ini, then
-          /etc/php.d/*.ini as configuration files.
+          PHP will load all files in /usr/local/etc/php.d/*.ini, then /etc/php.d/*.ini as configuration files.
 
 变更日志
     版本         描述
     7.0.0	    井号（#）不再被认为是注释。
-    5.3.0	    井号（#）不应该再用作注释，而且如果使用德胡啊，将会抛出一个弃用的警告。
+    5.3.0	    井号（#）不应该再用作注释，而且如果使用，将会抛出一个弃用的警告。
     5.2.0	    可以设置 PHP_INI_SCAN_DIR 环境变量去覆盖通过配置脚本设置的扫描目录。
     5.1.0	    可以在 .ini 文件中引用现有的 .ini 变量。

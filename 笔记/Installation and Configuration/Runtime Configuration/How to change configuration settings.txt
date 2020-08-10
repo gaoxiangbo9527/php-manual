@@ -16,6 +16,7 @@
     php_admin_value name value
         设置指定指令的值。不能在 .htaccess 文件中使用它。任何通过 php_admin_value 设置的指令不能被 .htaccess 或 ini_set() 覆盖。要想
         清除先前设置的值，使用 none 作为值即可。
+        个人补充：该指令应该只能用于 PHP_INI_SYSTEM，所以才不能在 .htaccess 中使用它，也不能被 .htaccess 或 ini_set() 覆盖。下同。
 
     php_admin_flag name on|off
         用于去设置一个布尔型的配置指令。不能在 .htaccess 文件中使用它。任何通过 php_admin_flag 设置的指令不能被 .htaccess 或
