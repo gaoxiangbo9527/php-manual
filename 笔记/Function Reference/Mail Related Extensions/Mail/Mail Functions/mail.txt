@@ -1,0 +1,92 @@
+描述
+    mail ( string $to , string $subject , string $message [, mixed $additional_headers [, string $additional_parameters ]] ) : bool
+
+    发送一封邮件。
+
+参数
+    to
+        邮件的接收人或接收人们。
+
+        这个字符串的格式必须符合 RFC 2822 。一些例子是：
+            user@example.com
+            user@example.com, anotheruser@example.com
+            User <user@example.com>
+            User <user@example.com>, Another User <anotheruser@example.com>
+    subject
+        要发送的邮件的主题。
+
+        小心 主题必须满足 RFC 2047 。
+    message
+        要发送的消息。
+
+        每一行应该使用 CRLF （\r\n）分隔。每行不应该超过 70 个字符。
+
+        小心 （仅 Windows）当 PHP 正在与一个 SMTP 服务器直接通信时，如果在行的开头发现一个句号，则会将其移除。为了防止这种情况发生，用双
+        句号替换这些情况。
+            <?php
+            $text = str_replace("\n.", "\n..", $text);
+            ?>
+    additional_headers（可选）
+        要插入到电子邮件头部末尾的字符串或数组。
+
+        这通常用于添加额外的头（From、Cc 和 Bcc）。多个额外的头应该使用 CRLF（\r\n） 分隔。如果使用外部数据来组成这个头，应该对数据进行
+        清理，这样就不会被注入不期望的头。
+
+        如果传递一个数组，它的键会是头的名称并且它的值会是对应的头部值。
+
+        注意：
+            分别在 5.4.42 和 5.5.27 之前，additional_headers 没有邮件头注入保护。因此，用户必须确保指定的头部是安全的并且只包含头部。
+            例如，永不应通过放置多个 newline 来开始邮件主题。
+        个人补充：上面的保护只能保证无法注入邮件主体，但是邮件头仍然可能会被注入，最好的办法是做验证，不过使用数组形式的参数可以缓解头部注入
+        问题，还避免在特殊情况下（见下面的注意）使用 LF 替换 CRLF 。
+
+        注意：
+            当发送邮件时，邮件必须包含一个 From 头部。这可以通过 additional_headers 参数设置，也可以在 php.ini 中设置一个默认值。
+
+            如果没这样做，将导致类一条似于这样的错误消息：Warning: mail(): "sendmail_from" not set in php.ini or custom "From:"
+            header missing 。在 Windows 下，From 头还设置了的返回路径。
+
+        注意：
+            如果消息没有被接收，尝试只使用一个 LF（\n） 。一些 Unix 邮件传输代理（最知名的是 qmail）会自动的用 CRLF 替换 LF （如果你使
+            用 CRLF，则会导致两个 CR ）。这应该是最后的手段，因为它不符合 RFC 2822 。
+    additional_parameters（可选）
+        additional_parameters 参数可用于将额外的标志作为命令行选项传递给配置为在发送邮件时所使用的程序，如 sendmail_path 配置设置所定
+        义的那样。例如，当使用带 -f 选项的 sendmail 时，这可以用于设置信封的发送者地址。
+
+        这个参数在内部通过 escapeshellcmd() 转义以防止命令执行。escapeshellcmd() 防止命令执行，但允许添加额外的参数。出于安全性原因，
+        建议用户清理此参数，以避免向 shell 命令添加不期望的参数。
+
+        因为 escapeshellcmd() 是自动应用的，所以一些被互联网 RFCs 允许作为电子邮件地址的字符不能被使用。mail() 不允许使用这些字符，因此
+        在需要使用这些字符的程序中，建议使用其他发送电子邮件的方案（例如使用一个框架或一个库）。
+
+        web 服务器运行为的用户应该作为一个受信任的用户被添加到 sendmail 的配置中，以防止在使用此方法且通过 -f 设置了信封的发送者时将
+        "X-Warning"头添加到消息中。对于 sendmail 用户来说，此文件为 /etc/mail/trusted-users 。
+
+返回值
+    如果邮件被成功接收以进行投递，返回 TRUE，否则返回 FALSE 。
+
+    需要注意的是，因为邮件仅仅是被接收以进行投递，所以这并不意味着邮件一定会到达预定的目的地。
+
+变更日志
+    版本             描述
+    7.2.0	        additional_headers 参数现在也接受一个数组。
+    5.4.42，5.5.27	已经为 additional_headers 参数添加了头部注入保护。这意味着不再允许多个连续的 newline 符。
+
+示例
+    注意：如果打算发送 HTML 或其他复杂的邮件，建议使用 PEAR 包 PEAR::Mail_Mime 。
+
+注意事项
+    注意：
+        mail() 的 Windows 实现在许多方面与 Unix 实现不同。首先，它不使用本地二进制文件来编排消息，而只操作直接套接字，这意味着需要一个
+        MTA 去监听一个网络套接字（可以在一个本地或远程主机上）。
+
+        其次，自定义的头信息像 From:，Cc:，Bcc: 和 Date: 不是首先由 MTA 解释的，而是由 PHP 解析的。
+
+        因此，to 参数不应该是 "Something <someone@example.com>" 形式的地址。邮件命令在与 MTA 对话时可能无法正确解析此内容。
+
+    注意：
+        值得注意的是，mail() 函数不适合在循环中处理大量的电子邮件。这个函数会为每封电子邮件打开和关闭一个 SMTP 套接字，这不是很有效率。
+
+        对于发送大量的电子邮件，请参考 PEAR::Mail 和 PEAR::Mail_Queue 包。
+
+    注意：下面的 RFCs 可能会有用：RFC 1896，RFC 2045，RFC 2046，RFC 2047，RFC 2048，RFC 2049 和 RFC 2822 。

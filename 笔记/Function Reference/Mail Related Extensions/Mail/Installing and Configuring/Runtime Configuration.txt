@@ -1,0 +1,40 @@
+php.ini 中的设置项会影响这些函数的行为。
+
+邮件配置选项
+名称	                            默认值	                    可修改范围	    更新日志
+mail.add_x_header	            "0"	                        PHP_INI_PERDIR	从 PHP 5.3.0 开始可用。
+mail.log	                    NULL	                    PHP_INI_PERDIR	从 PHP 5.3.0 开始可用。PHP_INI_SYSTEM|PHP_INI_PERDIR
+mail.force_extra_parameters     NULL	                    PHP_INI_PERDIR	从 PHP 5.0.0 开始可用。PHP_INI_SYSTEM|PHP_INI_PERDIR
+SMTP	                        "localhost"	                PHP_INI_ALL
+smtp_port	                    "25"	                    PHP_INI_ALL
+sendmail_from	                NULL	                    PHP_INI_ALL
+sendmail_path	                "/usr/sbin/sendmail -t -i"
+
+mail.add_x_header bool
+    添加 X-PHP-Originating-Script，它将会在文件名后面包含该脚本的 UID 。
+
+mail.log string
+    一个日志文件的路径，该文件会记录所有的 mail() 调用。日志记录包含脚本的完整路径，行号，目标地址和头部。
+
+mail.force_extra_parameters string
+    强制将指定的参数传递给 sendmail 二进制文件作为额外的参数。这些参数将总是会替换 mail() 第 5 个参数的值，即使在安全模式下。
+
+SMTP string
+    仅在 Windows 下使用：PHP 使用 mail() 函数发送邮件所应该使用 SMTP 服务器的主机名或 IP 地址。
+
+smtp_port int
+    仅在 Windows 下使用：使用 mail() 发送邮件时，连接到 SMTP 设置项所指定的服务器时所用的端口号。默认为 25 。
+
+sendmail_from string
+    从 Windows 下的 PHP 发送邮件时，应该使用哪个 "From:" 邮件地址。这个指令也将设置 "Return-Path:" 头。
+
+sendmail_path string
+    可以在哪里找到 sendmail 程序，通常是 /usr/sbin/sendmail 或 /usr/lib/sendmail 。configure 会真诚地尝试为你定位这个值并设置一个默
+    认值，但是如果失败，你可以在这里设置。
+
+    不使用 sendmail 的系统，应该将这个指令设置为它们的邮件系统所提供的 sendmail 包装器/替代品，如果有的话。例如，Qmail 用户通常可以将其
+    设置为 /var/qmail/bin/sendmail 或 /var/qmail/bin/qmail-inject 。
+
+    qmail-inject 不需要任何选项来正确的处理邮件。
+
+    这个指令在 Windows 下也可以工作。如果设置了该指令，那么 smtp，smtp_port 和 sendmail_from 会被忽略并且指定的命令会被执行。

@@ -1,0 +1,4 @@
+要使邮件函数可用，在编译期间 PHP 必须能够访问系统上的 sendmail 二进制文件。如果你使用另外一个邮件程序，例如 qmail 或 postfix ，请确保要
+使用它们带有的合适的 sendmail 包装器。PHP 首先将在你的 PATH 中查找 sendmail，然后按下面的顺序查找：
+/usr/bin:/usr/sbin:/usr/etc:/etc:/usr/ucblib:/usr/lib 。强烈建议让 sendmail 在你的 PATH 中可用。此外，编译 PHP 的那个用户必须具
+有访问 sendmail 二进制文件的权限。
