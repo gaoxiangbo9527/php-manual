@@ -1,0 +1,39 @@
+描述
+    phpinfo ([ int $what = INFO_ALL ] ) : bool
+
+    输出关于 PHP 当前状态的大量信息。这包括关于 PHP 编译选项和扩展的信息、PHP 的版本、服务器信息和环境（如果被编译为一个模块），PHP 环境、
+    OS 版本信息、路径、配置选项的主值和本地值、HTTP 头以及 PHP 许可证。
+
+    因为每个系统的设置都不一样，phpinfo() 通常用于检查一个给定系统上的 配置设置 和可用的 预定义变量 。
+
+    phpinfo() 也是一个很有价值的调试工具，因为它包含了所有 EGPCS（Environment、GET、POST、Cookie、Server）数据。
+
+参数
+    what
+        通过在可选的 what 参数中传递按位值相加后的一个或多个下列常量，可以定制输出。你也可以通过 位或操作符 将各个常量或位值组合在一起。
+
+        phpinfo() 选项
+        名称（常量）	        值   描述
+        INFO_GENERAL	    1	    配置行，php.ini 的位置，构建日期，Web 服务器，系统等等。
+        INFO_CREDITS	    2	    PHP 工作人员。另请参阅 phpcredits() 。
+        INFO_CONFIGURATION	4	    PHP 指令的当前局部值和主值。另请参阅 ini_get() 。
+        INFO_MODULES	    8	    已加载的模块和它们相应的设置项。另请参阅 get_loaded_extensions() 。
+        INFO_ENVIRONMENT	16	    在 $_ENV 中也可用的环境变量信息。
+        INFO_VARIABLES	    32	    展示所有来自 EGPCS（Environment，GET，POST，Cookie，Server） 的 预定义变量 。
+        INFO_LICENSE	    64	    PHP 的许可证信息。请参阅 许可证 FAQ 。
+        INFO_ALL	        -1	    展示上面的所有内容。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本	    描述
+    5.5.0	Logo GUIDs 被 data URIs 替代，因此现在关闭 expose_php 对 phpinfo() 的结果没有影响。工作人员现在也被嵌入到输出本身中了，
+            而不是被链接。
+    5.2.2	添加了 "Loaded Configuration File" 信息，以前只存在 "Configuration File (php.ini) Path" 。
+
+注意事项
+    注意：在 PHP 5.5 之前的版本中，当 expose_php 配置选项设置为 off 时，部分信息信息的显示会被禁止。这包括 PHP 和 Zend 的 logo 以及
+    工作人员。
+
+    注意：当使用 CLI 模式时，phpinfo() 会输出纯文本而不是 HTML 。

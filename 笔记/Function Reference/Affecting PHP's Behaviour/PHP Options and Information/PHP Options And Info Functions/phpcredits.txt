@@ -1,0 +1,25 @@
+描述
+    phpcredits ([ int $flag = CREDITS_ALL ] ) : bool
+
+    这个函数会打印出 PHP 开发人员、模块等等的工作人员。它会生成适当的 HTML 代码，以便在页面中插入该信息。
+
+参数
+    flag
+        为了生成一个自定义的工作人员页面，你可能会希望去使用 flag 参数。
+
+        预定义的 phpcredits() 标志
+        名称	                描述
+        CREDITS_ALL	        所有的工作人员，相当于使用：CREDITS_DOCS + CREDITS_GENERAL + CREDITS_GROUP + CREDITS_MODULES +
+                            CREDITS_FULLPAGE 。它生成一个带有适当标签的、完整独立的 HTML 页面。
+        CREDITS_DOCS	    文档团队的工作人员。
+        CREDITS_FULLPAGE	通常与其他标志结合使用。指明需要打印完整独立的 HTML 页面，包含由其他标志指示的信息。
+        CREDITS_GENERAL 	常规工作人员：语言设计和概念，PHP 作者和 SAPI 模块。
+        CREDITS_GROUP	    一份核心开发人员的列表。
+        CREDITS_MODULES	    一份 PHP 的扩展模块及其作者的列表。
+        CREDITS_SAPI	    一份 PHP 的服务器 API 模块及其作者的列表。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    注意：当使用 CLI 模式时，phpcredits() 会输出纯文本而不是 HTML 。

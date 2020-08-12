@@ -1,0 +1,3 @@
+<?php
+
+phpcredits(CREDITS_GROUP | CREDITS_DOCS | CREDITS_FULLPAGE);
