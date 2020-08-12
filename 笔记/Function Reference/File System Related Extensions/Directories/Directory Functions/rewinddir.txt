@@ -1,0 +1,11 @@
+描述
+    rewinddir ([ resource $dir_handle ] ) : void
+
+    把由 dir_handle 指定的目录流重置到该目录的开头。
+
+参数
+    dir_handle
+        之前通过 opendir() 打开的目录句柄资源。如果没有指定目录句柄，就假设是由 opendir() 打开的最后一个链接。
+
+返回值
+    成功时返回 NULL，失败时返回 FALSE 。

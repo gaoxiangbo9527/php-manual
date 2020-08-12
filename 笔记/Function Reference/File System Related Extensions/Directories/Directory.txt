@@ -1,0 +1,26 @@
+介绍
+    Directory 类的实例是由调用 dir() 函数创建的，而不是由 new 操作符创建的。
+
+类摘要
+    Directory {
+
+        /* Properties */
+        public string $path ;
+        public resource $handle ;
+
+        /* Methods */
+        public close ([ resource $dir_handle ] ) : void
+        public read ([ resource $dir_handle ] ) : string
+        public rewind ([ resource $dir_handle ] ) : void
+    }
+
+属性
+    path
+        被打开的目录。
+    handle
+        可以与 readdir()、rewinddir() 和 closedir() 等其他目录函数一起使用。
+
+目录
+    Directory::close — 关闭目录句柄
+    Directory::read — 从目录句柄读取记录
+    Directory::rewind — 重置目录句柄

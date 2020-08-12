@@ -1,0 +1,13 @@
+DIRECTORY_SEPARATOR (string)
+    个人补充：目录分隔符。
+PATH_SEPARATOR (string)
+    在 Windows 上为分号，其他平台上为冒号。
+SCANDIR_SORT_ASCENDING (integer)
+    个人补充：按升序排序。
+    从 PHP 5.4.0 开始可用。
+SCANDIR_SORT_DESCENDING (integer)
+    个人补充：按降序排序。
+    从 PHP 5.4.0 开始可用。
+SCANDIR_SORT_NONE (integer)
+    个人补充：不排序。
+    从 PHP 5.4.0 开始可用。

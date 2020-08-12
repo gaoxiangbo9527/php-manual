@@ -1,0 +1,26 @@
+描述
+    scandir ( string $directory [, int $sorting_order = SCANDIR_SORT_ASCENDING [, resource $context ]] ) : array
+
+    返回一个来自 directory 的文件和目录的数组。
+
+参数
+    directory
+        将被扫描的目录。
+    sorting_order
+        默认情况下，排序顺序是按字母升序排列。如果可选的 sorting_order 设置为 SCANDIR_SORT_DESCENDING，那么排序顺序是按字母降序排列。
+        如果设置为 SCANDIR_SORT_NONE，那么结果是无序的。
+    context
+        有关 context 参数的描述，请参考手册中的 streams 部分。
+
+返回值
+    成功时返回一个文件名称的数组，失败时返回 FALSE 。如果 directory 不是一个目录，则返回返回布尔值 FALSE ，并且会生成一个 E_WARNING 级
+    别的错误。
+
+更新日志
+    版本         描述
+    5.4.0	    添加了 sorting_order 常量。在以前的版本中，任何非零值都导致会按降序排列。所以对于所有的 PHP 版本来说，0 用于升序，1 用
+                于降序。在 PHP 5.4.0 之前，不存在 SCANDIR_SORT_NONE 行为的选项。
+
+注意事项
+    提示 如果启用了 fopen 包装器 ，那么通过此函数可以使用 URL 作为文件名。有关如何指定文件名的详细信息，请参阅 fopen() 。请参阅受
+    支持的协议和包装器 以获得有关各种包装器具有什么能力的信息的链接、它们用法上的注意事项，以及它们可能提供的任何预定义变量的信息。

@@ -1,0 +1,16 @@
+描述
+    dir ( string $directory [, resource $context ] ) : Directory
+
+    用于读取目录的伪面向对象的机制。打开给定的 directory 。
+
+参数
+    directory
+        要打开的目录。
+    context
+        注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。
+
+返回值
+    返回一个 Directory 实例，参数错误则返回 NULL ，在出现其他错误时返回 FALSE 。
+
+注意事项
+    注意：读取方法返回的目录项的顺序取决于系统。

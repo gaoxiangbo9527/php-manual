@@ -1,0 +1,18 @@
+描述
+    opendir ( string $path [, resource $context ] ) : resource
+
+    打开一个将在后续的 closedir()，readdir() 和 rewinddir() 调用中使用的目录句柄。
+
+参数
+    path
+        要打开的目录路径。
+    context
+        有关 context 参数的描述，请参考手册的 streams 部分。
+
+返回值
+    成功时返回一个目录句柄资源，失败时返回 FALSE 。
+
+错误/异常
+    失败时将产生一个 E_WARNING 。
+
+    如果 path 不是一个有效的目录，目录由于权限限制或文件系统错误而不能打开，就可能发生这种情况。

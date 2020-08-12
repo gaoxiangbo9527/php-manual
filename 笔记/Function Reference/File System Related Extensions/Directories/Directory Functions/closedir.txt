@@ -1,0 +1,8 @@
+描述
+    closedir ([ resource $dir_handle ] ) : void
+
+    关闭由 dir_handle 指定的目录流。该流之前必须是由 opendir() 打开的。
+
+参数
+    dir_handle
+        之前通过 opendir() 打开的目录句柄资源。如果没有指定目录句柄，就假设是由 opendir() 打开的最后一个链接。
