@@ -1,0 +1,14 @@
+描述
+    proc_close ( resource $process ) : int
+
+    proc_close() 类似于 pclose()，除了它仅可以在由 proc_open() 打开的进程上工作。proc_close() 等待进程终止，并返回其退出代码。为了避
+    免死锁，当调用此函数时，通往该进程的打开管道应该是已关闭的 —— 当这些管道是打开时，子进程可能无法退出。
+
+参数
+    process
+        将要被关闭的 proc_open() 资源。
+
+返回值
+    返回曾运行的进程的结束状态。如果出现错误，则返回 -1 。
+
+    注意：如果已经使用 --enable-sigchild 编译了 PHP ，此函数的返回值是未定义的。

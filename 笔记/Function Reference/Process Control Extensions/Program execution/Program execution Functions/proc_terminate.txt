@@ -1,0 +1,19 @@
+描述
+    proc_terminate ( resource $process [, int $signal = 15 ] ) : bool
+
+    指示一个应该被终止的 process (使用 proc_open() 创建)。proc_terminate() 会立即返回并且不等待进程终止。
+
+    proc_terminate() 允许你终止进程并且继续执行其他任务。你可以通过使用 proc_get_status() 函数轮询进程（以查看它是否已经停止）。
+
+参数
+    process
+        将要被关闭的 proc_open() 资源。
+    signal
+        这个可选参数只在 POSIX 操作系统上有用；可以使用 kill(2) 系统调用指定一个要发送给进程的信号。默认值是 SIGTERM 。
+
+返回值
+    返回曾运行的进程的结束状态。
+
+更新日志
+    版本     描述
+    5.2.2   以前的版本常常用于销毁给定的进程资源。

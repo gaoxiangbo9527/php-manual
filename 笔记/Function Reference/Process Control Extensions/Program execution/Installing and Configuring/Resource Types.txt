@@ -1,0 +1,1 @@
+此扩展定义了一个 process 资源，由 proc_open() 返回。

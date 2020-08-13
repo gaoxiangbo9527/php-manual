@@ -1,3 +1,3 @@
 <?php
-$output = shell_exec('ls -lart');
+$output = shell_exec('dir');
 echo "<pre>$output</pre>";

@@ -1,0 +1,28 @@
+描述
+    passthru ( string $command [, int &$return_var ] ) : void
+
+    passthru() 函数和 exec() 函数类似，它也执行一个 command 。当来自 Unix 命令的输出是需要直接传递回浏览器的二进制数据时，应该用这个函
+    数替代 exec() 或 system() 。它的常见用途是执行一些类似 pbmplus 实用程序的可以直接输出图像流的东西。通过把 Content-type 设置为
+    image/gif 然后调用一个 pbmplus 程序输出一个 gif ，你就可以创建直接输出图像的 PHP 脚本。
+
+参数
+    command
+        将被执行的命令。
+    return_var
+        如果出现 return_var 参数，那么 Unix 命令的返回状态将放置在这里。
+
+返回值
+    没有值被返回。
+
+注意事项
+    警告 当允许传递用户提供的数据给这个函数时，使用 escapeshellarg() 或 escapeshellcmd() 去确保用户不会欺骗系统去执行任意命令。
+
+    注意：如果用这个函数启动一个程序，为了让它在后台继续运行，该程序的输出必须被重定向到一个文件或另一个输出流。如果没这样做，将导致 PHP 挂
+    起，直到该程序执行结束。
+
+    注意：在 Windows 上，exec() 首先将启动 cmd.exe 去启动该命令。如果你想在不启动 cmd.exe 的情况下启动一个外部程序，请使用设置了
+    bypass_shell 选项的 proc_open()。
+
+    注意：当启用了 安全模式 时，你只能执行 safe_mode_exec_dir 中的文件。出于实际原因，目前不允许可执行文件的路径中有 .. 组件。
+
+    警告 启用 安全模式 后，会使用 escapeshellcmd() 对命令字符串进行转义。因此 echo y | echo x 会成为 echo y \| echo x 。

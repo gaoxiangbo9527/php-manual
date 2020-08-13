@@ -1,0 +1,34 @@
+描述
+    proc_nice ( int $increment ) : bool
+
+    proc_nice() 将当前进程的优先级更改为“increment”中指定的值。正的 increment 将降低当前进程的优先级，而负的 increment 将提高优先级。
+
+    proc_nice() 与 proc_open() 及其关联函数没有任何关系。
+
+参数
+    increment
+        新的优先级只，在不同平台上，这个参数的值可能会不同。
+
+        在 Unix 上，一个低的值，例如 -20 意味着高优先级，而一个正值却拥有一个低优先级。
+
+        对于 Windows，increment 参数有下列含义：
+            优先级类别	            可能的值
+            High priority	        increment < -9
+            Above normal priority	increment < -4
+            Normal priority	        increment < 5 & increment > -5
+            Below normal priority	increment > 5
+            Idle priority	        increment > 9
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。如果发生一个错误，像用户缺少更改优先级的权限，还会生成一个 E_WARNING 级别的错误。
+
+更新日志
+    版本     描述
+    7.2.0   这个函数现在可以在 Windows 上使用。
+
+注意事项
+    注意：可用性
+        proc_nice() 只存在于具有“nice”能力的系统下。“nice”符合：SVr4，SVID EXT，AT&T，X/OPEN，BSD 4.3 。
+
+    注意：仅 Windows
+        proc_nice() 将改变当前进程的优先级，即使 PHP 是使用线程安全编译的。

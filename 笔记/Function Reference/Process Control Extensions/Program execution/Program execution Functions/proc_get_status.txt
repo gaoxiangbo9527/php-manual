@@ -1,0 +1,21 @@
+描述
+    proc_get_status ( resource $process ) : array
+
+    proc_get_status() 获取使用 proc_open() 打开的进程的数据。
+
+参数
+    process
+        将被计算的 proc_open() 资源。
+
+返回值
+    成功时返回一个已收集到信息的数组，失败时返回 FALSE 。返回的数组包含下列元素：
+
+    元素	        类型     描述
+    command	    string	传递给 proc_open() 的命令字符串。
+    pid	        int	    进程 id 。
+    running	    bool	如果进程仍在运行当中，则为 TRUE，如果它已经终止，则为 FALSE 。
+    signaled	bool	如果子进程已被一个未捕获的信号终止，则为 TRUE 。在 Windows 上，它总是被设置为 FALSE 。
+    stopped	    bool	如果子进程已被一个信号停止，则为 TRUE 。在 Windows 上，它总是被设置为 FALSE 。
+    exitcode	int	    由进程返回的退出码（只有当 running 是 FALSE 时才有意义）。只有第一次调用这个函数时返回真实值，后续调用返回 -1。
+    termsig	    int	    导致子进程终止其执行的信号量（仅当 signaled 是 TRUE 时才有意义）。
+    stopsig	    int	    导致子进程停止其执行的信号量（仅当 stopped 是 TRUE 时才有意义）。

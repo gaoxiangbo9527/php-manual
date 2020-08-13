@@ -1,0 +1,59 @@
+描述
+    proc_open ( mixed $cmd , array $descriptorspec , array &$pipes [, string $cwd = NULL [, array $env = NULL [, array $other_options = NULL ]]] ) : resource
+
+    proc_open() 类似于 popen()，但是对程序执行提供了更大程度的控制。
+
+参数
+    cmd
+        要执行的命令行字符串。特殊字符必须要正确的转义，且必须应用正确的引号。
+
+        注意：在 Windows 上，除非在 other_options 中把 bypass_shell 设置为 TRUE，否则 cmd 会被传递给 cmd.exe（实际上是 %ComSpec%
+        ）并以 /c 标记作为未引用的字符串（即，与 proc_open() 所提供的完全一样）。这可能导致 cmd.exe 从 cmd 中删除闭合的引号（详见
+        cmd.exe 的文档），会导致意想不到的行为，甚至是潜在的危险行为，因为 cmd.exe 的错误消息可能（部分）包含传递的 cmd （见下面的示例）。
+
+        从 PHP 7.4.0 开始，cmd 可以作为命令参数的数组被传递。在这种情况下，将直接打开进程（不需要通过 shell），PHP 将负责任何必要的参数
+        转义。
+
+        注意：在 Windows 上，数组元素的参数转义会假设所执行命令的命令行解析与 VC 运行时对命令行参数的解析是兼容的。
+    descriptorspec
+        一个索引数组，其中键表示描述符编号，值表示 PHP 将如何将描述符传递给子进程。0 是 stdin，1 是 stdout，而 2 是 stderr 。
+
+        每个元素可以是：
+            一个描述了传递给进程的管道的数组。第一个元素是描述符类型并且第二个元素是给定类型的一个选项。有效的类型是 pipe（第二个元素要么是
+            r 用于将管道的读端传递给进程，要么是 w 用于将管道的写端传递给进程）和 file（第二个元素是一个文件名）。
+
+            一个代表了一个真实文件描述符（例如，已打开的文件，一个套接字，STDIN）的流资源。
+
+        文件描述符号不限于 0，1 和 2 —— 你可以指定任何有效的文件描述符编号并且它将被传递给子进程。这允许你的脚本与作为“协作进程”运行的其
+        他脚本进行互操作。特别是，这对于以一种更安全的方式将密码短语传递给 PGP、GPG 和 openssl 等程序非常有用。它对于读取那些程序在辅助文
+        件描述符上提供的状态信息也很有用。
+    pipes
+        将被设置为一个文件指针的索引数组，这些文件指针对应于 PHP 末尾所创建的任何管道。
+    cwd
+        该命令的初始工作目录。这必须是一个绝对的目录路径，或者 NULL，如果你希望使用默认值的话（当前 PHP 进程的工作目录）。
+    env
+        将要运行的命令的一个环境变量数组，或者 NULL 去使用和当前 PHP 进程一样的环境。
+    other_options
+        允许你去指定另外的选项。当前支持的选项包含：
+            suppress_errors（仅 Windows）： 当它设置为 TRUE 时，会抑制由这个函数生成的错误。
+            bypass_shell（仅 Windows）： 当设置为 TRUE 时，绕过 cmd.exe shell 。
+            blocking_pipes（仅 Windows）： 当设置为 TRUE 时，强制阻塞管道。
+            create_process_group（仅 Windows）：当设置为 TRUE 时，允许子进程去处理 CTRL 事件。
+            create_new_console（仅 Windows）：新的进程有一个新的控制台，而不是继承它的父控制台。
+
+返回值
+    返回一个代表进程的资源，当完成该资源时，应该使用 proc_close() 来释放该资源。如果失败，返回 FALSE 。
+
+更新日志
+    版本	    描述
+    7.4.4	添加 create_new_console 选项到 other_options 参数。
+    7.4.0	proc_open() 的 cmd 现在也接受一个数组。
+    7.4.0	添加 create_process_group 选项到 other_options 参数。
+    7.0.0	添加 blocking_pipes 选项到 other_options 参数。
+    5.2.1	添加 bypass_shell 选项到 other_options 参数。
+
+注意事项
+    注意：Windows 兼容性：超过 2（stderr）的描述符作为可继承句柄可以供子进程使用，但是由于 Windows 架构没有将文件描述符编号与低级句柄相关
+    联，所以子进程（还）没有访问这些句柄的方法。stdin、stdout 和 stderr 按预期工作。
+
+    注意：如果您只需要一个单向（单程）的进程管道，那么可以使用 popen() ，因为它更容易使用。
