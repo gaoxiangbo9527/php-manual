@@ -1,0 +1,7 @@
+描述
+    getmyuid ( void ) : int
+
+    获取当前脚本的用户 ID 。
+
+返回值
+    返回当前脚本的用户 ID，错误则返回 FALSE 。

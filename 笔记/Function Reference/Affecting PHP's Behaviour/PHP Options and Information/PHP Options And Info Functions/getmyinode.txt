@@ -1,0 +1,7 @@
+描述
+    getmyinode ( void ) : int
+
+    获取当前脚本的 inode 。
+
+返回值
+    以一个整数返回当前脚本的 inode，错误时返回 FALSE 。

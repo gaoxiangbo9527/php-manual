@@ -1,0 +1,7 @@
+描述
+    get_current_user ( void ) : string
+
+    获取当前 PHP 脚本所有者的名字。
+
+返回值
+    以一个字符串返回用户名。

@@ -1,0 +1,7 @@
+描述
+    getmygid ( void ) : int
+
+    获取当前脚本的组 ID 。
+
+返回值
+    返回当前脚本的组 ID ，错误则返回 FALSE 。
