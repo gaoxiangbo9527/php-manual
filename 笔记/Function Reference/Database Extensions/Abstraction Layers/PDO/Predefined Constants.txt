@@ -11,9 +11,9 @@ PDO::PARAM_INT (integer)
 PDO::PARAM_STR (integer)
     表示 SQL CHAR、VARCHAR 或者其它的字符串数据类型。
 PDO::PARAM_STR_NATL (integer)
-    一个表示使用国际哈字符集的字符串的表示。从 PHP 7.2.0 。
+    一个表示使用国家字符集的字符串的标志。从 PHP 7.2.0 开始可用。
 PDO::PARAM_STR_CHAR (integer)
-    一个表示使用常规字符集的字符串的标志。从 PHP 7.2.0 。
+    一个表示使用常规字符集的字符串的标志。从 PHP 7.2.0 开始可用。
 PDO::PARAM_LOB (integer)
     表示 SQL large object 数据类型。
 PDO::PARAM_STMT (integer)
