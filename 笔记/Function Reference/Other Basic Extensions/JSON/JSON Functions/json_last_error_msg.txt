@@ -1,0 +1,10 @@
+描述
+    json_last_error_msg ( void ) : string
+
+    返回最后的没有指定 JSON_THROW_ON_ERROR 的 json_encode() 或 json_decode() 调用的错误字符串。
+
+参数
+    此函数没有参数。
+
+返回值
+    成功时返回错误消息，如果没有发生错误，则返回 "No error"，失败时返回 FALSE 。

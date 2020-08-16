@@ -1,0 +1,24 @@
+描述
+    json_last_error ( void ) : int
+
+    返回最后一次没有 JSON_THROW_ON_ERROR 的 JSON 编码/解码期间发生的最后一个错误（如果有任何错误的话）。
+
+参数
+    此函数没有参数。
+
+返回值
+    返回一个整数，值可以是下列常量之一：
+
+    JSON 错误代码
+    常量	                                含义	                                            可用性
+    JSON_ERROR_NONE	                    没有发生错误
+    JSON_ERROR_DEPTH	                超过最大的堆栈深度
+    JSON_ERROR_STATE_MISMATCH	        无效或畸形的 JSON
+    JSON_ERROR_CTRL_CHAR	            控制字符错误，可能是不正确的编码
+    JSON_ERROR_SYNTAX	                语法错误
+    JSON_ERROR_UTF8	                    畸形的 UTF-8 字符，可能是不正确的编码	            PHP 5.3.3
+    JSON_ERROR_RECURSION	            要编码的值中有一个或多个递归引用	                    PHP 5.5.0
+    JSON_ERROR_INF_OR_NAN	            要编码的值中有一个或多个 NAN 或 INF              	PHP 5.5.0
+    JSON_ERROR_UNSUPPORTED_TYPE	        给出了一个无法被编码类型的值                         PHP 5.5.0
+    JSON_ERROR_INVALID_PROPERTY_NAME	给出了一个无法被编码的属性名称	                    PHP 7.0.0
+    JSON_ERROR_UTF16	                畸形的 UTF-16 字符，可能是不正确的编码               PHP 7.0.0

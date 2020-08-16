@@ -4,6 +4,8 @@
         short_open_tag	                "1"	        PHP_INI_PERDIR
         asp_tags	                    "0"	        PHP_INI_PERDIR      在 PHP 7.0.0 中被移除了。
         precision	                    "14"	    PHP_INI_ALL
+        serialize_precision	            "-1"	    PHP_INI_ALL	        在 PHP 5.3.6 之前，默认值是 100。
+                                                                        在 PHP 7.1.0 之前，默认值是 17 。
         disable_functions	            ""	        仅 php.ini（手册中这里好像出错了，我自己修改过来了）
         disable_classes	                ""	        仅 php.ini
         expose_php                      "1"         仅 php.ini
@@ -25,7 +27,9 @@
             版本	    描述
             7.0.0   从 PHP 中移除。
     precision   integer
-        浮点数中会显示的有效数字的数目。-1 表示将使用一种改进的四舍五入算法。
+        浮点数中会显示的有效数字的数目。-1 表示将使用一种增强的四舍五入算法。
+    serialize_precision     integer
+        序列化浮点数时存储的有效位数。-1 表示将使用一种增强的四舍五入算法。
     disable_functions   string
         这个指令允许你去禁用特定的函数。它接受一个逗号分隔的函数名称列表。
 
@@ -169,6 +173,7 @@
     路径和目录的配置选项
         名称                     默认值                       可修改范围           变更日志
         include_path            ".;/path/to/php/pear"       PHP_INI_ALL
+        open_basedir	        NULL	                    PHP_INI_ALL	        在 PHP < 5.3.0 中，是 PHP_INI_SYSTEM 。
         user_ini.cache_ttl	    "300"	                    PHP_INI_SYSTEM	    从 PHP 5.3.0 开始可用。
         user_ini.filename	    ".user.ini"	                PHP_INI_SYSTEM	    从 PHP 5.3.0 开始可用。
         extension_dir	        "/path/to/php"	            PHP_INI_SYSTEM
@@ -186,6 +191,35 @@
 
         注意：在 .ini 文件中也可以访问 ENV 变量，因此可能通过使用 ${LOGIN} 和 ${USER} 去引用主目录。
         环境变量在服务器 API 之间可能会有所不同，因为这些环境（服务器 API）可能是不同的。
+    open_basedir string
+        将 PHP 可以访问的文件限制在指定的目录树中，包括文件本身。这个指令不受安全模式是否开启或关闭的影响。
+
+        当一个脚本尝试访问文件系统时，例如使用 include 或 fopen() ，会检查该文件的位置。当该文件位于指定的目录树外时，PHP 将拒绝访问它。
+        所有的符号链接会被解析，所以使用符号链接不可能避免这一限制。如果该文件不存在，则无法解析该符号链接，并将该文件名与（已解析的）
+        open_basedir 进行比较。
+
+        open_basedir 可以影响的不仅仅是文件系统函数；例如，如果 MySQL 被配置为使用 mysqlnd 驱动程序，LOAD DATA INFILE 将受到
+        open_basedir 的影响。PHP 的许多扩展功能都是这样使用 open_basedir 的。
+
+        特殊值 . 指示将使用脚本的工作目录作为基础目录。然而，这有一点危险，因为用 chdir() 可以很容易地更改脚本的工作目录。
+
+        在 httpd.conf 中，可以通过与任何其他配置指令一样的方式 "php_admin_value open_basedir none" 关闭 open_basedir （例如，为了
+        一些虚拟主机）。
+
+        在 Windows 下，目录使用一个分号分隔。在其它所有的平台上，目录使用一个冒号分隔。作为一个Apache模块，来自父目录的 open_basedir 路
+        径现在会自动的被继承。
+
+        从 PHP 5.2.16 和 5.3.4 起，open_basedir 指定的限制是一个目录名。以前的版本使用它作为一个前缀。这意味着
+        "open_basedir = /dir/incl" 也允许访问 "/dir/include" 和 "/dir/incls"，如果它们存在的话。当你希望将访问限制为只访问指定的目
+        录时，以一个斜杠结束。例如 open_basedir = /dir/incl/ 。
+
+        默认值是允许打开所有的文件。
+
+        注意：从 PHP 5.3.0 开始，open_basedir 可以在运行时收紧。这意味着如果在 php.ini 中把 open_basedir 设置为 /www，则一个脚本可以
+        在运行时通过 ini_set() 把该配置收紧为 /www/tmp/ 。当监听多个目录时，不管操作系统是什么，你可以使用 PATH_SEPARATOR 常量作为一个
+        分隔符。
+
+        注意：使用 open_basedir 会将 realpath_cache_size 设置为 0 并且因此会禁用 realpath 缓存。
     user_ini.cache_ttl  integer
         控制了用户 INI 文件被重新读取的频率。默认为 300 秒（5 分钟）。
     user_ini.filename   string

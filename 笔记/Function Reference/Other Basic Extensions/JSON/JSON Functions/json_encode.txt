@@ -1,0 +1,54 @@
+描述
+    json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] ) : string
+
+    返回一个包含所提供的 value 的 JSON 表示的字符串。
+
+    编码会受到提供的 options 的影响，另外，浮点值的编码取决于 serialize_precision 的值。
+
+参数
+    value
+        将被编码的值。可以是除 资源 外的任何类型。
+
+        所有字符串数据必须是 UTF-8 编码。
+
+        注意：PHP 实现的是原始 RFC 7159 中所指定的 JSON 的一个超集。
+    options
+        由 JSON_FORCE_OBJECT，JSON_HEX_QUOT，JSON_HEX_TAG，JSON_HEX_AMP，JSON_HEX_APOS，JSON_INVALID_UTF8_IGNORE，
+        JSON_INVALID_UTF8_SUBSTITUTE，JSON_NUMERIC_CHECK，JSON_PARTIAL_OUTPUT_ON_ERROR，JSON_PRESERVE_ZERO_FRACTION，
+        JSON_PRETTY_PRINT，JSON_UNESCAPED_LINE_TERMINATORS，JSON_UNESCAPED_SLASHES，JSON_UNESCAPED_UNICODE，
+        JSON_THROW_ON_ERROR 组成的位位掩码。这些常量的行为在 JSON 常量 页面上有描述。
+    depth
+        设置最大深度。必须大于零。
+
+返回值
+    成功时返回一个 JSON 编码的字符串，失败时返回 FALSE 。
+
+更新日志
+    版本	    描述
+    7.3.0	添加了 JSON_THROW_ON_ERROR 选项。
+    7.2.0	添加了 JSON_INVALID_UTF8_IGNORE 和 JSON_INVALID_UTF8_SUBSTITUTE 选项。
+    7.1.0	添加了 JSON_UNESCAPED_LINE_TERMINATORS 选项。
+    7.1.0	在编码双精度值时使用 serialize_precision 而不是 precision 。
+    5.6.6	添加了 JSON_PRESERVE_ZERO_FRACTION 选项。
+    5.5.0	添加了 depth 参数。
+    5.5.0	添加了 JSON_PARTIAL_OUTPUT_ON_ERROR 选项。
+    5.5.0   当 value 触发了一个 JSON 编码错误时，会返回 FALSE 而不是部分输出，除非 options 包含了 JSON_PARTIAL_OUTPUT_ON_ERROR 。
+            查看 json_last_error() 以获得会导致 JSON 编码失败的完整原因列表。一个潜在的失败原因是 value 包含有包含无效的 UTF-8 的字符
+            串。
+    5.5.0	对无效值不再发出 E_WARNING 。
+    5.5.0	失败时的返回值从 null 字符串更改为 FALSE 。
+    5.4.0	添加了 JSON_PRETTY_PRINT，JSON_UNESCAPED_SLASHES 和 JSON_UNESCAPED_UNICODE 选项。
+    5.3.3	添加了 JSON_NUMERIC_CHECK 选项。
+    5.3.0	添加了 JSON_FORCE_OBJECT，JSON_HEX_AMP，JSON_HEX_APOS，JSON_HEX_QUOT 和 JSON_HEX_TAG 选项。
+    5.3.0	添加了 options 参数。
+
+注意事项
+    注意：在编码失败的情况下，可以使用 json_last_error() 来确定错误的确切性质。
+
+    注意：当编码一个数组时，如果键不是一个从 0 开始的连续数字序列，则所有的键都被编码为字符串，并为每个键值对显式的指定。
+
+    注意：
+        与引用 JSON 编码器一样，如果给定一个字符串、整数、浮点数或布尔值作为输入值，json_encode() 将生成一个是简单值的 JSON （即，既不
+        是对象也不是数组）。虽然大多数解码器将接受这些值作为有效的 JSON，但有些可能不接受，因为规范在这一点上是不明确的。
+
+        总之，始终要测试 JSON 解码器是否能够处理从 json_encode() 生成的输出。

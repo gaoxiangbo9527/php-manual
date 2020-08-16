@@ -1,0 +1,73 @@
+下面的尝试是由此扩展定义的，并且仅当该扩展已被编译进 PHP 或在运行时被动态的加载时才可使用。
+
+下面的常量指明了 json_last_error() 返回的错误类型或存储为 JsonException 的 code 。
+
+JSON_ERROR_NONE (integer)
+    没有发生错误。从 PHP 5.3.0 开始可用。
+JSON_ERROR_DEPTH (integer)
+    超过最大的堆栈深度。从 PHP 5.3.0 开始可用。
+JSON_ERROR_STATE_MISMATCH (integer)
+    发生下溢或模式不匹配。从 PHP 5.3.0 开始可用。
+JSON_ERROR_CTRL_CHAR (integer)
+    控制字符错误，可能是不正确的编码。从 PHP 5.3.0 开始可用。
+JSON_ERROR_SYNTAX (integer)
+    语法错误。从 PHP 5.3.0 开始可用。
+JSON_ERROR_UTF8 (integer)
+    畸形的 UTF-8 字符，可能是不正确的编码。从 PHP 5.3.3 开始可用。
+JSON_ERROR_RECURSION (integer)
+    传递给 json_encode() 的对象或数组包含递归引用并且不能被编码。如果给定了 JSON_PARTIAL_OUTPUT_ON_ERROR 选项，那么 NULL 将被编码在
+    递归引用的位置。从 PHP 5.5.0 开始可用。
+JSON_ERROR_INF_OR_NAN (integer)
+    传递给 json_encode() 的值包括 NAN 或 INF 。如果给定了 JSON_PARTIAL_OUTPUT_ON_ERROR 选项，那么 0 将被编码在这些特殊数字的位置。
+    从 PHP 5.5.0 开始可用。
+JSON_ERROR_UNSUPPORTED_TYPE (integer)
+    一个不支持类型的值被给到 json_encode()，例如一个资源。如果给定了 JSON_PARTIAL_OUTPUT_ON_ERROR 选项，那么 NULL 将被编码在不支持值
+    的位置。从 PHP 5.5.0 开始可用。
+JSON_ERROR_INVALID_PROPERTY_NAME (integer)
+    当将一个 JSON 对象解码为一个 PHP 对象时，传递给 json_decode() 的字符串中有一个以 \u0000 字符开头的键。从 PHP 7.0.0 开始可用。
+JSON_ERROR_UTF16 (integer)
+    传递给 json_decode() 的 JSON 字符串中包含的 unicode 转义中的单个未配对的 UTF-16 代理项。从 PHP 7.0.0 开始可用。
+
+可以组合下面的常量为 json_decode() 形成选项。
+
+JSON_BIGINT_AS_STRING (integer)
+    解码大整数为它们的原始字符串值。从 PHP 5.4.0 开始可用。
+JSON_OBJECT_AS_ARRAY (integer)
+    解码 JSON 对象为 PHP 数组。这个选项可以通过调用 json_decode() 并让第二个参数等于 TRUE 来自动添加。从 PHP 5.4.0 开始可用。
+
+可以组合下面的常量为 json_encode() 形成选项。
+
+JSON_HEX_TAG (integer)
+    所有的 < 和 > 会被转换为 \u003C 和 \u003E 。从 PHP 5.3.0 开始可用。
+JSON_HEX_AMP (integer)
+    所有的 & 会被转换为 \u0026 。从 PHP 5.3.0 开始可用。
+JSON_HEX_APOS (integer)
+    所有的 ' 会被转换为 \u0027 。从 PHP 5.3.0 开始可用。
+JSON_HEX_QUOT (integer)
+    所有的 " 会被转换为 \u0022 。从 PHP 5.3.0 开始可用。
+JSON_FORCE_OBJECT (integer)
+    当使用一个非关联数组时，输出一个对象而不是一个数组。当输出的接收者期望一个对象并且数组是空的时候特别有用。从 PHP 5.3.0 开始可用。
+JSON_NUMERIC_CHECK (integer)
+    将数字字符串编码为数字。从 PHP 5.3.3 开始可用。
+JSON_PRETTY_PRINT (integer)
+    在返回的数据中使用空白来格式化它。从 PHP 5.4.0 开始可用。
+JSON_UNESCAPED_SLASHES (integer)
+    不转义 / 。从 PHP 5.4.0 开始可用。
+JSON_UNESCAPED_UNICODE (integer)
+    照字面的编码多字节 Unicode 字符（默认值是按 \uXXXX 转义）。从 PHP 5.4.0 开始可用。
+JSON_PARTIAL_OUTPUT_ON_ERROR (integer)
+    替换一些不可编码的值，而不是失败。从 PHP 5.5.0 开始可用。
+JSON_PRESERVE_ZERO_FRACTION (integer)
+    确保浮点值始终被编码为浮点值。从 PHP 5.6.6 开始可用。
+JSON_UNESCAPED_LINE_TERMINATORS (integer)
+    当提供了 JSON_UNESCAPED_UNICODE 时，行终止符保持不转义。它使用与 PHP 7.1 之前相同的行为，只是没有这个常量。从 PHP 7.1.0 开始可用。
+
+可以组合下面的常量为 json_decode() 和 json_encode() 形成选项。
+
+JSON_INVALID_UTF8_IGNORE (integer)
+    忽略无效的 UTF-8 字符。从 PHP 7.2.0 开始可用。
+JSON_INVALID_UTF8_SUBSTITUTE (integer)
+    把无效的 UTF-8 字符转换为 \0xfffd（Unicode 字符 'REPLACEMENT CHARACTER'）。从 PHP 7.2.0 开始可用。
+JSON_THROW_ON_ERROR (integer)
+    如果发生一个错误，抛出 JsonException 而不是去设置用 json_last_error() 和 json_last_error_msg() 检索的全局错误状态。
+    JSON_PARTIAL_OUTPUT_ON_ERROR 优先于 JSON_THROW_ON_ERROR 。从 PHP 7.3.0 开始可用。

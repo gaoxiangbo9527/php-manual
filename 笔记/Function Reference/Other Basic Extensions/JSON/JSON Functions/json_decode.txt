@@ -1,0 +1,42 @@
+描述
+    json_decode ( string $json [, bool $assoc = FALSE [, int $depth = 512 [, int $options = 0 ]]] ) : mixed
+
+    接受一个 JSON 编码的字符串并且把它转换成一个 PHP 变量。
+
+参数
+    json
+        将被解码的 json 字符串。
+
+        此函数仅只适用于 UTF-8 编码的字符串。
+
+        注意：PHP 实现了在原始的 RFC 7159 中指定的 JSON 的超集。
+    assoc
+        当为 TRUE 时，被返回的对象将被转换成关联数组。
+    depth
+        用户指定的递归深度。
+    options
+        JSON_BIGINT_AS_STRING，JSON_INVALID_UTF8_IGNORE，JSON_INVALID_UTF8_SUBSTITUTE，JSON_OBJECT_AS_ARRAY，
+        JSON_THROW_ON_ERROR 组成的位掩码。这些常量的行为在 JSON 常量 页面上有描述。
+
+返回值
+    以适当的 PHP 类型返回 json 编码的值。值 true、false 和 null 分别被返回为 TRUE、FALSE 和 NULL 。如果 json 无法被解码或已编码的数
+    据超过了递归限制，则返回 NULL 。
+
+变更日志
+    版本     描述
+    7.3.0	添加了 JSON_THROW_ON_ERROR 选项。
+    7.2.0	添加了 JSON_INVALID_UTF8_IGNORE 和 JSON_INVALID_UTF8_SUBSTITUTE 选项。
+    7.1.0	一个空的 JSON 键（""）可以被编码到空的对象属性，而不是使用值为 _empty_ 的键。
+    7.0.0	拒绝 RFC 7159 不兼容的数字格式 —— 顶级（07，0xff，.1，-.1）和所有级别（[1.]，[1.e1]）。
+    7.0.0   一个空的 PHP 字符串或在转换为字符串后是一个空字符串的值（NULL，FALSE）会导致 JSON 语法错误。
+    5.6.0   true、false 和 null 的无效非小写变体不再被接受为有效输入，并将生成警告。
+    5.4.0	添加了 JSON_BIGINT_AS_STRING 和 JSON_OBJECT_AS_ARRAY 选项。
+    5.4.0	添加了 options 参数。
+    5.3.0	添加了可选的 depth 。默认的递归深度从 128 增加到 512。
+    5.2.3	嵌套限制从 20 增加到 128。
+    5.2.1	增加了对 JSON 解码基本类型的支持。
+
+注意事项
+    注意：JSON 规范不是 JavaScript，而是 JavaScript 的一个子集。
+
+    注意：在解码失败的情况下，可以使用 json_last_error() 来确定错误的确切性质。
