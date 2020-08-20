@@ -13,8 +13,8 @@
         有关 context 参数的描述，请参考手册中的 streams 部分。
 
 返回值
-    成功时返回一个文件名称的数组，失败时返回 FALSE 。如果 directory 不是一个目录，则返回返回布尔值 FALSE ，并且会生成一个 E_WARNING 级
-    别的错误。
+    成功时返回一个文件名称的数组，失败时返回 FALSE 。如果 directory 不是一个目录，则返回布尔值 FALSE ，并且会生成一个 E_WARNING 级别的
+    错误。
 
 更新日志
     版本         描述
