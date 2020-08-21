@@ -1,0 +1,49 @@
+描述
+    feof ( resource $handle ) : bool
+
+    在一个文件指针上测试文件结束（end-of-file）。
+
+参数
+    handle
+        文件指针必须是有效的，并且必须指向一个由 fopen() 或 fsockopen() 成功打开的文件（并且还没有被 fclose() 关闭）。
+
+返回值
+    如果该文件指针位于 EOF 或发生了一个错误（包括套接字超时），返回 TRUE，否则返回 FALSE 。
+
+注意事项
+    警告
+        如果服务器没有关闭 fsockopen() 打开的连接，feof() 将挂起。为了解决这个问题，请看下面的例子：
+
+        Example #1 通过 feof() 处理超时
+            <?php
+            function safe_feof($fp, &$start = NULL) {
+                $start = microtime(true);
+
+                return feof($fp);
+            }
+
+            /* Assuming $fp is previously opened by fsockopen() */
+
+            $start = NULL;
+            $timeout = ini_get('default_socket_timeout');
+
+            while(!safe_feof($fp, $start) && (microtime(true) - $start) < $timeout)
+            {
+                /* Handle */
+            }
+            ?>
+
+    警告
+        如果传递的文件指针无效，你可能会得到一个无限循环，因为此时 feof() 不会返回 TRUE 。
+
+        Example #2 使用一个无效的文件指针的 feof() 例子
+            <?php
+            // if file can not be read or doesn't exist fopen function returns FALSE
+            $file = @fopen("no_such_file", "r");
+
+            // FALSE from fopen will issue warning and result in infinite loop here
+            while (!feof($file)) {
+            }
+
+            fclose($file);
+            ?>

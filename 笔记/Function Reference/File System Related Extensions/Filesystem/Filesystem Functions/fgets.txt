@@ -1,0 +1,22 @@
+描述
+    fgets ( resource $handle [, int $length ] ) : string
+
+    从文件指针获取一行。
+
+参数
+    handle
+        文件指针必须是有效的，并且必须指向一个由 fopen() 或 fsockopen() 成功打开的文件（并且还没有被 fclose() 关闭）。
+    length
+        当读取了 length - 1 个字节，或一个新行（它会被包含进返回值中），或一个 EOF（不论先遇到哪个）后结束读取。如果没有指定长度，它将继续
+        从流中进行读取直到它达到行的结尾。
+
+返回值
+    返回一个从 handle 指向的文件中读取的长度不超过 length - 1 字节的字符串。如果在文件指针中没有可读取的数据，则返回 FALSE 。
+
+    如果发生一个错误，则返回 FALSE 。
+
+注意事项
+    注意：如果 PHP 在读取 Macintosh 计算机上或由 Macintosh 计算机创建的文件时不能正确识别行结束符，启用 auto_detect_line_ending 运行
+    时配置选项可能有助于解决这个问题。
+
+    注意：习惯了 fgets() 的 'C' 语义的人应该注意 EOF 返回方式的不同。

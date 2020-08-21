@@ -1,0 +1,26 @@
+描述
+    readfile ( string $filename [, bool $use_include_path = FALSE [, resource $context ]] ) : int
+
+    读取一个文件并把它写入到输出缓冲。
+
+参数
+    filename
+        将读取的文件名。
+    use_include_path
+        如果你还想在 include_path 中搜索该文件，那么你可以使用可选的第二个参数并将其设置为 TRUE，
+    context
+        一个上下文流资源。
+
+返回值
+    成功时返回从该文件读取的字节数，失败时返回 FALSE 。
+
+错误/异常
+    遇到失败时，会产生一个 E_WARNING 。
+
+注意事项
+    注意：即使在发送大文件时，readfile() 本身也不会出现任何内存问题。如果你遇到一个内存不足错误，请确保使用 ob_get_level() 关闭输出缓冲。
+
+    提示 如果启用了 fopen 包装器 ，那么通过此函数可以使用一个 URL 作为一个 filename。有关如何指定 filename 的详细信息，请参阅 fopen()。
+    请参阅 受支持的协议和包装器 以获得有关各种包装器具有什么能力的信息的链接、它们用法上的注意事项以及它们可能提供的任何预定义变量的信息。
+
+    注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。

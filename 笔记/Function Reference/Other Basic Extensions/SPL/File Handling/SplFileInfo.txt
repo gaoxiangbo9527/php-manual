@@ -1,0 +1,39 @@
+介绍
+    SplFileInfo 类为单个文件的信息提供了一套高级的面向对象接口。
+
+类摘要
+    SplFileInfo {
+        /* Methods */
+        public __construct ( string $file_name )
+        public getATime ( void ) : int
+        public getBasename ([ string $suffix ] ) : string
+        public getCTime ( void ) : int
+        public getExtension ( void ) : string
+        public getFileInfo ([ string $class_name ] ) : SplFileInfo
+        public getFilename ( void ) : string
+        public getGroup ( void ) : int
+        public getInode ( void ) : int
+        public getLinkTarget ( void ) : string
+        public getMTime ( void ) : int
+        public getOwner ( void ) : int
+        public getPath ( void ) : string
+        public getPathInfo ([ string $class_name ] ) : SplFileInfo
+        public getPathname ( void ) : string
+        public getPerms ( void ) : int
+        public getRealPath ( void ) : string
+        public getSize ( void ) : int
+        public getType ( void ) : string
+        public isDir ( void ) : bool
+        public isExecutable ( void ) : bool
+        public isFile ( void ) : bool
+        public isLink ( void ) : bool
+        public isReadable ( void ) : bool
+        public isWritable ( void ) : bool
+        public openFile ([ string $open_mode = "r" [, bool $use_include_path = FALSE [, resource $context = NULL ]]] ) : SplFileObject
+        public setFileClass ([ string $class_name = "SplFileObject" ] ) : void
+        public setInfoClass ([ string $class_name = "SplFileInfo" ] ) : void
+        public __toString ( void ) : string
+    }
+
+目录
+    不翻译了，需要时再去查看

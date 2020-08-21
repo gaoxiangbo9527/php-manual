@@ -1,0 +1,27 @@
+描述
+    parse_ini_string ( string $ini [, bool $process_sections = FALSE [, int $scanner_mode = INI_SCANNER_NORMAL ]] ) : array
+
+    parse_ini_string() 以一个关联数组的形式返回字符串 ini 中的设置项。
+
+    该 ini 文件的结构与 php.ini 的结构相同。
+
+参数
+    ini
+        将被解析的 ini 文件的内容。
+    process_sections
+        通过将 process_sections 参数设置为 TRUE，你将获得一个多维数组，其中包括 section 的名称和设置项。process_sections 的默认值为
+        FALSE 。
+    scanner_mode
+        可以是 INI_SCANNER_NORMAL（默认） 或 INI_SCANNER_RAW 。如果提供了 INI_SCANNER_RAW，则不会解析选项的值。
+
+        从 PHP 5.6.1 开始，还可以指定为 INI_SCANNER_TYPED 。在这种模式下，尽可能保留布尔型、null 和整型。字符串值"true"，"on" 和
+        "yes" 被转换为 TRUE 。"false"，"off"，"no" 和 "none" 被认为是 FALSE 。在类型模式下"null"被转换为 NULL 。此外，所有数字化字
+        符串都被尽可能的转换为整数类型。
+
+返回值
+    成功时，会以一个关联数组返回设置项，失败时返回 FALSE 。
+
+注意事项
+    注意：有一些保留字不能用作 ini 文件的键。这些包括：null、yes、no、true、false、on、off、none 。值 null、off、no 和 false 将产生
+    ""，值 on、yes 和 true 将产生 "1"，除非使用了 INI_SCANNER_TYPED 模式（从 PHP 5.6.1 开始）。字符 ?{}|&~!()^" 不能在键的任何地方
+    使用，并且在值中有特殊的含义。

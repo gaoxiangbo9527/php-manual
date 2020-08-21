@@ -1,0 +1,22 @@
+描述
+    link ( string $target , string $link ) : bool
+
+    link() 会创建一个硬链接。
+
+参数
+    target
+        链接的目标。
+    link
+        链接名称。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本     描述
+    5.3.0   现在，这个函数在 Windows 平台（Vista，Server 2008 或更高）上是可用的。
+
+注意事项
+    注意：此函数不能在 远程文件 上工作，因为必须通过服务器的文件系统访问要检查的文件。
+
+    注意：仅用于 Windows：此函数要求 PHP 以提升后的模式运行或禁用 UAC 。

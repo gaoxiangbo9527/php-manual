@@ -1,0 +1,59 @@
+下面的常量是由此扩展定义的，并且仅当该扩展被编译进 PHP 或在运行时被动态加载时可用。
+
+SEEK_SET (integer)
+SEEK_CUR (integer)
+SEEK_END (integer)
+
+LOCK_SH (integer)
+LOCK_EX (integer)
+LOCK_UN (integer)
+LOCK_NB (integer)
+
+GLOB_BRACE (integer)
+GLOB_ONLYDIR (integer)
+GLOB_MARK (integer)
+GLOB_NOSORT (integer)
+GLOB_NOCHECK (integer)
+GLOB_NOESCAPE (integer)
+GLOB_AVAILABLE_FLAGS (integer)
+
+PATHINFO_DIRNAME (integer)
+PATHINFO_BASENAME (integer)
+PATHINFO_EXTENSION (integer)
+PATHINFO_FILENAME (integer)
+    从 PHP 5.2.0 开始。
+
+FILE_USE_INCLUDE_PATH (integer)
+    在 include_path 中搜索文件名。
+FILE_NO_DEFAULT_CONTEXT (integer)
+    手册中没有解释说明。
+FILE_APPEND (integer)
+    追加内容到已存在的文件。
+FILE_IGNORE_NEW_LINES (integer)
+    去除 EOL 字符。
+FILE_SKIP_EMPTY_LINES (integer)
+    跳过空行。
+FILE_BINARY (integer)
+    二进制模式（从 PHP 5.2.7 开始）。
+
+    注意：这个常量没有任何作用，只可用于向前兼容性。
+FILE_TEXT (integer)
+    文本模式（从 PHP 5.2.7 开始）。
+
+    注意：这个常量没有任何作用，只可用于向前兼容性。
+
+INI_SCANNER_NORMAL (integer)
+    普通的 INI 扫描器模式（从 PHP 5.3 起）
+INI_SCANNER_RAW (integer)
+    原始的 INI 扫描器模式（从 PHP 5.3 起）
+INI_SCANNER_TYPED (integer)
+    类型化的 INI 扫描器模式（从 PHP 5.6.1 起）
+
+FNM_NOESCAPE (integer)
+    禁止反斜线转义。
+FNM_PATHNAME (integer)
+    string 中的斜杠只匹配给定 pattern 中的斜杠。
+FNM_PERIOD (integer)
+    string 中的前导句点必须与给定 pattern 中的句点完全匹配。
+FNM_CASEFOLD (integer)
+    Caseless 匹配。GNU 扩展的一部分。

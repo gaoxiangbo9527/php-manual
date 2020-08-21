@@ -1,0 +1,50 @@
+描述
+    file_get_contents ( string $filename [, bool $use_include_path = FALSE [, resource $context [, int $offset = 0 [, int $maxlen ]]]] ) : string
+
+    此函数类似于 file()，除了 file_get_contents() 以一个字符串返回文件，从指定的 offset 开始的最多 maxlen 个字节。失败时，
+    file_get_contents() 将返回 FALSE 。
+
+    file_get_content() 是将文件内容读入到一个字符串的首选方法。它将使用内存映射技术来提高性能，如果你的操作系统支持它的话。
+
+    注意：如果你正在打开一个带有特殊字符的 URI，例如空格，那么你需要使用 urlencode() 对该 URI 进行编码。
+
+参数
+    filename
+        要读取的文件的名称。
+    use_include_path
+        注意：FILE_USE_INCLUDE_PATH 常量可用于触发 include path 搜索。如果启用 严格类型 ，这是不可能的，因为 FILE_USE_INCLUDE_PATH
+        是一个整型。使用 TRUE 替代。
+    context
+        使用 stream_context_create() 创建的一个有效的上下文资源。如果不需要使用一个自定义的上下文，则可以通过 NULL 跳过此参数。
+    offset
+        在原始的流上开始读取的偏移量。负偏移量从流的末尾开始计数。
+
+        远程文件不支持寻址（offset）。使用小的偏移量在非本地文件上尝试进行寻址可能会正常工作，但这是不可预测的，因为它是在被缓冲的流上工作的。
+    maxlen
+        读取的数据的最大长度。默认是读取直到到达文件的结束。请注意，此参数应用于由筛选器处理的流。
+
+返回值
+    这个函数会返回读取到的数据，失败时返回 FALSE 。
+
+    警告 此函数可能返回布尔值 FALSE ，但也可能返回计算结果为 FALSE 的非布尔值。请阅读 布尔值 部分以获得更多信息。使用 === 操作符测试此函
+    数的返回值。
+
+错误/异常
+    如果不能找到 filename，maxlength 小于 0，或如果在流中寻址到指定的 offset，则会生成一个 E_WARNING 级别的错误。
+
+更新日志
+    版本	    描述
+    7.1.0	添加了对负 offset 的支持。
+    5.1.0	添加了 offset 和 maxlen 参数。
+
+注意事项
+    注意：这个函数是二进制安全的。
+
+    提示
+        如果启用了 fopen 包装器，则通过此函数可以以 URL 作为文件名。有关如何指定文件名的详细信息，请参阅 fopen() 。请参阅 受支持的协议和
+        包装器 以获得有关各种包装器具有什么功能的信息的链接、它们的用法说明以及它们可能提供的任何预定义变量的信息。
+
+    警告
+        当使用 SSL 时，Microsoft IIS 将违反协议，关闭连接而不发送 close_notify 指示器。当你到达数据的末尾时，PHP 将报告
+        "SSL: Fatal Protocol Error"。要解决这个问题，error_reporting 的值应该降低到不包含警告的级别。当你使用 https:// 包装器打开流时，
+        PHP 可以检测到错误的 IIS 服务器软件，并将取消警告。当使用 fsockopen() 创建 ssl:// 套接字时，开发人员负责检测和消除此警告。

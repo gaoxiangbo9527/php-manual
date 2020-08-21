@@ -1,5 +1,6 @@
 描述
     realpath_cache_get ( void ) : array
+
     获取 realpath 缓存的内容。
 
 返回值

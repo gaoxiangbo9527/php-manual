@@ -1,0 +1,17 @@
+描述
+    readlink ( string $path ) : string
+
+    readlink() 与 C 函数 readlink 所作的是一样的。个人补充：即返回一个符号链接的目标。
+
+参数
+    path
+        符号链接的路径。
+
+返回值
+    返回符号链接路径的内容，出错时返回 FALSE 。
+
+    注意：如果 path 不是一个符号链接，该函数会失败，除非在 Windows 上，这里将返回规范化后的路径。
+
+更新日志
+    版本     描述
+    5.3.0   现在，这个函数在 Windows 平台（Vista，Server 2008 或更高）上是可用的。

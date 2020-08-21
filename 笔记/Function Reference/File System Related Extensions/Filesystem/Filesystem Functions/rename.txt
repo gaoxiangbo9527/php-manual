@@ -1,0 +1,22 @@
+描述
+    rename ( string $oldname , string $newname [, resource $context ] ) : bool
+
+    尝试把 oldname 重命名为 newname，如果需要，会在不同的目录之间移动它。如果重命名某个文件并且 newname 存在，它将被覆盖。如果重命名某个
+    目录并且 newname 存在，此函数将发出一个警告。
+
+参数
+    oldname
+        旧的名字。
+
+        注意：oldname 中使用的包装器必须与 newname 中使用的包装器匹配。
+    newname
+        新的名字。
+    context
+        注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本         描述
+    5.3.1	    在 Windows 中，现在 rename() 可以跨驱动器重命名文件。

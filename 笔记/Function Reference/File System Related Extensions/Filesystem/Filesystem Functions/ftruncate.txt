@@ -1,0 +1,22 @@
+描述
+    ftruncate ( resource $handle , int $size ) : bool
+
+    接受文件指针 handle，并截断文件到长度 size 。
+
+参数
+    handle
+        文件指针。
+
+        注意：该 handle 必须以写入打开。
+    size
+        要截断到的大小。
+
+        注意：如果 size 大于文件的大小，那么会使用 null 字节扩展该文件。
+
+        注意：如果 size 小于文件的大小，那么会截断该文件到该大小。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    注意：文件指针不会变。

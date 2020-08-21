@@ -1,0 +1,44 @@
+描述
+    fwrite ( resource $handle , string $string [, int $length ] ) : int
+
+    fwrite() 写入 string 的内容到由 handle 指向的文件流。
+
+参数
+    handle
+        通常是使用 fopen() 创建的一个文件系统指针。
+    string
+        将要写入的字符串。
+    length
+        如果给定 length 参数，写入将会在写入了 length 个字节后或到达字符串的末尾时停止，以先到者为准。
+
+        注意，如果给定了 length 参数，那么 magic_quotes_runtime 参数将会被忽略并且不会从 string 中删除斜杠。
+
+返回值
+    fwrite() 返回写入的字节数，遇到错误则返回 FALSE 。
+
+注意事项
+    注意：对网络流的写入可能在整个字符串被写入之前就结束了。可以检查 fwrite() 的返回值：
+        <?php
+        function fwrite_stream($fp, $string) {
+            for ($written = 0; $written < strlen($string); $written += $fwrite) {
+                $fwrite = fwrite($fp, substr($string, $written));
+                if ($fwrite === false) {
+                    return $written;
+                }
+            }
+            return $written;
+        }
+
+    注意：在区分二进制文件和文本文件的系统（如 Windows）上，文件必须以包含在 fopen() mode 参数中的 'b' 打开。
+
+    注意：如果 handle 以追加模式被 fopen()，那么 fwrite() 是原子的（除非 string 的大小超过了文件系统的块的大小，在一些平台上，并且只要
+    文件在本地文件系统上)。也就是说，在调用 fwrite() 之前不需要对资源进行 flock() ；所有的数据都将被不间断地写入。
+
+    注意：如果向文件指针写入两次，那么数据将被追加到文件内容的末尾：
+        <?php
+        $fp = fopen('data.txt', 'w');
+        fwrite($fp, '1');
+        fwrite($fp, '23');
+        fclose($fp);
+
+        // the content of 'data.txt' is now 123 and not 23!

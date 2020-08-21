@@ -1,0 +1,29 @@
+描述
+    mkdir ( string $pathname [, int $mode = 0777 [, bool $recursive = FALSE [, resource $context ]]] ) : bool
+
+    尝试创建由 pathname 指定的目录。
+
+参数
+    pathname
+        目录路径。
+    mode
+        默认模式是 0777，这意味着尽可能最广泛的访问权限。有关模式的更多信息，请阅读 chmod() 页面上的详细信息。
+
+        注意：在 Windows 上，模式会被忽略。
+
+        注意，你可能希望以八进制数字指定模式，这意味着它应该有一个前导的零。该模式也可以由当前的 umask 修改，你可以使用 umask() 来修改。
+    recursive
+        允许创建 pathname 中指定的嵌套目录。
+    context
+        注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+错误/异常
+    如果该目录已经存在，则产生一个 E_WARNING 级别的错误。
+
+    如果相关权限阻止创建目录，则产生一个 E_WARNING 级别的错误。
+
+注意事项
+    注意：当启用了 安全模式 时，PHP 将检查操作的文件或目录是否与执行的脚本具有相同的 UID（所有者）。

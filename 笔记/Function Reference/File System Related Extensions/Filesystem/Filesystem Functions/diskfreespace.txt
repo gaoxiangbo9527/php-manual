@@ -1,0 +1,1 @@
+此函数是 disk_free_space() 的一个别名。

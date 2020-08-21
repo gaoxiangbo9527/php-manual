@@ -1,0 +1,29 @@
+描述
+    clearstatcache ([ bool $clear_realpath_cache = FALSE [, string $filename ]] ) : void
+
+    当你使用 stat()、lstat() 或在受影响的函数列表（下面）中列出的任何其他函数时，PHP 会缓存这些函数返回的信息，以提供更快的性能。然而，在
+    某些情况下，你可能希望清除被缓存的信息。例如，如果同一个文件在单个脚本中被多次检查，并且该文件在脚本操作期间有被删除或更改的危险，那么你
+    可以选择清除状态缓存。在这些情况下，你可以使用 clearstatcache() 函数来清除 PHP 缓存的关于某个文件的信息。
+
+    你还应该注意，PHP 不缓存不存在的文件的信息。因此，如果你对不存在的文件调用 file_exists()，它将返回 FALSE，直到你创建了该文件。如果你
+    创建了该文件，即使你随后删除了该文件，它也将返回 TRUE 。但是 unlink() 会自动清除缓存。
+
+    注意：这个函数缓存关于特定文件名的信息，所以如果你对同一个文件名执行多个操作并且要求不缓存关于那个特定文件的信息，你只需要调用
+    clearstatcache() 。
+
+    受影响的函数包括 stat()、lstat()、file_exists()、is_writable()、is_readable()、is_executable()、is_file()、is_dir()、
+    is_link()、filectime()、fileatime()、filemtime()、fileinode()、filegroup()、fileowner()、filesize()、filetype() 和
+    fileperms()。
+
+参数
+    clear_realpath_cache
+        是否清除 realpath 缓存。
+    filename
+        仅为特定文件名清除 realpath 和 stat 缓存；仅在 clear_realpath_cache 为 TRUE 时使用。
+
+返回值
+    没有返回值。
+
+更新日志
+    版本	    描述
+    5.3.0	添加了可选的 clear_realpath_cache 和 filename 参数。

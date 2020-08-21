@@ -1,0 +1,42 @@
+描述
+    parse_ini_file ( string $filename [, bool $process_sections = FALSE [, int $scanner_mode = INI_SCANNER_NORMAL ]] ) : array
+
+    parse_ini_file() 加载在 filename 中指定的 ini 文件，并以一个关联数组的形式返回其中的设置项。
+
+    该 ini 文件的结构与 php.ini 的结构相同。
+
+参数
+    filename
+        将被解析的 ini 文件的文件名。
+    process_sections
+        通过将 process_sections 参数设置为 TRUE，你将获得一个多维数组，其中包括 section 的名称和设置项。process_sections 的默认值为
+        FALSE 。
+    scanner_mode
+        可以是 INI_SCANNER_NORMAL（默认） 或 INI_SCANNER_RAW 。如果提供了 INI_SCANNER_RAW，则不会解析选项的值。
+
+        从 PHP 5.6.1 开始，还可以指定为 INI_SCANNER_TYPED 。在这种模式下，尽可能保留布尔型、null 和整型。字符串值"true"，"on" 和
+        "yes" 被转换为 TRUE 。"false"，"off"，"no" 和 "none" 被认为是 FALSE 。在类型模式下"null"被转换为 NULL 。此外，所有数字化字
+        符串都被尽可能的转换为整数类型。
+
+返回值
+    成功时，会以一个关联数组返回设置项，失败时返回 FALSE 。
+
+更新日志
+    版本        描述
+    7.0.0	    散列符号（#）不再被认为是注释。
+    5.6.1	    添加了新的 INI_SCANNER_TYPED 模式。
+    5.3.0	    添加了可选的 scanner_mode 参数。现在可以在变量赋值时使用单引号。# 不应该再被用作注释，如果使用它会抛出一条弃用警告。
+    5.2.7	    遇到语法错误，此函数将返回 FALSE 而不是一个空数组。
+    5.2.4	    由数字组成的键名和段名现在被求值为 PHP 整数，因此，以 0 开始的数被求值为八进制，以 0x 开始的数被求值为十六进制。
+
+注意事项
+    注意：这个函数与 php.ini 文件无关。当你运行你的脚本时，php.ini 已经被处理。此函数可用于读取你自己的应用程序的配置文件。
+
+    注意：如果 ini 文件中的值包含任何非字母数字字符，则需要用双引号（"）括起来。
+
+    注意：有一些保留字不能用作 ini 文件的键。这些包括：null、yes、no、true、false、on、off、none 。值 null、off、no 和 false 将产生
+    ""，值 on、yes 和 true 将产生 "1"，除非使用了 INI_SCANNER_TYPED 模式（从 PHP 5.6.1 开始）。字符 ?{}|&~!()^" 不能在键的任何地方
+    使用，并且在值中有特殊的含义。
+
+    注意：没有等号的条目会被忽略。例如，"foo"会被忽略，而"bar ="会被解析并添加一个空值。例如，MySQL 在 my.cnf 中有一个"no-auto-rehash"
+    设置项，它不接受值，因此被忽略。

@@ -1,0 +1,1 @@
+这个函数是 stream_set_write_buffer() 的一个别名。

@@ -1,0 +1,18 @@
+描述
+    linkinfo ( string $path ) : int
+
+    获取关于一个链接的信息。
+
+    这个函数用于验证一个链接（通过 path 指向）是否真的存在(使用和 stat.h 中定义的 S_ISLNK 宏相同的方法)。
+
+参数
+    path
+        链接的路径。
+
+返回值
+    linkinfo() 返回 lstat 系统调用所返回的 Unix C stat 结构的 st_dev 字段。成功时返回一个非负整数，没有找到该链接的情况下返回 -1 ，如
+    果发生了 open.base_dir 违反，则返回 FALSE 。
+
+更新日志
+    版本     描述
+    5.3.0   现在，这个函数在 Windows 平台（Vista，Server 2008 或更高）上是可用的。

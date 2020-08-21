@@ -1,0 +1,17 @@
+描述
+    pclose ( resource $handle ) : int
+
+    关闭一个到由 popen() 打开的管道的文件指针。
+
+参数
+    handle
+        文件指针必须有效，并且必须是由一次成功的 popen() 调用返回的。
+
+返回值
+    返回运行的进程的终止状态。如果出现一个错误，则返回 -1。
+
+    注意：如果 PHP 已经用 --enable-sigchild 编译，则此函数的返回值是未定义的。
+
+注意事项
+    注意：仅 Unix
+        pclose() 在内部是使用 waitpid(3) 系统调用实现的。要获取真正的退出状态码，应该使用 pcntl_wexitstatus() 函数。

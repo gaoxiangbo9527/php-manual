@@ -1,0 +1,21 @@
+描述
+    symlink ( string $target , string $link ) : bool
+
+    symlink() 使用指定的名称 link 创建了一个到现有 target 的符号链接。
+
+参数
+    target
+        链接的目标。
+    link
+        链接名称。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本    描述
+    5.3.0   现在，这个函数在 Windows 平台（Vista，Server 2008 或更高）上是可用的。
+
+注意事项
+    注意：Windows 用户应该注意，只有在运行 PHP 的系统是 Windows Vista/Windows Server 2008 或更新版本时，该函数才可以工作。在此之前的
+    Windows 版本不支持符号链接。

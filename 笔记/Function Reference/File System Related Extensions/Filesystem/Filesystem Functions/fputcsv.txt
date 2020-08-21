@@ -1,0 +1,30 @@
+描述
+    fputcsv ( resource $handle , array $fields [, string $delimiter = "," [, string $enclosure = '"' [, string $escape_char = "\\" ]]] ) : int
+
+    fputcsv() 将一行（被传递为一个 fields 数组）格式化为 CSV 并且把它写入（以一个换行符结束）到指定的文件 handle 。
+
+参数
+    handle
+        文件指针必须是有效的，并且必须指向一个由 fopen() 或 fsockopen() 成功打开（并且还没有被 fclose() 关闭）的文件。
+    fields
+        一个字符串的数组。
+    delimiter
+        设置了字段分隔符（仅一个字符）的可选的 delimiter 参数。
+    enclosure
+        设置了字段包围字符（仅一个字符）的可选的 enclosure 参数。
+    escape_char
+        设置了转义字符（最多一个字符）的可选的 escape_char 参数。一个空字符串（""）会禁用专属的转义机制。
+
+    注意：如果在一个字段中包含有一个 enclosure 字符，它将通过加倍来转义，除非它前面紧挨着一个 escape_char 。
+
+返回值
+    返回被写入的字符串的长度，或者失败时返回 FALSE 。
+
+更新日志
+    版本	    描述
+    7.4.0	escape_char 参数现在也接受一个空字符串以禁用专有的转义机制。
+    5.5.4	添加了 escape_char 参数。
+
+注意事项
+    注意：如果 PHP 在读取 Macintosh 计算机上或由 Macintosh 计算机创建的文件时不能正确识别行结束符，启用 auto_detect_line_ending 运行
+    时配置选项可能有助于解决这个问题。

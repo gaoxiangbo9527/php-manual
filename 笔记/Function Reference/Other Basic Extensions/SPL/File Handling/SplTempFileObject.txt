@@ -1,0 +1,50 @@
+介绍
+    SplTempFileObject 类为一个临时文件提供了一套面向对象接口。
+
+类摘要
+    SplTempFileObject extends SplFileObject implements SeekableIterator , RecursiveIterator {
+
+        /* Inherited constants */
+        const integer SplFileObject::DROP_NEW_LINE = 1 ;
+        const integer SplFileObject::READ_AHEAD = 2 ;
+        const integer SplFileObject::SKIP_EMPTY = 4 ;
+        const integer SplFileObject::READ_CSV = 8 ;
+
+        /* Methods */
+        public __construct ([ int $max_memory ] )
+
+        /* Inherited methods */
+        public SplFileObject::current ( void ) : string|array
+        public SplFileObject::eof ( void ) : bool
+        public SplFileObject::fflush ( void ) : bool
+        public SplFileObject::fgetc ( void ) : string
+        public SplFileObject::fgetcsv ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] ) : array
+        public SplFileObject::fgets ( void ) : string
+        public SplFileObject::fgetss ([ string $allowable_tags ] ) : string
+        public SplFileObject::flock ( int $operation [, int &$wouldblock ] ) : bool
+        public SplFileObject::fpassthru ( void ) : int
+        public SplFileObject::fputcsv ( array $fields [, string $delimiter = "," [, string $enclosure = '"' [, string $escape = "\\" ]]] ) : int
+        public SplFileObject::fread ( int $length ) : string
+        public SplFileObject::fscanf ( string $format [, mixed &$... ] ) : mixed
+        public SplFileObject::fseek ( int $offset [, int $whence = SEEK_SET ] ) : int
+        public SplFileObject::fstat ( void ) : array
+        public SplFileObject::ftell ( void ) : int
+        public SplFileObject::ftruncate ( int $size ) : bool
+        public SplFileObject::fwrite ( string $str [, int $length ] ) : int
+        public SplFileObject::getChildren ( void ) : void
+        public SplFileObject::getCsvControl ( void ) : array
+        public SplFileObject::getFlags ( void ) : int
+        public SplFileObject::getMaxLineLen ( void ) : int
+        public SplFileObject::hasChildren ( void ) : bool
+        public SplFileObject::key ( void ) : int
+        public SplFileObject::next ( void ) : void
+        public SplFileObject::rewind ( void ) : void
+        public SplFileObject::seek ( int $line_pos ) : void
+        public SplFileObject::setCsvControl ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] ) : void
+        public SplFileObject::setFlags ( int $flags ) : void
+        public SplFileObject::setMaxLineLen ( int $max_len ) : void
+        public SplFileObject::valid ( void ) : bool
+    }
+
+目录
+    不翻译了，需要时再去查看

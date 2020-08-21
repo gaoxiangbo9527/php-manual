@@ -1,0 +1,25 @@
+描述
+    copy ( string $source , string $dest [, resource $context ] ) : bool
+
+    将文件 source 复制到 dest 。
+
+    如果你希望去移动一个文件，请使用 rename() 函数。
+
+参数
+    source
+        源文件的路径。
+    dest
+        目的路径。如果 dest 是一个 URL，如果包装器不支持覆盖现有文件，复制操作可能会失败。
+
+        警告 如果目标文件已经存在，它将被覆盖。
+    context
+        一个使用 stream_context_create() 创建的有效上下文资源。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本	    描述
+    5.3.4	将 context 参数更改为具有实际效果。以前，任何 context 都会被忽略。
+    5.3.0	添加了 context 支持。
+

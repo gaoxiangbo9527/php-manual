@@ -1,0 +1,32 @@
+描述
+    fnmatch ( string $pattern , string $string [, int $flags = 0 ] ) : bool
+
+    fnmatch() 检查传递的 string 是否与给定的 shell 通配符 pattern 相匹配。
+
+参数
+    pattern
+        shell 通配符模式。
+    string
+        被测试的字符串。此函数对文件名特别有用，但也可以用于常规的字符串。
+
+        一般用户可能习惯于 shell 模式，或者至少习惯于最简单的形式 '?' 和 '*' 通配符，所以对于前端搜索表达式输入使用 fnmatch() 而不是
+        preg_match() 可能对非编程用户更方便。
+    flags
+        flags 的值可以是下列标志的任意组合，与 二进制或（|）操作符 连接。
+
+        用于 fnmatch() 的一份可能的标志列表
+        标志	            描述
+        FNM_NOESCAPE	禁止反斜线转义。
+        FNM_PATHNAME	string 中的斜杠只匹配给定 pattern 中的斜杠。
+        FNM_PERIOD	    string 中的前导句点必须与给定 pattern 中的句点完全匹配。
+        FNM_CASEFOLD	Caseless 匹配。GNU 扩展的一部分。
+
+返回值
+    如果有匹配，返回 TRUE，否则返回 FALSE。
+
+更新日志
+    版本     描述
+    5.3.0   这个函数现在 Windows 平台可用。
+
+注意事项
+    警告 目前，这个函数在非 POSIX 兼容的系统上不可用，除了 Windows。

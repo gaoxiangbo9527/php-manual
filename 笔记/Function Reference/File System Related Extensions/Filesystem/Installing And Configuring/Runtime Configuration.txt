@@ -4,6 +4,11 @@
     名称                         默认值       可变范围             变更日志
     allow_url_fopen	            "1"	        PHP_INI_SYSTEM
     allow_url_include	        "0"	        PHP_INI_SYSTEM      从 PHP 5.2.0 开始可用。从 PHP 7.4.0 开始被废弃。
+    user_agent	                NULL	    PHP_INI_ALL
+    default_socket_timeout	    "60"	    PHP_INI_ALL
+    from	                    ""	        PHP_INI_ALL
+    auto_detect_line_endings	"0"	        PHP_INI_ALL
+    sys_temp_dir	            ""	        PHP_INI_SYSTEM	    从 PHP 5.5.0 开始可用。
 下面是这些配置指令的一份简短描述。
 
 allow_url_fopen boolean
@@ -13,3 +18,21 @@ allow_url_fopen boolean
 allow_url_include       boolean
     该选项允许函数 include、include_once、require 和 require_once 使用 URL 感知的 fopen 包装器。
     注意：这个配置项需要 allow_url_fopen 被启用。
+
+user_agent string
+    Define the user agent for PHP to send.
+
+default_socket_timeout integer
+    Default timeout (in seconds) for socket based streams. Specifying a negative value means an infinite timeout.
+
+from string
+    The email address to be used on unauthenticated FTP connections and as the value of From header for HTTP connections, when using the ftp and http wrappers, respectively.
+
+auto_detect_line_endings boolean
+    当开启时，PHP 将检查由 fgets() 和 file() 读取的数据以查看它是否在使用 Unix，MS-Dos 或 Macintosh 的行结束惯例。
+
+    这使 PHP 能够与 Macintosh 系统互操作，但默认是关闭的，因为为第一行检测 EOL 惯例时会有一个轻微的性能损失，还因为在 Unix 系统中使用回车
+    符作为项目分隔符的人会体验到不向后兼容的行为。
+
+sys_temp_dir string
+    个人补充：手册中没有说明内容。

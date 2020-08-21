@@ -1,0 +1,2 @@
+构建此扩展不需要外部的库，但是如果你想让 PHP 在 Linux 上支持 LFS（大文件），那么你需要有一个近期的 glibc 并且你需要用以下编译器标志编译
+PHP：-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64.

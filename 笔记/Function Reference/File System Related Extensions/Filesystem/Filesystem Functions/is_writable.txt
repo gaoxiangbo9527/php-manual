@@ -1,0 +1,21 @@
+描述
+    is_writable ( string $filename ) : bool
+
+    如果 filename 存在并且是可写的，返回 TRUE。filename 参数可能是一个目录名，从而允许你去检查是否一个目录是可写的。
+
+    请记住，PHP 可能以 web 服务器运行的用户 id （通常为'nobody'）访问该文件。安全模式的限制没有考虑在内。
+
+参数
+    filename
+        将被检查的文件名。
+
+返回值
+    如果 filename 存在并且是可读的，返回 TRUE 。
+
+错误/异常
+    失败时，产生一个 E_WARNING 。
+
+注意事项
+    注意：这个函数的结果是被缓存的。更多细节请参见 clearstatcache() 。
+
+    提示 从 PHP 5.0.0 开始，这个函数还可以与一些 URL 包装器一起使用。请参考 支持的协议和包装器 ，以确定哪些包装器支持 stat() 系列的功能。

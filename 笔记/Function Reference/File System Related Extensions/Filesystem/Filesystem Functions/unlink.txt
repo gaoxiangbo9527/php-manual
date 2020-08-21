@@ -1,0 +1,18 @@
+描述
+    unlink ( string $filename [, resource $context ] ) : bool
+
+    删除 filename 。类似于 Unix 的 C 函数 unlink() 。失败时将生成一个 E_WARNING 级别的错误。
+
+参数
+    filename
+        文件的路径。
+    context
+        注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+更新日志
+    版本    描述
+    7.3.0   在 Windows 上，现在能够 unlink() 句柄正在使用中的文件，而在以前这会失败。但是，仍然不能重新创建已删除的文件，直到它的所有句
+            柄都被关闭。

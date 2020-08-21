@@ -1,0 +1,21 @@
+描述
+    filetype ( string $filename ) : string
+
+    返回给定文件的类型。
+
+参数
+    filename
+        文件的路径。
+
+返回值
+    返回文件的类型。可能的值是 fifo，char，dir，block，link，file，socket 和 unknown 。
+
+    如果发生一个错误，返回 FALSE 。如果 stat 调用失败或者文件类型未知，filetype() 也会产生一个 E_NOTICE 消息。
+
+错误/异常
+    失败时，产生一个 E_WARNING 。
+
+注意事项
+    注意：这个函数的结果是被缓存的。更多细节请参见 clearstatcache() 。
+
+    提示 从 PHP 5.0.0 开始，这个函数还可以与一些 URL 包装器一起使用。请参考 支持的协议和包装器 ，以确定哪些包装器支持 stat() 系列的功能。

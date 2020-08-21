@@ -1,0 +1,92 @@
+描述
+    SplFileObject 类为一个文件提供了一套面向对象的接口。
+
+类摘要
+    SplFileObject extends SplFileInfo implements RecursiveIterator , SeekableIterator {
+
+        /* Constants */
+        const integer DROP_NEW_LINE = 1 ;
+        const integer READ_AHEAD = 2 ;
+        const integer SKIP_EMPTY = 4 ;
+        const integer READ_CSV = 8 ;
+
+        /* Methods */
+        public __construct ( string $filename [, string $open_mode = "r" [, bool $use_include_path = FALSE [, resource $context ]]] )
+        public current ( void ) : string|array
+        public eof ( void ) : bool
+        public fflush ( void ) : bool
+        public fgetc ( void ) : string
+        public fgetcsv ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] ) : array
+        public fgets ( void ) : string
+        public fgetss ([ string $allowable_tags ] ) : string
+        public flock ( int $operation [, int &$wouldblock ] ) : bool
+        public fpassthru ( void ) : int
+        public fputcsv ( array $fields [, string $delimiter = "," [, string $enclosure = '"' [, string $escape = "\\" ]]] ) : int
+        public fread ( int $length ) : string
+        public fscanf ( string $format [, mixed &$... ] ) : mixed
+        public fseek ( int $offset [, int $whence = SEEK_SET ] ) : int
+        public fstat ( void ) : array
+        public ftell ( void ) : int
+        public ftruncate ( int $size ) : bool
+        public fwrite ( string $str [, int $length ] ) : int
+        public getChildren ( void ) : void
+        public getCsvControl ( void ) : array
+        public getFlags ( void ) : int
+        public getMaxLineLen ( void ) : int
+        public hasChildren ( void ) : bool
+        public key ( void ) : int
+        public next ( void ) : void
+        public rewind ( void ) : void
+        public seek ( int $line_pos ) : void
+        public setCsvControl ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] ) : void
+        public setFlags ( int $flags ) : void
+        public setMaxLineLen ( int $max_len ) : void
+        public valid ( void ) : bool
+
+        /* Inherited methods */
+        public SplFileInfo::getATime ( void ) : int
+        public SplFileInfo::getBasename ([ string $suffix ] ) : string
+        public SplFileInfo::getCTime ( void ) : int
+        public SplFileInfo::getExtension ( void ) : string
+        public SplFileInfo::getFileInfo ([ string $class_name ] ) : SplFileInfo
+        public SplFileInfo::getFilename ( void ) : string
+        public SplFileInfo::getGroup ( void ) : int
+        public SplFileInfo::getInode ( void ) : int
+        public SplFileInfo::getLinkTarget ( void ) : string
+        public SplFileInfo::getMTime ( void ) : int
+        public SplFileInfo::getOwner ( void ) : int
+        public SplFileInfo::getPath ( void ) : string
+        public SplFileInfo::getPathInfo ([ string $class_name ] ) : SplFileInfo
+        public SplFileInfo::getPathname ( void ) : string
+        public SplFileInfo::getPerms ( void ) : int
+        public SplFileInfo::getRealPath ( void ) : string
+        public SplFileInfo::getSize ( void ) : int
+        public SplFileInfo::getType ( void ) : string
+        public SplFileInfo::isDir ( void ) : bool
+        public SplFileInfo::isExecutable ( void ) : bool
+        public SplFileInfo::isFile ( void ) : bool
+        public SplFileInfo::isLink ( void ) : bool
+        public SplFileInfo::isReadable ( void ) : bool
+        public SplFileInfo::isWritable ( void ) : bool
+        public SplFileInfo::openFile ([ string $open_mode = "r" [, bool $use_include_path = FALSE [, resource $context = NULL ]]] ) : SplFileObject
+        public SplFileInfo::setFileClass ([ string $class_name = "SplFileObject" ] ) : void
+        public SplFileInfo::setInfoClass ([ string $class_name = "SplFileInfo" ] ) : void
+        public SplFileInfo::__toString ( void ) : string
+    }
+
+预定义常量
+    SplFileObject::DROP_NEW_LINE
+        在行尾删除换行。
+    SplFileObject::READ_AHEAD
+        Read on rewind/next.
+    SplFileObject::SKIP_EMPTY
+        跳过文件中的空行。这需要 READ_AHEAD 标志被启用，才能按预期工作。
+    SplFileObject::READ_CSV
+        读取行为 CSV 行。
+
+更新日志
+    版本	    描述
+    5.3.9	SplFileObject::SKIP_EMPTY 的值更改为 4 。之前，值是 6 。
+
+目录
+    不翻译了，需要时再去查看

@@ -1,0 +1,11 @@
+描述
+    fclose ( resource $handle ) : bool
+
+    关闭由 handle 指向的文件。
+
+参数
+    handle
+        文件指针必须是有效的，并且必须指向一个由 fopen() 或 fsockopen() 成功打开的文件。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。

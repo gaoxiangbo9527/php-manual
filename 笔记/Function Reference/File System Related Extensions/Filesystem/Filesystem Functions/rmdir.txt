@@ -1,0 +1,16 @@
+描述
+    rmdir ( string $dirname [, resource $context ] ) : bool
+
+    尝试删除一个名称为 dirname 的目录。该目录必须为空，并且相关的权限必须允许这么做。失败时会生成一个 E_WARNING 级别的错误。
+
+参数
+    dirname
+        目录的路径。
+    context
+        注意：PHP 5.0.0 添加了上下文支持。有关上下文的描述，请参考 流 。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+注意事项
+    注意：当启用了 安全模式 时，PHP 将检查操作的文件或目录是否与执行的脚本具有相同的 UID（所有者）。
