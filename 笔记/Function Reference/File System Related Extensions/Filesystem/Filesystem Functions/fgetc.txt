@@ -1,7 +1,7 @@
 描述
     fgetc ( resource $handle ) : string
 
-    从给定的文件指针获取一个字符串。
+    从给定的文件指针获取一个字符。
 
 参数
     handle
