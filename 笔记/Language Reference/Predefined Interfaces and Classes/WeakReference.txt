@@ -1,0 +1,30 @@
+PHP 7 >= 7.4.0
+
+介绍
+    弱引用允许编程人员去保留到一个对象的引用，该引用不会阻止对象被销毁。它们对于实现类似于缓存的结构非常有用。
+
+    注意：不要将类 WeakReference 与 Weakref 扩展的类 WeakRef 混淆。
+
+    WeakReferences 不能被序列化。
+
+类摘要
+    WeakReference {
+
+        /* Methods */
+        public __construct ( void )
+        public static create ( object $referent ) : WeakReference
+        public get ( void ) : ?object
+    }
+
+WeakReference 例子
+    Example #1 基本的 WeakReference 用法
+    <?php
+    $obj = new stdClass;
+    $weakref = WeakReference::create($obj);
+    var_dump($weakref->get());
+    unset($obj);
+    var_dump($weakref->get());
+    ?>
+
+目录
+    不翻译了，需要时直接去查。
