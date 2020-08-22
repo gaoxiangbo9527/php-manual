@@ -1,0 +1,45 @@
+当你想要使用一个函数来查找应该将引用绑定到哪个变量时，按引用返回是有用的。不要使用按引用返回来提高性能。引擎自己会自动优化这一点。仅当你在有一
+个合理的技术理由去这样做时才返回引用。为了返回引用，请使用这种语法：
+    <?php
+    class foo {
+        public $value = 42;
+
+        public function &getValue() {
+            return $this->value;
+        }
+    }
+
+    $obj = new foo;
+    $myValue = &$obj->getValue(); // $myValue 是 $obj->value 的一个引用，$obj->value 是 42 。
+    $obj->value = 2;
+    echo $myValue;                // 打印 $obj->value 的新值，例如，2。
+    ?>
+
+在本例中，getValue 函数返回的对象的属性将被设置，而不是复制，就像在不使用引用语法的情况下一样。
+
+注意：不像参数传递，在这里你必须在两个地方都使用 & —— 表明你希望按引用返回而不是复制，并表明应该对 $myValue 执行引用绑定，而不是通常的赋值。
+
+注意：如果你尝试使用这种语法从函数返回一个引用：return ($this->value)；这将无法工作，因为你正在尝试去按引用返回一个表达式的结果，而不是一
+个变量。你只能从一个函数按引用返回一个变量 —— 其他东西都不行。从 PHP 5.1.0 开始，如果代码尝试返回一个动态的表达式或者 new 操作符的结果，会
+产生一个 E_NOTICE 错误。
+
+为了使用返回的引用，你必须使用引用赋值：
+    <?php
+    function &collector() {
+      static $collection = array();
+      return $collection;
+    }
+    $collection = &collector();
+    $collection[] = 'foo';
+    ?>
+
+为了传递返回的引用到另外一个期待一个引用的函数，你可以使用这种语法：
+    <?php
+    function &collector() {
+      static $collection = array();
+      return $collection;
+    }
+    array_push(collector(), 'foo');
+    ?>
+
+注意：注意 array_push(&collector(), 'foo'); 将不会正常工作，它会导致一个致命错误。

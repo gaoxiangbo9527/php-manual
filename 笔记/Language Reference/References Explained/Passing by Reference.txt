@@ -1,0 +1,58 @@
+你可以按引用把一个变量传递给一个函数，从而该函数可以修改该变量。语法如下：
+    <?php
+    function foo(&$var)
+    {
+        $var++;
+    }
+
+    $a=5;
+    foo($a);
+    // $a is 6 here
+    ?>
+
+注意：在函数调用上没有引用符号 —— 只在函数定义上有。函数定义自己就足以正确的按引用传递参数。从 PHP 5.3.0 开始，当你在 foo(&$a); 中使用 &
+时，你会得到一个警告，说"call-time pass-by-reference"是已废弃的。并且从 PHP 5.4.0 开始，调用时按引用传递已经被移除了，所以使用它将引发
+一个致命错误。
+
+下列事物可以按引用传递：
+    变量，例如，foo($a)
+    从函数返回的引用，例如：
+
+    <?php
+    function foo(&$var)
+    {
+        $var++;
+    }
+    function &bar()
+    {
+        $a = 5;
+        return $a;
+    }
+    foo(bar());
+    ?>
+
+    更多内容见 按引用返回 。
+
+其他的表达式不应该按引用传递，因为结果是未定义的。例如，下方的按引用传递的例子是无效的：
+    <?php
+    function foo(&$var)
+    {
+        $var++;
+    }
+    function bar() // 注意缺少 &
+    {
+        $a = 5;
+        return $a;
+    }
+    foo(bar()); // 从 PHP 5.0.5 开始产生致命错误，从 PHP 5.1.1 开始产生严格的标准通知，且从 PHP 7.0.0 开始产生通知
+
+    foo($a = 5); // 表达式，不是变量
+    foo(5); // 产生致命错误
+
+    class Foobar
+    {
+    }
+
+    foo(new Foobar()) // 从 PHP 7.0.7 开始产生一个通知
+                      // Notice: Only variables should be passed by reference
+    ?>

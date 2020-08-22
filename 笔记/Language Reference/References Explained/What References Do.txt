@@ -1,13 +1,118 @@
-使用引用可以执行三种基本操作：按引用赋值，按引用传递以及按引用返回。本节将给出这些操作的介绍，并提供进一步阅读的链接。
+使用引用可以运行的基本操作有三种：按引用赋值，按引用传递和按引用返回。本节将给出这些操作的介绍，并提供进一步阅读的链接。
 
 按引用赋值
-    PHP 的引用允许你使两个变量引用相同的内容
-        $a =& $b
-        $foo =& find_var($bar);
-    注意
-        $a 和 $b 是完全相等的。$a 不是指向 $b，反之亦然。$a 和 $b 指向同一个地方。
-    注意
-        如果你按引用赋值、传递或返回一个未定义的变量，该变量将被创建。
+    这些操作中的第一个，PHP 引用允许你使两个变量引用相同的内容。意味着，当你这样做时：
+        <?php
+        $a =& $b;
+        ?>
 
-    从 PHP 5 起，new 会自动的返回一个引用，因此(为 new )使用 =& 是废弃的，并且在 PHP 5.3 和更新版本中会产生一条 E_DEPRECATED 消息，在之前
-    的版本中会产生一条 E_STRICT 消息。从 PHP 7.0 开始，它的语法是无效的。
+    它意味着 $a 和 $b 指向相同的内容。
+
+    注意：在这里，$a 和 $b 是完全相等的。$a 不指向 $b，反之亦然。$a 和 $b 指向相同的地方。
+
+    注意：如果你按引用赋值、传递或返回一个未定义的变量，它将被创建。
+        Example #1 对未定义变量使用引用
+        <?php
+        function foo(&$var) { }
+
+        foo($a); // $a 会被创建并赋值为 null
+
+        $b = array();
+        foo($b['b']);
+        var_dump(array_key_exists('b', $b)); // bool(true)
+
+        $c = new StdClass;
+        foo($c->d);
+        var_dump(property_exists($c, 'd')); // bool(true)
+        ?>
+
+    可以对返回引用的函数使用相同的语法：
+        <?php
+        $foo =& find_var($bar);
+        ?>
+
+    从 PHP 5 开始，new 会自动的返回一个引用，因此在这种上下文中使用 =& 是废弃的，并且在 PHP 5.3 和更新版本中会产生一条 E_DEPRECATED 消
+    息，在之前的版本中会产生一条 E_STRICT 消息。从 PHP 7.0 开始，它在语法上是无效的。（从技术上讲，区别在于，在 PHP 5 中，对象变量非常像
+    资源，它只是到实际的对象数据的指针，所以这些对象引用在意义上不是以前使用的“引用”（别名）。更多信息，见 对象和引用 。）
+
+    警告 如果你在一个函数中赋值一个引用给一个声明为 global 的变量，该引用将仅在该函数内部可见。你可以通过使用 $GLOBALS 数组来避免这个问题。
+        Example #2 在函数内部引用全局变量
+        <?php
+        $var1 = "Example variable";
+        $var2 = "";
+
+        function global_references($use_globals)
+        {
+            global $var1, $var2;
+            if (!$use_globals) {
+                $var2 =& $var1; // 仅在函数中可见
+            } else {
+                $GLOBALS["var2"] =& $var1; // 在全局范围内也是可见的
+            }
+        }
+
+        global_references(false);
+        echo "var2 is set to '$var2'\n"; // var2 设置为 ''
+        global_references(true);
+        echo "var2 is set to '$var2'\n"; // var2 设置为 'Example variable'
+        ?>
+    想象 global $var; 为 $var =& $GLOBALS['var']; 的一个快捷方式。因此赋值另外一个引用到 $var 只会改变局部变量的引用。
+
+    注意：如果在一个 foreach 语句中为具有引用的变量赋值，引用也会被修改。
+        Example #3 引用和 foreach 语句
+        <?php
+        $ref = 0;
+        $row =& $ref;
+        foreach (array(1, 2, 3) as $row) {
+            // 做一些事情
+        }
+        echo $ref; // 3 - 被迭代的数组的最后一个元素。
+        ?>
+    个人补充：这是很自然的情况，不知道有什么值得特别说明的。
+
+    虽然不是一种严格意义上的引用赋值，但使用语言结构 array() 创建的表达式也可以通过在要添加的数组元素前加上 & 来实现这样的行为。例如：
+        <?php
+        $a = 1;
+        $b = array(2, 3);
+        $arr = array(&$a, &$b[0], &$b[1]);
+        $arr[0]++; $arr[1]++; $arr[2]++;
+        /* $a == 2, $b == array(3, 4); */
+        ?>
+
+   然而，要注意数组内的引用是有潜在危险的。在右侧用一个引用进行普通的赋值（非按引用）不会将左侧变成一个引用，但数组中的引用在这些普通的赋值中
+   却保留了下来。这也适用于按值传递数组的函数调用。例如：
+        <?php
+        /* Assignment of scalar variables */
+        $a = 1;
+        $b =& $a;
+        $c = $b;
+        $c = 7; //$c is not a reference; no change to $a or $b
+
+        /* Assignment of array variables */
+        $arr = array(1);
+        $a =& $arr[0]; //$a and $arr[0] are in the same reference set
+        $arr2 = $arr; //not an assignment-by-reference!
+        $arr2[0]++;
+        /* $a == 2, $arr == array(2) */
+        /* The contents of $arr are changed even though it's not a reference! */
+        ?>
+
+    换句话说，数组的引用行为是在逐个元素的基础上定义的；单个元素的引用行为与数组容器的引用状态是分离的。
+
+按引用传递
+    引用可以做的第二件事是 按引用传递变量 。这是通过在函数中创建局部变量和在调用范围中创建引用相同内容的变量来实现的。例如：
+        <?php
+        function foo(&$var)
+        {
+            $var++;
+        }
+
+        $a=5;
+        foo($a);
+        ?>
+
+    会使 $a 变成 6。这之所以会发生是因为在函数 foo 中变量 $var 引用着和 $a 相同的内容。关于这一点的更多信息，见 按引用传递 章节。
+
+
+按引用返回
+    引用可以做的第三件事是 按引用返回 。
