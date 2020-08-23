@@ -4,7 +4,7 @@ HTML表单（GET 和 POST）
     注意：变量名中的点和空格都会转换为下划线。
 
     注意：如果外部变量名以有效的数组语法开始，后续的字符将会被自动忽略。例如 <input name="foo[bar]baz"> 会成为
-     $_REQUEST['foo']['bar'] 。
+    $_REQUEST['foo']['bar'] 。
 
 IMAGE 提交的变量名
     <input type="image" src="image.gif" name="sub" />
