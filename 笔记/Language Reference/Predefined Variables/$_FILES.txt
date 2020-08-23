@@ -12,6 +12,6 @@ HTTP 文件上传变量
     5.3.0	废弃了使 $HTTP_POST_FILES 生效的 register_long_arrays 指令。
     4.1.0	引入 $_FILES，弃用 $HTTP_POST_FILES。
 
-注意
-    $_FILES 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在函数和
-    方法中访问它。
+注意事项
+    注意：$_FILES 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在
+    函数和方法中访问它。

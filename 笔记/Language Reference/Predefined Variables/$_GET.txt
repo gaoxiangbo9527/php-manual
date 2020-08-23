@@ -13,8 +13,8 @@ HTTP GET 变量
     5.3.0	废弃了使 $HTTP_GET_VARS 生效的 register_long_arrays 指令。
     4.1.0	引入 $_GET，弃用 $HTTP_GET_VARS。
 
-注意
-    $_GET 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在函数和
-    方法中访问它。
+注意事项
+    注意：$_GET 是一个超全局变量，或者说自动全局变量。这就意味着它可以在脚本的任意作用域中使用。不需要进行 global $variable; 就可以在函数
+    和方法中访问它。
 
-    这些 GET 变量传递进 PHP 之前，已经通过 urldecode() 函数解码。
+    注意：这些 GET 变量传递进 PHP 之前，已经通过 urldecode() 函数解码。
