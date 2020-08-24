@@ -1,0 +1,29 @@
+描述
+    array_filter ( array $array [, callable $callback [, int $flag = 0 ]] ) : array
+
+    迭代 array 中的每个值并把它们传递给 callback 函数。如果 callback 函数返回 TRUE，那么来自 array 中的当前值会被返回到结果数组中。会
+    保留数组的键。
+
+参数
+    array
+        要迭代的数组。
+    callback
+        要使用的回调函数。
+
+        如果没有提供 callback，数组中等于 FALSE （见 转换为布尔型）的条目将会被移除。
+    flag
+        决定会发送哪些参数给 callback 的标志：
+            ARRAY_FILTER_USE_KEY - 把键作为唯一的参数传递给 callback，而不是值
+            ARRAY_FILTER_USE_BOTH - 把值和键作为参数传递给 callback，而不是值
+
+        默认是 0 ，这会把值作为唯一的参数传递给 callback 。
+
+返回值
+    返回过滤后的数组。
+
+更新日志
+    版本     描述
+    5.6.0	添加了可选的 flag 参数以及常量 ARRAY_FILTER_USE_KEY 和 ARRAY_FILTER_USE_BOTH
+
+注意事项
+    小心 如果数组在回调函数中被改变（例如，元素被增加，删除或取消设置），这个函数的行为是未定义的。

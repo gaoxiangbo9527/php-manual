@@ -1,0 +1,25 @@
+描述
+    array_reduce ( array $array , callable $callback [, mixed $initial = NULL ] ) : mixed
+
+    array_reduce() 迭代地应用 callback 函数到 array 的元素，以便将数组缩减为单个值。
+
+参数
+    array
+        输入数组。
+    callback
+        callback ( mixed $carry , mixed $item ) : mixed
+            carry
+                持有前一次迭代的返回值；在第一次迭代的情况下，它保存的是 initial 的值。
+            item
+                持有当前迭代的值。
+    initial
+        如果可选的 initial 是可用的，它将在处理开始时使用，或在数组为空的情况下作为最终的结果。
+
+返回值
+    返回结果值。
+
+    如果数组是空的并且没有传递 initial，array_reduce() 返回 NULL 。
+
+更新日志
+    版本	    描述
+    5.3.0	将 initial 更改为 mixed，之前是 integer 。

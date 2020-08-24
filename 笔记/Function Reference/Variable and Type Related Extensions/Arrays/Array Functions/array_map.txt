@@ -1,0 +1,29 @@
+描述
+    array_map ( callable $callback , array $array1 [, array $... ] ) : array
+
+    array_map() 返回一个数组，包含将 callback 函数应用到作为该回调参数的 array1（和 ...，如果提供了更多的数组的话）对应索引后的结果。
+    callback 函数接受的参数数量应该与传递给 array_map() 的数组数量相匹配。
+
+参数
+    callback
+        对每个数组中的每个元素运行的回调函数。
+
+        NULL can be passed as a value to callback to perform a zip operation on multiple arrays. If only array1 is provided, array_map() will return the input array.
+    array1
+        一个要通过 callback 函数运行的数组。
+    ...
+        要通过 callback 函数运行的数组参数的补充变量列表。
+
+返回值
+    返回一个数组，包含将 callback 函数应用到作为该回调参数的 array1（和 ...，如果提供了更多的数组的话）对应索引后的结果。
+
+    当且仅当只传递了一个数组时，返回的数组将保留该数组参数的键。如果传递的数组超过一个，返回的数组将具有连续的整数键。
+
+来自示例
+    这个函数的一种有意思的用法是去构造一个由数组组成的数组，使用 NULL 作为回调函数的名字，可以很容易地执行这种行为。
+    个人补充：此时，相当于使用一个类似于这样的回调函数
+        function (array ...$values) {
+            return $values;
+        }
+
+    如果把 callback 设置为 NULL，并且值传递一个数组，则原样返回，所有这种用法一点意义都没有。

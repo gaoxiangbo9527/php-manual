@@ -1,0 +1,30 @@
+描述
+    array_walk ( array &$array , callable $callback [, mixed $userdata = NULL ] ) : bool
+
+    为 array 数组中的每个元素应用用户定义的 callback 函数。
+
+    array_walk() 不受 array 的内部数组指针的影响。array_walk() 将会遍历整个数组，而不管指针的位置。
+
+参数
+    array
+        输入数组。
+    callback
+        通常，callback 接受两个参数。array 参数的值是第一个，键/索引的值是第二个。
+
+        注意：如果 callback 需要处理数组的实际值，请以一个 引用 指定 callback 的第一个参数。这样，对这些元素所做的任何更改都将在原始数组
+        本身中进行。
+
+        注意：许多内部函数（例如 strtolower()）会在传入的参数超过预期数量时抛出一个警告，并且不能直接用作 callback。
+
+        只有数组的值可能被更改；它的结构不能改变，即，编程人员不能添加、取消设置或重新排序元素。如果回调不符合此要求，则此函数的行为是未定义
+        的，且不可预测。
+    userdata
+        如果提供了可选的 userdata 参数，它将被传递为 callback 的第三个参数。
+
+返回值
+    返回 TRUE 。
+
+错误/异常
+    从 PHP 7.1.0 开始，如果 callback 函数需要两个以上的参数（数组成员的值和键），就会抛出一个 ArgumentCountError 。以前，如果
+    callback 函数需要两个以上的参数，每次 array_walk() 调用 callback，将会生成一个 E_WARNING 级别的错误。
+    个人补充：上面说的不够准确，如果使用 userdata ，则需要三个以上的参数才会报错。

@@ -1,0 +1,21 @@
+描述
+    array_walk_recursive ( array &$array , callable $callback [, mixed $userdata = NULL ] ) : bool
+
+    对 array 中的每个元素应用用户定义的 callback。这个函数将递归到更深的数组中。
+
+参数
+    array
+        输入数组。
+    callback
+        通常，callback 接受两个参数。array 参数的值是第一个，并且键/索引是第二个。
+
+        注意：如果 callback 需要处理数组的实际值，请以一个 引用 指定 callback 的第一个参数。这样，对这些元素所做的任何更改都将在原始数组
+        本身中进行。
+    userdata
+        如果提供了可选的 userdata 参数，它将被传递为 callback 的第三个参数。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE 。
+
+来自示例
+    任何持有一个 数组 的键将不会被转递给该回调函数。
