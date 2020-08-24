@@ -14,7 +14,7 @@ class Cart
 
     public function getQuantity($product)
     {
-        return isset($this->products[$product]) ? $this->products[$product] : FALSE;
+        return $this->products[$product] ?? false;
     }
 
     public function getTotal($tax)
