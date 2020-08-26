@@ -1,0 +1,11 @@
+PHP 透明的支持 HTTP cookie。Cookie 是一种用于在远程浏览器中存储数据从而跟踪或识别返回用户的机制。你可以使用 setcookie() 或
+setrawcookie() 函数设置 cookie。Cookie 是 HTTP 头的一部分，所以 setcookie() 必须在任何输出被发送到浏览器之前调用。这与 header() 具有
+相同的限制。你可以使用 输出缓冲函数 去延迟脚本输出直到你已经决定是否设置任何 cookie 或发送任何头部。
+
+任何从客户端发送到服务器的 cookie 都将自动的被包含进一个 $_COOKIE 自动全局数组中，如果 variables_order 中包含"C"的话。如果你希望给单个
+cookie 赋值多个值，只要添加 [] 到 cookie 名即可。
+
+在旧的 PHP 系统（5.3 或更早）上，可能会启用 register_globals，这可能会导致不期望的和不安全的操作。如果启用了此功能，cookie 将注册为全局
+变量。
+
+更多详细信息，包括注意事项和浏览器 bug，键 setcookie() 和 setrawcookie() 函数。

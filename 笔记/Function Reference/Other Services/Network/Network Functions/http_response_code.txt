@@ -1,0 +1,17 @@
+描述
+    http_response_code ([ int $response_code ] ) : mixed
+
+    获取或设置 HTTP 响应状态码。
+
+参数
+    response_code
+        可选的 response_code 将设置响应代码。
+
+返回值
+    如果提供了 response_code，那么会返回之前的状态码。如果没有提供 response_code，那么会返回当前的状态码。如果在 web 服务器环境中使用，
+    这两个值都将默认为 200 状态码。
+
+    如果没有提供 response_code 并且没有在 web 服务器环境（例如从 CLI 应用程序）中调用它，则返回 FALSE。如果提供了 response_code 并且
+    没有在 web 服务器环境中调用它，则返回 TRUE（但只有在之前没有设置响应状态时）。
+    个人补充：经个人测试，说白了非 WEB 环境下只是没有初始的 200 响应码而已，所以第一次获取可能会失败，第一次设置会返回 TRUE，第二次调用就
+    恢复正常了。

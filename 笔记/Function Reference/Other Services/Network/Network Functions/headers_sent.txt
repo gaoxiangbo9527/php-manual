@@ -1,0 +1,19 @@
+描述
+    headers_sent ([ string &$file [, int &$line ]] ) : bool
+
+    检查头部是否已经被发送或在何处被发送。
+
+    一旦头部块已经被发送，你就不能再使用 header() 函数添加任何更多的标题行了。使用此函数，你至少可以防止获得与 HTTP 头相关的错误消息。另一
+    种选择是使用 输出缓冲 。
+
+参数
+    file
+        如果设置了可选的 file 和 line 参数，headers_sent() 将把输出开始所在的 PHP 源文件的名称和行号放到 file 和 line 变量中。
+    line
+        输出开始的行号。
+
+返回值
+    如果还没有 HTTP 头部已经被发送，headers_sent() 将返回 FALSE ，否则返回 TRUE 。
+
+注意事项
+    注意：只有使用的 SAPI 支持头部时，才可以访问和输出头部。

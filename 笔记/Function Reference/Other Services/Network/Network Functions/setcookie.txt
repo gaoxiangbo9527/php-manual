@@ -1,0 +1,76 @@
+描述
+    setcookie ( string $name [, string $value = "" [, int $expires = 0 [, string $path = "" [, string $domain = "" [, bool $secure = FALSE [, bool $httponly = FALSE ]]]]]] ) : bool
+
+    setcookie ( string $name [, string $value = "" [, array $options = [] ]] ) : bool
+
+    setcookie() 定义了一个将和其余的 HTTP 头一起发送的 cookie。像其他的头一样，cookie 也必须在脚本的任何输出之前被发送（这是协议限制）。
+    这要求你把对这个函数的调用放置在任何输出的前面，包括 <html> 和 <head> 标签以及任何空白。
+
+    一旦 cookie 已经被设置，就可以在下一次页面加载时通过 $_COOKIE 数组访问它们。Cookie 的值可能也存在于 $_REQUEST 中。
+
+参数
+    RFC 6265 提供了会如何解释每个 setcookie() 参数的规范参考。
+
+    name
+        cookie 的名称。
+    value
+        cookie 的值。这个值存储在客户端的计算机上；不要存储敏感信息。假设名称是'cookiename'，则该值通过 $_COOKIE['cookiename'] 检索。
+    expires
+        cookie 过期的时间。这是一个 Unix 时间戳，所以这是纪元以来的秒数。换句话说，你将很可能使用 time() 函数加上过期前的秒数来设置它。
+        或者你也可能使用 mktime() 。time()+60*60*24*30 将设置该 cookie 在 30 天内过期。如果设置为 0 或者省略，该 cookie 将在会话结
+        束时（当浏览器关闭时）过期。
+
+        注意：你可能会注意到 expires 参数接受一个 Unix 时间戳，而不是 Wdy, DD-Mon-YYYY HH:MM:SS GMT，这是因为 PHP 会在内部进行转换。
+    path
+        服务器上的路径，cookie 在这个路径中将是可用的。如果设置为 '/'，cookie 将在整个 domain 中可用。如果设置为 '/foo/'，cookie 将仅
+        在 domain 的 /foo/ 目录以及像 /foo/bar/ 的所有子目录中可用。默认值是设置 cookie 的当前目录。
+    domain
+        cookie 可用于的（子）域名。将其设置为一个子域名（如'www.example.com'）将使得该 cookie 对该子域名和该子域名的所有其他子域名（例
+        如，w2.www.example.com）可用。为了使该 cookie 对整个域名（包括该域名的所有子域名）可用，简单的把值设置为该域名（在本例中为
+        'example.com'）。
+
+        旧的浏览器仍然在实现已弃用的 RFC 2109 ，这可能需要一个前导 . 来匹配所有子域。
+    secure
+        指示 cookie 只应从客户端通过一个安全的 HTTPS 连接进行传输。当设置为 TRUE 时，只有存在一个安全的连接时才会（个人补充：在客户端）设
+        置该 cookie 。
+        在服务器端，是否仅在安全连接（例如，涉及 $_SERVER["HTTPS"]）上才去设置这种 cookie 取决于编程人员。
+    httponly
+        为 TRUE 时，会使该 cookie 只能通过 HTTP 协议访问。这意味着该 cookie 不能通过脚本语言访问，如 JavaScript。有人提出这个设置可以
+        有效地帮助减少通过 XSS 攻击的身份盗取（尽管不是所有的浏览器都支持它），但这种说法也经常引起争议。在 PHP 5.2.0 中添加。TRUE 或
+        FALSE 。
+    options
+        一个关联数组，它可以包含任意的键：expires，path，domain，secure，httponly 和 samesite 。如果出现任何其他的键，就会产生一个
+        E_WARNING 级别的错误。这些值与前面所描述的、名称相同的参数具有相同的含义。samesite 元素的值应该是 None，Lax 或 Strict 。
+        如果没有给出某个任何允许的选项，它们的默认值与显式参数的默认值相同。如果省略了 samesite 元素，则不会设置 SameSite cookie 属性。
+
+返回值
+    如果在调用这个函数之前存在输出，setcookie() 将会失败并且返回 FALSE 。如果 setcookie() 成功的运行，它将返回 TRUE。这并不能表示用户是
+    否会接受该 cookie 。
+
+更新日志
+    版本	    描述
+    7.3.0	添加了一个支持 options 数组的可选签名。这个签名还支持设置 SameSite cookie 属性。
+    5.5.0	现在，在发送给客户端的 Set-Cookie 头中会包含一个 Max-Age 属性。
+    5.2.0	添加了 httponly 参数。
+
+注意事项
+    注意：你可以使用输出缓冲在调用此函数之前发送输出，这会具有所有你输出到浏览器的内容都会被缓冲在服务器中的开销，直到你发送它。你可以通过在脚
+    本中调用 ob_start() 和 ob_end_flush() 或者在 php.ini 或服务器配置文件中设置 output_buffering 配置指令来实现这一点。
+
+    注意：如果 PHP 指令 register_globals 设置为 on，那么 cookie 值也会变成变量。在我们下面的例子中，会存在 $TestCookie。推荐使用
+    $_COOKIE 。
+
+    常见的陷阱：
+        直到下一次加载 cookie 应该对其可见的页面时，cookie 才会变得可见。要测试 cookie 是否设置成功，请在 cookie 过期之前的下一个加载页
+        面上检查该 cookie 。过期时间通过 expires 参数设置的。调试 cookie 是否存在的一种好方法是简单地调用 print_r($_COOKIE); 。
+
+        删除 cookie 必须使用与设置 cookie 相同的参数。如果 value 参数是一个空字符串或 FALSE，并且所有其他参数都匹配之前对 setcookie 的
+        调用，那么具有指定名称的 cookie 将从远程客户端删除。这在内部是通过将值设置为'deleted'且到期时间设置为过去一年来实现的。
+
+        因为将 cookie 的值设置为 FALSE 会试图删除该 cookie，所以不应该使用布尔值。相反，为 FALSE 使用 0，为 TRUE 使用 1。
+
+        cookie 名称可以设置为数组名称并且将作为数组对你的 PHP 脚本可用，但存储在用户系统中的 cookie 却是分离的。考虑使用 explode() 去设
+        置一个具有多个名称和值的 cookie。不建议为此使用 serialize()，因为它可能会导致安全漏洞。
+        个人补充：可以考虑使用 json 格式，但确实不能用 PHP 自己的序列化格式。
+
+    对 setcookie() 的多次调用会按调用顺序执行。

@@ -1,7 +1,7 @@
 HTTP Cookies
 
 描述
-    通过 HTTP Cookies 转递给当前脚本的变量的关联数组。
+    通过 HTTP Cookies 传递给当前脚本的变量的关联数组。
 
     在 PHP 5.4.0 之前，$HTTP_COOKIES_VARS 中包含着和 $_COOKIE 相同的初始信息，但它却不是一个超全局变量。
     注意，$HTTP_COOKIE_VARS 和 $_COOKIE 是不同的变量，PHP 处理它们的方式也不同。

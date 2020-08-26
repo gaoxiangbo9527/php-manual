@@ -1,0 +1,19 @@
+描述
+    setrawcookie ( string $name [, string $value [, int $expires = 0 [, string $path [, string $domain [, bool $secure = FALSE [, bool $httponly = FALSE ]]]]]] ) : bool
+
+    setrawcookie ( string $name [, string $value [, array $options = [] ]] ) : bool
+
+    setrawcookie() 与 setcookie() 完全相同，除了 cookie 的值不会在发送到浏览器时自动的进行 url 编码。
+    个人补充：如果 cookie 的值中包含不允许的字符，则会失败，并且会产生一个 E_WARNING 级别的错误，此时你要自己进行 url 编码。
+
+参数
+    参数信息，请见 setcookie() 的文档。
+
+返回值
+    成功返回 TRUE，失败返回 FALSE 。
+
+更新日志
+    版本	    描述
+    7.3.0	添加了一个支持 options 数组的可选签名。这个签名还支持设置 SameSite cookie 属性。
+    5.5.0	现在，在发送给客户端的 Set-Cookie 头中会包含一个 Max-Age 属性。
+    5.2.0	添加了 httponly 参数。
