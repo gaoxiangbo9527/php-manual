@@ -1,0 +1,19 @@
+描述
+    session_get_cookie_params ( void ) : array
+
+    获取会话 cookie 的参数。
+
+返回值
+    返回一个带有当前会话 cookie 信息的数组，该数组包含下列项目：
+
+    "lifetime" - cookie的生命周期，以秒为单位。
+    "path" - 存储信息的路径。
+    "domain" - cookie 的域名。
+    "secure" - cookie 只应该通过安全连接发送。
+    "httponly" - cookie 只能通过 HTTP 协议访问。
+    "samesite" - 控制 cookie 的跨域发送。
+
+更新日志
+    版本	    描述
+    7.3.0	"samesite" 条目被添加到了返回数组中。
+    5.2.0	"httponly" 条目被添加到了返回数组中。

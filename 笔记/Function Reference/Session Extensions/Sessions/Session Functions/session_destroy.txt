@@ -1,0 +1,31 @@
+描述
+    session_destroy ( void ) : bool
+
+    session_destroy() 销毁所有与当前会话关联的数据。它不会取消设置与会话关联的任何全局变量，也不会取消设置会话 cookie。要再次使用会话变
+    量，必须调用 session_start()。
+
+    注意：你不必从通常的代码中调用 session_destroy()。应清除 $_SESSION 数组，而不是销毁会话数据。
+
+    为了完全杀死会话，还必须取消设置会话 ID。如果使用 cookie 传播会话 ID（默认行为），那么必须删除会话 cookie。setcookie() 可以用于此。
+
+    当启用了 session.use_strict_mode，你不必删除过时的会话 ID cookie，因为当没有与该会话 ID 关联的数据时会话模块将不接受该会话 ID
+    cookie，并且会设置新的会话 ID cookie。建议所有站点启用 session.use_strict_mode。
+
+    警告
+        个人补充：如果你不能理解这个警告的内容，请先去阅读 session_regenerate_id() 中的个人总结。
+
+        立即删除会话可能会导致意料不到的结果。当存在并发请求时，其他连接可能会看到会话数据突然丢失。例如，来自 JavaScript 和/或来自 URL
+        链接的请求。
+
+        虽然当前会话模块不接受空会话 ID cookie，但由于客户端（浏览器）的竞争条件，立即删除会话可能会导致空会话 ID cookie。这将导致客户端
+        不必要地创建许多会话 ID。
+
+        为了避免这些情况，你必须将删除时间戳设置给 $_SESSION 并在稍后拒绝访问。或者确保你的应用程序没有并发请求。这也适用于
+        session_regenerate_id()。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+注意事项
+    注意：仅对不使用 $_SESSION 的比较旧的废弃代码使用 session_unset()。
+    个人补充：现在可以直接使用 $_SESSION = []，所以没什么必要用 session_unset()，况且清空会话的情况本身就很少见。

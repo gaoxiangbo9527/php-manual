@@ -1,0 +1,13 @@
+描述
+    session_register_shutdown ( void ) : void
+
+    将 session_write_close() 注册为关闭函数。
+
+参数
+    此函数没有参数。
+
+返回值
+    没有返回值
+
+错误/异常
+    如果注册关闭函数失败了，则发出 E_WARNING。

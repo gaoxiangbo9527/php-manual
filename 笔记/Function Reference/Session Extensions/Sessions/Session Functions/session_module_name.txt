@@ -1,0 +1,16 @@
+描述
+    session_module_name ([ string $module ] ) : string
+
+    session_module_name() 获取当前会话模块的名称，也被称为 session.save_handler。
+
+参数
+    module
+        如果指定了 module，该模块将被使用。禁止给这个参数传递 "user"。相反，必须调用 session_set_save_handler() 来设置用户定义的会话
+        处理程序。
+
+返回值
+    返回当前会话模块的名称。
+
+更新日志
+    版本	    描述
+    7.2.0	现在明确的禁止将模块名设置为 "user"。之前，这会被静默的忽略。

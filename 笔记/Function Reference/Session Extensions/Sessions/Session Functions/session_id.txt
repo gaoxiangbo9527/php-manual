@@ -1,0 +1,17 @@
+描述
+    session_id ([ string $id ] ) : string
+
+    session_id() 用于为当前会话获取或设置会话 id。
+
+    常量 SID  也可以用于去检索适合添加到 URL 上的当前名称和会话 id 的字符串。另请参阅 会话处理 。
+
+参数
+    id
+        如果指定了 id，它将替换当前的会话 id。为此，需要在 session_start() 之前调用 session_id()。取决于会话处理程序，会话 id 并不是
+        允许所有的字符。例如，文件会话处理程序只允许 a-z A-Z 0-9 ,（逗号） 和 -（减号） 范围内的字符！
+
+        注意：当使用会话 cookie 时，为 session_id() 指定一个 id 将总是在调用 session_start() 后发送一个新的 cookie，而不管当前会话
+        id 是否与所设置的相同。
+
+返回值
+    session_id() 返回当前会话的会话 id ，如果没有当前会话（当前会话 id 不存在），则返回空字符串（""）。

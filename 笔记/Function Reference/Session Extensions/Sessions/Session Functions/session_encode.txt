@@ -1,0 +1,12 @@
+描述
+    session_encode ( void ) : string
+
+    session_encode() 返回 存储在 $_SESSION 超全局变量中的当前会话数据内容的序列化后的字符串。
+
+    默认情况下使用的序列化方法是 PHP 内部的，与 serialize() 不同。可以使用 session.serialize_handler 设置序列化方法。
+
+返回值
+    返回当前会话编码后的内容。
+
+注意事项
+    警告 必须在使用 session_encode() 之前调用 session_start()。

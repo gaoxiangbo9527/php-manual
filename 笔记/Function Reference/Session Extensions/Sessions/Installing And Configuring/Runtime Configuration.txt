@@ -1,0 +1,208 @@
+这些函数的行为会受到 php.ini 中的设置项的影响。
+
+Session 配置选项
+名称	                                默认值	                            可修改范围	    更新日志
+session.save_path	                ""	                                PHP_INI_ALL
+session.name	                    "PHPSESSID"	                        PHP_INI_ALL
+session.save_handler	            "files"	                            PHP_INI_ALL
+session.auto_start	                "0"	                                PHP_INI_PERDIR
+session.gc_probability	            "1"	                                PHP_INI_ALL
+session.gc_divisor	                "100"	                            PHP_INI_ALL
+session.gc_maxlifetime	            "1440"	                            PHP_INI_ALL
+session.serialize_handler	        "php"	                            PHP_INI_ALL
+session.cookie_lifetime	            "0"	                                PHP_INI_ALL
+session.cookie_path	                "/"	                                PHP_INI_ALL
+session.cookie_domain	            ""	                                PHP_INI_ALL
+session.cookie_secure	            ""	                                PHP_INI_ALL
+session.cookie_httponly	            ""	                                PHP_INI_ALL	    从 PHP 5.2.0 开始可用。
+session.cookie_samesite	            ""	                                PHP_INI_ALL	    从 PHP 7.3.0 开始可用。
+session.use_strict_mode	            "0"	                                PHP_INI_ALL	    从 PHP 5.5.2 开始可用。
+session.use_cookies	                "1"	                                PHP_INI_ALL
+session.use_only_cookies	        "1"	                                PHP_INI_ALL
+session.referer_check	            ""	                                PHP_INI_ALL
+session.cache_limiter	            "nocache"	                        PHP_INI_ALL
+session.cache_expire	            "180"	                            PHP_INI_ALL
+session.use_trans_sid	            "0"	                                PHP_INI_ALL
+session.trans_sid_tags	            "a=href,area=href,frame=src,form="  PHP_INI_ALL	    从 PHP 7.1.0 开始可用。
+session.trans_sid_hosts	            $_SERVER['HTTP_HOST']	            PHP_INI_ALL	    从 PHP 7.1.0 开始可用。
+session.sid_length	                "32"	                            PHP_INI_ALL	    从 PHP 7.1.0 开始可用。
+session.sid_bits_per_character	    "4"	                                PHP_INI_ALL	    从 PHP 7.1.0 开始可用。
+session.upload_progress.enabled	    "1"	                                PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.upload_progress.cleanup	    "1"	                                PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.upload_progress.prefix	    "upload_progress_"	                PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.upload_progress.name	    "PHP_SESSION_UPLOAD_PROGRESS"	    PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.upload_progress.freq	    "1%"	                            PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.upload_progress.min_freq    "1"	                                PHP_INI_PERDIR	Available since PHP 5.4.0.
+session.lazy_write	                "1"	                                PHP_INI_ALL	    Available since PHP 7.0.0.
+url_rewriter.tags	                "a=href,area=href,frame=src,form="	PHP_INI_ALL	    从 PHP 7.1.0 开始，这个 INI 不再被
+                                                                                        会话使用。
+session.hash_function	            "0"	                                PHP_INI_ALL	    在 PHP 7.1.0 中被移除。
+session.hash_bits_per_character	    "4"	                                PHP_INI_ALL	    在 PHP 7.1.0 中被移除。
+session.entropy_file	            ""	                                PHP_INI_ALL	    在 PHP 7.1.0 中被移除。
+session.entropy_length	            "0"	                                PHP_INI_ALL	    在 PHP 7.1.0 中被移除。
+session.bug_compat_42	            "1"	                                PHP_INI_ALL	    在 PHP 5.4.0 中被移除。
+session.bug_compat_warn	            "1"	                                PHP_INI_ALL	    在 PHP 5.4.0 中被移除。
+
+session.save_handler string
+    session.save_handler 定义了用于存储和检索同会话相关的数据的处理程序的名称。默认值为 files。注意，个别扩展可能会注册它们自己的
+    save_handler；可以通过引用 phpinfo() 在每个安装的基础上获得已注册的处理程序。另请参阅 session_set_save_handler() 。
+    个人补充：除了 files 以外，还有一个常见的 user 值，它的含义是使用用户自定义的保存处理程序。不过如果你真的要使用自定义的保存处理程序，
+    那么必须使用 session_set_save_handler() 函数，再在这里使用 user 就多余了。总之为这个指令使用 user 有些多余，而且从 PHP 7.2.0 开
+    始，也不能再指定为 user 了，想使用自定义的保存处理程序，直接用 session_set_save_handler() 即可。
+session.save_path string
+    session.save_path 定义了传递给保存处理程序的参数。如果你选择默认的 files 处理程序，这就是创建文件的路径。另请参阅
+    session_save_path()。
+
+    这个指令有一个可选的 N 参数，这确定了会话文件将分布在其中的目录级别的数量。例如，设置为 '5;/tmp' 则可能会创建一个像
+    /tmp/4/b/1/e/3/sess_4b1e384ad74619bd212e236e52a5a174If 的会话文件和位置。为了使用 N，你必须在使用前创建所有这些目录。在
+    ext/session 中存在一个小的 shell 脚本可以做到这一点，它叫做 mod_files.sh，也有叫做 mod_files.bat 的 Windows 版本。还请注意，如
+    果使用了 N 且 N 大于 0，那么自动的垃圾收集将不会被执行，相关的更进一步的信息，见 php.ini 的副本。另外，如果你使用 N，确保用引号包围
+    session.save_path，因为分隔符 ; 也被用于 php.ini 中的注释。
+
+    文件存储模块默认使用模式 600 去创建文件。这个默认值可以通过可选的 MODE 参数来更改：N;MODE;/path，MODE 是模式的 8 进制表示。设置
+    MODE 不会影响进程的 umask。
+
+    警告 如果将其设置为全世界可读的目录，比如 /tmp（默认值），服务器上的其他用户可以通过获取该目录中的文件列表来劫持会话。
+
+    小心
+        当按照上面的描述使用了可选目录级别参数 N 时，注意，使用一个高于 1 或 2 的值对于大多数站点是不合适的，因为这需要大量的目录：例如，
+        值 3 隐含 (2 ** session.sid_bits_per_character) ** 3 个目录存在于系统上，这会导致大量的空间和 inode 浪费。
+
+        仅当你绝对确定你的站点大到需要它时，才使用大于 2 的 N。
+session.name string
+    session.name 指定了被用作 cookie 名的会话名。它应该仅包含字母数字字符。默认为 PHPSESSID。另请参阅 session_name()。
+session.auto_start boolean
+    session.auto_start 指定了是否会话模块会在请求开始时启动一个会话。默认为 0（禁用）。
+session.serialize_handler string
+    session.serialize_handler 定义了用于序列化/反序列化数据的处理程序的名称。支持 PHP 序列化格式（名字为 php_serialize），PHP 内部格
+    式（名字为 php 和 php_binary）和 WDDX（名字为 wddx）。只有 PHP 被编译去具有 WDDX 支持时，WDDX 才是可用的。从 PHP 5.5.4 开始，
+    php_serialize 是可用的。php_serialize 在内部使用普通的 serialize/unserialize 函数并且没有 php 和 php_binary 所具有的限制。
+    旧的序列化处理程序（个人补充：应该是指 php 和 php_binary，不确定是否包括 WDDX，感觉应该是包括 WDDX 的）不能在 $_SESSION 中存储数字
+    索引或包含特殊字符（| 和 !）的字符串索引。使用 php_serialize 可以避免在脚本关闭时出现数字索引或特殊字符的错误。默认为 php 。
+session.gc_probability integer
+    session.gc_probability 与 session.gc_divisor 结合用于管理启动 gc（垃圾回收）例程的概率。默认为 1，详情见 session.gc_divisor。
+session.gc_divisor integer
+    与 gc_probability 耦合的 gc_divisor 定义了在每次会话初始化时启动 gc（垃圾收集）进程的概率。概率是使用 gc_probability/gc_divisor
+    计算的，例如，1/100 意味着 GC 进程在每个请求上启动的几率为 1%。session.gc_divisor 默认为 100。
+session.gc_maxlifetime integer
+    session.gc_maxlifetime 指定了在多少秒之后数据将会被视作“垃圾”并且可能被清理。垃圾回收可能在会话启动期间发生（取决于
+    session.gc_probability 和 session.gc_divisor）。
+
+    注意：如果不同的脚本有不同的 session.gc_maxlifetime 值，但却共享着相同的地方去存储会话数据，那么具有最小值的脚本将清理数据。在这种情
+    况下，将此指令与 session.save_path 一起使用。
+session.referer_check string
+    referer_check 包含了你想要对每个 HTTP Referer 检查的子字符串。如果 Referer 是由客户端发送的并且没有找到子字符串，那么嵌入的会话 id
+    将被标记为无效。默认为空字符串。
+session.use_strict_mode boolean
+    session.use_strict_mode 指定了模块是否将使用严格的会话 id 模式。如果启动了这种模式，则模块不接受未初始化的会话 ID。如果从浏览器发送
+    了一个未初始化的会话 ID，会把一个新的会话 ID 发送到浏览器。通过采用会话严格模式，应用程序可以免遭会话固定的伤害。默认为 0（禁用）。
+
+    注意：启用 session.use_strict_mode 对于一般的会话安全性来说是必需的。建议所有网站启用此模式。更多详情见 session_create_id() 的示
+    例代码。
+
+    警告 如果通过 session_set_save_handler() 注册的一个自定义会话处理程序没有实现
+    SessionUpdateTimestampHandlerInterface::validateId()，也没有提供 validate_sid 回调，严格的会话 ID 模式实际上会被禁用，而不管
+    这个指令的值。特别要注意的是，SessionHandler 没有实现 SessionHandler::validateId()。
+session.use_cookies boolean
+    session.use_cookies 指定模块是否将使用 cookie 在客户端存储会话 id。默认为 1（启用）。
+session.use_only_cookies boolean
+    session.use_only_cookies 指定模块是否只是用 cookie 在客户端存储会话 id。启用此设置可防止涉及在 URL 中传递会话 id 的攻击。从 PHP
+    5.3.0 开始默认为 1。
+session.cookie_lifetime integer
+    session.cookie_lifetime 指定了发送到浏览器的 cookie 的以秒为单位的生命周期。值 0 意味着“直到浏览器被关闭”。默认为 0。另请参阅
+    session_get_cookie_params() 和 session_set_cookie_params()。
+
+    注意：过期时间戳是相对于服务器时间设置的，这不需要与客户端浏览器中的时间相同。
+session.cookie_path string
+    session.cookie_path 指定了在会话 cookie 中设置的路径。默认为 /。另请参阅 session_get_cookie_params() 和
+    session_set_cookie_params()。
+session.cookie_domain string
+    session.cookie_domain 指定了在会话 cookie 中设置的域名。默认为空，意思是根据 cookie 规范生成 cookie 的服务器的主机名。另请参阅
+    session_get_cookie_params() 和 session_set_cookie_params()。
+session.cookie_secure boolean
+    session.cookie_secure 指定了是否 cookie 只应该通过安全链接被发送。默认为 off。另请参阅 session_get_cookie_params() 和
+    session_set_cookie_params() 。
+session.cookie_httponly boolean
+    将 cookie 标记为只能通过 HTTP 协议访问。这意味着 cookie 不能通过脚本语言（如 JavaScript）访问。这个设置可以有效地帮助减少通过 XSS
+    攻击的身份盗用（虽然它不是被所有的浏览器所支持）。
+session.cookie_samesite string
+    允许服务器断言 cookie 不应该与跨站点请求一起发送。此断言允许用户代理减少跨源信息泄漏的风险，并提供了一些防止跨站点请求伪造攻击的保护。
+    注意，并不是所有浏览器都支持这一点。空值意味着没有设置 SameSite cookie 属性。Lax 和 Strict 意味着对于 POST 请求 cookie 不会被跨域
+    发送。对于跨域的 GET 请求，Lax 将发送 cookie，而 Strict 将不会发送。
+session.cache_limiter string
+    session.cache_limiter 指定了用于会话页面的缓存控制方法。它可以是下列值中的一个：nocache，private，private_no_expire 或 public。
+    默认为 nocache。另请参阅 session_cache_limiter() 的文档以了解这些值的含义。
+session.cache_expire integer
+    session.cache_expire 指定了已缓存的会话页面的生存时间，以分钟为单位，这对 nocache 限制器没有影响。默认为 180。另请参阅
+    session_cache_expire()。
+session.use_trans_sid boolean
+    session.use_trans_sid 是否启用透明 sid 支持。默认为 0（禁用）。
+
+    注意：相比与基于 cookie 的会话管理，基于 URL 的会话管理有额外的安全风险。用户可以通过电子邮件向他们的朋友发送一个包含有活动的会话 ID
+    的 URL 或者用户可以将包含会话 ID 的一个 URL 保存到他们的书签中并且始终使用相同的会话 ID 访问你的站点，例如。从 PHP 7.1.0 开始，完整
+    的 URL 路径，例如，https://php.net/，可以由透明 sid 特性处理。以前的 PHP 仅处理相对 URL 路径。重写目标主机是由
+    session.trans_sid_hosts 定义的。
+session.trans_sid_tags string
+    session.trans_sid_tags 指定了当透明 sid 支持被启用时，会重写哪些 HTML 标签以包含会话 id。默认为
+    a=href,area=href,frame=src,input=src,form= 。form 是特殊的标签，<input hidden="session_id" name="session_name"> 会被添加
+    为表单变量。
+
+    注意：PHP 7.1.0 前，url_rewriter.tags 被用于这个目的。从 PHP 7.1.0 开始，fieldset 不再认为是特殊的标签。
+session.trans_sid_hosts string
+    session.trans_sid_hosts 指定了当透明 sid 支持被启用时，哪些主机会被重写以包含会话 id。默认为 $_SERVER['HTTP_HOST']。多个主机可以
+    通过 "," 指定，主机之间不允许有空格。例如，php.net,wiki.php.net,bugs.php.net 。
+session.sid_length integer
+    session.sid_length 允许你去指定会话 ID 字符串的长度。会话 ID 长度可以在 22 到 256 之间。默认是 32。如果你需要兼容性，你可以指定
+    32，40 等。较长的会话 ID 更难猜测。建议至少 32 个字符。
+
+    提示 兼容性注意：使用 32 替代 session.hash_function=0（MD5） 和 session.hash_bits_per_character=4，
+    session.hash_function=1（SHA1） 和 session.hash_bits_per_character=6 。使用 26 替代 session.hash_function=0（MD5） 和
+    session.hash_bits_per_character=5 。使用 22 替代 session.hash_function=0（MD5） 和 session.hash_bits_per_character=6 。
+    你必须去配置 INI 值，使其在会话 ID 中至少具有 128 位。不要忘记去为 session.sid_bits_per_character 设置一个合适的值，否则你将得到
+    较弱的会话 ID 。
+
+    注意：这个设置是在 PHP 7.1.0 中被引入的。
+session.sid_bits_per_character integer
+    session.sid_per_character 允许你去指定在被编码的会话 ID 字符中的位数。可能的值有 '4'（0-9, a-f），'5'（0-9, a-v） 和
+    '6'（0-9, a-z, A-Z, "-", ","）。默认是 4。更多的位会导致更强壮的会话 ID。对于大多数环境，5 是推荐的值。
+
+    注意：这个设置是在 PHP 7.1.0 中被引入的。
+session.hash_function mixed
+    个人补充：在 PHP 7.1.0 中被移除，就不翻译了。
+session.hash_bits_per_character integer
+    个人补充：在 PHP 7.1.0 中被移除，就不翻译了。
+session.entropy_file string
+    个人补充：在 PHP 7.1.0 中被移除，就不翻译了。
+session.entropy_length integer
+    个人补充：在 PHP 7.1.0 中被移除，就不翻译了。
+session.bug_compat_42 boolean
+    注意：在 PHP 5.4.0 中被移除。
+    个人补充：如上所述，就不翻译了。
+session.bug_compat_warn boolean
+    注意：在 PHP 5.4.0 中被移除。
+    个人补充：如上所述，就不翻译了。
+session.upload_progress.enabled boolean
+    启用上传进度跟踪，填充 $_SESSION 变量。默认为 1，已启用。
+session.upload_progress.cleanup boolean
+    一旦所有的 POST 数据已经被读取（即上传完成），就清除进度信息。默认为 1，已启用。
+
+    注意：强烈建议启用该特性。
+session.upload_progress.prefix string
+    一个用于 $_SESSION 中的上传进度键的前缀。这个键将与 $_POST[ini_get("session.upload_progress.name")] 的值连接以提供一个唯一的索
+    引。默认为 "upload_progress_"。
+session.upload_progress.name string
+    在 $_SESSION 中用于存储进度信息的键的名称。另请参阅 session.upload_progress.prefix。如果
+    $_POST[ini_get("session.upload_progress.name")] 未被传递或不可用，上传进度将不会被记录。
+    默认为 "PHP_SESSION_UPLOAD_PROGRESS"。
+session.upload_progress.freq mixed
+    定义了上传进度信息应该被更新的频率。这可以用字节来定义（例如，“每 100 字节更新一次进度信息”），或以百分比来定义（例如，“每收到整个文件大
+    小的 1% 就更新进度信息”)。默认为 "1%"。
+session.upload_progress.min_freq integer
+    更新之间的最小延迟，以秒为单位。默认为 "1"（1 秒）。
+session.lazy_write boolean
+    当 session.lazy_write 设置为 1，意味着只有在会话数据发生变化时才会去重写它。默认为 1，已启用。
+
+register_globals 配置设置项会影响如何存储和恢复会话变量。
+
+除非启用 session.upload_progress.enabled 并且设置了 $_POST[ini_get("session.upload_progress.name")] 变量，否则不会注册上传进度，
+关于此功能的更多信息见 会话上传进度 。

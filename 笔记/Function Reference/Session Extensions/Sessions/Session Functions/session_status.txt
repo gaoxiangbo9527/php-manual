@@ -1,0 +1,9 @@
+描述
+    session_status ( void ) : int
+
+    session_status() 用于返回当前的会话状态。
+
+返回值
+    PHP_SESSION_DISABLED 如果会话是禁用的。
+    PHP_SESSION_NONE 如果会话是启用的，但不存在。
+    PHP_SESSION_ACTIVE 如果会话是启用的，且存在一个会话。

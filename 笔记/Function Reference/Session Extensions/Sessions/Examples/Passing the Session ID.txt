@@ -1,0 +1,40 @@
+有两种传递一个会话 id 的方法：
+    Cookie
+    URL 参数
+
+会话模块两种方法都支持。Cookie 是最佳的，但是因为它们并不总是可用，所以我们还提供了另一种方法。第二种方法直接把会话 id 嵌入到 URL 中。
+
+PHP 能够透明地转换链接。如果启用了运行时选项 session.use_trans_sid，相对 URL 将被更改为自动的包含会话 id。
+
+注意：php.ini 指令 arg_separator.output 允许去自定义参数分隔符。要完全符合 XHTML，在那里请指定 &amp; 。
+
+另外，你可以使用 SID 常量，如果会话已启动，那么它是可用的。如果客户端没有发送适当的会话 cookie，它有 session_name=session_id 的形式。否
+则，它将扩展为一个空字符串。因此，你可以无条件地将其嵌入到 URL 中。
+
+下面的例子演示了如何去注册一个变量，并且如何使用 SID 去正确的链接到另一个页面。
+
+Example #1 统计单个用户的点击次数
+    <?php
+
+    session_start();
+
+    if (empty($_SESSION['count'])) {
+       $_SESSION['count'] = 1;
+    } else {
+       $_SESSION['count']++;
+    }
+    ?>
+
+    <p>
+    Hello visitor, you have seen this page <?php echo $_SESSION['count']; ?> times.
+    </p>
+
+    <p>
+    To continue, <a href="nextpage.php?<?php echo htmlspecialchars(SID); ?>">click here</a>.
+    </p>
+
+可以在打印 SID 时使用 htmlspecialchars() 以防止 XSS 相关的攻击。
+
+如果使用 --enable-trans-sid 来编译 PHP，则不需要向上面所示的那样去打印 SID。
+
+注意：非相对 URL 被假定为指向外部站点，因此不会追加 SID，因为泄漏 SID 到其他服务器会带来安全风险。

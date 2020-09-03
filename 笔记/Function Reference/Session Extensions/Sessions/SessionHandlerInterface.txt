@@ -1,0 +1,85 @@
+介绍
+    SessionHandlerInterface 是一个接口，它定义了用于创建一个自定义会话处理程序的最小原型。为了使用 OOP 调用形式将自定义会话处理程序传递
+    给 session_set_save_handler()，类可以实现这个接口。
+
+    请注意，这个类的回调函数方法被设计为由 PHP 内部的调用并且不打算从用户空间代码中调用。
+
+类摘要
+    SessionHandlerInterface {
+
+        /* Methods */
+        abstract public close ( void ) : bool
+        abstract public destroy ( string $session_id ) : bool
+        abstract public gc ( int $maxlifetime ) : int
+        abstract public open ( string $save_path , string $session_name ) : bool
+        abstract public read ( string $session_id ) : string
+        abstract public write ( string $session_id , string $session_data ) : bool
+    }
+
+Example #1 使用 SessionHandlerInterface 的例子
+    下面的例子提供了基于文件的会话存储，类似于 PHP 会话默认的保存处理程序 files。可以很容易地扩展这个示例，使用你喜欢的 PHP 支持的数据库引
+    擎来覆盖数据库存储。
+
+    注意，我们使用了 session_set_save_handler() 的 OOP 原型并且使用该函数的标志参数注册了关闭函数。当把对象注册为会话保存处理程序时，通
+    常建议这样做。
+
+    小心 为简洁起见，此示例省略了输入验证。然而，$id 参数实际上是用户提供的值，所以需要适当的验证/清理来避免漏洞，例如路径遍历问题。因此，不
+    要在生产环境中使用这个未经修改的示例。
+
+    <?php
+    class MySessionHandler implements SessionHandlerInterface
+    {
+        private $savePath;
+
+        public function open($savePath, $sessionName)
+        {
+            $this->savePath = $savePath;
+            if (!is_dir($this->savePath)) {
+                mkdir($this->savePath, 0777);
+            }
+
+            return true;
+        }
+
+        public function close()
+        {
+            return true;
+        }
+
+        public function read($id)
+        {
+            return (string)@file_get_contents("$this->savePath/sess_$id");
+        }
+
+        public function write($id, $data)
+        {
+            return file_put_contents("$this->savePath/sess_$id", $data) === false ? false : true;
+        }
+
+        public function destroy($id)
+        {
+            $file = "$this->savePath/sess_$id";
+            if (file_exists($file)) {
+                unlink($file);
+            }
+
+            return true;
+        }
+
+        public function gc($maxlifetime)
+        {
+            foreach (glob("$this->savePath/sess_*") as $file) {
+                if (filemtime($file) + $maxlifetime < time() && file_exists($file)) {
+                    unlink($file);
+                }
+            }
+
+            return true;
+        }
+    }
+
+    $handler = new MySessionHandler();
+    session_set_save_handler($handler, true);
+    session_start();
+
+    // proceed to set and retrieve values by key from $_SESSION

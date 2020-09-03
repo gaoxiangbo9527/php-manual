@@ -1,0 +1,11 @@
+描述
+    session_abort ( void ) : bool
+
+    session_abort() 完成会话而不保存数据。因此，会话数据中的原始值将被保留。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.2.0	现在这个函数的返回类型是 bool。之前，它是 void。

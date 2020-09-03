@@ -1,0 +1,53 @@
+介绍
+    SessionHandler 是一个特殊的类，通过继承可以公开当前内部的 PHP 会话保存处理程序。有 7 个方法包装了 7 个内部的会话保存处理程序的回调（
+    open，close，read，write，destroy，gc 和 create_sid)）。默认情况下，这个类将包装由 session.save_handler 配置指令定义的任何内部
+    保存处理程序，默认情况下，它通常是 files。其他内部会话保存处理程序由 PHP 扩展提供，如 SQLite（为 sqllite）、Memcache（为 memcache）
+    和 Memcached（为 memcached）。
+
+    当使用 session_set_save_handler() 将 SessionHandler 的一个普通实例设置为保存处理程序时，它将包装当前的保存处理程序。一个继承
+    SessionHandler 的类允许你覆盖这些方法、或者拦截或过滤它们，通过调用最终包装内部 PHP 会话处理程序的父类方法。
+
+    例如，这允许你拦截 read 和 write 方法以加密/解密会话数据并且然后将结果传递到父类和从父类传递结果。或者你可以选择完全的覆盖一个方法，比
+    如垃圾收集回调 gc。
+
+    因为 SessionHandler 包装了当前内部的保存处理程序的方法，所以上面的加密示例可以应用于任何内部的保存处理程序，而不必知道处理程序的内部。
+
+    为了使用这个类，首先使用 session.save_handler 设置你希望去公开的保存处理程序并且然后传递一个 SessionHandler 的实例或一个继承它的实
+    例给 session_set_save_handler()。
+
+    请注意，这个类的回调方法被设计成由 PHP 内部调用，而不是从用户空间代码中调用。返回值同样是由 PHP 在内部处理。有关会话工作流的更多信息，请
+    参考 session_set_save_handler()。
+
+类摘要
+    SessionHandler implements SessionHandlerInterface , SessionIdInterface {
+
+        /* Methods */
+        public close ( void ) : bool
+        public create_sid ( void ) : string
+        public destroy ( string $session_id ) : bool
+        public gc ( int $maxlifetime ) : int
+        public open ( string $save_path , string $session_name ) : bool
+        public read ( string $session_id ) : string
+        public write ( string $session_id , string $session_data ) : bool
+    }
+
+    警告 这个类被设计用来公开当前内部的 PHP 会话保存处理程序，如果你想编写你自己的自定义保存处理程序，请实现 SessionHandlerInterface 接
+    口，而不是继承 SessionHandler。
+
+更新日志
+    版本	    描述
+    5.5.1	添加了 SessionHandler::create_sid()。
+
+示例
+    注意 因为这个类的方法被设计成作为常规会话工作流的一部分由 PHP 内部的调用，所以除非会话已经实际的启动（要么自动的启用，要么通过
+    session_start() 显式的启动），否则子类对父方法（即，实际的内部的原生处理程序）的调用将返回 FALSE。在编写可能手动的调用类方法的单元测
+    试时，考虑这一点很重要。
+
+目录
+    SessionHandler::close — 关闭会话
+    SessionHandler::create_sid — 返回一个新的会话 ID
+    SessionHandler::destroy — 销毁一个会话
+    SessionHandler::gc — 清理旧的会话
+    SessionHandler::open — 初始化会话
+    SessionHandler::read — 读取会话数据
+    SessionHandler::write — 写入会话数据

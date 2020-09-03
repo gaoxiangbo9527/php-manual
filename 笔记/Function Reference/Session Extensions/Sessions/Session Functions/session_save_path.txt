@@ -1,0 +1,14 @@
+描述
+    session_save_path ([ string $path ] ) : string
+
+    session_save_path() 会返回用于保存会话数据的当前目录的路径。
+
+参数
+    path
+        会话数据的路径。如果指定，将改变保存数据的路径。为了这个目的，session_save_path() 需要在 session_start() 之前被调用。
+
+        注意：在一些操作系统上，你可能希望指定为能高效的处理许多小文件的文件系统上的一个路径。例如，在 Linux 上，reiserfs 可能比 ext2fs
+        提供更好的性能。
+
+返回值
+    返回用于存储数据的当前目录的路径。

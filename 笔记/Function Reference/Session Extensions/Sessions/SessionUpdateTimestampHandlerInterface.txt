@@ -1,0 +1,17 @@
+介绍
+    SessionUpdateTimestampHandlerInterface 是一个为创建自定义会话处理程序定义可选方法的接口。为了使用 OOP 调用形式将自定义会话处理程
+    序传递给 ession_set_save_handler()，类可以实现这个接口。
+
+    注意，实现这个接口的类的回调函数方法被设计为由 PHP 内部的调用并且不打算从用户空间代码中调用。
+
+类摘要
+    SessionUpdateTimestampHandlerInterface {
+
+        /* Methods */
+        abstract public updateTimestamp ( string $key , string $val ) : bool
+        abstract public validateId ( string $key ) : bool
+    }
+
+目录
+    SessionUpdateTimestampHandlerInterface::updateTimestamp — 更新时间戳
+    SessionUpdateTimestampHandlerInterface::validateId — 验证 ID

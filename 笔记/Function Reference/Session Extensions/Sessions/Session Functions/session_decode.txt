@@ -1,0 +1,13 @@
+描述
+    session_decode ( string $data ) : bool
+
+    session_decode() 解码在 $data 中提供的序列化后的会话数据，并使用结果填充 $_SESSION 超全局变量。
+
+    默认情况下，使用的反序列化方法是 PHP 内部的，与 unserialize() 不同。可以使用 session.serialize_handler 设置序列化方法。
+
+参数
+    data
+        要存储的已编码数据。个人补充，原文可能是错误的。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE.

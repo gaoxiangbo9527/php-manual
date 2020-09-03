@@ -1,0 +1,11 @@
+下面的常量是由此扩展定义的，并且仅当该扩展要么被编译进 PHP 或者在运行时被动态的加载时才可用。
+
+SID (string)
+    常量，以 "name=ID" 形式包含了会话名称和会话 ID，或者如果会话 ID 在适当的会话 cookie 中设置，则返回空字符串。这个 id 与
+    session_id() 返回的 id 相同。
+PHP_SESSION_DISABLED (int)
+    从 PHP 5.4.0 开始。session_status() 的返回值，如果会话是禁用的。
+PHP_SESSION_NONE (int)
+    从 PHP 5.4.0 开始。session_status() 的返回值，如果会话是启用的，但不存在会话。
+PHP_SESSION_ACTIVE (int)
+    从 PHP 5.4.0 开始。session_status() 的返回值，如果会话是启用的，且存在一个会话。

@@ -1,0 +1,1 @@
+这个函数是 session_write_close() 的一个别名。

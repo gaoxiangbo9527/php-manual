@@ -1,0 +1,91 @@
+通过保护与会话相关的 INI 设置，开发人员可以提高会话的安全性。一些重要的 INI 设置没有任何推荐的设置。开发人员负责加强会话设置。
+
+session.cookie_lifetime=0
+    0 具有特殊的意义。它通知浏览器不要将 cookie 存储为永久存储。因此，当浏览器被终止时，会话 ID cookie 会立即被删除。如果开发人员将此值设
+    置为 0 以外的值，则可能允许其他用户使用会话 ID。大多数应用程序应该为此设置项使用 "0"。
+
+    如果需要自动登录特性，开发人员必须实现他们自己安全的自动登录特性。不要为此使用长生命期的会话 ID。更多的信息可以在上面的相关章节找到。
+
+session.use_cookies=On
+session.use_only_cookies=On
+    尽管 HTTP cookie 存在一些问题，cookie 仍然是管理会话 ID 的首选方法。只要可能，就应仅使用 cookie 进行会话 ID 管理。大多数应用程序应
+    该为会话 ID 使用 cookie。
+
+    如果 session.use_only_cookies=Off，假设会话 ID cookie 未初始化，会话模块将使用由 GET/POST/URL 设置的会话 ID 值。
+
+session.use_strict_mode=On
+    虽然，对于安全会话来说启用 session.use_strict_mode 是必须的。但它默认是禁用的。
+
+    这将防止会话模块使用未初始化的会话 ID。换句话说，会话模块只接受由会话模块自己生成的有效的会话 id。它会拒绝用户提供的任何会话 ID。
+
+    由于 cookie 的规范，攻击者能够通过本地设置一个 cookie 数据库或 JavaScript 注入去放置一个不可移除的会话 ID cookie。
+    session.use_strict_mode 可以防止去使用一个攻击者初始化的会话 ID。
+
+    注意：攻击者可能用他们的设备初始化一个会话 ID 并且可能设置受害者的会话 ID。他们必须保持会话 ID 活跃以进行滥用。在此场景中，攻击者需要额
+    外的步骤来执行攻击。因此，session.use_strict_mode 可以作为一个缓解。
+
+session.cookie_httponly=On
+    拒绝从 JavaScript 访问会话 cookie。此设置可防止 JavaScript 注入获取 cookie。
+
+    可以使用会话 ID 作为 CSRF 令牌，但不建议这样做。例如，HTML 源代码可能被保存并发送给其他用户。为了更好的安全性，开发人员不应该在 web 页
+    面中写入会话 ID。几乎所有的应用程序都必须为会话 ID cookie 使用 httponly 属性。
+
+    注意：CSRF 令牌应该像会话 ID 一样定期更新。
+
+session.cookie_secure=On
+    仅在协议为 HTTPS 时允许访问会话 ID cookie。如果一个网站只能通过 HTTPS 访问，它应该启用这个设置。
+
+    仅通过 HTTPS 访问的网站应该考虑使用 HSTS。
+
+session.cookie_samesite="Lax" 或 session.cookie_samesite="Strict"
+    从 PHP 7.3 开始，可以为会话 ID cookie 设置 "SameSite" 属性。这个属性是一种减轻 CSRF（跨站点请求伪造）攻击的方法。
+
+    Lax 和 Strict 之间的区别在于使用 HTTP GET 方法从另一个可注册域发出的请求中对 cookie 的可访问性。使用 Lax 的 cookie 可以在来自另一
+    个可注册域的 GET 请求中访问，而使用 Strict 的 cookie 则不能。
+
+session.gc_maxlifetime=[choose smallest possible]
+    session.gc_maxlifetime 是一种用于删除过时会话 ID 的设置。不建议依赖此设置。开发人员应该自己用时间戳来管理会话的生命周期。
+
+    会话 GC（垃圾回收）最好通过使用 session_gc() 来执行。session_gc() 函数应该由一个任务管理器执行。例如，UNIX 系统上的 cron。
+
+    默认情况下会按概率执行 GC。此设置不能保证删除过时的会话。尽管开发人员不能依赖于此设置，但建议将其指定为尽可能小的值。调整
+    session.gc_probability 和 session.gc_divisor 从而以一个适当的频率删除过时的会话。如果需要自动登录特性，开发人员必须实现他们自己的
+    安全自动登录特性，更多信息请参阅上面。千万不要为此特性使用长生命期的会话 ID。
+
+    注意：有些会话保存处理程序模块对基于概率的过期不使用此设置。例如，memcached，memcache。有关详细信息，请参阅会话保存处理程序的文档。
+
+session.use_trans_sid=Off
+    使用透明的会话 ID 管理不是被禁止的。开发人员可以在需要时使用它。然而，禁用透明的会话 ID 管理可以通过消除会话 ID 注入和/或泄漏的可能性来
+    提高一般的会话 ID 安全性。
+
+    注意：会话 ID 可能会从书签的 URL，电子邮件的 URL，保存的 HTML 源代码等泄露。
+
+session.trans_sid_tags=[limited tags]
+    （PHP >= 7.1.0）开发人员不应该重写不需要的 HTML 标签。默认值对于大多数使用应该足够了。旧的 PHP 版本使用 url_rewriter.tags 代替。
+
+session.trans_sid_hosts=[limited hosts]
+    （PHP >= 7.1.0）这个 INI 定义了允许 trans sid 重写的主机白名单。永远不要添加不可信的主机。当该设置为空时，会话模块只允许
+    $_SERVER['HTTP_HOST']。
+
+session.referer_check=[originating URL]
+    当启用 session.use_trans_sid 时。它减少了会话 ID 注入的风险。如果一个网站是 http://example.com/，就将它设置为
+    http://example.com/。注意，使用 HTTPS，浏览器将不会发送 referrer 头部。通过配置，浏览器可能不会发送 referrer 头部。因此，此设置不
+    是一个可依赖的安全措施（个人补充：可以通过该配置增强安全性，但是不能完全依赖，因为它可能会被禁用或者绕过）。建议使用此设置。
+
+session.cache_limiter=nocache
+    确保对于已认证的会话不会缓存 HTTP 内容。只有当内容不是私有的时候才允许缓存。否则，内容可能会暴露。如果 HTTP 内容不包括安全敏感数据，
+    "private" 可以被使用。注意，"private" 可以传输被共享客户端缓存的私有数据。"public" 只能在 HTTP 内容根本不包含任何私有数据时使用。
+
+session.sid_length="48"
+    （PHP >= 7.1.0）更长的会话 ID 会导致更强的会话 ID。开发人员应该考虑长度为 32 个字符或更多的会话 ID。当
+    session.sid_bits_per_character="5" 时，至少需要 26 个字符。
+
+session.sid_bits_per_character="6"
+    （PHP >= 7.1.0）会话 ID 字符中的位越多，会话模块为相同的会话 ID 长度生成的会话 ID 就越强。
+
+session.hash_function="sha256"
+    （PHP < 7.1.0）一个更强的散列函数将生成更强的会话 ID。尽管即使使用 MD5 散列算法也不太可能出现散列冲突，开发人员还是应该使用 SHA-2 或
+    更强的散列算法，如 sha384 和 sha512。开发人员必须确保为所使用的散列函数提供足够长的 熵 。
+
+session.save_path=[non world-readable directory]
+    如果将其设置为一个全世界可读的目录，比如 /tmp（默认），那么服务器上的其他用户可能能够通过获取该目录中的文件列表来劫持会话。

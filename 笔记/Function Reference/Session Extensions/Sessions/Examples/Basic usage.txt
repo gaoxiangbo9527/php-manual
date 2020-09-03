@@ -1,0 +1,41 @@
+会话是依据惟一的会话 ID 为单个用户存储数据的一种简单的方法。这可以用于在页面请求之间持久保存状态信息。会话 ID 通常通过会话 cookie 发送到浏
+览器并且该 ID 用于检索已存在的会话数据。ID 或会话 cookie 的缺失让 PHP 知道去创建一个新的会话，并生成一个新的会话 ID。
+
+会话遵循一个简单的工作流。当一个会话启动时，PHP 将要么使用传来的 ID （通常来自一个会话 cookie）去检索一个已存在的会话，要么它将创建一个新的
+会话，如果没有传来会话 ID。在会话开始之后，PHP 将使用任何会话数据填充 $_SESSION 超全局变量。当 PHP 关闭时，它将自动的获取 $_SESSION 超全
+局变量的内容，序列化它，并使用会话保存处理程序将其发送到存储。
+
+默认，PHP 使用内部的 files 保存处理程序，它是由 session.save_handler 设置的。这会把会话数据保存在服务器上的由 session.save_path 配置
+指令指定的位置。
+
+会话可以使用 session_start() 函数手动的启动。如果 session.auto_start 指令设置为 1，在请求启动时将自动的启动一个会话。
+
+会话通常会在 PHP 完成执行一个脚本时自动的关闭，但可以使用 session_write_close() 函数手动的关闭。
+
+Example #1 使用 $_SESSION 注册一个变量。
+    <?php
+    session_start();
+    if (!isset($_SESSION['count'])) {
+      $_SESSION['count'] = 0;
+    } else {
+      $_SESSION['count']++;
+    }
+    ?>
+
+Example #2 使用 $_SESSION 取消注册一个变量。
+    <?php
+    session_start();
+    unset($_SESSION['count']);
+    ?>
+
+小心 不要使用 unset($_SESSION) 去 unset 整个 $_SESSION，因为这将禁止通过 $_SESSION 超全局变量注册会话变量。
+
+警告 你不能在会话变量中使用引用，因为没有可行的方法来恢复对另一个变量的引用。
+
+警告 register_globals 将覆盖名称与会话变量共享的全局作用域中的变量。请参阅 使用注册全局变量 获得详细信息。
+
+注意：一旦通过 session_start() 或通过 session.auto_start 隐式的打开一个会话，基于文件的会话（PHP 默认）会锁定该会话文件。一旦被锁定，没
+有其他的脚本可以访问相同的会话文件直到它被第一个脚本终止或调用 session_write_close() 关闭为止。
+
+在重度使用 AJAX 和拥有大量并发请求的 Web 站点上，这很可能是一个问题。处理它最简单的方法是，一旦对会话的更改已经完成，就立即去调用
+session_write_close()，最好是脚本开始的时候。另外，也可以使用一个支持并发的不同的会话后端。

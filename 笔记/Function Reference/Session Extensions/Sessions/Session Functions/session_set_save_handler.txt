@@ -1,0 +1,122 @@
+描述
+    session_set_save_handler ( callable $open , callable $close , callable $read , callable $write , callable $destroy , callable $gc [, callable $create_sid [, callable $validate_sid [, callable $update_timestamp ]]] ) : bool
+
+    从 PHP 5.4 开始，可以注册以下原型：
+
+    session_set_save_handler ( object $sessionhandler [, bool $register_shutdown = TRUE ] ) : bool
+
+    session_set_save_handler() 设置用户级别的会话保存函数，它将用于存储和检索和一个会话相关联的数据。当首选的存储方法不是 PHP 会话提供
+    的存储方法时，这是最有用的，例如，在一个本地数据库中存储会话数据。
+
+参数
+    这个函数有两种原型。
+
+    sessionhandler
+        一个实现了 SessionHandlerInterface 类且可选的实现了 SessionIdInterface 和/或 SessionUpdateTimestampHandlerInterface
+        的实例，例如 SessionHandle，以注册为会话处理程序。仅从 PHP 5.4.0 开始。
+    register_shutdown
+        注册 session_write_close() 为一个 register_shutdown_function() 函数。
+
+    或者
+
+    open
+        一个具有下列签名的 callable：
+
+        open ( string $savePath , string $sessionName ) : bool
+
+        open 回调函数工作起来类似于类中的构造函数并且是在会话将被打开时被执行。当会话被自动的或通过 session_start() 手动的启动时，它是第
+        一个被执行的回调函数。成功时返回值是 TRUE，失败则返回 FALSE。
+    close
+        一个具有下列签名的 callable：
+
+        close ( void ) : bool
+
+        close 回调函数工作起来类似于类中的析构函数并且是在会话写入回调函数被调用后执行。在 session_write_close() 被调用时它也会被调用。
+        成功时返回值应该是 TRUE，失败则返回 FALSE。
+    read
+        一个具有下列签名的 callable：
+
+        read ( string $sessionId ) : bool
+
+        read 回调函数必须总是返回一个已编码的（被序列化的）会话字符串，或者一个空字符串，如果没有要读取的数据的话。
+
+        当会话启动时或者当 session_start() 被调用时，这个回调函数会在内部被 PHP 调用。在这个回调函数被调用之前，PHP 将会调用 open 回调。
+
+        这个回调函数返回的值必须是与最初传递给 write 回调函数去存储的序列化格式完全相同的格式。返回的值将自动的被 PHP 反序列化并且被用于去
+        填充 $_SESSION 超全局变量。虽然该数据看起来类似于 serialize()，但请注意，它是一种在 session.serialize_handler ini 设置项中
+        所指定的不同的格式。
+    write
+        一个具有下列签名的 callable：
+
+        write ( string $sessionId , string $data ) : bool
+
+        当会话需要被保存和关闭时，write 回调函数会被调用。这个回调函数接受当前的会话 ID 和一个序列化后版本的 $_SESSION 超全局变量。由
+        PHP 在内部所使用的序列化方法是在 session.serialize_handler ini 设置项中所指定的。
+
+        传递到这个回调函数的序列化后的会话数据应该根据传递的会话 ID 存储。当检索这个数据时，read 回调函数必须返回和最初传递给 write 回调的
+        值完全一样的值。
+
+        当 PHP 关闭时或者 session_write_close() 被显式的调用时，这个回调函数会被调用。注意，在执行这个函数之后，PHP 将内部的执行 close
+        回调函数。
+
+        注意：直到关闭输出流之后，才会执行“write”处理程序。因此，“write”处理程序中的调试语句的输出将永远不会在浏览器中看到。如果需要调试输
+        出，建议将调试输出写入文件。
+    destroy
+        一个具有下列签名的 callable：
+
+        destroy ( string $sessionId ) : bool
+
+        当使用 session_destroy() 或者使用 destroy 参数被设置为 TRUE 的 session_regenerate_id() 销毁一个会话时，这个回调会被执行。
+        成功时返回值应该是 TRUE，失败时返回 FALSE。
+    gc
+        一个具有下列签名的 callable：
+
+        gc ( int $lifetime ) : bool
+
+        垃圾回收回调函数会由 PHP 定期的在内部调用，以清除旧的会话数据。频率是由 session.gc_probability 的 session.gc_divisor 控制的。
+        传递给这个回调函数的 lifetime 值可以在 session.gc_maxlifetime 中设置。成功时返回 TRUE，失败时返回 FALSE。
+    create_sid
+        一个具有下列签名的 callable：
+
+        create_sid ( void ) : string
+
+        当需要一个新的会话 ID 时，这个回调函数会被执行。没有提供任何参数，并且返回值应该是一个字符串，它是提供给处理程序的一个有效的会话 ID。
+    validate_sid
+        一个具有下列签名的 callable：
+
+        validate_sid ( string $key ) : bool
+
+        当一个会话将要被启动时，这个回调函数会被执行，提供一个会话 ID 并且 session.use_strict_mode 是启用的。key 是要验证的会话 ID。
+        如果具有那个 ID 的会话已经存在，那么该会话 ID 是有效的。成功时返回值应该是 TRUE，失败时是 FALSE。
+    update_timestamp
+        一个具有下列签名的 callable：
+
+        update_timestamp ( string $key , string $val ) : string
+
+        当一个会话被更新时，这个回调函数会被执行。key 是会话 ID，val 是会话数据。成功时返回值应该是 TRUE，失败时是 FALSE。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.0.0	添加了可选的 validate_sid 和 update_timestamp 参数。
+    5.5.1	添加了可选的 create_sid 参数。
+    5.4.0	添加了用于实现会话处理程序的 SessionHandlerInterface 和暴露内部的 PHP 会话处理程序的 SessionHandler。
+
+注意事项
+    警告
+        当使用对象作为会话保存处理程序时，在 PHP 中注册 shutdown 函数是很重要的，这样可以避免 PHP 在 shutdown 时内部销毁对象的方式所带
+        来的意料之外的副作用并可以阻止 write 和 close 被调用。通常应该使用 register_shutdown_function() 函数注册
+        'session_write_close'。
+
+        从 PHP 5.4.0 开始，你可以使用 session_register_shutdown() 或者在使用 OOP 方法调用 session_set_save_handler() 且传递一个
+        实现了 SessionHandlerInterface 的实例时去简单的使用 'register shutdown' 标志。
+
+    警告
+        从 PHP 5.0.5 开始，write 和 close 处理程序是在对象析构之后被调用的并且因此不能使用对象或抛出异常。异常不能被捕获，因为它既不会被
+        捕获，也不会显示任何异常追踪，而且执行会意外地停止。不过，对象析构函数可以使用会话。
+
+        可以从析构函数中调用 session_write_close() 来解决这个鸡和蛋的问题，但最可靠的方法是像上面所描述的一样去注册 shutdown 函数。
+
+    警告 如果会话在脚本终止中被关闭，当前的工作目录将被一些 SAPIs 更改。可以使用 session_write_close() 更早地关闭会话。

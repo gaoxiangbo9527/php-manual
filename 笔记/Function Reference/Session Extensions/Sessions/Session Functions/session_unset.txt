@@ -1,0 +1,19 @@
+描述
+    session_unset ( void ) : bool
+
+    session_unset() 函数会释放当前已注册的所有会话变量。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.2.0	现在这个函数的返回类型是 bool。之前，它是 void。
+
+注意事项
+    注意：如果使用了 $_SESSION，请使用 unset() 去取消注册某个会话变量，例如，unset($_SESSION['varname']); 。
+
+    小心 不要使用 unset($_SESSION) 去 unset 整个 $_SESSION，因为这将禁止通过 $_SESSION 超全局变量注册会话变量。
+
+    注意：仅对不使用 $_SESSION 的比较旧的废弃代码使用 session_unset()。
+    个人补充：现在可以直接使用 $_SESSION = []，所以没什么必要用 session_unset()，况且清空会话的情况本身就很少见。

@@ -1,0 +1,18 @@
+为了实现数据库存储，或者其他的存储方法，你将需要使用  session_set_save_handler() 去创建一组用户级的存储函数。从 PHP 5.4.0 开始，你可以
+使用 SessionHandlerInterface 或通过继承 SessionHandler 来扩展内部的 PHP 处理程序。
+
+session_set_save_handler() 中所指定的回调函数是 PHP 在一个会话的生命周期中调用的方法：open，read，write 和 close 并且对于内务管理任务
+：用于删除一个会话的 destroy 和用于定期垃圾回收的 gc 。
+
+因此，PHP 总是需要一个会话保存处理程序。默认通常是内部的 files 保存处理程序。可以使用 session_set_save_handler() 设置一个自定义的保存处
+理程序。另外，PHP 扩展也提供了一些内部的保存处理程序，例如 sqlite，memcache 和 memcached 并且能使用 session.save_handler 设置。
+
+当会话启动时，PHP 将在内部调用 open 处理程序，然后调用 read 回调，该回调应该返回一个经过编码的字符串，与最初传递给存储的字符串完全相同。一旦
+该 read 回调返回了已编码的字符串，PHP 将解码它并且然后将结果数组填充到 $_SESSION 超全局变量中。
+
+当 PHP 关闭（或者当 session_write_close() 被调用）时，PHP 将在内部编码 $_SESSION 超全局变量并且将它与会话 ID 一起传递给 write 回调。
+在 write 回调已经完成后，PHP 将在内部调用 close 回调处理程序。
+
+当一个会话被销毁时，PHP 将使用会话 ID 调用 destroy 处理程序。
+
+PHP 将不时地调用 gc 回调，以根据会话的最大生存期设置使任何会话记录过期。这个例程应该从持久存储中删除最后访问时间超过 $lifetime 的所有记录。

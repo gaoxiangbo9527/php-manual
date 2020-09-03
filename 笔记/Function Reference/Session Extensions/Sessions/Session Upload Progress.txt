@@ -1,0 +1,70 @@
+注意：从 PHP 5.4.0 开始，此特性是可用的。
+
+当 session.upload_progress.enabled INI 选项被启用时，PHP 将能够跟踪单个上传文件的上传进度。这个信息对于实际的上传请求本身并不是特别有
+用，但是在文件上传期间，应用程序可以向单独的端点发送一个 POST 请求（例如通过 XHR）来检查状态。
+
+当一个上传正在进行，并且当 POST 一个与 session.upload_progress.name INI 设置项设置的名称同名的一个变量时，上传进度在 $_SESSION 超全局
+变量中将是可用的。当 PHP 检测到这样的 POST 请求时，它将在 $_SESSION 中填充一个数组，其中索引是 session.upload_progress.prefix 和
+session.upload_progress.name INI 选项的连接值。键通常通过读取这些 INI 设置项来检索，例如。
+    <?php
+    $key = ini_get("session.upload_progress.prefix") . $_POST[ini_get("session.upload_progress.name")];
+    var_dump($_SESSION[$key]);
+    ?>
+
+也可以通过设置 $_SESSION[$key]["cancel_upload"] 为 TRUE 来取消当前正在进行的文件上传。当在同一个请求中上传多个文件时，这只会取消当前正
+在进行的文件上传，并且挂起文件上传，但不会删除成功完成的上传。当一个像这样的上传被取消时，$_FILES 数组中的 error 键将被设置为
+UPLOAD_ERR_EXTENSION。
+
+session.upload_progress.freq 和 session.upload_progress.min_freq INI 选项控制了上传进度信息应该被重新计算的频率。对于这两个设置项，
+只要有合理的设置，此特性的开销几乎不存在。
+
+Example #1 示例信息
+    上传进度数组的结构示例。
+
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="123" />
+        <input type="file" name="file1" />
+        <input type="file" name="file2" />
+        <input type="submit" />
+    </form>
+
+    存储在会话中的数据将看起来像这样：
+
+    <?php
+    $_SESSION["upload_progress_123"] = array(
+        "start_time" => 1234567890,   // The request time
+        "content_length" => 57343257, // POST content length
+        "bytes_processed" => 453489,  // Amount of bytes received and processed
+        "done" => false,              // true when the POST handler has finished, successfully or not
+        "files" => array(
+            0 => array(
+                "field_name" => "file1",       // Name of the <input/> field
+                // The following 3 elements equals those in $_FILES
+                "name" => "foo.avi",
+                "tmp_name" => "/tmp/phpxxxxxx",
+                "error" => 0,
+                "done" => true,                // True when the POST handler has finished handling this file
+                "start_time" => 1234567890,    // When this file has started to be processed
+                "bytes_processed" => 57343250, // Number of bytes received and processed for this file
+            ),
+            // An other file, not finished uploading, in the same request
+            1 => array(
+                "field_name" => "file2",
+                "name" => "bar.avi",
+                "tmp_name" => NULL,
+                "error" => 0,
+                "done" => false,
+                "start_time" => 1234567899,
+                "bytes_processed" => 54554,
+            ),
+        )
+    );
+
+警告 为了能让这正常工作，必须禁用 web 服务器的请求缓冲，否则 PHP 可能会看到该文件上传仅一次就被完全上传。已知像 Nginx 这样的服务器会缓冲较
+大的请求。
+
+小心 上传进度信息是在任何脚本被执行之前被写入到会话的。因此，通过 ini_set() 或 session_name() 更改会话名称将给出一个不包含上传进度信息的
+会话。
+
+个人补充：必须在生成表单之前初始化会话，从而在上传时才会一起发送会话 ID，这样服务端才能把上传进度信息与某个会话 ID 相关联，否则在会话中将没有
+任何上传进度信息。

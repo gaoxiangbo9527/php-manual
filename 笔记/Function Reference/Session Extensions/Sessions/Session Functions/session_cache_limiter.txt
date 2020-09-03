@@ -1,0 +1,40 @@
+描述
+    session_cache_limiter ([ string $cache_limiter ] ) : string
+
+    session_cache_limiter() 返回当前的缓存限制器的名称。
+
+    该缓存限制器定义了会发送那种缓存控制 HTTP 头到客户端。这些头部决定了客户端和中间代理缓存页面内容的规则。把缓存限制器设置为 nocache 会
+    禁用任何客户端/代理进行缓存。public 值允许代理和客户端进行缓存，private 不允许代理缓存，允许客户端缓存内容。
+
+    在 private 模式下，发送到客户端的 Expire 头可能会引起一些浏览器的混淆，包括 Mozilla。使用 private_no_expire 模式可以避免这个问题。
+    在这个模式下，永远不会发送 Expire 头部到客户端。
+
+    设置缓存限制器为 '' 将完全关闭自动的发送缓存头。
+
+    在请求启动时，缓存限制器会被重置为存储在 session.cache_limiter 中的默认值。因此你需要为每个请求（并且在 session_start() 被调用前）
+    调用 session_cache_limiter()。
+
+参数
+    cache_limiter
+        如果指定了 cache_limiter，那么当前缓存限制器的名称会更换为新的值。
+
+        可能的值
+        值	                发送的头部
+        public	            Expires: (sometime in the future, according session.cache_expire)
+                            Cache-Control: public, max-age=(sometime in the future, according to session.cache_expire)
+                            Last-Modified: (the timestamp of when the session was last saved)
+
+        private_no_expire   Cache-Control: private, max-age=(session.cache_expire in the future), pre-check=(session.cache_expire in the future)
+                            Last-Modified: (the timestamp of when the session was last saved)
+
+        private             Expires: Thu, 19 Nov 1981 08:52:00 GMT
+                            Cache-Control: private, max-age=(session.cache_expire in the future), pre-check=(session.cache_expire in the future)
+                            Last-Modified: (the timestamp of when the session was last saved)
+
+        nocache             Expires: Thu, 19 Nov 1981 08:52:00 GMT
+                            Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+                            Pragma: no-cache
+
+
+返回值
+    返回当前缓存限制器的名称。

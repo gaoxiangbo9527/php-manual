@@ -1,0 +1,28 @@
+描述
+    session_name ([ string $name ] ) : string
+
+    session_name() 会返回当前会话的名称。如果给定了 name，session_name() 将更新会话名并且返回旧的会话名。
+
+    如果提供了一个新的会话 name，session_name() 会修改 HTTP cookie（并且当启用了 session.transid 时会输出内容）。一旦 HTTP cookie
+    已经被发送，那么 session_name() 会引发错误。为了让会话正常工作，session_name() 必须在 session_start() 之前被调用。
+
+    会话名会在请求启动时被重置为 session.name 中存储的默认值。因此你需要为每次请求调用 session_name()（且必须在 session_start() 被调
+    用之前）。
+
+    个人补充：上面部分内容说的不完全准确。在 session_start() 的后面虽然不能再修改会话名了，但是还是可以通过没有参数的 session_name() 来
+    获取当前的会话名。
+
+参数
+    name
+        引用了会话名的会话名称，它会被用在 cookie 和 URL （例如，PHPSESSID）中。它应该仅包含字母数字字符；它应该是简短且描述性的（例如，
+        对于启用了 cookie 警告的用户）。如果指定了 name，当前会话的名称会更换为它的值。
+
+        警告 会话名不能仅由数字组成，最少必须出现一个字母。否则每次都会生成一个新的会话 id。
+
+返回值
+    返回当前会话的名称。如果给定了 name ，那么该函数会更新会话名，会返回旧的会话名。
+
+更新日志
+    版本	    描述
+    7.2.0	session_name() 会检查会话的状态，之前它只会检查 cookie 的状态。因此，旧的 session_name() 允许在 session_start() 之后调
+            用 session_name()，这可能会导致 PHP 崩溃，并可能导致错误行为。

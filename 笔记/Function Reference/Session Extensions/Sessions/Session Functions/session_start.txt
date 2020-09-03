@@ -1,0 +1,38 @@
+描述
+    session_start ([ array $options = array() ] ) : bool
+
+    session_start() 创建一个会话或者根据通过 GET 或 POST 请求传递或通过 cookie 传递的一个会话标识符恢复当前的一个会话。
+
+    当调用 session_start() 时或者当自动启动一个会话时，PHP 将会调用打开和读取会话的保存处理程序。它们要么是默认提供的或由 PHP 扩展（例如
+    SQLite 或 Memcached）提供的内置保存处理程序，要么是由 session_set_save_handler() 定义的自定义处理程序。当读取回调将保存的会话数据
+    返回给 PHP 会话处理程序时，读取回调将检索任何现有的会话数据（以一种特殊的序列化格式存储的）并且将反序列化这些数据且用于自动的填充
+    $_SESSION 超全局变量。
+
+    要使用一个命名会话，请在调用 session_start() 之前调用 session_name() 。
+
+    当启用了 session.use_trans_sid 时，session_start() 函数将注册一个用于进行 URL 重写的内部输出处理程序。
+
+    如果用户使用了 ob_gzhandler 或类似的 ob_start()，函数的顺序对于正确的输出很重要。例如，必须在启动会话之前注册 ob_gzhandler 。
+
+参数
+    options
+        如果提供，这是一个选项的关联数组，它将会覆盖当前设置的 会话配置指令 。键不应该包括 session. 前缀。
+
+        除了常规的设置配置指令集之外，还可提供一个 read_and_close 选项。如果设置为 TRUE，这将导致会话在读取后被立即关闭，如果会话数据不会
+        被更改，这就可以避免不必要的锁定。
+
+返回值
+    如果成功的启动一个会话，这个函数返回 TRUE，否则返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.1.0	当 session_start() 启动会话失败时，session_start() 现在会返回 FALSE 并且不再初始化 $_SESSION。
+    7.0.0	添加了 options 参数。
+    5.3.0	如果一个会话启动失败，则返回 FALSE。之前会返回 TRUE。
+
+注意事项
+    注意：要使用基于 cookie 的会话，必须在向浏览器输出任何内容之前调用 session_start()。
+
+    注意：建议使用 zlib.output_compression 替代 ob_gzhandler()。
+
+    注意：这个函数会根据配置发送一些 HTTP 头部。定制这些头部见 session_cache_limiter()。

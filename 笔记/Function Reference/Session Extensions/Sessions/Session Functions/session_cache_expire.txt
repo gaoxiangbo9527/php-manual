@@ -1,0 +1,16 @@
+描述
+    session_cache_expire ([ string $new_cache_expire ] ) : int
+
+    session_cache_expire() 返回 session.cache_expire 的当前设置。
+
+    在请求启动时，缓存过期时间会被重置为 session.cache_expire 中存储的默认值 180。因此，你需要去为每个请求（且在 session_start() 被调
+    用前）调用 session_cache_expire()。
+
+参数
+    new_cache_expire
+        如果给定了 new_cache_expire，则使用 new_cache_expire 替换当前的缓存过期时间。
+
+        注意：只有在 session.cache_limiter 设置为不同于 nocache 的一个值时，设置 new_cache_expire 才有意义。
+
+返回值
+    返回 session.cache_expire 的当前设置。返回的值应该以分钟为单位读取，默认值为 180。
