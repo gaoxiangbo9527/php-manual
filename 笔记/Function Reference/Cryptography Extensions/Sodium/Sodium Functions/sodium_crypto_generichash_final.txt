@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_generichash_final ( string &$state [, int $length = SODIUM_CRYPTO_GENERICHASH_BYTES ] ) : string
+
+    个人补充：完成散列。

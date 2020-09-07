@@ -1,0 +1,20 @@
+描述
+    openssl_private_encrypt ( string $data , string &$crypted , mixed $key [, int $padding = OPENSSL_PKCS1_PADDING ] ) : bool
+
+    openssl_private_encrypt() 使用私有的 key 加密 data 并且把结果存储在 crypted 中。加密后的数据可以通过 openssl_public_decrypt()
+    解密。
+
+    例如，这个函数可以用于签名数据（或者数据的散列），以证明它不是由别人所写的。
+
+参数
+    data
+
+    crypted
+
+    key
+
+    padding
+        padding 可以是 OPENSSL_PKCS1_PADDING，OPENSSL_NO_PADDING. 中的一个。
+
+返回值
+    成功时返回 TRUE，或者失败时返回 FALSE。

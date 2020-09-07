@@ -1,0 +1,23 @@
+描述
+    openssl_verify ( string $data , string $signature , mixed $pub_key_id [, mixed $signature_alg = OPENSSL_ALGO_SHA1 ] ) : int
+
+    openssl_verify() 使用与 pub_key_id 关联的公钥去验证指定 data 的 signature 是否正确。该公钥必须是与用于签名的私钥相对应的那个公钥。
+
+参数
+    data
+        之前用于生成签名的字符串数据。
+    signature
+        一个原生的二进制字符串，由 openssl_sign() 或类似方法生成。
+    pub_key_id
+        资源 —— 由 openssl_get_publickey() 返回的一个密钥
+        字符串 —— a PEM 格式的密钥，例如，"-----BEGIN PUBLIC KEY----- MIIBCgK..."
+    signature_alg
+        整数 —— 签名算法 中的一个。
+        字符串 —— 由 openssl_get_md_methods() 返回的一个有效的字符串，例如 "sha1WithRSAEncryption" 或 "sha512"。
+
+返回值
+    如果签名是正确的，返回 1，如果它是不正确的，返回 0，发生错误则返回 -1。
+
+更新日志
+    版本	    描述
+    5.2.0	添加了 signature_alg 参数。

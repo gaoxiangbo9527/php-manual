@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_generichash_update ( string &$state , string $msg ) : bool
+
+    个人补充：往散列中添加消息。

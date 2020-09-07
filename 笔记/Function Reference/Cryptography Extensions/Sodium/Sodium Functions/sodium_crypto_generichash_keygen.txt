@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_generichash_keygen ( void ) : string
+
+    生成随机的 key。

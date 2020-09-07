@@ -1,0 +1,46 @@
+描述
+    openssl_pkey_get_details ( resource $key ) : array
+
+    此函数返回密钥的详情（位数，密钥，类型）。
+
+参数
+    key
+        持有密钥的资源。
+
+返回值
+    成功时返回一个具有密钥详情的数组或者失败时返回 FALSE。被返回的数组有索引 bits（位的数量），key（公钥的字符串表示）和 type（密钥的类型，
+    它是 OPENSSL_KEYTYPE_RSA，OPENSSL_KEYTYPE_DSA，OPENSSL_KEYTYPE_DH，OPENSSL_KEYTYPE_EC 中的一个或者 -1 表示未知）
+
+    取决于所使用的密钥类型，可能会返回更多的细节。注意，一些元素可能不总是可用的。
+
+    个人补充：简略翻译一下，将要用到在补充。
+    OPENSSL_KEYTYPE_RSA，返回一个名为“rsa”的额外数组键，其中包含键数据。
+        键          描述
+        "n"	        modulus
+        "e"	        public exponent
+        "d"	        private exponent
+        "p"	        prime 1
+        "q"	        prime 2
+        "dmp1"	    exponent1, d mod (p-1)
+        "dmq1"	    exponent2, d mod (q-1)
+        "iqmp"	    coefficient, (inverse of q) mod p
+    OPENSSL_KEYTYPE_DSA，返回一个名为“dsa”的额外数组键，其中包含键数据。
+        键          描述
+        "p"	        prime number (public)
+        "q"	        160-bit subprime, q | p-1 (public)
+        "g"	        generator of subgroup (public)
+        "priv_key"	private key x
+        "pub_key"	public key y = g^x
+    OPENSSL_KEYTYPE_DH，返回一个名为“dh”的额外数组键，其中包含键数据。
+        键          描述
+        "p"	        prime number (shared)
+        "g"	        generator of Z_p (shared)
+        "priv_key"	private DH value x
+        "pub_key"	public DH value g^x
+    OPENSSL_KEYTYPE_EC，返回一个名为“ec”的额外数组键，其中包含键数据。
+        键              描述
+        "curve_name"	name of curve, see openssl_get_curve_names()
+        "curve_oid"	    ASN1 Object identifier (OID) for EC curve.
+        "x"	            x coordinate (public)
+        "y"	            y coordinate (public)
+        "d"	            private key

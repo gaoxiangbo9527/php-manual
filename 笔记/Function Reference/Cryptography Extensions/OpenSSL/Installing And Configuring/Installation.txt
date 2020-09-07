@@ -1,0 +1,33 @@
+要使用 PHP 的 OpenSSL 支持，还必须编译使用 --with-openssl[=DIR] 编译 PHP 。
+
+为运行时正常的操作，OpenSSL 库还有额外的要求。最值得注意的是，OpenSSL 需要访问随机或伪随机数生成器；在大多数 Unix 和类 Unix 平台（包括
+Linux）上，这意味着它必须能够访问 /dev/urandom 或 /dev/random 设备。
+
+从 PHP 5.6.3 开始，配置选项 --with-system-ciphers 是可用的，这使 PHP 去使用系统的密码列表而不是硬编码的默认值。
+
+注意：Win32 用户注意
+    为了让此扩展可以工作，有一些 DLL 文件必须对 Windows 系统 PATH 可用。有关如何做到这一点的信息，请参阅 FAQ “如何将我的 PHP 目录添加到
+    Windows 的 PATH”。尽管将 DLL 文件从 PHP 文件夹复制到 Windows 系统目录也可以工作（因为系统目录默认就位于系统的 PATH 中），但这是不推
+    荐的。此扩展要求 PATH 中包含以下文件：libeay32.dll 或从 OpenSSL 1.1 开始 libcrypto-*.dll 。
+
+    另外，如果你计划去使用密钥生成和证书签名函数，你将需要安装一个有效的 openssl.conf 文件到你的系统上。我们在我们的 win32 二进制发行版的
+    extras/openssl 目录中包含了一个示例配置文件。
+
+    PHP 将使用下面的逻辑搜索 openssl.conf：
+        OPENSSL_CONF 环境变量，如果设置，将被用作配置文件的路径（包括文件名）。
+
+        SSLEAY_CONF 环境变量，如果设置，将被用作配置文件的路径（包括文件名）。
+
+        将假定在编译 openssl DLL 时配置的默认证书区域中找到文件 openssl.cnf。这通常意味着默认的文件名是
+        C:\Program Files\Common Files\SSL\openssl.cnf（x64）或 C:\Program Files (x86)\Common Files\SSL\openssl.cnf（x86），
+        或着在 PHP 7.4.0 之前是 C:\usr\local\ssl\openssl.cnf 。
+
+    在你的安装中，你需要决定是在默认路径中安装配置文件，还是在其他位置安装它并使用环境变量（可能基于每个虚拟主机）来定位配置文件。注意，可以
+    从脚本中使用需要配置文件的函数的 configargs 覆盖的默认路径。
+
+    小心 确保不允许无权限用户修改 openssl.cnf 。
+
+更新日志
+    版本	    描述
+    7.4.0	OpenSSL 默认的配置路径已经从 C:\usr\local\ssl 分别变成 C:\Program Files\Common Files\SSL 和
+            C:\Program Files (x86)\Common Files\SSL 。

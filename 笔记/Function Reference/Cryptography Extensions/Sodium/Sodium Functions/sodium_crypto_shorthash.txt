@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_shorthash ( string $msg , string $key ) : string
+
+    个人补充：为消息计算一个 64 位的指纹，因为输出的散列位数很短，所以必须键控。

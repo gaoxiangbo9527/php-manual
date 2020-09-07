@@ -1,0 +1,17 @@
+这些函数的行为受到 php.ini 中的设置项的影响。
+
+openssl 配置选项
+    名称	            默认值	可变更范围       更新日志
+    openssl.cafile	""	    PHP_INI_PERDIR	从 PHP 5.6.0 开始可用。
+    openssl.capath	""	    PHP_INI_PERDIR	从 PHP 5.6.0 开始可用。
+
+有关 PHP_INI_* 模式的详细信息和定义，请参阅 配置设置项可能设置的位置 。
+这里是配置指令的简短说明。
+
+openssl.cafile string
+    本地文件系统上证书颁发机构文件的位置，它与 verify_peer 上下文选项一起使用，以验证远程对等点的身份。
+
+openssl.capath string
+    如果没有指定 cafile 或者没有找到证书，会搜索 capath 指向的目录以查找合适的证书。capath 必须是一个正确散列的证书目录。
+
+另请参阅 SSL 流上下文 选项。

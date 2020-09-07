@@ -1,0 +1,67 @@
+下面的常量是由这个扩展定义的，只有当该扩展已经编译进 PHP 或在运行时被动态的加载才可用。
+
+目录
+    Purpose checking flags
+        X509_PURPOSE_SSL_CLIENT (integer)
+        X509_PURPOSE_SSL_SERVER (integer)
+        X509_PURPOSE_NS_SSL_SERVER (integer)
+        X509_PURPOSE_SMIME_SIGN (integer)
+        X509_PURPOSE_SMIME_ENCRYPT (integer)
+        X509_PURPOSE_CRL_SIGN (integer)
+        X509_PURPOSE_ANY (integer)
+    Padding flags for asymmetric encryption
+        OPENSSL_PKCS1_PADDING (integer)
+        OPENSSL_SSLV23_PADDING (integer)
+        OPENSSL_NO_PADDING (integer)
+        OPENSSL_PKCS1_OAEP_PADDING (integer)
+    Key types
+        OPENSSL_KEYTYPE_RSA (integer)
+        OPENSSL_KEYTYPE_DSA (integer)
+        OPENSSL_KEYTYPE_DH (integer)
+        OPENSSL_KEYTYPE_EC (integer)
+            这个常量仅在 PHP 被编译去带有 OpenSSL 0.9.8+ 时可用。在 PHP 5.2.0 中添加。
+    PKCS7 Flags/Constants
+        暂不翻译，需要时在补充翻译。
+    Signature Algorithms
+        OPENSSL_ALGO_DSS1 (integer)
+        OPENSSL_ALGO_SHA1 (integer)
+            被用作 openssl_sign() 和 openssl_verify() 的默认算法。
+        OPENSSL_ALGO_SHA224 (integer)
+            PHP 5.4.8 中添加。
+        OPENSSL_ALGO_SHA256 (integer)
+            PHP 5.4.8 中添加。
+        OPENSSL_ALGO_SHA384 (integer)
+            PHP 5.4.8 中添加。
+        OPENSSL_ALGO_SHA512 (integer)
+            PHP 5.4.8 中添加。
+        OPENSSL_ALGO_RMD160 (integer)
+            PHP 5.4.8 中添加。
+        OPENSSL_ALGO_MD5 (integer)
+        OPENSSL_ALGO_MD4 (integer)
+        OPENSSL_ALGO_MD2 (integer)
+            从 PHP 5.2.13 和 PHP 5.3.2 开始，只有在 PHP 被编译带有 MD2 支持时，这个常量才可用。这需要在编译 PHP 时传入
+            -DHAVE_OPENSSL_MD2_H CFLAG，并且当编译 OpenSSL 1.0.0+ 时启用 md2 。
+    Ciphers
+        OPENSSL_CIPHER_RC2_40 (integer)
+        OPENSSL_CIPHER_RC2_128 (integer)
+        OPENSSL_CIPHER_RC2_64 (integer)
+        OPENSSL_CIPHER_DES (integer)
+        OPENSSL_CIPHER_3DES (integer)
+        OPENSSL_CIPHER_AES_128_CBC (integer)
+            PHP 5.4.0 中添加。
+        OPENSSL_CIPHER_AES_192_CBC (integer)
+            PHP 5.4.0 中添加。
+        OPENSSL_CIPHER_AES_256_CBC (integer)
+            PHP 5.4.0 中添加。
+    Version constants
+        OPENSSL_VERSION_TEXT (string)
+            PHP 5.2.0 中添加。
+        OPENSSL_VERSION_NUMBER (integer)
+            PHP 5.2.0 中添加。
+    Server Name Indication constants
+        OPENSSL_TLSEXT_SERVER_NAME (string)
+            是否支持 SNI。
+
+            注意：这个常量是在 5.3.2 中添加的并且需要 PHP 与 OpenSSL 0.9.8j 或更高版本一起被构建。
+
+

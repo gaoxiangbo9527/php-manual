@@ -1,0 +1,17 @@
+描述
+    openssl_pkey_get_private ( mixed $key [, string $passphrase = "" ] ) : resource
+
+    openssl_pkey_get_private() 会解析 key 并且准备它供其他函数使用。
+
+    个人补充：注意这个函数是把现有的私钥文本转换成一个私钥资源。
+
+参数
+    key
+        key 可以是下列之一：
+            一个格式为 file://path/to/file.pem 的字符串。命名文件必须包含一个 PEM 编码的证书/私钥（它可能会包含两者）。
+            一个 PEM 格式的私钥。
+    passphrase
+        如果指定的密钥是被加密的（由一个密码保护），那么必须使用可选的参数 passphrase（进行解密）。
+
+返回值
+    成功时返回一个正数的资源标识符，失败时返回 FALSE。

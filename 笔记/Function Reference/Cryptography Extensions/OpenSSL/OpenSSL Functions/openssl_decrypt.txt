@@ -1,0 +1,37 @@
+描述
+    openssl_decrypt ( string $data , string $method , string $key [, int $options = 0 [, string $iv = "" [, string $tag = "" [, string $aad = "" ]]]] ) : string
+
+    接受一个原生或者 base64 编码的字符串并且使用一个给定的方法和密钥解密它。
+
+参数
+    data
+        要被解密的加密消息。
+    method
+        加密方法。要得到一份可用的加密方法列表，使用 openssl_get_cipher_methods()。
+    key
+        密钥。
+    options
+        options 可以是 OPENSSL_RAW_DATA，OPENSSL_ZERO_PADDING 中的一个。
+    iv
+        一个非空的初始化向量。
+    tag
+        AEAD 加密模式下的认证标签。如果它是不正确的，身份验证会失败并且函数返回 FALSE。
+
+        小心 tag 的长度不会被本函数检查。确保标记的长度与调用 openssl_encrypt() 时检索到的标记的长度相匹配是调用者的责任。否则，如果给定
+        标记只匹配正确标记的开头，则解密可能成功。
+
+    aad
+        额外的身份验证数据。
+
+返回值
+    成功时返回解密后的字符串，或者失败时返回 FALSE。
+
+错误/异常
+    如果通过 method 参数传递了一个未知的加密算法，产生一个 E_WARNING 级别的错误。
+    如果通过 iv 参数传递了一个空值，产生一个 E_WARNING 级别的错误。
+
+更新日志
+    版本     描述
+    7.1.0   添加了 tag 和 aad 参数。
+    5.4.0	raw_output 被更改为 options。
+    5.3.3	添加了 iv 参数。

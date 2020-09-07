@@ -1,0 +1,19 @@
+描述
+    openssl_pkey_export_to_file ( mixed $key , string $outfilename [, string $passphrase [, array $configargs ]] ) : bool
+
+    openssl_pkey_export_to_file() 将 key 的 ascii 装甲的（PEM 编码）转换保存到由 outfilename 命名的文件中。
+
+    注意：你需要安装一个有效的 openssl.cnf，以便正确的操作此函数。有关更多信息，请参阅 安装部分 下的注意。
+
+参数
+    key
+
+    outfilename
+        输出文件的路径。
+    passphrase
+        key 可以选择使用 passphrase 保护。
+    configargs
+        可使用 configargs 调整导出过程，通过指定和/或覆盖 openssl 配置文件的选项。关于 configargs 的更多信息，见 openssl_csr_new()。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。

@@ -1,0 +1,11 @@
+描述
+    openssl_get_md_methods ([ bool $aliases = FALSE ] ) : array
+
+    获取摘要方法的一份可用列表。
+
+参数
+    aliases
+        如果应该把摘要的别名包含进返回的数组中，设置为 TRUE。
+
+返回值
+    一个可用的摘要方法的数组。

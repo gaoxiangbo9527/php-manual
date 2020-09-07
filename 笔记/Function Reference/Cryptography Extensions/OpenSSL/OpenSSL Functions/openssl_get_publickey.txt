@@ -1,0 +1,1 @@
+此函数是 openssl_pkey_get_public() 的一个别名。

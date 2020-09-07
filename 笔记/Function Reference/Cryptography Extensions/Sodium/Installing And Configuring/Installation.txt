@@ -1,0 +1,11 @@
+从 PHP 7.2.0 开始，这个扩展与 PHP 捆绑在一起。对于更旧的 PHP 版本，通过 PECL 此扩展是可用的。
+
+Linux 系统
+    为了使用这个扩展，你必须使用 --with-sodium[=DIR] 配置选项编译 PHP 以带有 sodium 支持。
+
+Windows
+    为了使用这个扩展，你必须添加 extension=php_sodium.dll 到 php.ini。
+
+通过 PECL 安装
+    关于安装这个 PECL 扩展的信息可以在手册的 安装 PECL 扩展 章节中找到。其他的信息，比如新版本、下载、源文件、维护人员信息和更改日志，可以
+    在这里找到：https://pecl.php.net/package/libsodium 。

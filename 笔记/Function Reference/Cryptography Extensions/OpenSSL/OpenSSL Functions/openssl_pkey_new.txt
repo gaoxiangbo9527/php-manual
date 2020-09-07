@@ -1,0 +1,17 @@
+描述
+    openssl_pkey_new ([ array $configargs ] ) : resource
+
+    openssl_pkey_new() 生成一对新的私钥和公钥。密钥的公共组件（即公钥部分）可以使用 openssl_pkey_get_public() 获得。
+
+    注意：你需要安装一个有效的 openssl.cnf，以便正确的操作此函数。有关更多信息，请参阅 安装部分 下的注意。
+
+参数
+    configargs
+        你可以使用 configargs 调整密钥生成（例如指定位的数量）。关于 configargs 的更多信息，见 openssl_csr_new() 。
+
+返回值
+    成功时返回一个 pkey 的资源标识符，发生错误则返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.1.0	添加了 curve_name configarg 以使得创建 EC 密钥成为可能。

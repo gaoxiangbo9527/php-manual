@@ -1,0 +1,18 @@
+描述
+    openssl_digest ( string $data , string $method [, bool $raw_output = FALSE ] ) : string
+
+    为指定的数据使用某种方法计算一个摘要散列，并且返回一个原生的或者 binhex 编码后的字符串。
+
+参数
+    data
+        数据。
+    method
+        要使用的摘要方法，例如，"sha256"，一份可用的摘要方法的列表见 openssl_get_md_methods()。
+    raw_output
+        设置为 TRUE 将返回原生的输出数据，否则返回值是 binhex 编码的。
+
+返回值
+    成功时返回摘要后的散列值，失败时返回 FALSE。
+
+错误/异常
+    如果通过 method 参数传递了一种位置的签名算法，生成一个 E_WARNING 级别的错误。

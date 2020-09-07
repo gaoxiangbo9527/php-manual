@@ -1,0 +1,19 @@
+描述
+    openssl_public_decrypt ( string $data , string &$decrypted , mixed $key [, int $padding = OPENSSL_PKCS1_PADDING ] ) : bool
+
+    openssl_public_decrypt() 解密之前由 openssl_private_encrypt() 加密的 data 并且把结果存放在 decrypted 中。
+
+    例如，你可以使用这个函数去检查邮件是否由私钥的所有者所写的。
+
+参数
+    data
+
+    decrypted
+
+    key
+        key 必须是与用于加密数据（个人补充：的私钥）相对应的公钥。
+    padding
+        padding 可以是 OPENSSL_PKCS1_PADDING，OPENSSL_NO_PADDING 中的一个。
+
+返回值
+    成功时返回 TRUE，或者失败时返回 FALSE。

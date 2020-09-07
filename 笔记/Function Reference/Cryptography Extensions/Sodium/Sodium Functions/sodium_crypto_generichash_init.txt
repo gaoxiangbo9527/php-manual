@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_generichash_init ([ string $key [, int $length = SODIUM_CRYPTO_GENERICHASH_BYTES ]] ) : string
+
+    个人补充：初始化一个散列，注意其返回值相当于 state 。

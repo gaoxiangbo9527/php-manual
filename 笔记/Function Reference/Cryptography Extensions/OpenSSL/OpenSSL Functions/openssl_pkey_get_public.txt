@@ -1,0 +1,16 @@
+描述
+    openssl_pkey_get_public ( mixed $certificate ) : resource
+
+    openssl_pkey_get_public() 从 certificate 中提取公钥并且准备它供其他函数使用。
+
+    个人补充：注意这个函数是把现有的公钥文本或资源转换成一个公钥资源。
+
+参数
+    certificate
+        certificate 可以是下列之一：
+            一个 X.509 证书资源
+            一个格式为 file://path/to/file.pem 的字符串。命名文件必须包含一个 PEM 编码的证书/公钥（它可能会包含两者）。
+            一个 PEM 格式的公钥。
+
+返回值
+    成功时返回一个正数的资源标识符，失败时返回 FALSE。

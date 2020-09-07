@@ -1,0 +1,11 @@
+描述
+    openssl_pkey_free ( resource $key ) : void
+
+    该函数释放由 openssl_pkey_new() 创建的私钥。
+
+参数
+    key
+        只有密钥的资源。
+
+返回值
+    没有返回值。

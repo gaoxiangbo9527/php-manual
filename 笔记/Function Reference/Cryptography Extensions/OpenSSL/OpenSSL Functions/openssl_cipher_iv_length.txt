@@ -1,0 +1,14 @@
+描述
+    openssl_cipher_iv_length ( string $method ) : int
+
+    获取加密初始向量（iv）的长度。
+
+参数
+    method
+        加密方法，在 openssl_get_cipher_methods() 可以见到一份潜在值的列表。
+
+返回值
+    成功时返回密码长度，失败时返回 FALSE。
+
+错误/异常
+    当加密算法是未知的时，产生一个 E_WARNING 级别的错误。

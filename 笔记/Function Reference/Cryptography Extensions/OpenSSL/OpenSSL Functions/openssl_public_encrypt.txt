@@ -1,0 +1,21 @@
+描述
+    openssl_public_encrypt ( string $data , string &$crypted , mixed $key [, int $padding = OPENSSL_PKCS1_PADDING ] ) : bool
+
+    openssl_public_encrypt() 使用公开的 key 加密 data 并且把结果存储在 crypted 中。加密后的数据可以通过 openssl_private_decrypt()
+    解密。
+
+    例如，这个函数可以用于加密消息，然后只能由私钥的所有者读取。它还可以用于在数据库中存储安全的数据。
+
+参数
+    data
+
+    crypted
+        这个参数将持有加密的结果。
+    key
+        公钥。
+    padding
+        padding 可以是 OPENSSL_PKCS1_PADDING，OPENSSL_SSLV23_PADDING，OPENSSL_PKCS1_OAEP_PADDING，OPENSSL_NO_PADDING 中的
+        一个。
+
+返回值
+    成功时返回 TRUE，或者失败时返回 FALSE。

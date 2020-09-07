@@ -1,0 +1,35 @@
+描述
+    openssl_encrypt ( string $data , string $method , string $key [, int $options = 0 [, string $iv = "" [, string &$tag = NULL [, string $aad = "" [, int $tag_length = 16 ]]]]] ) : string
+
+    使用给定的方法和密钥加密给定的数据，返回一个原生或者 base64 编码的字符串。
+
+参数
+    data
+        要加密的明文消息数据。
+    method
+        加密方法。要得到一份可用的加密方法列表，使用 openssl_get_cipher_methods()。
+    key
+        密钥。
+    options
+        options 是按位析取的 OPENSSL_RAW_DATA 和 OPENSSL_ZERO_PADDING 标志。
+    iv
+        一个非空的初始化向量。
+    tag
+        当使用 AEAD 加密模式（GCM 或 CCM）时按引用传递的身份验证标记。
+    aad
+        额外的身份验证数据。
+    tag_length
+        身份验证标记的长度。对于 GCM 模式，它的值可以在 4 到 16 之间。
+
+返回值
+    成功时返回加密后的字符串，或者失败时返回 FALSE。
+
+错误/异常
+    如果通过 method 参数传递了一个未知的加密算法，产生一个 E_WARNING 级别的错误。
+    如果通过 iv 参数传递了一个空值，产生一个 E_WARNING 级别的错误。
+
+更新日志
+    版本     描述
+    7.1.0   添加了 tag，aad 和 tag_length 参数。
+    5.4.0	raw_output 被更改为 options。
+    5.3.3	添加了 iv 参数。

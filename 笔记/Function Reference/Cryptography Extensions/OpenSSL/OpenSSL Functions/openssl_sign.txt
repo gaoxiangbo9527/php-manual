@@ -1,0 +1,20 @@
+描述
+    openssl_sign ( string $data , string &$signature , mixed $priv_key_id [, mixed $signature_alg = OPENSSL_ALGO_SHA1 ] ) : bool
+
+    openssl_sign() 通过使用与 priv_key_id 关联的私钥生成一个加密的数字签名，从而为指定的 data 计算签名。注意，数据自身是没有被加密的。
+
+参数
+    data
+        你希望签名的数据字符串。
+    signature
+        如果调用成功，签名会在 signature 中返回。
+    priv_key_id
+        资源 —— 由 openssl_get_privatekey() 返回的一个密钥
+        字符串 —— a PEM 格式的密钥
+    signature_alg
+        整数 —— 签名算法 中的一个。
+        字符串 —— 由 openssl_get_md_methods() 返回的一个有效的字符串，例如 "sha256WithRSAEncryption" 或 "sha384"。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+

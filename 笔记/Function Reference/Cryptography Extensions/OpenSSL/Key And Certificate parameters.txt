@@ -1,0 +1,16 @@
+很多 openssl 函数需要一个密钥或一个证书参数。可以采用以下方法获取它们：
+    证书（Certificates）
+        一个从 openssl_x509_read() 返回的 X.509 资源。
+        一个拥有 file://path/to/cert.pem 格式的字符串；命名文件必须包含一个 PEM 编码的证书。
+        一个包含证书内容的字符串，PEM 编码，可以以 -----BEGIN CERTIFICATE----- 开头。
+    证书签名请求（Certificate Signing Requests (CSRs)）
+        一个从 openssl_csr_new() 返回的 CSR 资源。
+        一个拥有 file://path/to/csr.pem 格式的字符串；命名文件必须包含一个 PEM 编码的 CSR。
+        一个包含 CSR 内容的字符串，PEM 编码，可以以 -----BEGIN CERTIFICATE REQUEST----- 开头。
+    公钥/私钥
+        一个从 openssl_get_publickey() 或 openssl_get_privatekey() 返回的资源。
+        仅针对公钥：一个 X.509 资源
+        一个拥有 file://path/to/file.pem 格式的字符串 —— 命名文件必须包含一个 PEM 编码的证书/私钥（它可能会包含两者）
+        一个包含证书/密钥内容的字符串，PEM 编码，可以以 -----BEGIN PUBLIC KEY----- 开头
+        对于私钥，你也可以使用 array($key, $passphrase) 语法，其中 $key 表示使用 file:// 或上面的文本内容表示法指定的密钥，并且
+        $passphrase 表示包含该私钥的密码短语的字符串

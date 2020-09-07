@@ -1,0 +1,4 @@
+描述
+    sodium_crypto_generichash ( string $msg [, string $key [, int $length = SODIUM_CRYPTO_GENERICHASH_BYTES ]] ) : string
+
+    个人补充：获取消息的散列，可以键控，而且可以指定散列长度，但好像并没有和某种散列算法相关，比如 32 个字节，并不会和某种 sha 256 算法相关。

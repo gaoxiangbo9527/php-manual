@@ -1,0 +1,16 @@
+描述
+    openssl_free_key ( resource $key_identifier ) : void
+
+    openssl_free_key() 会从内存中释放与指定的 key_identifier 关联的密钥。
+
+参数
+    key_identifier
+
+返回值
+    没有返回值。
+
+来自用户贡献的注意事项
+    我刚刚检查了 PHP 7.1 的代码，其中 openssl_free_key 是 opnessl_pkey_free (PHP_FALIAS) 的别名。
+
+    我也建议不要用别名，即本函数，而在代码中使用 openssl_pkey_free 函数。这是因为 openssl_pkey_free 更能描述它的意图，并且与 openssl
+    部分中的类似函数具有相同的结构。
