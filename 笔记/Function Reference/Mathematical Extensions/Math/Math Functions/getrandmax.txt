@@ -1,0 +1,7 @@
+描述
+    getrandmax ( void ) : int
+
+    返回一个 rand() 调用可以返回的最大值。
+
+返回值
+    可由 rand() 返回的最大随机值。

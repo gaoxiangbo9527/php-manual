@@ -1,0 +1,32 @@
+描述
+    rand ( void ) : int
+    rand ( int $min , int $max ) : int
+
+    如果没有使用可选的 min，max 参数调用，rand() 返回 0 到 getrandmax() 之间的一个伪随机整数。如果你想要一个 5 到 15 之间（包含）的随
+    机数，例如，使用 rand(5, 15)。
+
+    小心 此函数不会生成加密安全的值并且不应该用于加密目的。如果你需要一个加密安全的值，可以考虑使用 random_int()、random_bytes() 或
+    openssl_random_pseudo_bytes()。
+
+    注意：在一些平台上（例如 Windows），getrandmax() 仅仅是 32767。如果你需要一个大于 32767 的范围，指定 min 和 max 将允许你去创建一个
+    大于这个值的返回，或者考虑使用 mt_rand()。
+
+    注意：从 PHP 7.1.0 开始，rand() 使用与 mt_rand() 相同的随机数生成器。为了保持向后兼容性，rand() 允许 max 小于 min，而不像
+    mt_rand() 那样返回 FALSE。
+
+参数
+    min
+        会返回的最低值（默认：0）。
+    max
+        会返回的最大值（默认：getrandmax()）。
+
+返回值
+    一个在 min（或 0） 到 max（或 getrandmax()，包含） 之间的伪随机值。
+
+更新日志
+    版本	    描述
+    7.2.0	rand() 收到了一个针对模偏问题的错误修正。这意味着使用一个特定种子生成的序列可能与 64 位机器上的 PHP 7.1 不同。
+    7.1.0	rand() 成为了 mt rand() 的别名。
+
+注意事项
+    警告 min max 范围必须在 getrandmax() 范围内。即 (max - min) <= getrandmax()。否则，rand() 可能会返回低质量的随机数。

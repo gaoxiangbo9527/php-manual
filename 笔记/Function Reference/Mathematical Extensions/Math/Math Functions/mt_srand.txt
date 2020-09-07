@@ -1,0 +1,27 @@
+描述
+    mt_srand ([ int $seed [, int $mode = MT_RAND_MT19937 ]] ) : void
+
+    使用 seed 种下一个随机数生成器或者如果没有给定 seed，则使用一个随机值。
+
+    注意: 不再需要使用 srand() 或 mt_srand() 种下一个随机数生成器了，因为这是自动完成的。
+
+参数
+    seed
+        一个任意的整数种子值。
+    mode
+        使用以下常量之一指定要使用的算法的实现。
+
+        常量	            描述
+        MT_RAND_MT19937	使用固定的，正确的 Mersenne Twister 实现，从 PHP 7.1.0 开始可用。
+        MT_RAND_PHP	    使用不正确的 Mersenne Twister 实现， 直到 PHP 7.1.0 它都是默认值。此模式可用于向后兼容。
+
+返回值
+    没有返回值。
+
+更新日志
+    版本     描述
+    7.1.0	srand() 已经成为了 mt_srand() 的别名。
+    7.1.0	mt_rand() 已被更新，以使用固定、正确版本的 Mersenne Twister 算法。要回退到旧的行为，可以使用 mt_srand()，并将
+            MT_RAND_PHP 作为第二个参数。
+    5.2.1	PHP 中的 Mersenne Twister 实现现在使用了 Richard Wagner 的一种新的种子算法。相同的种子不再产生与以前版本中相同的值序列。
+            这种行为预计不会再次改变，但仍然认为依赖它是不安全的。
