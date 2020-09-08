@@ -1,37 +1,109 @@
-这个特性可以让人们上传文本文件和二进制文件。借助 PHP 的认证和文件操作函数，你可以完全控制谁能进行上传以及在文件上传后要对它进行什么操作。
+这个特性可以让人们上传文本文件和二进制文件。借助 PHP 的身份认证和文件操作函数，你可以完全控制谁能进行上传以及在文件上传后要对它进行什么操作。
 
-PHP 可以接受到任何来自于兼容 RFC-1867 规范的浏览器上传的文件。
-PHP 也支持 PUT 方法上传文件，Netscape Composer 和 W3C 的 Amaya 客户端就使用了 PUT 方法。
+PHP 可以接收到任何来自于兼容 RFC-1867 规范的浏览器上传的文件。
 
-MAX_FILE_SIZE 隐藏域（单位为字节）必须位于文件输入域的前面，并且它的 value 属性值接收的文件的最大尺寸。
-应当总是使用这个表单元素，因为它可以防止用户陷入“一直长时间等着大文件的上传成功，到最后却发现该文件过大而且上传失败了”的麻烦中。
-请谨记，在浏览器端可以非常容易的就绕过该设置，所以不要指望通过该属性就能屏蔽大文件的上传。该属性仅仅是提供给应用程序客户端中的用户的一个惯例特性而已。
-然而，PHP 用于限制最大尺寸的（服务端）设置不可能被绕过。
+注意：注意相关的配置
+    另请参阅 php.ini 中的配置指令 file_uploads，upload_max_filesize，upload_tmp_dir，post_max_size 和 max_input_time 。
 
-注意
-    确保上传文件的表单拥有属性 enctype="multipart/form-data"，否者文件不会上传。
+PHP 也支持 PUT 方法上传文件，Netscape Composer 和 W3C 的 Amaya 客户端就使用了 PUT 方法。更多详情见 PUT 方法支持 。
 
-全局的 $_FILES 变量会包含所有的上传信息。
-    $_FILES['field_name']['name']
-        文件在客户端机器中原来的名字。
-    $_FILES['field_name']['type']
-        文件的 MIME 类型（如果浏览器提供该信息的话）。然而在 PHP 端并不会检查该 MIME 类型，所以为了以防万一，别使用或者相信它的值。
-        总结就是，该值可能存在，也可能不存在；而且就算存在，其值也不是可信的。
-    $_FILES['field_name']['size']
-        上传的文件的大小，单位为字节。
-    $_FILES['field_name']['tmp_name']
-        文件被上传到服务器端后的临时文件名。
-    $_FILES['field_name']['error']
-        和该次文件上传相关的错误代码。
+Example #1 文件上传表单
 
-默认情况下，PHP 会将上传的文件存放在服务器默认的目录中，除非在 php.ini 中使用 upload_tmp_dir 指令指定了另一个位置。
-通过设置 PHP 所运行于的环境中的 TMPDIR 环境变量，可以更改服务器默认的目录。在 PHP 脚本中使用 putenv() 去设置该环境变量并不会有作用。
+一个文件上传屏幕可以通过创建一个特殊的表单来构建，看起来像这样：
 
-接受上传文件的 PHP 脚本应当实现任何必要的逻辑检查，从而判断应当对上传的文件进行什么样的操作。
-不论逻辑如何，你要么应该从临时目录中删除该文件，要么应该把它移走。
-如果上传的文件没有被移走或者重命名，那么在请求的最后该上传文件会从临时目录中被删除。
+<!-- 数据编码类型，enctype，必须指定如下 -->
+<form enctype="multipart/form-data" action="__URL__" method="POST">
+    <!-- MAX_FILE_SIZE 必须在文件输入域之前 -->
+    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    <!-- 输入元素的名字决定了 $_FILES 数组中的名字 -->
+    Send this file: <input name="userfile" type="file" />
+    <input type="submit" value="Send File" />
+</form>
 
-PHP 的 HTML 数组特性甚至支持文件（上传）。
-    此时 $_FILES['field_name']['name'] 等5个元素都是数组。
+上面示例中的 __URL__ 应该被替换，并指向一个 PHP 文件。
 
-文件上传的进度可以使用 会话上传进度 来实现。
+MAX_FILE_SIZE 隐藏域（单位为字节）必须位于文件输入域的前面，并且它的值是 PHP 所接受的最大文件大小。应当总是使用这个表单元素，因为它可以防止
+用户陷入“一直长时间等着大文件的上传成功，到最后却发现该文件过大而且上传失败了”的麻烦中。请谨记，在浏览器端可以非常容易的就绕过该设置，所以不要
+指望通过该属性就能屏蔽大文件的上传。该属性仅仅是提供给应用程序客户端上的用户的一个便利的特性而已。然而，PHP 用于最大尺寸的设置项（在服务端）不
+可能被绕过。
+
+注意：确保你的文件上传表单拥有属性 enctype="multipart/form-data"，否者文件不会上传。
+
+全局的 $_FILES 变量将包含所有的上传信息。示例表单中的内容如下所示。注意，这假设使用文件上传名称 userfile，就像上面的示例脚本中使用的那样。
+这可以是任何名称。
+
+$_FILES['userfile']['name']
+    客户端机器上的文件的原始名称。
+$_FILES['userfile']['type']
+    文件的 MIME 类型，如果浏览器提供该信息的话。例如 "image/gif"。然而，在 PHP 端并不会检查该 MIME 类型，因此不要理所当然的取它的值。
+    个人补充：该值可能存在，也可能不存在；而且就算存在，其值也不见得是可信的。
+$_FILES['userfile']['size']
+    被上传的文件的大小，单位为字节。
+$_FILES['userfile']['tmp_name']
+    文件被上传到服务器上的临时文件名。
+$_FILES['userfile']['error']
+    与这次文件上传关联的错误代码。
+
+默认情况下，文件会被存放在服务器的默认临时目录中，除非在 php.ini 中使用 upload_tmp_dir 指令指定了另一个位置。通过设置运行 PHP 的环境中的
+TMPDIR 环境变量，可以更改服务器的默认目录。在 PHP 脚本中使用 putenv() 去设置该环境变量并不会有作用。这个环境变量还可以用于确保其他操作对已
+上传的文件进行操作。
+
+Example #2 验证文件上传
+
+更多信息，请参见 is_uploaded_file() 和 move_uploaded_file() 的函数条目。下面的示例将处理来自表单的文件上传。
+
+<?php
+$uploaddir = '/var/www/uploads/';
+$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+
+echo '<pre>';
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    echo "File is valid, and was successfully uploaded.\n";
+} else {
+    echo "Possible file upload attack!\n";
+}
+
+echo 'Here is some more debugging info:';
+print_r($_FILES);
+
+print "</pre>";
+
+?>
+
+接受上传文件的 PHP 脚本应当实现任何必要的逻辑以确定应当对上传的文件进行什么样的操作。例如，你可以使用 $_FILES['userfile']['size'] 变量去
+丢弃任何太小或太大的文件。你可以使用 $_FILES['userfile']['type'] 变量来丢弃任何不匹配某个特定类型条件的文件，但是，只应将此用作一系列检查
+的第一项，因为这个值完全在客户端控制之下并且不会在 PHP 端检查。另外，还可以使用 $_FILES['userfile']['error'] 并且根据 错误代码 规划逻辑。
+不论逻辑如何，你应该要么从临时目录中删除该文件，要么把它移走。
+
+如果你在你的表单中没有选择要上传的文件，PHP 将返回 $_FILES['userfile']['size'] 为 0，而 $_FILES['userfile']['tmp_name'] 为空。
+
+如果文件没有被移走或者重命名，那么在请求的最后该文件会从临时目录中被删除。
+
+Example #3 上传文件数组
+
+PHP 的 HTML 数组特性 甚至支持文件（上传）。
+
+<form action="" method="post" enctype="multipart/form-data">
+<p>Pictures:
+<input type="file" name="pictures[]" />
+<input type="file" name="pictures[]" />
+<input type="file" name="pictures[]" />
+<input type="submit" value="Send" />
+</p>
+</form>
+
+<?php
+foreach ($_FILES["pictures"]["error"] as $key => $error) {
+    if ($error == UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES["pictures"]["tmp_name"][$key];
+        // basename() may prevent filesystem traversal attacks;
+        // further validation/sanitation of the filename may be appropriate
+        $name = basename($_FILES["pictures"]["name"][$key]);
+        move_uploaded_file($tmp_name, "data/$name");
+    }
+}
+?>
+
+个人补充：此时 $_FILES['field_name']['name'] 等 5 个元素都是数组。
+
+可以使用 会话上传进度 来实现文件上传的进度条。

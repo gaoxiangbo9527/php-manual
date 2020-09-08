@@ -2,22 +2,27 @@
 
 描述
     move_uploaded_file ( string $filename , string $destination ) : bool
-    该函数检查并确保 filename 指定的文件是一个有效的上传文件（意味着它是通过 PHP 的 HTTP POST 上传机制上传的）。
-    如果文件是有效的，该文件将移动为 destination 指定的文件。
+
+    此函数检查并确保 filename 指定的文件是一个有效的上传文件（意味着它是通过 PHP 的 HTTP POST 上传机制上传的）。如果文件是有效的，该文件
+    将被移动到 destination 指定的文件。
 
     这种检查是格外重要的如果对上传文件的任何操作会向用户显示它的内容，或者甚至是向同一系统中的其他用户。
+
 参数
     filename
         上传的文件的名称。
     destination
         移动后的文件的位置。
+
 返回值
     成功时返回 TRUE 。
+
     如果 filename 不是一个有效的上传文件，那么不会进行操作且会返回 FALSE 。
+
     如果 filename 是一个有效的上传文件但因为某些原因无法移动，那么不会进行操作并且会返回 FALSE，另外还会发出一个警告。
-注意
-    注意
-        move_uploaded_file() 对 安全模式 和 open_basedir 都是敏感的。不过，限制只针对 destination 路径，因为允许移动上传的文件名
-        filename 可能会与这些限制产生冲突。move_uploaded_file() 仅作用于通过 PHP 上传的文件以确保这个操作的安全性。
+
+注意事项
+    注意：move_uploaded_file() 对 安全模式 和 open_basedir 都是敏感的。不过，限制只针对 destination 路径，因为允许移动上传的文件名
+    filename 可能会与这些限制产生冲突。move_uploaded_file() 仅作用于通过 PHP 上传的文件以确保这个操作的安全性。
 
     警告：如果目标文件已经存在，则会被覆盖。

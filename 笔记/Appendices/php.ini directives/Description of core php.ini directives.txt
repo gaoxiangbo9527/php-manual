@@ -128,19 +128,20 @@
 
         警告
             从 PHP 5.3.0 开始这个特性已经被废弃并且从 PHP 5.4.0 开始被移除。
-    post_max_size   integer
-        设置 post 数据允许的最大大小。
-        这个设置也会影响文件上传，想要上传大文件，则它的值必须大于 upload_max_filesize 的值。
-        通常来说，memory_limit 的值应当大于 post_max_size 的值。
-        如果使用整数值，则该值的单位为字节。也可以使用简写表示法。
-        如果 post 数据的大小超过了 post_max_size ，则全局变量 $_POST 和 $_FILES 都会是空的。
-        注意：
-            PHP 允许字节值的快捷方式，包括 K 、M 和 G 。如果你使用了它们当中的任何一个，PHP 会自动的进行转换。
-            注意不要超过 32 位有符号整数的限制（如果你使用的是 32 位的版本），因为这么做会导致你的脚本失败。
+    post_max_size integer
+        设置允许的 post 数据的最大大小。这个设置也会影响文件上传。要想上传大文件，这个值必须大于 upload_max_filesize 的值。通常来说，
+        memory_limit 的值应当大于 post_max_size 的值。当使用一个整数值时，值是以字节度量的。也可以使用简写符号，如这个 FAQ 中所述。如果
+        post 数据的大小超过了 post_max_size ，则超全局变量 $_POST 和 $_FILES 都会是空的。这可以通过各种方式进行跟踪，例如，通过将
+        $_GET 变量传递给处理数据的脚本，即 <form action="edit.php?processed=1">，然后检查 $_GET['processed'] 是否设置。
+
+        注意：PHP 允许字节值的快捷方式，包括 K 、M 和 G 。如果你使用了它们当中的任何一个，PHP 会自动的进行转换。注意不要超过 32 位有符号
+        整数的限制（如果你使用的是 32 位的版本），因为这么做会导致你的脚本失败。
+
         post_max_size 的更新日志
-            5.3.4           当 Content-Type 是 application/x-www-form-urlencoded 或者 PHP 没有注册的值，post_max_size = 0 不会
-                            禁用该限制。
-            5.3.2 , 5.2.12  通过将 post_max_size 设置为 0 ，即可不限制 post 的大小。
+        版本             描述
+        5.3.4           当 Content-Type 是 application/x-www-form-urlencoded 或者 PHP 没有注册的值，post_max_size = 0 不会
+                        禁用该限制。
+        5.3.2 , 5.2.12  通过将 post_max_size 设置为 0 ，即可不限制 post 的大小。
     auto_prepend_file   string
         指定会自动的在主文件之前被解析的文件的文件名。
         该文件会像使用 require 调用了该文件那样被包含（进主文件），并且会使用 include_path 。
@@ -179,6 +180,7 @@
         extension_dir	        "/path/to/php"	            PHP_INI_SYSTEM
         zend_extension	        NULL	                    仅 php.ini
     下面是配置指令们的一份简要描述。
+
     include_path        string
         指定了一个目录列表，require、include 以及 fopen()、file()、readfile() 和 file_get_contents() 函数会在其中查找文件。
         它的格式和系统的环境变量 PATH 的格式很像：在 Unix 系统中是一份冒号分隔的目录列表，而在 Windows 系统中则使用分号分隔。
@@ -230,16 +232,23 @@
         在 PHP 启动时要加载的可动态加载的 Zend 扩展的名称（例如 APD）。
 
 文件上传
-    file_uploads            boolean
-        是否允许 HTTP 文件上传。
-    upload_tmp_dir          string
-        当进行文件上传时，用于存放文件的临时目录。
-        如果没有指定，则使用系统默认的目录。
-        该目录对于运行 PHP 的用户必须可写才行。如果指定的目录是不可写的，PHP 会回退到系统默认的目录。
-        如果开启了 open_basedir ，那么系统默认的目录必须允许上传成功。
-    upload_max_filesize     integer
-        （一个）被上传的文件的最大尺寸。
-        如果使用整数值，则该值的单位为字节。也可以使用简写表示法。
+    文件上传配置选项
+        名称	                        默认值	可修改范围	        更新日志
+        file_uploads	            "1"	    PHP_INI_SYSTEM
+        upload_tmp_dir	            NULL	PHP_INI_SYSTEM
+        upload_max_filesize	        "2M"	PHP_INI_PERDIR
+        max_file_uploads	        20	    PHP_INI_SYSTEM	    从 PHP 5.2.12 开始可用。
+    下面是配置指令们的一份简要描述。
+
+    file_uploads boolean
+        是否允许 HTTP 文件上传。另请参阅 upload_max_filesize，upload_tmp_dir 和 post_max_size  指令。
+    upload_tmp_dir string
+        当进行文件上传时，用于存放文件的临时目录。该目录必须对于 PHP 运行为的用户可写。如果没有指定，则使用系统默认的目录。
+
+        如果指定的目录是不可写的，PHP 会回退到系统默认的目录。如果开启了 open_basedir ，那么系统默认的目录必须是被允许的，以成功的上传。
+    upload_max_filesize integer
+        一个被上传的文件的最大尺寸。
+
+        当使用一个整数时，值是以字节为单位度量的。也可以使用简写符号，如这个 FAQ 中所述。
     max_file_uploads        integer
-        允许同时进行上传的文件的最大数量。
-        从 PHP 5.3.4 开始，在提交时留空的上传字段不会计入该限制中。
+        允许同时进行上传的文件的最大数量。从 PHP 5.3.4 开始，在提交时留空的上传字段不会计入该限制中。
