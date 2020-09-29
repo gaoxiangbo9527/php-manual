@@ -1,0 +1,21 @@
+描述
+    putenv ( string $setting ) : bool
+
+    添加 setting 到服务器环境。环境变量仅在当前请求期间存在。在请求的结尾，环境恢复到其原始状态。
+
+    设置某些环境变量可能是潜在的安全漏洞。safe_mode_allowed_env_vars 指令包含一个以逗号分隔的前缀列表。在安全模式下，用户只能更改名称以
+    该指令提供的前缀开头的环境变量。默认情况下，用户只能设置以 PHP_ 开头的环境变量（例如，PHP_FOO=BAR）。注意：如果这个指令是空的，PHP 将
+    允许修改任意环境变量。
+
+    safe_mode_protected_env_vars 指令包含一个以逗号分隔的环境变量列表，用户无法使用 putenv() 对它们进行更改。即使将
+    safe_mode_allowed_env_vars 设置为允许更改它们，这些变量也将受到保护。
+
+参数
+    setting
+        设置，比如"FOO=BAR"
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+注意事项
+    警告 safe_mode_allowed_env_vars 和 safe_mode_protected_env_vars 指令只在启用 safe_mode 时生效。

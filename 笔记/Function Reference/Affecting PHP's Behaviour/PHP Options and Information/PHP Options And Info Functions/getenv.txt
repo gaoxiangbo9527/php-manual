@@ -1,0 +1,25 @@
+描述
+    getenv ( string $varname [, bool $local_only = FALSE ] ) : string
+    getenv ( void ) : array
+
+    获取一个环境变量的值。
+
+    通过使用 phpinfo()，你可以查看所有环境变量的列表。这些变量很多都在 RFC 3875 中列出，特别是 4.1 节，“Request Meta-Variables”。
+
+参数
+    varname
+        变量名。
+    local_only
+        设置为 true 去只返回本地环境变量（由操作系统或者 putenv 设置）。
+
+返回值
+    返回环境变量 varname 的值，如果环境变量 varname 不存在，则返回 FALSE。如果省略 varname，会用关联数组返回所有的环境变量。
+
+更新日志
+    版本                    描述
+    7.1.0	                现在可以省略 varname 以检索所有环境变量的关联数组。
+    5.5.38, 5.6.24, 7.0.9   添加了 local_only 参数。
+
+注意事项
+    警告 如果 PHP 运行在像 Fast CGI 的一个 SAPI 中，这个函数将总是返回由该 SAPI 设置的环境变量的值，即使已经使用 putenv() 设置了一个同
+    名的本地环境变量。使用 local_only 参数去返回本地设置的环境变量的值。

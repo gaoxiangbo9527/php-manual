@@ -95,6 +95,7 @@
         名称                             默认值       可修改范围           变更日志
         variables_order	                "EGPCS"	    PHP_INI_PERDIR	    在 PHP <= 5.0.5 中是 PHP_INI_ALL
         request_order	                ""	        PHP_INI_PERDIR	    从 PHP 5.3.0 开始可用
+        auto_globals_jit	            "1"	        PHP_INI_PERDIR	    从 PHP 5.0.0 开始可用
         register_argc_argv	            "1"	        PHP_INI_PERDIR
         register_long_arrays	        "1"	        PHP_INI_PERDIR	    在 PHP 5.3.0 中被废弃。在 PHP 5.4.0 中被移除。
         post_max_size	                "8M"	    PHP_INI_PERDIR
@@ -118,6 +119,14 @@
         该指令描述了 PHP 会按何种顺序把 GET，POST 和 COOKIE 变量注册进 $_REQUEST 数组中。注册是从左向右进行的，后出现的值会覆盖先出现的值。
         如果没有设置该指令，则会使用 variables_order 去计算 $_REQUEST 的内容。
         注意由于安全性原因，默认的 php.ini 文件中不会包含 "C" 从而去包含 cookie 。
+    auto_globals_jit boolean
+        当被启用时，SERVER，REQUEST 和 ENV 变量会在它们被第一次使用时（即时）创建而不是在脚本的开始创建。如果在一个脚本中没有使用这些变量
+        ，使这个指令为 on 将会提高性能。
+
+        为了让这个指令有效果，必须禁用 PHP 指令 register_globals、register_long_arrays 和 register_argc_argv 。从 PHP 5.1.3 开
+        始不再需要禁用 register_argc_argv。
+
+        警告 SERVER，REQUEST 和 ENV 变量的使用是在编译时进行检查的，所以通过 可变变量 使用它们将不会引发它们的初始化。
     register_argc_argv  boolean
         告知 PHP 是否声明 argc 和 argv 变量（它们将包含 GET 信息）。另请参阅 命令行。
         (个人补充，这里说的不是很准确，具体看 $argc 和 $argv 中的个人总结)
