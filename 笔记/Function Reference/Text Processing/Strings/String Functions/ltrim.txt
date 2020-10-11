@@ -1,0 +1,19 @@
+描述
+    ltrim ( string $str [, string $character_mask ] ) : string
+
+    从一个字符串的开头去除空白（或其他字符）。
+
+参数
+    str
+        输入字符串。
+    character_mask
+        通过 character_mask 参数，你也可以指定你想要去除的字符。简单的列出所有你想要去除的字符。通过 .. 你可以指定一个字符区间。
+
+返回值
+    这个函数返回从 str 开头去除空白字符串后的字符串。没有第二个参数，ltrim() 将去除这些字符：
+        " "     (ASCII 32 (0x20))   一个普通的空格。
+        "\t"    (ASCII 9 (0x09))    一个制表符。
+        "\n"    (ASCII 10 (0x0A))   一个新行（换行）。
+        "\r"    (ASCII 13 (0x0D))   一个回车。
+        "\0"    (ASCII 0 (0x00))    空字节。
+        "\x0B"  (ASCII 11 (0x0B))   一个垂直制表符。
