@@ -15,7 +15,7 @@
     }
 
 ArrayAccess::offsetExists
-    当在实现了 ArrayAccess 接口的对象上使用 isset() or empty() 时，会执行该方法。
+    当在实现了 ArrayAccess 接口的对象上使用 isset() 或 empty() 时，会执行该方法。
 
     当时使用 empty() 时，会先调用 ArrayAccess::offsetExists() ，如果 ArrayAccess::offsetExists() 返回 TRUE ，则会继续调用
     ArrayAccess::offsetGet() 去检查是否为空。
