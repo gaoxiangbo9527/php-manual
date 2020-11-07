@@ -1,0 +1,30 @@
+描述
+    parse_str ( string $encoded_string [, array &$result ] ) : void
+
+    解析 encoded_string，就像它是通过一个 URL 传入的查询字符串一样，并且在当前作用域中设置变量（如果有提供 result 的话，则会在该数组中设
+    置变量）。
+
+参数
+    encoded_string
+        输入字符串。
+    result
+        如果存在第二个参数 result，变量将作为数组元素存储在这个变量中。
+
+        警告
+            从 PHP 7.2 开始，不带 result 参数使用该函数是非常不提倡的并且是被废弃的。
+            在函数作用域中动态的设置变量会遇到与 register_globals 完全相同的问题。
+            请阅读 使用注册全局变量 的安全性部分，它解释了为什么它是危险的。
+
+返回值
+    没有值被返回。
+
+更新日志
+    版本     描述
+    7.2.0   现在，不带第二个参数使用 parse_str() 会产生一个 E_DEPRECATED 通知。
+
+注意事项
+    注意：所有被创建的变量（或者被返回到数组中的值，如果设置了第二个参数的话）都已经被 urldecode() 解码了。
+
+    注意：要想获得当前的 QUERY_STRING，你可以使用变量 $_SERVER['QUERY_STRING']。另外，你可能会想阅读关于 来自外部源的变量 的章节。
+
+    注意：magic_quotes_gpc 设置项会影响该函数的输出，因为 parse_str() 使用了与 PHP 填充 $_GET，$_POST 等变量相同的机制。
