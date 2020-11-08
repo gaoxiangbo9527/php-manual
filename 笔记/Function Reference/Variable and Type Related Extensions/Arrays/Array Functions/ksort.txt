@@ -1,0 +1,13 @@
+描述
+    ksort ( array &$array [, int $sort_flags = SORT_REGULAR ] ) : bool
+
+    按键排序一个数组，保持键和数据的关联关系。这主要用于关联数组。
+
+参数
+    array
+        输入数组。
+    sort_flags
+        你可以使用可选的参数 sort_flags 去修改排序的行为，具体见 sort()。
+
+返回值
+    成功返回 TRUE，失败返回 FALSE。

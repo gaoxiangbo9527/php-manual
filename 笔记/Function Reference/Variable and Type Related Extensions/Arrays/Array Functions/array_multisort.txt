@@ -1,0 +1,35 @@
+描述
+    array_multisort ( array &$array1 [, mixed $array1_sort_order = SORT_ASC [, mixed $array1_sort_flags = SORT_REGULAR ]], mixed ...$rest ) : bool
+
+    个人补充：乍一看，该函数比较难理解，其实该函数和 SQL 中的 ORDER BY a ASC, b DESC 的行为非常类似。
+
+    array_multisort() 可以用于一次性排序多个数组，或者按一个或多个维度对多维数组排序。
+
+    关联键将会被保持，但数字键将会被重新索引。
+
+    注意：如果两个成员相等，它们在排序后的数组中的相对顺序是未定义的。
+
+参数
+    array1
+        将要被排序的数组。
+    array1_sort_order
+        用于排序前一个数组参数的顺序。SORT_ASC 是升序排序，SORT_DESC 是降序排序。
+
+        这个参数可以与 array1_sort_flags 交换或完全省略，在这种情况下，假设是 SORT_ASC。
+    array1_sort_flags
+        用于前一个数组参数的排序选项：
+
+        排序类型标志：
+            SORT_REGULAR        - 常规的比较项目，比较运算符 章节中描述了细节
+            SORT_NUMERIC        - 数值化的比较项目
+            SORT_STRING         - 按字符串比较项目
+            SORT_LOCALE_STRING  - 按字符串比较项目，基于当前区域。它使用区域，可以使用 setlocale() 更改区域
+            SORT_NATURAL        - 按字符串比较项目，使用“自然排序”，像 natsort() 一样
+            SORT_FLAG_CASE      - 可以与 SORT_STRING 或 SORT_NATURAL 结合（位或）以大小写不敏感的方式排序字符串
+
+        这个参数可以与 array1_sort_order 交换或完全省略，在这种情况下，假设是 SORT_REGULAR。
+    rest
+        更多的数组，可选的后跟排序顺序和标志。只有与前面数组中相对应的等价元素才会被比较。换句话说，排序是辞典编纂的。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。

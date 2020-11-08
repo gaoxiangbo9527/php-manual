@@ -1,0 +1,47 @@
+下面的常量作为 PHP 核心的一部分总是可用的。
+
+CASE_LOWER (int)
+    CASE_LOWER 与 array_change_key_case() 一起使用并且用于转换数组键到小写。这也是 array_change_key_case() 的默认情况。
+CASE_UPPER (int)
+    CASE_UPPER 与 array_change_key_case() 一起使用并且用于转换数组键到大写。
+
+排序顺序标志：
+
+SORT_ASC (int)
+    SORT_ASC 与 array_multisort() 一起用于升序排序。
+SORT_DESC (int)
+    SORT_ASC 与 array_multisort() 一起用于降序排序。
+
+排序类型标志：被各种排序函数使用
+
+SORT_REGULAR (int)
+    SORT_REGULAR 用于常规的比较项目。
+SORT_NUMERIC (int)
+    SORT_NUMERIC 用于数值化的比较项目。
+SORT_STRING (int)
+    SORT_STRING 用于按字符串比较项目。
+SORT_LOCALE_STRING (int)
+    SORT_LOCALE_STRING 用于按字符串比较项目，基于当前的区域。PHP 5.0.2 中添加。
+SORT_NATURAL (int)
+    SORT_NATURAL 用于像 natsort() 一样使用“自然排序”比较项目。PHP 5.4.0 中添加。
+SORT_FLAG_CASE (int)
+    SORT_FLAG_CASE 可以与 SORT_STRING 或 SORT_NATURAL 结合（位或）以大小写不敏感的方式排序字符串。PHP 5.4.0 中添加。
+
+过滤器标志：
+
+ARRAY_FILTER_USE_KEY (int)
+    ARRAY_FILTER_USE_KEY 与 array_filter() 一起用于将每个键作为第一个参数传递给给定的回调函数。PHP 5.6.0 中添加。
+ARRAY_FILTER_USE_BOTH (int)
+    ARRAY_FILTER_USE_BOTH 与 array_filter() 一起用于将键和值传递给给定的回调函数。PHP 5.6.0 中添加。
+
+COUNT_NORMAL (int)
+COUNT_RECURSIVE (int)
+
+EXTR_OVERWRITE (int)
+EXTR_SKIP (int)
+EXTR_PREFIX_SAME (int)
+EXTR_PREFIX_ALL (int)
+EXTR_PREFIX_INVALID (int)
+EXTR_PREFIX_IF_EXISTS (int)
+EXTR_IF_EXISTS (int)
+EXTR_REFS (int)

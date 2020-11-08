@@ -1,0 +1,17 @@
+描述
+    uasort ( array &$array , callable $value_compare_func ) : bool
+
+    这个函数使用一个用户定义的比较函数排序一个数组，数组索引保持与它们关联的数组元素的相关性。
+
+    当排序实际的元素顺序是至关重要的关联数组时，这个函数是非常有用的。
+
+    注意：如果两个成员相等，它们在排序后的数组中的相对顺序是未定义的。
+
+参数
+    array
+        输入数组。
+    value_compare_func
+        用户定义比较函数的例子见 usort() 和 uksort() 。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。

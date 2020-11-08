@@ -1,0 +1,31 @@
+描述
+    sort ( array &$array [, int $sort_flags = SORT_REGULAR ] ) : bool
+
+    这个函数排序一个数组。当这个函数完成时，元素将从低到高排列。
+
+    注意：如果两个成员相等，它们在排序后的数组中的相对顺序是未定义的。
+
+参数
+    array
+        输入数组。
+    sort_flags
+        可选的第二个参数 sort_flags 可以使用这些值去修改排序行为：
+
+        排序类型标志：
+            SORT_REGULAR        - 常规的比较项目，比较运算符 章节中描述了细节
+            SORT_NUMERIC        - 数值化的比较项目
+            SORT_STRING         - 按字符串比较项目
+            SORT_LOCALE_STRING  - 按字符串比较项目，基于当前区域。它使用区域，可以使用 setlocale() 更改区域
+            SORT_NATURAL        - 按字符串比较项目，使用“自然排序”，像 natsort() 一样
+            SORT_FLAG_CASE      - 可以与 SORT_STRING 或 SORT_NATURAL 结合（位或）以大小写不敏感的方式排序字符串
+
+返回值
+    成功返回 TRUE，失败返回 FALSE。
+
+注意事项
+    注意：这个函数给 array 中的元素赋予了新的键。它将移除任何可能已经分配的现有键，而不仅仅是重新排序键。
+
+    注意：像大多数 PHP 排序函数一样，sort() 使用了 快速排序 的一种实现。在分区的中间选择轴心点，从而为已经排序的数组提供一个最佳时间。然而，
+    这是一个你不应该依赖的实现细节。
+
+    警告 当排序具有混合类型值的数组时要小心，因为如果 sort_flags 是 SORT_REGULAR，sort() 可能会产生意想不到的结果。
