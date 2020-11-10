@@ -7,7 +7,7 @@ PHP 自带了许多内置的 URL 风格协议的包装器，用于同文件系�
     file:// — 访问一个本地的文件系统
     http:// — 访问 HTTP(s) URLs
     ftp:// — 访问 FTP(s) URLs
-    php:// — 访问各种I/O流
+    php:// — 访问各种 I/O 流
     zlib:// — 压缩流
     data:// — 数据 (RFC 2397)
     glob:// — 查找匹配模式的路径名

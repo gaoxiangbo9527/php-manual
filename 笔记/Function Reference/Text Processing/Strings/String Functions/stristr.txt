@@ -1,0 +1,25 @@
+描述
+    stristr ( string $haystack , mixed $needle [, bool $before_needle = FALSE ] ) : string
+
+    返回 haystack 字符串中从第一次出现 needle 开始到末尾的所有内容，包括第一次出现的 needle。
+
+参数
+    haystack
+        输入字符串。
+    needle
+        如果 needle 不是一个字符串，它会转换成一个整数并且用作字符的序数值。从 PHP 7.3.0 开始废弃了这种行为，并且依赖于这种行为是非常不推
+        荐的。取决于预期的行为，needle 要么应该显式的转换为字符串，要么应该显式的执行对 chr() 的调用。
+    before_needle
+        如果为 TRUE，strstr() 将返回 haystack 中第一次出现 needle 前（不包括 needle）的部分。
+
+    needle 和 haystack 是以大小写不敏感的方式检查的。
+
+返回值
+    返回匹配的字符串。如果没有找到 needle，则返回 FALSE。
+
+更新日志
+    版本     描述
+    7.3.0	传递一个整型作为 needle 已经被废弃了。
+
+注意事项
+    注意：这个函数是二进制安全的。

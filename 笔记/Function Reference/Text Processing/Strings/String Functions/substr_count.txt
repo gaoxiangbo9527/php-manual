@@ -1,0 +1,24 @@
+描述
+    substr_count ( string $haystack , string $needle [, int $offset = 0 [, int $length ]] ) : int
+
+    substr_count() 返回 needle 子字符串出现在 haystack 字符串中的次数。请注意 needle 是大小写敏感的。
+
+    注意：此函数不计算重叠的子字符串。见下方的例子！
+
+参数
+    haystack
+        要在其中进行搜索的字符串。
+    needle
+        要搜索的子字符串。
+    offset
+        开始进行计数的偏移量。如果该偏移量是负数，计数将从字符串的尾部开始。
+    length
+        用于搜索子字符串的指定偏移量之后的最大长度。如果偏移量加上长度超过了 haystack 的长度，则输出一个警告。一个负数的长度会从 haystack
+        的尾部计数。
+
+返回值
+    这个函数返回一个整数。
+
+更新日志
+    版本     描述
+    7.1.0	添加了对负 offset 和 length 的支持。length 现在也可以是 0。
