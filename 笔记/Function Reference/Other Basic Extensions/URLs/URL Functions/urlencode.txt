@@ -1,0 +1,20 @@
+描述
+    urlencode ( string $str ) : string
+
+    当对要在 URL 的查询部分中使用的字符串进行编码时，此函数非常方便，因为它可以方便地将变量传递到下一页。
+
+参数
+    要被编码的字符串。
+
+返回值
+    返回一个字符串，其中所有的非字母数字字符，除了 -_. ，都会被替换为一个百分号（%）跟着两个十六进制数并且空格会被编码为加号（+）。它的编码
+    方式与 WWW 表单中 post 的数据的编码方式相同，这与在 application/x-www-form-urlencoded 媒体类型中的方式相同。这与 RFC 3986 编码
+    （参见 rawurlencode()）的区别在于，由于历史原因，空格被编码为加号（+）。
+
+注意事项
+    注意：注意那些可能会匹配 HTML 实体的变量。像 &amp，&copy 和 &pound 的事物会被浏览器解析并且会使用实际的实体而不是所期望的变量名。这
+    是 W3C 多年来一直在告诉人们的一个显著的麻烦。参考在这里：http://www.w3.org/TR/html4/appendix/notes.html#h-B.2.2.
+
+    PHP 支持通过 arg_separator .ini 指令将参数分隔符更改为 W3C 建议的分号。不幸的是，大多数用户代理不会以这种分号分隔格式发送表单数据。
+    一个更方便的方法是去使用 &amp; 而不是 & 作为分隔符。为了达到这个目的，你不需要去更改 PHP 的 arg_separator 。让它为 & 不动，但简单的
+    使用 htmlentities() 或 htmlspecialchars() 编码你的 URLs。

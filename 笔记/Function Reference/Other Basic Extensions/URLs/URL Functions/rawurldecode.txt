@@ -1,0 +1,14 @@
+描述
+    rawurldecode ( string $str ) : string
+
+    返回一个字符串，其中百分号（%）后跟两个十六进制数字的序列会被替换为字面字符。
+
+参数
+    str
+        将被解码的 URL。
+
+返回值
+    以字符串的形式返回解码后的 URL。
+
+注意事项
+    注意：rawurldecode() 不会将加号（'+'）解码成空格。urldecode() 会。

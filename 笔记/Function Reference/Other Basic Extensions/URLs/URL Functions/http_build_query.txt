@@ -1,0 +1,29 @@
+描述
+    http_build_query ( mixed $query_data [, string $numeric_prefix [, string $arg_separator [, int $enc_type = PHP_QUERY_RFC1738 ]]] ) : string
+
+    从提供的关联（或索引）数组生成一个 URL 编码后的查询字符串。
+
+参数
+    query_data
+        可能是一个数组或者包含属性的对象。
+
+        如果 query_data 是一个数组，它可能是一个简单的一维结构，或者是一个数组的数组（依次可能包含其他数组）。
+
+        如果 query_data 是一个书香，那么只有公有属性将会被编入到结果中。
+    numeric_prefix
+        如果在基数组中使用了数值索引并且提供了这个参数，该参数将仅用于基数组中的元素的数字索引前面。
+        个人补充：只有第一维中的数字索引前才会加上该参数的值，很合理。
+
+        这意味着在以后由 PHP 或其他 CGI 应用程序解码数据时就允许使用合法的变量名了。
+    arg_separator
+        arg_separator.output 会用于去分隔参数，但通过指定这个参数可以覆盖它。
+    enc_type
+        默认为 PHP_QUERY_RFC1738。
+
+        如果 enc_type 是 PHP_QUERY_RFC1738，那么编码会按照 RFC 1738 和 application/x-www-form-urlencoded 媒体类型进行，这意味着
+        空格会被编码为加号（+）。
+
+        如果 enc_type 是 PHP_QUERY_RFC3986，那么编码会按照 RFC 3986 进行，并且空格将会按百分号编码（%20）。
+
+返回值
+    返回一个 URL 编码后的字符串。
