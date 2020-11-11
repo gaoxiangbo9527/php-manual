@@ -1,0 +1,35 @@
+描述
+    parse_url ( string $url [, int $component = -1 ] ) : mixed
+
+    这个函数解析一个 URL 并返回一个关联数组，这个数组中包含有该 URL 中出现的各种组件。数组元素的值不是 URL 解码的。
+
+    这个函数并不是要验证给定的 URL，它只是将 URL 分解为上面列出的部分。不完整的 URL 也是被接受的，parse_url() 会尽力正确地解析它们。
+
+参数
+    url
+        要解析的 URL。无效的字符会被替换为 _ 。
+    component
+        指定 PHP_URL_SCHEME，PHP_URL_HOST，PHP_URL_PORT，PHP_URL_USER，PHP_URL_PASS，PHP_URL_PATH，PHP_URL_QUERY 或
+        PHP_URL_FRAGMENT 中的一个去以字符串的形式检索一个特定的 URL 组件（除了指定 PHP_URL_PORT 时，这种情况下返回值将会是一个整数）。
+
+返回值
+    对于严重畸形的 URL，parse_url() 将返回 FALSE。
+
+    如果省略 component 参数，会返回一个关联数组。在数组中最少会出现一个元素。这个数组中潜在的键是：
+        scheme —— 例如 http
+        host
+        port
+        user
+        pass
+        path
+        query —— 问号 ? 后面
+        fragment —— 井号 # 后面
+
+    如果指定了 component 参数，parse_url() 返回一个字符串（或者返回一个整数，在 PHP_URL_PORT 的情况下）而不是一个数组。如果在给定的
+    URL 中并不存在所请求的组件，将会返回 NULL。
+
+注意事项
+    注意：对于相对 URL，这个函数可能不会给出正确的结果。
+
+    注意：这个函数专门用于解析 URL 而不是 URI。但是，为了满足 PHP 的向后兼容性要求，它对 file://scheme 做了一个例外，允许使用三重斜杠（
+    file:///…）。对于任何其他协议，这是无效的。
