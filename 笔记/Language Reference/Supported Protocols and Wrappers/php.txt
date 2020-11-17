@@ -1,0 +1,20 @@
+php:// —— 访问各种 I/O 流
+
+描述
+    PHP 提供了许多不同的 I/O 流，允许访问 PHP 自己的输入和输出流，标准输入，标准输出和标准错误的文件描述符，内存中和磁盘支持的临时文件流，
+    以及可以在读取和写入其他文件资源时操作它们的筛选器。
+
+php://input
+    php://input 是一个只读流，它允许你从请求主体读取原生的数据。在 POST 请求的情况下，最好使用 php://input，而不是
+    $HTTP_RAW_POST_DATA，因为它不依赖于特殊的 php.ini 指令。此外，对于默认情况下没有填充 $HTTP_RAW_POST_DATA 的情况，它是激活
+    always_populate_raw_post_data 的一种内存占用更少的替代方法。php://input 不可与 enctype="multipart/form-data" 一起使用。
+
+php://output
+    php://output 是一个只写流，它允许你以与 print 和 echo 相同的方式写入输出缓冲机制。
+
+php://memory 和 php://temp
+    php://memory 和 php://temp 是读写流，它们允许在一个类文件的包装器中存储临时数据。二者唯一的区别是 php://memory 将总是在内存中存储它
+    的数据，而 php://temp 将使用一个临时文件，一旦存储的数据量达到预定的限制（默认是 2 MB）。这个临时文件的位置的确定方法与
+    sys_get_temp_dir() 函数相同。
+
+    php://temp 的内存限制可以通过追加 /maxmemory:NN 来控制，其中 NN 是在使用一个临时文件之前，允许在内存中存储的最大数据量，单位为字节。

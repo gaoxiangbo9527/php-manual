@@ -1,0 +1,13 @@
+描述
+    strpbrk ( string $haystack , string $char_list ) : string
+
+    strpbrk() 在 haystack 字符串中搜索 char_list 。
+
+参数
+    haystack
+        在其中搜索 char_list 的字符串。
+    char_list
+        这个参数是大小写敏感的。
+
+返回值
+    返回一个从找到的字符开始的字符串，如果没有找到则返回 FALSE。
