@@ -1,22 +1,22 @@
 描述
-    json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] ) : string
+    json_encode ( mixed $value [, int $flags = 0 [, int $depth = 512 ]] ) : string|false
 
     返回一个包含所提供的 value 的 JSON 表示的字符串。
 
-    编码会受到提供的 options 的影响，另外，浮点值的编码取决于 serialize_precision 的值。
+    编码会受到提供的 flags 的影响，另外，浮点值的编码取决于 serialize_precision 的值。
 
 参数
     value
         将被编码的值。可以是除 资源 外的任何类型。
 
-        所有字符串数据必须是 UTF-8 编码。
+        所有字符串数据必须是 UTF-8 编码的。
 
         注意：PHP 实现的是原始 RFC 7159 中所指定的 JSON 的一个超集。
-    options
+    flags
         由 JSON_FORCE_OBJECT，JSON_HEX_QUOT，JSON_HEX_TAG，JSON_HEX_AMP，JSON_HEX_APOS，JSON_INVALID_UTF8_IGNORE，
         JSON_INVALID_UTF8_SUBSTITUTE，JSON_NUMERIC_CHECK，JSON_PARTIAL_OUTPUT_ON_ERROR，JSON_PRESERVE_ZERO_FRACTION，
         JSON_PRETTY_PRINT，JSON_UNESCAPED_LINE_TERMINATORS，JSON_UNESCAPED_SLASHES，JSON_UNESCAPED_UNICODE，
-        JSON_THROW_ON_ERROR 组成的位位掩码。这些常量的行为在 JSON 常量 页面上有描述。
+        JSON_THROW_ON_ERROR 组成的位掩码。这些常量的行为在 JSON 常量 页面上有描述。
     depth
         设置最大深度。必须大于零。
 
