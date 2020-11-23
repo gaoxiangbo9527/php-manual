@@ -1,0 +1,11 @@
+描述
+    ob_clean ( ) : void
+
+    这个函数丢弃了输出缓存的内容。
+
+    这个函数不会像 ob_end_clean() 一样销毁输出缓冲。
+
+    输出缓冲必须由具有 PHP_OUTPUT_HANDLER_CLEANABLE 标志的 ob_start() 开启。否者 ob_clean() 不会工作。
+
+返回值
+    没有值会被返回。

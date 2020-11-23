@@ -1,0 +1,12 @@
+描述
+    ob_get_clean ( ) : string
+
+    获取当前缓冲的内容并且删除当前的输出缓冲。
+
+    ob_get_clean() 相当于执行 ob_get_contents() 和 ob_end_clean()。
+
+    输出缓冲必须由具有 PHP_OUTPUT_HANDLER_CLEANABLE 和 PHP_OUTPUT_HANDLER_REMOVABLE 标志的 ob_start() 开启。否则
+    ob_get_clean() 将不会工作。
+
+返回值
+    返回输出缓冲的内容并且结束输出缓冲。如果输出缓冲不是激活的，那么会返回 FALSE。

@@ -1,0 +1,18 @@
+描述
+    ob_gzhandler ( string $buffer , int $mode ) : string
+
+    ob_gzhandler() 意图被用作 ob_start() 的一个回调函数以帮助方便将 gz 编码的数据发送到支持压缩 web 页面的 web 浏览器。在
+    ob_gzhandler() 实际的发送被压缩的数据之前，它会检测浏览器可以接受哪些内容编码（“gzip”，“deflate”或者什么都不写）并且相应的返回其输出
+    。所有的浏览器都是被支持的，因为由浏览器决定发送正确的头部来告知它接受压缩的 web 页面。如果浏览器不支持压缩的页面，这个函数返回 FALSE。
+
+参数
+    buffer
+
+    mode
+
+返回值
+
+注意事项
+    注意：ob_gzhandler() 需要 zlib 扩展。
+
+    注意：你不能同时使用 ob_gzhandler() 和 zlib.output_compression。另请注意，使用 zlib.output_compression 优于 ob_gzhandler()。

@@ -1,0 +1,25 @@
+描述
+    output_add_rewrite_var ( string $name , string $value ) : bool
+
+    这个函数向 URL 重写机制添加另一个名称/值对。名称和值将被添加到 URL （像 GET 参数一样）和表单（像隐藏的输入域一样）中，与使用
+    session.use_trans_sid 启用透明 URL 重写时的会话 ID 相同。
+
+    这个函数的行为受 php.ini 参数 url_rewriter.tags 和 url_rewriter.hosts 控制。
+
+    注意，在每个请求上最多可以成功的调用该函数一次。个人测试：并不是这样的，可以多次调用。
+
+    注意：调用这个函数将隐式的开启输出缓冲，如果输出缓冲还没有激活的话。
+
+参数
+    name
+        变量名。
+    value
+        变量值。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.1.0	在 PHP 7.1.0 前，由 output_add_rewrite_var() 设置的重写变量使用相同的会话模块透明 sid 输出缓冲区。而从 PHP 7.1.0 开始，
+            使用专用的输出缓冲区，url_rewriter.tags 仅用于输出函数，添加了 url_rewriter.hosts 。

@@ -1,0 +1,13 @@
+描述
+    ob_get_flush ( ) : string
+
+    ob_get_flush() 冲刷输出缓冲，以一个字符串的形式返回它并且关闭输出缓冲。
+
+    输出缓冲必须由具有 PHP_OUTPUT_HANDLER_FLUSHABLE 标志的 ob_start() 开启。否则 ob_get_flush() 将不会工作。
+    个人补充：上面应该是漏掉了 PHP_OUTPUT_HANDLER_REMOVABLE 标志。
+
+    注意：这个函数类似于 ob_end_flush()，除了这个函数还会以一个字符串返回该缓冲。
+
+返回值
+    返回输出缓冲，或者如果没有缓冲是激活的，返回 FALSE。
+

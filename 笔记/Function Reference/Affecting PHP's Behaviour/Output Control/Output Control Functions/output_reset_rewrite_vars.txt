@@ -1,0 +1,12 @@
+描述
+    output_reset_rewrite_vars ( ) : bool
+
+    这个函数重置 URL 重写并且移除所有之前由 output_add_rewrite_var() 函数所设置的重写变量。
+
+返回值
+    成功返回 TRUE，失败返回 FALSE。
+
+更新日志
+    版本	    描述
+    7.1.0	PHP 7.1.0 之前，由 output_add_rewrite_var() 设置的重写变量使用相同的会话模块透明 sid 输出缓冲区。而从 PHP 7.1.0 开始，
+            使用专用的输出缓冲区并且 output_reset_rewrite_vars() 只移除由 output_add_rewrite_var() 所定义的重写变量。

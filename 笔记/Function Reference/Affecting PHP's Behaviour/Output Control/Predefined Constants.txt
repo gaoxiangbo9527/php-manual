@@ -1,0 +1,55 @@
+作为 PHP 核心的一部分，下方的常量总是可用的。
+
+PHP_OUTPUT_HANDLER_START (int)
+    指示输出缓冲已经开始。
+
+PHP_OUTPUT_HANDLER_WRITE (int)
+    指示输出缓冲已经被冲刷并且有要输出的数据。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_FLUSH (int)
+    指示缓冲已经被冲刷。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_CLEAN (int)
+    指示缓冲已经被清理。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_FINAL (int)
+    指示这是最后的输出缓冲操作。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_CONT (int)
+    指示缓冲已经被冲刷，但输出缓冲将会继续。
+
+    从 PHP 5.4 开始, 这是 PHP_OUTPUT_HANDLER_WRITE 的一个别名。
+
+PHP_OUTPUT_HANDLER_END (int)
+    指示输出缓冲已经结束。
+
+    从 PHP 5.4 开始，这是 PHP_OUTPUT_HANDLER_FINAL 的一个别名。
+
+PHP_OUTPUT_HANDLER_CLEANABLE (int)
+    控制通过 ob_start() 创建的输出缓冲是否可以被清理。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_FLUSHABLE (int)
+    控制通过 ob_start() 创建的输出缓冲是否可以被冲刷。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_REMOVABLE (int)
+    控制通过 ob_start() 创建的输出缓冲是否可以在脚本结束前被移除。
+
+    从 PHP 5.4 开始可用。
+
+PHP_OUTPUT_HANDLER_STDFLAGS (int)
+    输出缓冲标志的默认设置；当前相当于
+    PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE。
+
+    从 PHP 5.4 开始可用。

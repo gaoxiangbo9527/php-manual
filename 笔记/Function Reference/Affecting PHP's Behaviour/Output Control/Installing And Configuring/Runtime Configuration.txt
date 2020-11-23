@@ -1,27 +1,47 @@
 这些函数的行为受到 php.ini 中的设置的影响。
 
 输出控制配置选项
-名字                  默认值         可修改范围           更新日志
-output_buffering     "0"           PHP_INI_PERDIR
-output_handler	     NULL	       PHP_INI_PERDIR     自 PHP 4.0.4 开始可用。
-implicit_flush	     "0"	       PHP_INI_ALL	      PHP_INI_PERDIR 当 PHP <= 4.2.3 。
+名字                 默认值                                           可修改范围           更新日志
+output_buffering    "0"                                             PHP_INI_PERDIR
+output_handler	    NULL	                                        PHP_INI_PERDIR
+implicit_flush	    "0"	                                            PHP_INI_ALL
+url_rewriter.tags	"a=href,area=href,frame=src,form=,fieldset="	PHP_INI_ALL	        PHP 7.1.0 之前，这个选项用于去设置会
+                                                                                        话的 trans sid 重写，从 PHP 7.1.0
+                                                                                        开始，它只被
+                                                                                        output_add_rewrite_var() 所使用。
+url_rewriter.hosts  $_SERVER['HTTP_HOST'] 被用作默认值	            PHP_INI_ALL	        从 PHP 7.1.0 开始可用。
 
 关于 PHP_INI_* 模式的更多详情与定义，参阅 在哪里可以设置一个配置设置。
 这里是一份配置指令的简短说明。
 
-output_buffering    boolean/integer
+output_buffering bool/int
     你可以通过把这个指令设置为 On 为所有文件开启输出缓冲。
     如果你希望把缓冲限制到一个特定的大小，你可以使用一个最大的字节数代替 On 来作为该指令的值（例如：output_buffering=4096）。
     在 PHP-CLI 中这个指令总是 Off 。
-output_handler      string
+output_handler string
     你可以把脚本所有的输出都重定向到某个函数。比如你把 output_handler 设置为 mb_output_handler() ，那么字符编码就会透明的转换到特定的编码。
     设置任何输出处理函数都会自动的开启输出缓冲。
 
-    注意
-        不能同时使用 mb_output_handler() 和 ob_iconv_handler()，也不能同时使用 ob_gzhandler() 和 zlib.output_compression 。
+    注意：不能同时使用 mb_output_handler() 和 ob_iconv_handler()，也不能同时使用 ob_gzhandler() 和 zlib.output_compression 。
 
-    注意
-        只有内置的函数可以用于该指令，对于用户定义的函数，使用 ob_start() 。
-implicit_flush      boolean
+    注意：只有内置的函数可以用于该指令，对于用户定义的函数，使用 ob_start() 。
+implicit_flush bool
+    默认为 FALSE。将其更改为 TRUE 将告诉 PHP 去告诉输出层在每个输出块之后自动的冲刷自身。这相当于在每个 print 或 echo 调用以及每个 HTML
+    块之后调用 PHP 函数 flush()。
 
+    当在一个 web 环境中使用 PHP 时，开启这个选项会有严重的性能影响并且通常只推荐用于调试目的。在 CLI SAPI 下进行操作时。这个值默认为
+    TRUE 。
 
+    另请参阅 ob_implicit_flush()。
+url_rewriter.tags string
+    url_rewriter.tags 指定了哪些 HTML 标签会被 output_add_rewrite_var() 的值重写。默认为
+    a=href,area=href,frame=src,input=src,form=（个人补充：实际上，默认值很可能仅仅是 form= 而已），其中 form 是一个特殊的标签。
+    <input hidden="session_id" name="session_name"> （个人补充：实际上，被添加的是 <input hidden="name" name="value">，其中
+    name 和 value 来自于 output_add_rewrite_var()）会作为表单变量被添加。
+
+    注意：PHP 7.1.0 之前，url_rewriter.tags 被用于指定 session.trans_sid_tags。从 PHP 7.1.0 开始，fieldset 不再被认为是一个特殊的
+    标签。
+
+url_rewriter.hosts string
+    url_rewriter.hosts 指定了哪些主机会被重写以包含 output_add_rewrite_var() 的值。默认为 $_SERVER['HTTP_HOST']。可以通过 "," 指
+    定多个主机，主机之间不允许出现空格。例如 php.net,wiki.php.net,bugs.php.net。

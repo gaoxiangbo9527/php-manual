@@ -1,0 +1,58 @@
+描述
+    ob_start ([ callable $output_callback = NULL [, int $chunk_size = 0 [, int $flags = PHP_OUTPUT_HANDLER_STDFLAGS ]]] ) : bool
+
+    这个函数将会开启输出缓冲。当输出缓冲处于活动状态时，脚本不会发送任何输出（除了头部），而是将输出存储在内部缓冲区中。
+
+    可以使用 ob_get_contents() 把这个内部输出缓冲的内容复制到一个字符串变量中。想要输出存储在内部缓冲中的内容，使用 ob_end_flush()。另外
+    ，ob_end_clean() 将会静默的丢弃缓冲内容。
+
+    警告 一些 web 服务器（例如 Apache）在调用回调函数时会更改一个脚本的工作目录。你可以在回调函数中把它改回来，例如通过
+    chdir(dirname($_SERVER['SCRIPT_FILENAME']))。
+
+    输出缓冲是可堆叠的，也就是说，当另一个 ob_start() 是活动的时候，你还可以调用 ob_start()。你只需确保调用 ob_end_flush() 的次数适当
+    即可。如果激活了多个输出回调函数，输出将按嵌套的顺序依次被过滤。
+
+参数
+    output_callback
+        一个可选的 output_callback 函数可以被指定。这个函数接受一个字符串作为参数并且应该返回一个字符串。当输出缓冲被冲刷（发送）或清理时
+        （通过 ob_flush()，ob_clean() 或者类似的函数），或者在请求的末尾输出缓冲被冲刷到浏览器时，将调用该函数。当 output_callback 被
+        调用时，它将接收输出缓冲的内容作为它的参数并期望返回一个新的输出缓冲区，该缓冲将被发送到浏览器。如果 output_callback 不是一个可调
+        用的函数，这个函数（经个人测试，这里指的是 ob_start() 而不是 output_callback）将返回 FALSE。这个回调函数的签名为：
+
+        handler ( string $buffer [, int $phase ] ) : string
+
+            buffer
+                输出缓冲的内容。
+            phase
+                PHP_OUTPUT_HANDLER_* 常量的位掩码。
+
+        如果 output_callback 返回 FALSE，原始的输出会被发送到浏览器。
+
+        通过传递一个 NULL 值，output_callback 参数可以被绕过。
+
+        不可以从一个回调函数中调用 ob_end_clean()，ob_end_flush()，ob_clean()，ob_flush() 和 ob_start()。如果你从回调函数中调用了
+        它们，行为将是未定义的。如果你想要删除缓冲的内容，从回调函数返回一个 "" （一个空字符串）即可。你甚至不能从一个回调函数中调用使用了输
+        出缓冲的函数，像 print_r($expression, true) 或 highlight_file($filename, true) 。
+
+        注意：ob_gzhandler() 函数的存在是为了方便将 gz 编码的数据发送到支持压缩 web 页面的 web 浏览器。ob_gzhandler() 判断浏览器将接
+        受什么类型的内容编码，并相应地返回其输出。
+    chunk_size
+        如果传递了可选的参数 chunk_size，不论哪个输出调用引发缓冲的长度等于或者超过了 chunk_size，该缓冲将会被冲刷。默认值 0 意味着只有
+        当输出缓冲被关闭时输出函数才会被调用。
+
+        PHP 5.4.0 以前，值 1 是一种特殊情况，它会把块大小设置为 4096 字节。
+    flags
+        flags 参数是一个位掩码，它控制了可以在该输出缓冲上运行的操作。默认是允许输出缓冲可以被清理，冲刷和移除。可通过
+        PHP_OUTPUT_HANDLER_CLEANABLE | PHP_OUTPUT_HANDLER_FLUSHABLE | PHP_OUTPUT_HANDLER_REMOVABLE 或缩写
+        PHP_OUTPUT_HANDLER_STDFLAGS 显式的设置。
+
+        每个标志控制了对一组函数的访问，如下所述：
+
+        常量                             函数
+        PHP_OUTPUT_HANDLER_CLEANABLE    ob_clean()，ob_end_clean() 和 ob_get_clean()。
+        PHP_OUTPUT_HANDLER_FLUSHABLE	ob_flush()，ob_end_flush() 和 ob_get_flush()。
+        PHP_OUTPUT_HANDLER_REMOVABLE	ob_end_clean()，ob_end_flush() 和 ob_get_flush()（个人补充：漏掉了ob_get_clean()）。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。
+

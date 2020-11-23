@@ -1,0 +1,15 @@
+描述
+    ob_end_flush ( ) : bool
+
+    这个函数将发送最顶部的输出缓冲的内容（如果有的话）并且关闭这个输出缓冲。如果你想要进一步处理缓冲的内容，你必须在调用 ob_end_flush() 前
+    调用 ob_get_contents()，因为当 ob_end_flush() 被调用之后，缓冲的内容会被丢弃。
+
+    输出缓冲必须由具有 PHP_OUTPUT_HANDLER_FLUSHABLE 和 PHP_OUTPUT_HANDLER_REMOVABLE 标志的 ob_start() 开启。否则
+    ob_end_flush() 将不会工作。
+
+返回值
+    成功时返回 TRUE，失败时返回 FALSE。失败的原因首先是你在没有活动的缓冲区的情况下调用了该函数，或者由于某种原因无法删除缓冲区（可能对于特
+    殊的缓冲区）。
+
+错误/异常
+    如果该函数事变，它会生成一个 E_NOTICE。

@@ -1,0 +1,66 @@
+描述
+    ob_get_status ([ bool $full_status = FALSE ] ) : array
+
+    ob_get_status() 要么返回最上层的输出缓冲的状态信息，要么返回所有活动的输出缓冲层的状态信息，如果 full_status 设置为 TRUE 的话。
+
+参数
+    full_status
+        TRUE 会返回所有活动的输出缓冲层。如果为 FALSE 或者没设置，只会返回最顶层的输出缓冲。
+
+返回值
+    如果没有使用 full_status 参数或者使用 full_status = FALSE，一个带有下列元素的简单数组会被返回：
+
+    Array
+    (
+        [level] => 2
+        [type] => 0
+        [status] => 0
+        [name] => URL-Rewriter
+        [del] => 1
+    )
+
+    简单的 ob_get_status() 结果
+        键      值
+        level	输出嵌套层级
+        type	PHP_OUTPUT_HANDLER_INTERNAL (0) 或 PHP_OUTPUT_HANDLER_USER (1)
+        status	PHP_OUTPUT_HANDLER_START (0)，PHP_OUTPUT_HANDLER_CONT (1) 或 PHP_OUTPUT_HANDLER_END (2) 中的一个
+        name	活动的输出处理程序的名字，或者是 'default output handler'，如果没有设置输出处理程序的话。
+        del	    ob_start() 所设置的 删除-标志
+
+    如果使用 full_status = TRUE 调用该函数，会返回一个数组，其中每个活动的输出缓冲对应一个元素。输出的层级被用作顶级数组的键并且每个元素自
+    身是另一个持有一个活动输出层状态信息的数组。
+
+    Array
+    (
+        [0] => Array
+            (
+                [chunk_size] => 0
+                [size] => 40960
+                [block_size] => 10240
+                [type] => 1
+                [status] => 0
+                [name] => default output handler
+                [del] => 1
+            )
+
+        [1] => Array
+            (
+                [chunk_size] => 0
+                [size] => 40960
+                [block_size] => 10240
+                [type] => 0
+                [buffer_size] => 0
+                [status] => 0
+                [name] => URL-Rewriter
+                [del] => 1
+            )
+
+    )
+
+    完整的输出包含这些额外的元素：
+
+    完整的 ob_get_status() 结果
+    键               值
+    chunk_size	    ob_start() 所设置的块大小。
+    size	        ...
+    blocksize	    ...
