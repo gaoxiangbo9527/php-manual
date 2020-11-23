@@ -1,0 +1,51 @@
+描述
+    extract ( array &$array [, int $flags = EXTR_OVERWRITE [, string $prefix = NULL ]] ) : int
+
+    从一个数组导入变量到当前的符号表中。
+
+    检查每个键以查看它是否拥有一个有效的变量名。它也会检查与符号表中现存变量的冲突。
+
+    警告 不要对不可信的数据使用 extract()，比如用户输入（例如 $_GET，$_FILES）。
+
+参数
+    array
+        一个关联数组。这个函数对待键为变量名并且对待值会变量值。对于每个键/值对，它会在当前的符号表中创建一个受制于 flags 和 prefix 参数
+        的变量。
+
+        你必须使用一个关联数组；一个数值化的索引数组将不会产生结果除非你使用 EXTR_PREFIX_ALL 或 EXTR_PREFIX_INVALID。
+    flags
+        提取 flags 决定了对待无效/数字键和冲突的方式。它可以是下列值中的一个：
+
+        EXTR_OVERWRITE
+            如果有冲突，覆盖现存的变量。
+        EXTR_SKIP
+            如果有冲突，不覆盖现存的变量。
+        EXTR_PREFIX_SAME
+            如果有冲突，使用 prefix 前缀化该变量名。
+        EXTR_PREFIX_ALL
+            使用 prefix 前缀化所有的变量名。
+        EXTR_PREFIX_INVALID
+            只使用 prefix 前缀化无效/数字变量名。
+        EXTR_IF_EXISTS
+            只有当变量已经存在于当前符号表中才覆盖该变量，否则什么也不做。这对于定义一个有效的变量列表，然后仅提取已经在比如 $_REQUEST 外
+            定义的那些变量非常有用。
+        EXTR_PREFIX_IF_EXISTS
+            只有在当前符号表中存在没有前缀版本的变量时才创建前缀化的变量名。
+        EXTR_REFS
+            提取变量为引用。这实际意味着被导入变量的值仍然引用着 array 参数的值。你可以单独使用这个标志或者与其他的标志结合使用，通过对
+            flags 进行或运算。
+
+        如果没有指定 flags，它会被假设为 EXTR_OVERWRITE。
+    prefix
+        注意，只有 flags 是 EXTR_PREFIX_SAME，EXTR_PREFIX_ALL，EXTR_PREFIX_INVALID 或 EXTR_PREFIX_IF_EXISTS 时才要求有 prefix。
+        如果前缀化后的结果不是一个有效的变量名，它不会被导入到符号表中。会自动的使用一个下划线字符分隔前缀和数组的键。
+
+返回值
+    返回成功导入到符号表中的变量的数目。
+
+注意事项
+    警告 不要对不可信的数据使用 extract()，比如用户输入（例如 $_GET，$_FILES 等）。如果你这么做了，例如，如果你想要临时的运行旧的依赖于
+    register_globals 的代码，确保你使用了一个非覆盖的 flags 值，例如 EXTR_SKIP 并且注意你应该使用同 php.ini 中的 variables_order
+    所定义的相同顺序进行提取。
+
+    注意：个人补充：这条“注意”不值得花费时间翻译，所以直接略过。
