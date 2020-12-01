@@ -1,0 +1,25 @@
+通过一个包含在 "(?" 和 ")" 之间的 Perl 选项字母序列，可以在模式中修改 PCRE_CASELESS，PCRE_MULTILINE，PCRE_DOTALL，PCRE_UNGREEDY，
+PCRE_EXTRA，PCRE_EXTENDED 和 PCRE_DUPNAMES 的设置。这些选项字母有：
+
+内部选项字母
+    i	对应 PCRE_CASELESS
+    m	对应 PCRE_MULTILINE
+    s	对应 PCRE_DOTALL
+    x	对应 PCRE_EXTENDED
+    U	对应 PCRE_UNGREEDY
+    X	对应 PCRE_EXTRA （从 PHP 7.3.0 开始不再被支持）
+    J	对应 PCRE_INFO_JCHANGED
+
+例如，(?im) 设置了大小写不敏感（不区分大小写）和多行的匹配。也能够通过在字母前面加连字符来取消这些选项并且组合设置和取消设置也是允许的，例如
+(?im-sx)，它设置了 PCRE_CASELESS 和 PCRE_MULTILINE 同时取消了 PCRE_DOTALL 和 PCRE_EXTENDED 的设置。如果一个字母同时出现在连字符前
+后，该选项会被取消。
+
+当选项更改发生在顶层时（即不在子模式括号内），该更改将应用于模式接下来的其余部分。因此 /ab(?i)c/ 只匹配 "abc" 和 "abC"。
+
+如果选项更改发生在一个子模式中，效果是不同的。这是 Perl 5.005 中的一个行为改变。子模式内部的选项更改只影响该子模式随后的那一部分，因此
+(a(?i)b)c 会匹配 abc 和 aBc，不会匹配其他字符串（假设没有使用 PCRE_CASELESS）。通过这种方式，可以在模式的不同部分设置不同的选项。在一个
+替代选择中所做的任何更改都会在同一子模式中的后续分支中进行。例如，(a(?i)b|c) 会匹配 "ab"，"aB"，"c" 和 "C"，即使在匹配 "C" 时，第一个分
+支在设置该选项之前就被抛弃了。这是因为选项设置的效果发生在编译时。否则会有一些非常奇怪的行为。
+
+通过分别使用 U 和 X 字符，可以使用和 Perl 兼容的选项相同的方式修改 PCRE 专用的选项 PCRE_UNGREEDY 和 PCRE_EXTRA。(?X) 标志设置的特殊之
+处在于，它必须总是出现在模式中比它开启的任何其他特性更早的位置，即使它处于最顶层。最好放到开头。

@@ -1,0 +1,100 @@
+从 5.1.0 开始，当选择 UTF-8 模式时，可以使用另外三个匹配泛字符类型的转义序列。他们是：
+
+\p{xx}
+    一个具有 xx 属性的字符
+\P{xx}
+    一个不具有 xx 属性的字符
+\X
+    一个扩展的 Unicode 序列
+
+上面由 xx 表示的属性名仅限于 Unicode 常规类别属性。每个字符都有一个这样的属性，由两个字母的缩写指定。为了与 Perl 兼容，可以通过在左大括号
+和属性名之间包含一个音调符号来指定否定。例如，\p{^Lu} 与 \P{Lu} 相同。
+
+如果只使用 \p 或 \P 指定了一个字母，则它包含了以该字母开头的所有属性。在这种情况下，在没有否定的情况下，转义序列中的花括号是可选的；这两个例
+子有同样的效果：
+
+\p{L}
+\pL
+
+支持的属性代码
+    属性	    匹配                    注意事项
+    C	    Other
+    Cc	    Control
+    Cf	    Format
+    Cn	    Unassigned
+    Co	    Private use
+    Cs	    Surrogate
+    L	    Letter	                包含下列属性：Ll，Lm，Lo，Lt 和 Lu。
+    Ll	    Lower case letter
+    Lm	    Modifier letter
+    Lo	    Other letter
+    Lt	    Title case letter
+    Lu	    Upper case letter
+    M	    Mark
+    Mc	    Spacing mark
+    Me	    Enclosing mark
+    Mn	    Non-spacing mark
+    N	    Number
+    Nd	    Decimal number
+    Nl	    Letter number
+    No	    Other number
+    P	    Punctuation
+    Pc	    Connector punctuation
+    Pd	    Dash punctuation
+    Pe	    Close punctuation
+    Pf	    Final punctuation
+    Pi	    Initial punctuation
+    Po	    Other punctuation
+    Ps	    Open punctuation
+    S	    Symbol
+    Sc	    Currency symbol
+    Sk	    Modifier symbol
+    Sm	    Mathematical symbol
+    So	    Other symbol
+    Z	    Separator
+    Zl	    Line separator
+    Zp	    Paragraph separator
+    Zs	    Space separator
+
+PCRE 不支持像 InMusicalSymbols 这样的扩展属性。
+
+指定大小写不敏感（不区分大小写）的匹配并不影响这些转义序列。例如，\p{Lu} 总是只匹配大写字母。
+
+Unicode 字符集合被定义为属于某些脚本。可以使用脚本名匹配来自这些集合的某个集合中的一个字符。例如：
+
+\p{Greek}
+\P{Han}
+
+那些不属于已标识脚本的部分被集中在一起作为 Common。当前的脚本列表是：
+
+支持的脚本
+    Arabic	                Armenian	Avestan	                Balinese	    Bamum
+    Batak	                Bengali	    Bopomofo	            Brahmi	        Braille
+    Buginese	            Buhid	    Canadian_Aboriginal	    Carian	        Chakma
+    Cham	                Cherokee	Common	                Coptic	        Cuneiform
+    Cypriot	                Cyrillic	Deseret	                Devanagari	    Egyptian_Hieroglyphs
+    Ethiopic	            Georgian	Glagolitic	            Gothic	        Greek
+    Gujarati	            Gurmukhi	Han	                    Hangul	        Hanunoo
+    Hebrew	                Hiragana	Imperial_Aramaic	    Inherited	    Inscriptional_Pahlavi
+    Inscriptional_Parthian  Javanese	Kaithi	                Kannada	        Katakana
+    Kayah_Li	            Kharoshthi	Khmer	                Lao	            Latin
+    Lepcha	                Limbu	    Linear_B	            Lisu	        Lycian
+    Lydian	                Malayalam	Mandaic	                Meetei_Mayek	Meroitic_Cursive
+    Meroitic_Hieroglyphs	Miao	    Mongolian	            Myanmar	        New_Tai_Lue
+    Nko	                    Ogham	    Old_Italic	            Old_Persian	    Old_South_Arabian
+    Old_Turkic	            Ol_Chiki	Oriya	                Osmanya	        Phags_Pa
+    Phoenician	            Rejang	    Runic	                Samaritan	    Saurashtra
+    Sharada	                Shavian	    Sinhala	                Sora_Sompeng	Sundanese
+    Syloti_Nagri	        Syriac	    Tagalog	                Tagbanwa	    Tai_Le
+    Tai_Tham	            Tai_Viet	Takri	                Tamil	        Telugu
+    Thaana	                Thai	    Tibetan	                Tifinagh	    Ugaritic
+    Vai	                    Yi
+
+\X 转义序列匹配 Unicode 扩展字形集群。一个扩展字形集群是结合成单个字形的一个或多个 Unicode 字符。实际上，这可以看作是 . 的 Unicode 等价物
+，因为它匹配一个组合而成的字符，不管实际使用了多少独立的字符来渲染它。
+
+在早于 8.32 的 PCRE 版本（对应于 5.4.14 前的 PHP 版本，当使用捆绑的 PCRE 库时）中，\X 等价于 (?>\PM\pM*) 。即，它匹配一个没有“记号”
+属性的字符，跟着 0 个或者多个有“记号”属性的字符，并且将该序列视为一个原子组（见下文）。具有“记号”属性的字符通常是影响前一个字符的重音符号。
+
+根据 Unicode 属性匹配字符并不快，因为 PCRE 必须去搜索一个包含超过 15000 个字符的数据的结构。这就是为什么传统的转义序列，如 \d 和 \w，在
+PCRE 中不使用 Unicode 属性。
