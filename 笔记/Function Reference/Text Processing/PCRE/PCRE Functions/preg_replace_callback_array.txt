@@ -1,0 +1,26 @@
+描述
+    preg_replace_callback_array ( array $pattern , string|array $subject [, int $limit = -1 [, int &$count = NULL [, int $flags = 0 ]]] ) : string|array|null
+
+    这个函数的行为类似于 preg_replace_callback()，只不过回调是在每个模式的基础上执行的。
+
+参数
+    pattern
+        一个将 模式（键） 映射到 可调用项（值） 的关联数组。
+    subject
+        要搜索和替换的字符串或字符串数组。
+    limit
+        在每个 subject 字符串中每个模式可能的最大替换次数。默认为 -1（无限制）。
+    count
+        如果指定，则将用完成的替换次数填充该变量。
+    flags
+        flags 可以是 PREG_OFFSET_CAPTURE 和 PREG_UNMATCHED_AS_NULL 标志的组合，它影响匹配数组的格式。更多详情见 preg_match() 中的
+        描述。
+
+返回值
+    如果 subject 参数是一个数组，那么 preg_replace_callback_array() 会返回一个数组，否则返回一个字符串。在发生错误时，返回值为 NULL。
+
+    如果找到了匹配项，将会返回新的 subject，否则 subject 会被返回且保持不变。
+
+更新日志
+    版本	    描述
+    7.4.0	添加了 flags 参数。

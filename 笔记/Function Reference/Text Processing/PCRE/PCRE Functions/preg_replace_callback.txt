@@ -1,0 +1,34 @@
+描述
+    preg_replace_callback ( string|array $pattern , callable $callback , string|array $subject [, int $limit = -1 [, int &$count = NULL [, int $flags = 0 ]]] ) : string|array|null
+
+    这个函数的行为几乎与 preg_replace() 相同，除了应该指定一个 callback 而不是 replacement 参数之外。
+
+参数
+    pattern
+        要搜索的模式。它可以是一个字符串或者一个字符串数组。
+    callback
+        一个回调函数，它将被调用并传递 subject 字符串中匹配元素的数组。该回调应该返回替换字符串。这是回调的签名：
+
+        handler ( array $matches ) : string
+
+        你通常只在一个地方需要 preg_replace_callback() 的 callback。在这种情况下，你可以在对 preg_replace_callback() 的调用中使用
+        一个 匿名函数 去声明该回调函数。通过这种方式，你可以将调用的所有信息放在一个地方并且不会将函数命名空间与未在其他地方使用的回调函数名
+        称混为一谈。
+    subject
+        要搜索和替换的字符串或字符串数组。
+    limit
+        在每个 subject 字符串中每个模式可能的最大替换次数。默认为 -1（无限制）。
+    count
+        如果指定，则将用完成的替换次数填充该变量。
+    flags
+        flags 可以是 PREG_OFFSET_CAPTURE 和 PREG_UNMATCHED_AS_NULL 标志的组合，它影响匹配数组的格式。更多详情见 preg_match() 中的
+        描述。
+
+返回值
+    如果 subject 参数是一个数组，那么 preg_replace_callback() 会返回一个数组，否则返回一个字符串。在发生错误时，返回值为 NULL。
+
+    如果找到了匹配项，将会返回新的 subject，否则 subject 会被返回且保持不变。
+
+更新日志
+    版本	    描述
+    7.4.0	添加了 flags 参数。
