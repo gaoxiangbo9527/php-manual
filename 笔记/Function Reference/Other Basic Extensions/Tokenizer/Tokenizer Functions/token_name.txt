@@ -1,0 +1,11 @@
+描述
+    token_name ( int $id ) : string
+
+    token_name() 会获取 PHP id 值的符号名。
+
+参数
+    id
+        令牌值。
+
+返回值
+    给定 id 的符号名。
