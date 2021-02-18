@@ -1,0 +1,17 @@
+描述
+    mb_http_output ( string|null $encoding = null ) : string|bool
+
+    设置/获取 HTTP 输出字符编码。这个函数被调用之后，输出将从设置的内部编码转换为 encoding。
+
+参数
+    encoding
+        如果设置了 encoding，mb_http_output() 会设置 HTTP 输出字符编码为 encoding。
+        如果省略了 encoding，mb_http_output() 会返回当前的 HTTP 输出字符编码。
+
+返回值
+    如果省略了 encoding，mb_http_output() 会返回当前的 HTTP 输出字符编码。否则，成功时返回 true，失败时返回 false。
+
+更新日志
+    版本     描述
+    8.0.0   现在 encoding 可以是 null。
+
