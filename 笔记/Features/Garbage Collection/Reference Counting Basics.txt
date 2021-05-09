@@ -1,0 +1,69 @@
+个人补充：下面的内容和示例对 PHP 5 来说是正确的，但是对于 PHP 7+ 已经不正确了。建议去阅读鸟哥写的几篇文章去了解 PHP 7+ 的 ZVAL，
+Hashtable，Object 和 Reference。
+    https://www.laruence.com/2018/04/08/3170.html
+    https://www.laruence.com/2020/02/25/3182.html
+    https://www.laruence.com/2020/03/23/5605.html
+    https://www.laruence.com/2018/04/08/3179.html
+
+PHP 变量存储在一个名为“zval”的容器中。zval 容器除了会包含变量的类型和值以外，还会包含两个额外的信息位。第一个信息位被称为“is_ref”并且是一
+个布尔值，指示变量是否属于“引用集”的一部分。通过该位，PHP 引擎就会知道如何区分普通变量和引用。由于 PHP 允许由 & 操作符创建用户空间引用，所以
+zval 容器也有一个内部的引用计数机制来优化内存使用。第二个附加信息，被称为“refcount”，它包含了有多少变量名（也称为符号）指向这个 zval 容器。
+所有的符号都存储在一个符号表中，每个作用域有一个符号表。主脚本（即通过浏览器请求的脚本）有一个作用域并且每个函数或方法也都有一个作用域。
+
+当使用一个常值创建一个新的变量时，会创建一个 zval 容器，例如：
+
+Example #1 创建一个新的 zval 容器
+    <?php
+    $a = "new string";
+    ?>
+
+在这种情况下，会在当前作用域中创建该新符号名，并且会创建一个新的、具有字符串类型和 new string 值的变量容器。“is_ref”位默认被设置为 false，
+因为没有创建用户空间引用。“refcount”被设置为 1 ，因为只有一个符号使用了这个变量容器。注意，如果“refcount”为 1，那么“is_ref”永远是 false。
+如果你已经安装了 Xdebug，那么你可以通过调用 xdebug_debug_zval() 来显示这些信息。
+
+Example #2 显示 zval 信息
+    <?php
+    $a = "new string";
+    xdebug_debug_zval('a');
+    ?>
+
+上面的例子将会输出：
+    a: (refcount=1, is_ref=0)='new string'
+
+把这个变量赋值给另外一个变量名将增加 refcount。
+    <?php
+    $a = "new string";
+    $b = $a;
+    xdebug_debug_zval( 'a' );
+    ?>
+
+上面的例子将输出：
+    a: (refcount=2, is_ref=0)='new string'
+
+这里 refcount 是 2，因为 a 和 b 都链接到相同的变量容器。PHP 非常聪明，在不必要的时候不会复制实际的变量容器。当“refcount”到达 0 时会销毁
+变量容器。当任何链接到该变量容器的符号离开作用域时（比如当函数结束时）或者当一个符号被取消分配时（比如通过调用 unset()）时，“refcount”会减
+1 。下面的例子展示了这一点：
+
+Example #4 减少 zval refcount
+    <?php
+    $a = "new string";
+    $c = $b = $a;
+    xdebug_debug_zval( 'a' );
+    $b = 42;
+    xdebug_debug_zval( 'a' );
+    unset( $c );
+    xdebug_debug_zval( 'a' );
+    ?>
+
+上面的例子将输出：
+    a: (refcount=3, is_ref=0)='new string'
+    a: (refcount=2, is_ref=0)='new string'
+    a: (refcount=1, is_ref=0)='new string'
+
+如果我们现在调用 unset($a) ，那么变量容器，包括类型和值，将被从内存中移除。
+
+复合类型
+    对于数组和对象这样的复合类型，情况会变得稍微复杂一些。与标量值不同，数组和对象将它们的属性存储在它们自己的符号表中。这意味着下面的例子会
+    创建三个 zval 容器：
+
+.........
